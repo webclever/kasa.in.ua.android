@@ -1,0 +1,227 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:scrollbars="none"
+    android:id="@+id/scrollView4"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Соцмережі"
+                android:id="@+id/textView67"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout android:id="@+id/linLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/textView67"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/facebook"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/imageViewFacebook"/>
+
+                <com.twitter.sdk.android.core.identity.TwitterLoginButton
+                    android:id="@+id/twitter_login_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/ic_vk"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/imageViewVK"
+                    android:layout_alignTop="@+id/twitter_login_button"
+                    android:layout_toStartOf="@+id/twitter_login_button" />
+
+                <ImageView
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="70dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/ic_googleplus"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Логін та пароль"
+                android:id="@+id/textView70"
+                android:layout_below="@+id/linLayout1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Ім&apos;я*"
+                android:id="@+id/textView74"
+                android:layout_below="@+id/textView70"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:background="@drawable/back"
+                android:id="@+id/editTextNameCreateAccount"
+                android:layout_below="@+id/textView74"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Прізвище*"
+                android:id="@+id/textView75"
+                android:layout_below="@+id/editTextNameCreateAccount"
+                android:layout_alignStart="@+id/textView74" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:background="@drawable/back"
+                android:id="@+id/editTextLastNameCreateAccount"
+                android:layout_below="@+id/textView75"
+                android:layout_alignStart="@+id/editTextNameCreateAccount"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Телефон*"
+                android:id="@+id/textView76"
+                android:layout_below="@+id/editTextLastNameCreateAccount"
+                android:layout_alignStart="@+id/textView75" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:background="@drawable/back"
+                android:id="@+id/editTextPhoneCreateAccount"
+                android:text="+38"
+                android:maxLength="13"
+                android:layout_below="@+id/textView76"
+                android:layout_alignStart="@+id/editTextLastNameCreateAccount"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Електронна пошта*"
+                android:id="@+id/textView77"
+                android:layout_below="@+id/editTextPhoneCreateAccount"
+                android:layout_alignStart="@+id/textView76" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:background="@drawable/back"
+                android:id="@+id/editTextEMailCreateAccount"
+                android:layout_below="@+id/textView77"
+                android:layout_alignStart="@+id/editTextPhoneCreateAccount"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Пароль*"
+                android:id="@+id/textView78"
+                android:layout_below="@+id/editTextEMailCreateAccount"
+                android:layout_alignStart="@+id/textView77" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:background="@drawable/back"
+                android:id="@+id/editTextPasswordCreateAccount"
+                android:layout_below="@+id/textView78"
+                android:layout_alignStart="@+id/editTextEMailCreateAccount"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/list_divider1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Не менше 8-ми символів, з вкористанням букв та цифр"
+                android:textSize="10sp"
+                android:id="@+id/textView79"
+                android:layout_below="@+id/editTextPasswordCreateAccount"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Повторіть пароль*"
+                android:id="@+id/textView80"
+                android:layout_below="@+id/textView79"
+                android:layout_alignStart="@+id/textView78" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:background="@drawable/back"
+                android:id="@+id/editTextConfirmPasswordCreateAccount"
+                android:layout_below="@+id/textView80"
+                android:layout_alignStart="@+id/editTextPasswordCreateAccount"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Створити акаунт"
+                android:id="@+id/buttonCreateAccount"
+                android:background="@drawable/button_selector"
+                android:textColor="@color/white"
+                android:layout_below="@+id/editTextConfirmPasswordCreateAccount"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+        </RelativeLayout>
+        </ScrollView>
+
+

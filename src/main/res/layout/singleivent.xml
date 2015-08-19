@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:id="@+id/name_event"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:layout_marginBottom="2dp"
+        android:id="@+id/scrollView">
+
+
+        <RelativeLayout
+            android:id="@+id/relLayout"
+            android:background="@color/white"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/iventimage"
+                android:layout_marginTop="2dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/minshadow"
+                android:layout_width="143dp"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:id="@+id/iventDate"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:text="05.12.2014"
+                android:textSize="15sp"
+                android:gravity="fill_horizontal"
+                android:textColor="@color/year"
+                android:layout_below="@+id/iventLocation"
+                android:layout_alignStart="@+id/iventLocation" />
+
+            <ImageView
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:id="@+id/imageView9"
+                android:src="@drawable/clock1"
+                android:layout_alignTop="@+id/imageView8"
+                android:layout_toStartOf="@+id/textIventTime"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="1dp" />
+
+            <TextView
+                android:id="@+id/textIventTime"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:text="20:00"
+                android:textSize="15sp"
+                android:gravity="top"
+                android:textColor="@color/year"
+                android:layout_marginRight="10dp"
+                android:layout_alignBaseline="@+id/iventDate"
+                android:layout_alignBottom="@+id/iventDate"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/iventLocation"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:text="New Text"
+                android:gravity="left"
+                android:textColor="@color/year"
+                android:textSize="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/event_address"
+                android:layout_alignEnd="@+id/textIventTime"
+                android:layout_toEndOf="@+id/imageView7"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="5dp" />
+
+
+            <TextView
+                android:id="@+id/event_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"
+                android:text="Львівський Національний Академічний театр опери та балету ім. Соломії ..."
+                android:layout_alignTop="@+id/iventimage"
+                android:layout_alignEnd="@+id/textIventTime"
+                android:layout_toEndOf="@+id/iventimage" />
+
+            <ImageView
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:id="@+id/imageView7"
+                android:src="@drawable/loc_icon"
+                android:layout_marginTop="13dp"
+                android:layout_below="@+id/event_address"
+                android:layout_alignStart="@+id/event_address" />
+
+            <TextView
+                android:id="@+id/iventPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/orangecolor"
+                android:layout_above="@+id/schema"
+                android:layout_alignEnd="@+id/textIventTime" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/list_divider1"
+                android:id="@+id/iventView"
+                android:layout_below="@+id/textviewschema"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/iventPrice" />
+
+            <TextView
+                android:id="@+id/textviewschema"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/year"
+                android:textSize="15sp"
+                android:text="СХЕМА ЗАЛУ"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/iventimage"
+                android:layout_alignParentStart="true" />
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/schema"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/iventView"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/iventPrice" />
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:text="@string/description_event"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/schema"
+                />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/list_divider1"
+                android:id="@+id/descriptionView"
+                android:layout_below="@+id/textViewDescription"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/RLayout" />
+
+            <RelativeLayout
+                android:id="@+id/RLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:layout_below="@+id/descriptionView"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/schema">
+                <TextView
+                    android:id="@+id/iventDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_selector"
+                    android:text="@string/read_more"
+                    android:textSize="10sp"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/iventDescription"
+                    android:layout_alignParentRight="true"/>
+
+                </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/galley"
+                android:text="@string/photo_gallery"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RLayout" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/list_divider1"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/iventView3"
+                android:layout_below="@+id/galley"/>
+
+
+            <HorizontalScrollView
+                android:id="@+id/scroll_image"
+                android:layout_marginBottom="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iventView3"
+                android:scrollbars="none"
+                android:fadeScrollbars="true"
+                >
+                <LinearLayout
+                    android:id="@+id/gallery_container"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"/>
+            </HorizontalScrollView>
+
+            <!--<HorizontalScrollView
+                android:id="@+id/scroll_video"
+                android:layout_marginBottom="2dp"
+                android:layout_below="@+id/scroll_image"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/video_container"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"/>
+            </HorizontalScrollView>     -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:background="@drawable/button_selector"
+                android:text="ОБРАТИ МІСЦЯ"
+                android:textSize="15dp"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/white"
+                android:id="@+id/textView45"
+                android:layout_alignTop="@+id/schema"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:id="@+id/imageView8"
+                android:layout_below="@+id/imageView7"
+                android:layout_alignStart="@+id/imageView7"
+                android:src="@drawable/calendar1"
+                android:layout_marginTop="5dp" />
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="ПРИДБАТИ КВИТОК"
+            android:textColor="@color/list_row_end_color"
+            android:background="@drawable/button_selector"
+            android:layout_gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/buy_ticket"
+            />
+</LinearLayout>

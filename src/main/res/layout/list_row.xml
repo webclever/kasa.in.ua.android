@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:padding="8dp"
+    android:background="@drawable/list_row_selector"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/minshadow"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Баста"
+        android:id="@+id/name"
+        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail" />
+
+    <ImageView
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:id="@+id/calendar"
+        android:src="@drawable/calendar1"
+        android:layout_alignTop="@+id/data"
+        android:layout_alignStart="@+id/locationicon"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/year"
+        android:textSize="13sp"
+        android:text="05.12.2014"
+        android:id="@+id/data"
+        android:layout_marginLeft="2dp"
+        android:layout_above="@+id/place"
+        android:layout_alignStart="@+id/place" />
+
+    <ImageView
+        android:id="@+id/clock"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/clock1"
+        android:layout_marginStart="5dp"
+        android:layout_alignTop="@+id/time"
+        android:layout_toEndOf="@+id/data"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/year"
+        android:layout_marginLeft="2dp"
+        android:textSize="13sp"
+        android:text="20:00"
+        android:id="@+id/time"
+        android:layout_alignTop="@+id/data"
+        android:layout_toEndOf="@+id/clock" />
+
+    <ImageView
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:id="@+id/locationicon"
+        android:src="@drawable/loc_icon"
+        android:layout_alignBottom="@+id/place"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:layout_marginBottom="3dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/year"
+        android:text="Львів"
+        android:textSize="13sp"
+        android:id="@+id/place"
+        android:layout_alignBottom="@+id/thumbnail"
+        android:layout_toRightOf="@id/locationicon"
+         />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="КУПИТИ"
+        android:id="@+id/price"
+        android:textColor="@color/orangecolor"
+        android:background="@drawable/back"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+         />
+
+
+
+</RelativeLayout>

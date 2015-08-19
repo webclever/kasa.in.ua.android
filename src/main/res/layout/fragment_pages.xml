@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="2dp"
+        android:id="@+id/scrollAk">
+
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/oggle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Авторизація за допомогою"
+            android:id="@+id/textView5"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textViewSigIn"
+            android:layout_below="@+id/textView5"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Iм&apos;я*"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/AkName"
+        android:layout_below="@+id/textViewSigIn"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/AkName"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Телефон*"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/editText27"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Електронна пошта*"
+        android:id="@+id/textView8"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/editText3"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editText4"
+        android:layout_below="@+id/textView8"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Місто"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/spinnerOblast"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCity"
+        android:layout_below="@+id/textView12"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Адреса доставки до дверей"
+        android:id="@+id/textView13"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/spinnerCity"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/editText8"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Номер найближчого відділення Нової пошти"
+        android:id="@+id/textView14"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/editText8"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText9"
+        android:layout_below="@+id/textView14"
+        android:layout_alignParentStart="true"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Прізвище*"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/textView85"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText27"
+        android:layout_below="@+id/textView85"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Країна"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/editText4"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCountry"
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentStart="true" />
+
+    <TextView android:id="@+id/textViewOblast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Область"
+        android:layout_marginLeft="5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/spinnerCountry"
+        android:layout_alignParentStart="true"/>
+
+    <Spinner android:id="@+id/spinnerOblast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewOblast"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>
+</ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button android:id="@+id/buttonChangePassword"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/button_selector"
+            android:textColor="@color/white"
+            android:text="Змінити пароль"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+            android:textSize="12sp"/>
+
+        <Button android:id="@+id/buttonExitAccount"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/button_selector"
+            android:textColor="@color/white"
+            android:text="ВИХІД"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+
+<Button
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_selector"
+    android:id="@+id/savechangebutton"
+    android:layout_gravity="center"
+    android:textColor="@color/list_row_end_color"
+    android:text="ЗБЕРЕГТИ ЗМІНИ"
+    android:layout_margin="5dp"/>
+</LinearLayout>

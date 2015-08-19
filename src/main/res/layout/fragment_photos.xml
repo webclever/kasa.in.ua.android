@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:groupIndicator="@null"
+            android:background="@color/white"
+            android:scrollbars="none"
+            android:stateListAnimator="@anim/abc_fade_out"
+            android:childDivider="@color/white"
+            android:listSelector="@android:color/transparent"
+            android:divider="@color/white"
+            android:id="@+id/listViewTicketBasket"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/relLayoutButton" />
+
+    <RelativeLayout
+        android:id="@+id/relLayoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/list_divider1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView36"
+            android:layout_marginTop="3dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/year"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="2dp"
+            android:text="0"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:textColor="@color/year"
+            android:id="@+id/textView37"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="15sp"
+            android:layout_marginTop="3dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView36" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/year"
+            android:textSize="15sp"
+            android:text="СУМА:  "
+            android:id="@+id/textView38"
+            android:layout_alignTop="@+id/textView37"
+            android:layout_toStartOf="@+id/textView39" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView39"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/year"
+            android:textSize="15sp"
+            android:text="0"
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/textView38"
+            android:layout_toStartOf="@+id/textView40" />
+
+
+        <Button
+            android:id="@+id/buttonBasket"
+            android:text="ОФОРМИТИ ЗАМОВЛЕННЯ"
+            android:textColor="@color/list_row_end_color"
+            android:background="@drawable/button_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/year"
+            android:textSize="15sp"
+            android:text=" грн."
+            android:id="@+id/textView40"
+            android:layout_alignTop="@+id/textView39"
+            android:layout_alignEnd="@+id/buttonBasket" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Корзина порожня !"
+        android:textColor="@color/year"
+        android:id="@+id/textViewEmptyCart"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

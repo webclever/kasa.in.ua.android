@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Музичний проект Святослава Вокарчука Вночі. Додатковий концерт"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textViewNameEventOrdering"
+        android:gravity="left"
+        android:textSize="15sp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/relative_layout_status"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15.03.2015"
+        android:textColor="@color/year"
+        android:textSize="15sp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textViewDateEventOrdering"
+        android:layout_above="@+id/linearLayoutContainerTicketOrdering"
+        android:layout_alignStart="@+id/textViewNameEventOrdering" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="12dp"
+        android:background="@color/yellov1"
+        android:id="@+id/orderingView"
+        android:layout_marginLeft="3dp"
+        android:layout_alignBottom="@+id/textViewCityEventOrdering"
+        android:layout_toEndOf="@+id/textViewDateEventOrdering"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="15sp"
+        android:textColor="@color/year"
+        android:text="20:00"
+        android:id="@+id/textViewTimeEventOrdering"
+        android:layout_below="@+id/textViewNameEventOrdering"
+        android:layout_toEndOf="@+id/orderingView"
+        android:layout_marginLeft="3dp" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="12dp"
+        android:background="@color/yellov1"
+        android:id="@+id/orderingView1"
+        android:layout_marginLeft="3dp"
+        android:layout_alignBottom="@+id/textViewCityEventOrdering"
+        android:layout_toEndOf="@+id/textViewTimeEventOrdering"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ДНІПРОПЕТРОВСЬК"
+        android:textSize="15sp"
+        android:textColor="@color/year"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textViewCityEventOrdering"
+        android:layout_below="@+id/textViewNameEventOrdering"
+        android:layout_toEndOf="@+id/orderingView1"
+        android:layout_marginLeft="3dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutContainerTicketOrdering"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:background="@color/white"
+        android:layout_below="@+id/orderingView"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative_layout_status"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Спосіб доставки:"
+            android:textSize="12sp"
+            android:id="@+id/textView62"
+            android:layout_below="@+id/textViewCreate"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Самовивіз з каси"
+            android:textSize="15sp"
+            android:textColor="@color/yellov1"
+            android:id="@+id/textViewDeliveryMethod"
+            android:layout_below="@+id/textView62"
+            android:layout_alignStart="@+id/textView62" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Статус доставки:"
+            android:textSize="12sp"
+            android:id="@+id/textView64"
+            android:layout_below="@+id/textViewCreate"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Не відправлявся"
+            android:textColor="@color/yellov1"
+            android:textSize="15sp"
+            android:id="@+id/textViewStatusDelivery"
+            android:layout_below="@+id/textView64"
+            android:layout_alignStart="@+id/textView64" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Спосіб оплати:"
+            android:textSize="12sp"
+            android:id="@+id/textView66"
+            android:layout_below="@+id/textViewDeliveryMethod"
+            android:layout_alignStart="@+id/textViewDeliveryMethod" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Готівкою в касі"
+            android:id="@+id/textViewMethodPayment"
+            android:textColor="@color/yellov1"
+            android:textSize="15sp"
+            android:layout_below="@+id/textView66"
+            android:layout_alignStart="@+id/textView66" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Статус оплати:"
+            android:textSize="12sp"
+            android:id="@+id/textView68"
+            android:layout_below="@+id/textViewStatusDelivery"
+            android:layout_alignStart="@+id/textViewStatusDelivery" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Не оплачено"
+            android:textColor="@color/yellov1"
+            android:textSize="15sp"
+            android:id="@+id/textViewStatusPayment"
+            android:layout_below="@+id/textView68"
+            android:layout_alignStart="@+id/textView68" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="12sp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/year"
+            android:id="@+id/textViewCreate"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

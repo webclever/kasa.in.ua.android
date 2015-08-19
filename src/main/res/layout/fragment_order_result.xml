@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    tools:context="com.example.sss.OrderResult">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дякуємо!"
+        android:id="@+id/ThankYou"
+        android:textColor="#1d1b1c"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1d1b1c"
+            android:textSize="18dp"
+            android:text="Ваше замовлення "
+            android:id="@+id/Order"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ff7f03"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            android:id="@+id/OrderId"
+            android:text="#234511" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="сформовано. Ви можете забрати Ваші"
+        android:id="@+id/textView"
+        android:textColor="#1d1b1c"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="квитки у найближчій касі."
+        android:id="@+id/textView2"
+        android:textColor="#1d1b1c"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Перети на головну"
+        android:id="@+id/Main"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/background_material_light"
+        android:background="@drawable/button_selector"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp" />
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Переглянути адрес кас"
+        android:id="@+id/Locations"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/background_material_light"
+        android:background="@drawable/button_selector"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+</LinearLayout>

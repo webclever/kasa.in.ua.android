@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="1. Виберіть спосіб доставки"
+        android:id="@+id/textView16" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:background="@color/list_row_end_color"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView16"
+        android:layout_alignLeft="@+id/textView16"
+        android:layout_alignStart="@+id/textView16"
+        android:layout_toLeftOf="@+id/imageViewDelivery"
+        android:layout_toStartOf="@+id/imageViewDelivery">
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/green"
+            android:text="Самовивіз з каси"
+            />
+        <RadioButton
+            android:id="@+id/radio2"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Доставка до дверей"
+            />
+        <RadioButton
+            android:id="@+id/radio3"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Доставка на склад Нової пошти"
+            />
+
+        <RadioButton
+            android:id="@+id/radio4"
+
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Електронний квиток"
+            />
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radiogroup"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="2. Введіть персональні дані"
+        android:id="@+id/textView17" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Ваше ім'я"
+        android:id="@+id/textView18"
+        android:layout_below="@+id/textView17"
+        android:layout_marginLeft="20dp"
+         />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextName"
+        android:background="@color/list_row_end_color"
+        android:layout_below="@+id/textView18"
+        android:layout_alignLeft="@+id/textView18"
+        android:layout_alignStart="@+id/textView18" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Телефон"
+        android:id="@+id/textView19"
+        android:layout_below="@+id/editTextName"
+        android:layout_alignLeft="@+id/editTextName"
+        android:layout_alignStart="@+id/editTextName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:background="@color/list_row_end_color"
+        android:ems="10"
+        android:maxLength="13"
+        android:id="@+id/editTextphone"
+        android:layout_below="@+id/textView19"
+        android:layout_alignLeft="@+id/textView19"
+        android:layout_alignStart="@+id/textView19" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Електронна пошта"
+        android:id="@+id/textView20"
+        android:layout_below="@+id/editTextphone"
+        android:layout_alignLeft="@+id/editTextphone"
+        android:layout_alignStart="@+id/editTextphone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:background="@color/list_row_end_color"
+        android:id="@+id/editTextmail"
+        android:layout_below="@+id/textView20"
+        android:layout_alignLeft="@+id/textView20"
+        android:layout_alignStart="@+id/textView20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="3. Спосіб оплати"
+        android:id="@+id/textView21"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/editTextmail"
+        android:layout_alignLeft="@+id/editTextmail"
+        android:layout_alignStart="@+id/editTextmail" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/list_row_end_color"
+        android:layout_below="@+id/textView21"
+        android:layout_alignLeft="@+id/textView21"
+        android:layout_alignStart="@+id/textView21"
+        android:layout_toLeftOf="@+id/imageViewPayment"
+        android:layout_toStartOf="@+id/imageViewPayment">
+
+        <RadioButton
+            android:id="@+id/radio5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Готівкою в касі"
+
+            />
+        <RadioButton
+            android:id="@+id/radio6"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Готівкою в касі"
+            />
+
+        <RadioButton
+            android:id="@+id/radio7"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Готівкою в касі"
+
+            />
+        </RadioGroup>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/imageViewDelivery"
+                android:background="@drawable/circle_bacground"
+                android:layout_alignTop="@+id/textView16"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/ic_launcher_cancel"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="false" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/imageViewPersonData"
+                android:layout_alignTop="@+id/textView17"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/circle_bacground"
+                android:src="@mipmap/ic_launcher_cancel"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="false"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/imageViewPayment"
+                android:background="@drawable/circle_bacground"
+                android:src="@mipmap/ic_launcher_cancel"
+                android:layout_marginRight="10dp"
+                android:layout_alignTop="@+id/textView21"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/price"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:gravity="center"
+        android:text="ЗАГАЛЬНА СУМА 900 ГРН ЗА 6 КВИТКІВ"
+        android:id="@+id/textView22" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/button_selector"
+        android:id="@+id/confirm"
+        android:layout_gravity="center"
+        android:textColor="@color/list_row_end_color"
+        android:text="ЗАБРОНЮВАТИ КВИТКИ"
+        android:layout_marginBottom="2dp"/>
+
+</LinearLayout>

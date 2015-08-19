@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:selectableItemBackground"
+    android:layout_height="35dp"
+    android:layout_width="35dp">
+
+    <ImageView
+        android:id="@+id/imageViewCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:src="@drawable/ic_action_car"
+        android:contentDescription="imageView" />
+
+    <TextView
+        android:id="@+id/textViewCountTicket"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:textColor="@color/yellov1"
+        android:paddingTop="1dp"
+        android:background="@drawable/ring_background"
+        android:text="0"/>
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Музичний проект Святослава Вокарчука Вночі. Додатковий концерт"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textViewNameEventBasket"
+        android:gravity="left"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/relative_layout_status"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15.03.2015"
+        android:textColor="@color/year"
+        android:textSize="15sp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textViewDateEventBasket"
+        android:layout_below="@+id/textViewNameEventBasket"
+        android:layout_alignStart="@+id/textViewNameEventBasket" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="12dp"
+        android:background="@color/yellov1"
+        android:id="@+id/orderingView"
+        android:layout_marginLeft="3dp"
+        android:layout_alignBottom="@+id/textViewCityEventBasket"
+        android:layout_toEndOf="@+id/textViewDateEventBasket"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="15sp"
+        android:textColor="@color/year"
+        android:text="20:00"
+        android:id="@+id/textViewTimeEventBasket"
+        android:layout_below="@+id/textViewNameEventBasket"
+        android:layout_toEndOf="@+id/orderingView"
+        android:layout_marginLeft="3dp" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="12dp"
+        android:background="@color/yellov1"
+        android:id="@+id/orderingView1"
+        android:layout_marginLeft="3dp"
+        android:layout_alignBottom="@+id/textViewCityEventBasket"
+        android:layout_toEndOf="@+id/textViewTimeEventBasket"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ДНІПРОПЕТРОВСЬК"
+        android:textSize="15sp"
+        android:textColor="@color/year"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textViewCityEventBasket"
+        android:layout_below="@+id/textViewNameEventBasket"
+        android:layout_toEndOf="@+id/orderingView1"
+        android:layout_marginLeft="3dp" />
+
+    <LinearLayout android:id="@+id/container_basket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider"
+        android:showDividers="middle"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/orderingView"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

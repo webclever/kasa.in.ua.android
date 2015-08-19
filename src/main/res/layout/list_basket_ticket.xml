@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="2dp"
+    android:background="@drawable/ticket">
+
+
+    <TextView android:id="@+id/sectorTicketBasket"
+        style="?android:textAppearanceMedium"
+        android:textSize="15sp"
+        android:textColor="@color/yellov1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PARTER"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView android:id="@+id/rowdef"
+        style="?android:textAppearanceMedium"
+        android:textSize="15sp"
+        android:textColor="@color/yellov1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ряд:"
+        android:layout_below="@+id/sectorTicketBasket"
+        android:layout_alignStart="@+id/sectorTicketBasket" />
+
+    <TextView android:id="@+id/rowTicketBasket"
+        style="?android:textAppearanceMedium"
+        android:textSize="15sp"
+        android:textColor="@color/yellov1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12"
+        android:layout_marginLeft="2dp"
+        android:layout_alignTop="@+id/rowdef"
+        android:layout_toEndOf="@+id/rowdef" />
+
+    <TextView android:id="@+id/placedef"
+        style="?android:textAppearanceMedium"
+        android:textSize="15sp"
+        android:textColor="@color/yellov1"
+        android:text="Mісце:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/rowTicketBasket"
+        android:layout_toEndOf="@+id/rowTicketBasket" />
+
+    <TextView android:id="@+id/placeTicketBasket"
+        style="?android:textAppearanceMedium"
+        android:textSize="15sp"
+        android:textColor="@color/yellov1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="125"
+        android:layout_marginLeft="2dp"
+        android:layout_alignTop="@+id/placedef"
+        android:layout_toEndOf="@+id/placedef" />
+
+    <TextView android:id="@+id/priceTicketBasket"
+        style="?android:textAppearanceMedium"
+        android:textSize="15sp"
+        android:textColor="@color/yellov1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="450₴"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/imageViewTicketBasket" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="КВИТОК СКАСОВАНО"
+        android:id="@+id/textViewStatusTicket"
+        android:visibility="gone"
+        android:textColor="@color/red"
+        android:layout_alignTop="@+id/sectorTicketBasket"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView android:id="@+id/imageViewTicketBasket"
+        android:src="@mipmap/ic_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+
+    <!-- A button that, when pressed, will delete this list item row from its container. -->
+</RelativeLayout>

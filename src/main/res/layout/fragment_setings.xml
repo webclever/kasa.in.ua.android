@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ВИБЕРІТЬ СПОСІБ ДОСТАВКИ"
+        android:id="@+id/textView48"
+        android:textColor="@color/year"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/textView63"
+        android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView48"
+        android:layout_alignStart="@+id/textView48"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/radioGroupDeliveryMethod">
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Самовивіз"
+            android:background="@drawable/back"
+            android:id="@+id/radioButtonKasa"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Нова Пошта (на відділення)"
+            android:id="@+id/radioButtonNewPost"
+            android:background="@drawable/back"
+            android:checked="false"
+            android:buttonTint="@color/yellov1"
+            android:layout_marginTop="2dp" />
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Кур&apos;єр по місту"
+            android:background="@drawable/back"
+            android:id="@+id/radioButtonCourier"
+            android:checked="false"
+            android:layout_marginTop="2dp" />
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Електронний квиток"
+            android:background="@drawable/back"
+            android:id="@+id/radioButtonE_ticket"
+            android:checked="false"
+            android:layout_marginTop="2dp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ВИБЕРІТЬ СПОСІБ ОПЛАТИ"
+        android:id="@+id/textViewDeliveryMethod"
+        android:textColor="@color/year"
+        android:visibility="gone"
+        android:layout_below="@+id/radioGroupDeliveryMethod"
+        android:layout_alignStart="@+id/textView48"
+        android:layout_marginTop="10dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupKasa"
+        android:visibility="gone"
+        android:tag="kasa"
+        android:animateLayoutChanges="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDeliveryMethod"
+        android:layout_alignStart="@+id/radioGroupDeliveryMethod"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp">
+
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back"
+            android:text="Оплата готівкою в касі"
+            android:id="@+id/radioButton5" />
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back"
+            android:text="Оплата платіжною карткою"
+            android:id="@+id/radioButton6"
+            android:layout_marginTop="2dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDeliveryMethod"
+        android:tag="post"
+        android:id="@+id/radioGroupNewPost"
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+        android:layout_alignStart="@+id/radioGroupDeliveryMethod"
+        android:layout_marginRight="20dp">
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Оплата готівкою у відділенні"
+            android:id="@+id/radioButton"
+            android:background="@drawable/back"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Оплата платіжною карткою"
+            android:id="@+id/radioButton2"
+            android:background="@drawable/back"
+            android:checked="false"
+            android:layout_marginTop="2dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDeliveryMethod"
+        android:layout_alignStart="@+id/radioGroupDeliveryMethod"
+        android:id="@+id/radioGroupCourier"
+        android:visibility="gone"
+        android:tag="Courier"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Оплата готівкою кур&apos;єру"
+            android:background="@drawable/back"
+            android:id="@+id/radioButton3"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Оплата платіжною карткою"
+            android:background="@drawable/back"
+            android:id="@+id/radioButton4"
+            android:layout_marginTop="2dp"
+            android:checked="false" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroupE_ticket"
+        android:layout_below="@+id/textViewDeliveryMethod"
+        android:visibility="gone"
+        android:tag="E_ticket"
+        android:layout_marginTop="5dp"
+        android:layout_alignStart="@+id/radioGroupDeliveryMethod"
+        android:layout_marginRight="20dp">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Оплата платіжною карткою"
+            android:background="@drawable/back"
+            android:id="@+id/radioButton7"
+            android:checked="false" />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ПРОДОВЖИТИ"
+        android:visibility="gone"
+        android:layout_margin="5dp"
+        android:id="@+id/buttonContinue"
+        android:textColor="@color/white"
+        android:background="@drawable/button_selector"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAllCaps="true"
+        android:textColor="@color/yellov1"
+        android:text="Medium Text"
+        android:id="@+id/textView63"
+        android:layout_below="@+id/textView65"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="КВИТКИ БУДУТЬ ЗАРЕЗЕРВОВАНІ ЩЕ:"
+        android:id="@+id/textView65"
+        android:textColor="@color/list_divider1"
+        android:textSize="12sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

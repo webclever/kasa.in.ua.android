@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/frame_kasa_loc"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/address_txt_name"
+        android:text="АДРЕСА"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/name_kasa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:text="check"
+        android:layout_below="@+id/address_txt_name"
+        android:layout_alignLeft="@+id/address_txt_name"
+        android:layout_alignStart="@+id/address_txt_name"
+        android:layout_alignParentLeft="false"
+        android:layout_toStartOf="@+id/MyylinearLeyout" />
+
+    <TextView
+        android:id="@+id/description_kasa"
+        android:text="Check"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/MyylinearLeyout"
+        android:layout_below="@+id/name_kasa"
+        android:layout_alignLeft="@+id/name_kasa"
+        android:layout_alignStart="@+id/name_kasa" />
+
+    <TextView
+        android:id="@+id/time_work_kasa_name"
+        android:text="ЧАС РОБОТИ"
+        android:textColor="@color/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description_kasa"
+        android:layout_alignLeft="@+id/description_kasa"
+        android:layout_alignStart="@+id/description_kasa"/>
+
+    <TextView
+        android:id="@+id/time_work_kasa"
+        android:text="check"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time_work_kasa_name"
+        android:layout_alignLeft="@+id/time_work_kasa_name"
+        android:layout_alignStart="@+id/time_work_kasa_name"
+        android:layout_alignEnd="@+id/description_kasa" />
+
+    <LinearLayout
+        android:id="@+id/MyylinearLeyout"
+        android:background="?android:selectableItemBackground"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButtonMap"
+            android:background="@null"
+            android:src="@mipmap/ic_launcher_map"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="ПЕРЕГЛЯНУТИ НА КАРТІ"
+            android:id="@+id/textView35"
+            android:gravity="center"
+             />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:textColor="@color/red"
+        android:textStyle="italic"
+        android:id="@+id/textViewadvertisement"
+        android:layout_below="@+id/time_work_kasa"
+        android:layout_alignStart="@+id/time_work_kasa"
+        android:layout_alignEnd="@+id/time_work_kasa" />
+
+</RelativeLayout>

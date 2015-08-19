@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Квитки авторизованого користувача резервуються на 15 хвилин під час проходження ним процесу оформлення замовлення."
+        android:id="@+id/textView69"
+        android:textSize="12sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="УВІЙТИ"
+        android:textColor="@color/list_row_end_color"
+        android:background="@drawable/button_selector"
+        android:id="@+id/button3"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/textView69"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="СТВОРИТИ АКАУНТ"
+        android:id="@+id/button4"
+        android:textColor="@color/list_row_end_color"
+        android:background="@drawable/button_selector"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Більше не запитувати"
+        android:textSize="12sp"
+        android:id="@+id/checkBoxDialog"
+        android:layout_below="@+id/button4"
+        android:layout_alignStart="@+id/button4"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Не бажаю"
+        android:layout_marginRight="5dp"
+        android:textSize="20sp"
+        android:background="?android:selectableItemBackground"
+        android:id="@+id/textView4"
+        android:layout_alignBottom="@+id/checkBoxDialog"
+        android:layout_alignEnd="@+id/button4"
+        android:layout_marginBottom="5dp" />
+</RelativeLayout>
