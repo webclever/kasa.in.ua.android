@@ -92,7 +92,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     private static final String TWITTER_SECRET = "gahp8a6Ro2M15sKW2aAuW1vJtitKTkLVgYJor7w2TQAQQ70vsI";
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,8 +146,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer1,R.string.app_name,R.string.app_name)
-        {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer1,R.string.app_name,R.string.app_name) {
             public void onDrawerClosed(View view)
             {
                 getActionBar().setTitle(mTitle);
@@ -209,36 +207,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         adapter.notifyDataSetChanged();
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        *//** Inflating the current activity's menu with res/menu/items.xml *//*
-        getMenuInflater().inflate(R.menu.main, menu);
-
-        *//** Getting the actionprovider associated with the menu item whose id is share *//*
-        mShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
-
-        *//** Setting a share intent *//*
-        mShareActionProvider.setShareIntent(getDefaultShareIntent());
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false);
-
-        return true;
-    }*/
-    /** Returns a share intent */
-    private Intent getDefaultShareIntent(){
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
-        intent.putExtra(Intent.EXTRA_TEXT, "Extra Text");
-        return intent;
-    }
-
-    public String getCountTicket()
-    {
+    public String getCountTicket() {
         SQLiteDatabase DB = db_ticket.getReadableDatabase();
         Cursor cursorDBTicket = DB.query("Ticket_table", null, null, null, null, null, null);
         String count = String.valueOf(cursorDBTicket.getCount());
@@ -272,20 +241,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         return super.onCreateOptionsMenu(menu);
     }
     @Override
-    public void setTitle (CharSequence title)
-    {
+    public void setTitle (CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
     }
     @Override
-    protected void onPostCreate(Bundle savedInstanceState)
-    {
+    protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
     }
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
@@ -408,6 +374,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         }
 
     }
+
+    public Location getLocation(){
+        onLocationChanged();
+
+        Location location = new Location("myLocation");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        return location;
+    }
+
+
 
     public void getMyLocationAddress() {
 
