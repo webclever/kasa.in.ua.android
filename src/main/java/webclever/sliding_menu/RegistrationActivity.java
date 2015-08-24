@@ -242,13 +242,11 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
         LogOut(integerSocialID);}
         finish();
         mGoogleApiClient.disconnect();
-        Log.i("User", "ActivityOnStop");
     }
 
     @Override
     protected void onDestroy (){
         super.onDestroy();
-        Log.i("User", "ActivityOnDestroy");
     }
 
     private void LogOut(Integer soc_id){
