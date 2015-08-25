@@ -8,6 +8,7 @@ import android.content.Context;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.location.Location;
 import android.os.Bundle;
 
 
@@ -92,14 +93,12 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
     private SharedPreferences sharedPreferencesNameCity;
 
-
-
-    private int i=0;
-
     public HomeFragment()
     {
         setHasOptionsMenu(true);
     }
+    float distance;
+    int position;
 
 
 
@@ -385,6 +384,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         super.onDestroy();
     }
 
+
     private void setJsonRequestNameCity() {
         singletonCityList.clear();
         JsonArrayRequest req = new JsonArrayRequest(urlCity,
@@ -407,6 +407,23 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                     spinner.setSelection(i);
                                 }}
                                 singletonCityList.add(singletonCity);
+                                if (!object.getString("lat").equals("null")  && !object.getString("lng").equals("null"))
+                                {
+                                    float latitude = Float.parseFloat(object.getString("lat"));
+                                    float longitude = Float.parseFloat(object.getString("lng"));
+                                    Location location = ((MainActivity) getActivity()).getLocation();
+                                    Location locationCity = new Location("loc_city");
+                                    locationCity.setLatitude(latitude);
+                                    locationCity.setLongitude(longitude);
+                                    float distance2 = location.distanceTo(locationCity);
+                                    if (i == 1){ distance = distance2; position = i;}
+                                    if (distance2 < distance){
+                                        distance = distance2;
+                                        Log.i("Distance",String.valueOf(distance));
+                                        position = i;
+                                    }
+                                    Log.i("Distance","Position" + String.valueOf(position) + "Distance" + String.valueOf(distance));
+                                }
                             }
 
                         } catch (JSONException e) {
