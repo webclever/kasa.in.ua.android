@@ -57,7 +57,6 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     private List<SingletonCity> singletonCityList;
     private ObjectSpinnerAdapter objectSpinnerAdapter;
     private String nameCity;
-
     private SharedPreferences sharedPreferencesNameCity;
 
     public LocKasaFragment()

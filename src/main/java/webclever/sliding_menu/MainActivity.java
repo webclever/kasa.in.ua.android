@@ -378,14 +378,11 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     public Location getLocation(){
         onLocationChanged();
-
         Location location = new Location("myLocation");
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         return location;
     }
-
-
 
     public void getMyLocationAddress() {
 

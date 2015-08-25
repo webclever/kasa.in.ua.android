@@ -1,11 +1,13 @@
 package webclever.sliding_menu;
 
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
@@ -65,7 +67,6 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     private DateFormat dateFormat = new DateFormat();
     private ParallaxListView listView;
     private CustomListAdapter adapter;
-    private String nameGetLocationCity;
 
     //progressBAr
     ProgressBar progressBar;
@@ -92,13 +93,15 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
 
     private SharedPreferences sharedPreferencesNameCity;
+    private SharedPreferences sharedPreferencesAutoLocation;
 
     public HomeFragment()
     {
         setHasOptionsMenu(true);
     }
     float distance;
-    int position;
+    int position = 0;
+    int positionUser = 0;
 
 
 
@@ -106,15 +109,8 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_home,container,false);
-        if (getNameCity() != null)
-        {
-            nameCityy = getNameCity();
-            Log.i("Arguments",nameCityy);
-        }else {
-            nameCityy = ((MainActivity)getActivity()).getNameCity();
-            Log.i("Arguments","Null");
-        }
-
+        sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city", Context.MODE_PRIVATE);
+        sharedPreferencesAutoLocation = getActivity().getSharedPreferences("auto_location", Context.MODE_PRIVATE);
         horizontalScrollView = new HorizontalScrollView(getActivity());
         horizontalScrollView.setHorizontalScrollBarEnabled(false);
         linearLayoutSlider = new LinearLayout(getActivity());
@@ -270,6 +266,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                         if (checkSmoothScroll)
                         {
                             listView.smoothScrollToPosition(0);
+                            Log.i("SmoothScroll","true");
                         }
                         progressBar.setVisibility(View.INVISIBLE);
                     }
@@ -299,28 +296,6 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         spinner.setAdapter(objectSpinnerAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        /*SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        android.widget.SearchView searchView = (android.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //mDemoSlider.setVisibility(View.INVISIBLE);
-                adapter.getFilter().filter(newText);
-                Log.i("SerchView", newText);
-
-                return true;
-            }
-
-        });*/
-
         MenuItem itemSearch = menu.findItem(R.id.search);
         itemSearch.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -348,9 +323,9 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             movieList.clear();
             urlEvent = "http://tms.webclever.in.ua/api/getEventList?&limit="+ String.valueOf(limit) +"&offset=" + String.valueOf(start) + "&token=3748563&city_id=" + String.valueOf(singletonCityList.get(pos).getIdCity());
             nameCityy = singletonCityList.get(pos).getNameCity();
-            JsonParsingEvent(urlEvent);
             checkSmoothScroll = true;
-
+            JsonParsingEvent(urlEvent);
+            saveNameCity();
     }
 
 
@@ -358,24 +333,38 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         // Another interface callback
     }
 
-    private void saveNameCity()
-    {
-        sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city", Context.MODE_PRIVATE);
+    private void saveNameCity() {
+        int id_city = spinner.getSelectedItemPosition();
         Editor editor = sharedPreferencesNameCity.edit();
+        editor.putInt("city_id", singletonCityList.get(id_city).getIdCity());
         editor.putString("City", nameCityy);
         editor.apply();
     }
+    private void saveAutoLocation() {
 
-    private String getNameCity()
+            Integer location = sharedPreferencesAutoLocation.getInt("city_id", -1);
+            Integer spinnerLoc = singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity();
+            if (location != -1){
+                if (!location.equals(singletonCityList.get(position).getIdCity()) && !location.equals(spinnerLoc)) {
+                    showDialog();
+                }
+            }
+                Editor editor = sharedPreferencesAutoLocation.edit();
+                editor.putInt("city_id",singletonCityList.get(position).getIdCity());
+                editor.putString("City", singletonCityList.get(position).getNameCity());
+                editor.apply();
+                Log.i("City","AutoSaveLocation" + singletonCityList.get(position).getNameCity());
+
+    }
+
+    private Integer getNameCity()
     {
-        sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city", Context.MODE_PRIVATE);
-        return sharedPreferencesNameCity.getString("City",null);
+        return sharedPreferencesNameCity.getInt("city_id", -1);
     }
 
     @Override
     public void onDestroyView ()
     {
-        saveNameCity();
         super.onDestroyView();
     }
 
@@ -398,15 +387,14 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                 SingletonCity singletonCity = new SingletonCity();
                                 JSONObject object = response.getJSONObject(i);
                                 singletonCity.setNameCity(object.getString("name"));
-                                nameGetLocationCity = object.getString("name");
                                 singletonCity.setIdCity(object.getInt("id"));
-
-                                if (nameCityy != null){
-                                if(nameCityy.equals(nameGetLocationCity))
-                                {
-                                    spinner.setSelection(i);
-                                }}
                                 singletonCityList.add(singletonCity);
+                                if (getNameCity() != -1){
+                                    if (getNameCity() == (object.getInt("id"))){
+                                        nameCityy = object.getString("name");
+                                        positionUser = i;
+                                    }
+                                }
                                 if (!object.getString("lat").equals("null")  && !object.getString("lng").equals("null"))
                                 {
                                     float latitude = Float.parseFloat(object.getString("lat"));
@@ -419,10 +407,8 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                     if (i == 1){ distance = distance2; position = i;}
                                     if (distance2 < distance){
                                         distance = distance2;
-                                        Log.i("Distance",String.valueOf(distance));
                                         position = i;
                                     }
-                                    Log.i("Distance","Position" + String.valueOf(position) + "Distance" + String.valueOf(distance));
                                 }
                             }
 
@@ -432,7 +418,9 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                     "Error: " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
+                        setCity();
                         objectSpinnerAdapter.notifyDataSetChanged();
+                        saveAutoLocation();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -446,6 +434,36 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
+    }
+
+
+    private void setCity() {
+        if (getNameCity() != -1)
+        {
+            spinner.setSelection(positionUser);
+        }else {
+            spinner.setSelection(position);
+            Log.i("Arguments","Null");
+        }
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Показати події у місті " + singletonCityList.get(position).getNameCity())
+                .setPositiveButton("Oк", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                        spinner.setSelection(position);
+                        saveNameCity();
+                    }
+                })
+                .setNegativeButton("Відміна", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 
     @Override
