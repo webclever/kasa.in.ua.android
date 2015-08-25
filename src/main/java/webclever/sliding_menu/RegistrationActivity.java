@@ -25,7 +25,9 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
@@ -37,7 +39,8 @@ import Validator.Validator;
  * Created by Admin on 22.10.2014.
  */
 public class RegistrationActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener,
+        ResultCallback<People.LoadPeopleResult>  {
 
     private SparseBooleanArray sparseBooleanArrayValidator;
     private TextView textViewSocialLogin;
@@ -150,22 +153,28 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                 .addApi(Plus.API)
                 .addScope(new Scope(Scopes.PROFILE))
                 .build();
-        mGoogleApiClient.connect();
+
 
     }
 
     @Override
     public void onConnected(Bundle bundle) {
 
+        Plus.PeopleApi.loadVisible(mGoogleApiClient, null).setResultCallback(this);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onResult(People.LoadPeopleResult loadPeopleResult) {
 
     }
 
@@ -223,6 +232,8 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
+                if (!statusUserLogin){
+                    LogOut(integerSocialID);}
                 finish();
                 return true;
             default:
@@ -238,9 +249,6 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
     @Override
     protected void onStop() {
         super.onStop();
-        if (!statusUserLogin){
-        LogOut(integerSocialID);}
-        finish();
         mGoogleApiClient.disconnect();
         Log.i("User", "ActivityOnStop");
     }
@@ -269,12 +277,19 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                 if (mGoogleApiClient.isConnected()) {
                     Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
                     mGoogleApiClient.disconnect();
-                    Log.i("User", "is logout G+ !");
-                }else {
-                    Log.i("User", "no logout G+ !");
+                    mGoogleApiClient.connect();
+                    Log.i("User", "logout G++ !");
+                } else {
+                    Log.i("User", "no logout G++ !");
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed (){
+        LogOut(integerSocialID);
+        finish();
     }
 
 

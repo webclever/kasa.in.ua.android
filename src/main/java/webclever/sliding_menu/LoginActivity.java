@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.service.textservice.SpellCheckerService;
@@ -64,11 +65,12 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
 
     public static final int RC_SIGN_IN = 0;
-    private Boolean statusUserGoogle = false;
+    /* Is there a ConnectionResult resolution in progress? */
+    private boolean mIsResolving = false;
+    private boolean statusUserGoogle;
+    /* Should we automatically resolve ConnectionResults when possible? */
+    private boolean mShouldResolve = false;
     private GoogleApiClient mGoogleApiClient;
-    private boolean mIntentInProgress;
-    private boolean mSignInClicked;
-    private ConnectionResult mConnectionResult;
 
     private static String[] sMyScope = new String[]{VKScope.FRIENDS, VKScope.WALL, VKScope.PHOTOS, VKScope.NOHTTPS,"email"};
     // Tab titles
@@ -191,14 +193,15 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
         //Google+
         if (requestCode == RC_SIGN_IN) {
-            if (resultCode != Activity.RESULT_OK) {
-                mSignInClicked = false;
+            // If the error resolution was not successful we should not resolve further errors.
+            if (resultCode != RESULT_OK) {
+                mShouldResolve = false;
             }
-            mIntentInProgress = false;
-            if (!mGoogleApiClient.isConnecting()) {
-                mGoogleApiClient.connect();
-            }
+
+            mIsResolving = false;
+            mGoogleApiClient.connect();
         }
+
     }
 
     private void getUserDataVK(final String mail) {
@@ -213,8 +216,8 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 try {
                     JSONArray jsonArrayUserInfo = response.json.getJSONArray("response");
                     JSONObject jsonObjectUserInfo = jsonArrayUserInfo.getJSONObject(0);
-                    startRegistrationActivity("Vkontakte",2,jsonObjectUserInfo.getString("first_name"),jsonObjectUserInfo.getString("last_name"),mail);
-                    Log.i("User","VK " + response.json.toString());
+                    startRegistrationActivity("Vkontakte", 2, jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), mail);
+                    Log.i("User", "VK " + response.json.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -228,16 +231,6 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             VKSdk.logout();
         }else {
             VKSdk.login(this, sMyScope);
-        }
-    }
-
-    public void sigInGooglePlus() {
-        if (!statusUserGoogle) {
-            signInWithGplus();
-            Log.i("User", "Login google+" + statusUserGoogle.toString());
-        } else {
-            signOutFromGplus();
-            Log.i("User", "LogOut google+" + statusUserGoogle.toString());
         }
     }
 
@@ -273,7 +266,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                                     // Application code
                                     JSONObject jsonObjectUserInfo = response.getJSONObject();
                                     try {
-                                        startRegistrationActivity("Facebook",1, jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), jsonObjectUserInfo.getString("email"));
+                                        startRegistrationActivity("Facebook", 1, jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), jsonObjectUserInfo.getString("email"));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -311,9 +304,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     @Override
     public void onStop() {
         super.onStop();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-        }
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -350,12 +341,13 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
     @Override
     public void onConnected(Bundle bundle) {
-        mSignInClicked = false;
+
         Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
+        mShouldResolve = false;
         // Get user's information
         getProfileInformation();
         // Update the UI after signin
-        updateUI(true);
+        updateUI(false);
     }
 
     private void getProfileInformation() {
@@ -379,22 +371,16 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {
-            //btnSignIn.setVisibility(View.GONE);
-            //btnSignOut.setVisibility(View.VISIBLE);
-            //btnRevokeAccess.setVisibility(View.VISIBLE);
             statusUserGoogle = true;
 
         } else {
-            //btnSignIn.setVisibility(View.VISIBLE);
-            //btnSignOut.setVisibility(View.GONE);
-            //btnRevokeAccess.setVisibility(View.GONE);
             statusUserGoogle = false;
         }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
+        //mGoogleApiClient.connect();
         updateUI(false);
     }
 
@@ -405,54 +391,43 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (!connectionResult.hasResolution()) {
-            GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
-            return;
-        }
-
-        if (!mIntentInProgress) {
-            // Store the ConnectionResult for later usage
-            mConnectionResult = connectionResult;
-            if (mSignInClicked) {
-                // The user has already clicked 'sign-in' so we attempt to
-                // resolve all
-                // errors until the user is signed in, or they cancel.
-                resolveSignInError();
+        if (!mIsResolving && mShouldResolve) {
+            if (connectionResult.hasResolution()) {
+                try {
+                    connectionResult.startResolutionForResult(this, RC_SIGN_IN);
+                    mIsResolving = true;
+                } catch (IntentSender.SendIntentException e) {
+                    mIsResolving = false;
+                    mGoogleApiClient.connect();
+                }
+            } else {
+                // Could not resolve the connection result, show the user an
+                // error dialog.
+                showErrorDialog(connectionResult);
             }
-        }
-    }
-
-    /**
-     * Sign-in into google
-     * */
-    private void signInWithGplus() {
-        if (!mGoogleApiClient.isConnecting()) {
-            //mSignInClicked = true;
-            resolveSignInError();
-        }
-    }
-
-    private void signOutFromGplus() {
-        if (mGoogleApiClient.isConnected()) {
-            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-            mGoogleApiClient.disconnect();
+        } else {
+            // Show the signed-out UI
             updateUI(false);
-            Toast.makeText(this, "User is logout!", Toast.LENGTH_LONG).show();
         }
     }
 
-    /**
-     * Method to resolve any signin errors
-     * */
-    private void resolveSignInError() {
-        if (mConnectionResult.hasResolution()) {
-            try {
-                mIntentInProgress = true;
-                mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
-            } catch (IntentSender.SendIntentException e) {
-                mIntentInProgress = false;
-                mGoogleApiClient.connect();
-            }
+    private void showErrorDialog(ConnectionResult connectionResult) {
+        int errorCode = connectionResult.getErrorCode();
+
+        if (GooglePlayServicesUtil.isUserRecoverableError(errorCode)) {
+            // Show the default Google Play services error dialog which may still start an intent
+            // on our behalf if the user can resolve the issue.
+            GooglePlayServicesUtil.getErrorDialog(errorCode, this, RC_SIGN_IN,
+                    new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            mShouldResolve = false;
+                            updateUI(false);
+                        }
+                    }).show();
+        } else {
+            mShouldResolve = false;
+            updateUI(false);
         }
     }
 
@@ -461,8 +436,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         LoginActivity.this.finish();
     }
 
-    public void startRegistrationActivity(String social,Integer soc_id, String UserName, String UserLName, String EMail)
-    {
+    public void startRegistrationActivity(String social,Integer soc_id, String UserName, String UserLName, String EMail) {
         Intent intent = new Intent(this,RegistrationActivity.class);
         intent.putExtra("SOCIAL",social);
         intent.putExtra("SOCIAL_ID",soc_id);
@@ -471,6 +445,20 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         intent.putExtra("USER_PHONE","+380");
         intent.putExtra("USER_EMAIL",EMail);
         startActivity(intent);
+    }
+
+    public void sigInGooglePlus(){
+        if (mGoogleApiClient.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            mGoogleApiClient.disconnect();
+            mShouldResolve = false;
+            Log.i("User", "logout G+ !");
+        } else {
+            mGoogleApiClient.connect();
+            Log.i("User", "sigin with google+");
+            mShouldResolve = true;
+        }
+
     }
 
 }

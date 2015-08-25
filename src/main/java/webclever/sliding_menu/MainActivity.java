@@ -256,6 +256,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+
         /*switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;

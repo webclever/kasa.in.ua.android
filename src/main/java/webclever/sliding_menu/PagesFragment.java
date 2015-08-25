@@ -224,7 +224,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
 
     @Override
     public void onConnected(Bundle bundle) {
-
+        Log.i("User","onConnected with GooglePlus");
     }
 
     @Override

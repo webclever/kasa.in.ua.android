@@ -47,7 +47,8 @@ public class ActivityChangePassword extends FragmentActivity {
                         Toast.makeText(getApplicationContext(),"Зміни збережено!",Toast.LENGTH_SHORT).show();
                         editTextNewPass.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_true));
                         editTextCNewPass.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_true));
-                        thread.start();
+                        ActivityChangePassword.this.finish();
+
                     }else
                     {
                         editTextNewPass.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
@@ -59,18 +60,6 @@ public class ActivityChangePassword extends FragmentActivity {
                 }
             }
         });
-
-        thread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2500); // As I am using LENGTH_LONG in Toast
-                    ActivityChangePassword.this.finish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
     }
 
     @Override

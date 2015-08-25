@@ -14,7 +14,7 @@
         <item >Історія замовлень</item>
         <item >Адреси кас</item>
         <item >Про програму</item>
-        <item >Ваш аккаунт</item>
+        <item >Ваш акаунт</item>
         <item >Вхід/Реєстрація</item>
     </string-array>
 
@@ -44,6 +44,6 @@
     <string name="read_more">ЧИТАТИ ДАЛІ...</string>
     <string name="description_event">ОПИС ПОДІЇ</string>
     <string name="forgot_password"><u>Забули пароль?</u></string>
-    <string name="number_ordering_text">Ви можете отримати ваші квитки в найблищій касі. Ваше замовлення діятеме протягом трьох днів. Будь ласка, не демонструйте квитки постороннім людям. Яскравих вражень!</string>
+    <string name="number_ordering_text">Ви можете отримати ваші квитки в найбличій касі. Ваше замовлення діятиме протягом трьох днів. Будь ласка, не демонструйте квитки стороннім людям. Яскравих вражень!</string>
 
 </resources>
