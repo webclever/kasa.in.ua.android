@@ -1,9 +1,12 @@
 package webclever.sliding_menu;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,7 +61,11 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     private ObjectSpinnerAdapter objectSpinnerAdapter;
     private String nameCity;
     private SharedPreferences sharedPreferencesNameCity;
-
+    private Integer idCity;
+    private SharedPreferences sharedPreferencesAutoLoc;
+    float distance;
+    int position = 0;
+    int positionUser = 0;
     public LocKasaFragment()
     {
         setHasOptionsMenu(true);
@@ -67,13 +74,8 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_adress_kasa, conteiner, false);
-
-        if (getNameCity() != null)
-        {
-            nameCity = getNameCity();
-        }else {
-            nameCity = ((MainActivity)getActivity()).getNameCity();
-        }
+        sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city_map", Context.MODE_PRIVATE);
+        sharedPreferencesAutoLoc = getActivity().getSharedPreferences("auto_loc_map",Context.MODE_PRIVATE);
 
         spinner = (Spinner) rootView.findViewById(R.id.select_city_spinner);
         spinner.setOnItemSelectedListener(this);
@@ -117,7 +119,6 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-
                             try {
 
                                 for (int i=0; i < response.length(); i++) {
@@ -125,11 +126,29 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
                                     JSONObject jsonObject = response.getJSONObject(i);
                                     singletonCity.setIdCity(jsonObject.getInt("id"));
                                     singletonCity.setNameCity(jsonObject.getString("name"));
-                                    if (nameCity != null) {
-                                        if (nameCity.equals(jsonObject.getString("name"))) {
-                                            spinner.setSelection(i);
+                                    if (getNameCity() != -1){
+                                        if (getNameCity() == (jsonObject.getInt("id"))){
+                                            nameCity = jsonObject.getString("name");
+                                            positionUser = i;
                                         }
                                     }
+                                    if (!jsonObject.getString("lat").equals("null")  && !jsonObject.getString("lng").equals("null"))
+                                    {
+                                        float latitude = Float.parseFloat(jsonObject.getString("lat"));
+                                        float longitude = Float.parseFloat(jsonObject.getString("lng"));
+                                        Location location = ((MainActivity) getActivity()).getLocation();
+                                        Location locationCity = new Location("loc_city");
+                                        locationCity.setLatitude(latitude);
+                                        locationCity.setLongitude(longitude);
+                                        float distance2 = location.distanceTo(locationCity);
+                                        if (i == 1){ distance = distance2; position = i;}
+                                        if (distance2 < distance){
+                                            distance = distance2;
+                                            position = i;
+                                        }
+                                    }
+
+
                                     singletonCityList.add(singletonCity);
                                 }
 
@@ -139,10 +158,10 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
                                         "Error: " + e.getMessage(),
                                         Toast.LENGTH_LONG).show();
                             }
-
+                        setCity();
                         objectSpinnerAdapter.notifyDataSetChanged();
+                        getCityAutoLoc();
 
-                        //hidePDialog();
                     }
                 } , new Response.ErrorListener() {
             @Override
@@ -150,22 +169,14 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Toast.makeText(getActivity(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
 
         AppController.getInstance().addToRequestQueue(request);
-
     }
-    /*public String getNameCity()
-    {
-        nameCity = singletonCityList.get(spinner.getSelectedItemPosition()).getNameCity();
-        Log.i("nameCity: frag",nameCity);
-        return nameCity;
-    }*/
 
-    private void getJSonKasa(String url)
-    {   kasaList.clear();
+    private void getJSonKasa(String url) {
+        kasaList.clear();
         JsonArrayRequest movieReq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -231,23 +242,20 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
-    private void saveNameCity()
-    {
-        sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city", Context.MODE_PRIVATE);
+    private void saveNameCity() {
+
         SharedPreferences.Editor editor = sharedPreferencesNameCity.edit();
+        editor.putInt("city_id",singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity());
         editor.putString("City", nameCity);
         editor.apply();
     }
 
-    private String getNameCity()
-    {
-        sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city", Context.MODE_PRIVATE);
-        return sharedPreferencesNameCity.getString("City",null);
+    private Integer getNameCity() {
+        return sharedPreferencesNameCity.getInt("city_id", -1);
     }
 
     @Override
-    public void onDestroyView ()
-    {
+    public void onDestroyView () {
         saveNameCity();
         super.onDestroyView();
     }
@@ -258,33 +266,21 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
-
-
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-        Toast.makeText(getActivity(),String.valueOf(pos),Toast.LENGTH_SHORT).show();
-        //if(pos != 0)
-        //{
+            Toast.makeText(getActivity(),String.valueOf(pos),Toast.LENGTH_SHORT).show();
+
             kasaList.clear();
             getJSonKasa(url_kasa_city+String.valueOf(singletonCityList.get(pos).getIdCity()));
             nameCity = singletonCityList.get(pos).getNameCity();
             Log.i("spinnerlockasa",String.valueOf(singletonCityList.get(pos).getIdCity()));
+            saveNameCity();
 
-        //}
-        /*else {
-            kasaList.clear();
-            getJSonKasa(url_kasa_oll);
-            Log.i("spinnerlockasa", String.valueOf(pos));
-        }*/
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -293,7 +289,51 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
         Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+    }
 
+    private void getCityAutoLoc(){
+        Integer location = sharedPreferencesAutoLoc.getInt("city_id", -1);
+        Integer spinnerLoc = singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity();
+        if (location != -1){
+            if (!location.equals(singletonCityList.get(position).getIdCity()) && location.equals(spinnerLoc)) {
+                showDialog();
+            }
+        }
+        SharedPreferences.Editor editor = sharedPreferencesAutoLoc.edit();
+        editor.putInt("city_id",singletonCityList.get(position).getIdCity());
+        editor.putString("City", singletonCityList.get(position).getNameCity());
+        editor.apply();
+        Log.i("City", "AutoSaveLocation" + singletonCityList.get(position).getNameCity());
+
+    }
+
+    private void setCity() {
+        if (getNameCity() != -1)
+        {
+            spinner.setSelection(positionUser);
+        }else {
+            spinner.setSelection(position);
+            Log.i("Arguments","Null");
+        }
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Показати каси продажу у місті " + singletonCityList.get(position).getNameCity() + "?")
+                .setPositiveButton("Oк", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                        spinner.setSelection(position);
+                        saveNameCity();
+                    }
+                })
+                .setNegativeButton("Відміна", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 
 }

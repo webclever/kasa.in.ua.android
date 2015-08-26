@@ -4,7 +4,6 @@ package webclever.sliding_menu;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.SearchManager;
 import android.content.Context;
 
 import android.content.DialogInterface;
@@ -62,7 +61,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     private static String TAG = MainActivity.class.getSimpleName();
     private String urlEvent;
     private static final String urlCity = "http://tms.webclever.in.ua/api/getCities?&token=3748563";
-    private static final String urlSlideShow = "https://api.myjson.com/bins/tb8p";
+    private String urlSlideShow = "https://api.myjson.com/bins/tb8p";
     private List<Movie> movieList = new ArrayList<Movie>();
     private DateFormat dateFormat = new DateFormat();
     private ParallaxListView listView;
@@ -121,7 +120,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         linearLayoutSlider.setBackgroundColor(getResources().getColor(R.color.year));
         horizontalScrollView.addView(linearLayoutSlider);
 
-        JsonParsingImageSlider(urlSlideShow);
+        //JsonParsingImageSlider(urlSlideShow);
         listView = (ParallaxListView) rootView.findViewById(R.id.list_view);
         adapter = new CustomListAdapter(getActivity(),getActivity(),movieList,"eventList");
         listView.addParallaxedHeaderView(horizontalScrollView);
@@ -131,17 +130,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-
-                Bundle myBundle = new Bundle();
-                int id_ivent = movieList.get(arg2 - 1).getId_ivent();
-                myBundle.putInt("id", id_ivent);
-                myBundle.putString("fromFragment", "eventList");
-                myBundle.putString("city",nameCityy);
-                Toast.makeText(getActivity(), String.valueOf(id_ivent), Toast.LENGTH_SHORT).show();
-                Fragment fragment = new SingleIvent();
-                fragment.setArguments(myBundle);
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                startEventFragment(movieList.get(arg2 - 1).getId_ivent());
             }
         });
 
@@ -188,9 +177,9 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                         for (int i = 0; i <jsonArray.length();i++)
                         {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        listImgUrl.add(Integer.parseInt(jsonObject.getString("id_event")));
-                        addImageSlider(jsonObject.getString("url_img")); }
-
+                        listImgUrl.add(Integer.parseInt(jsonObject.getString("id")));
+                        JSONObject jsonObjectPoster = jsonObject.getJSONObject("poster");
+                        addImageSlider(jsonObjectPoster.getString("m")); }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -212,11 +201,10 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         final ViewGroup newViewGroup = (ViewGroup) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.list_slider_image, linearLayoutSlider,false);
         final MyNetworkImageView networkImageView = (MyNetworkImageView) newViewGroup.findViewById(R.id.networkimageviewslider);
         networkImageView.setImageUrl(url,imageLoader);
-
         networkImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), String.valueOf(linearLayoutSlider.indexOfChild(newViewGroup)), Toast.LENGTH_SHORT).show();
+                startEventFragment(listImgUrl.get(linearLayoutSlider.indexOfChild(newViewGroup)));
                 horizontalScrollView.setSmoothScrollingEnabled(true);
             }
         });
@@ -317,6 +305,11 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            if (pos != 0){
+                urlSlideShow = "http://tms.webclever.in.ua/api/GetSliderEvent?city_id=" + String.valueOf(singletonCityList.get(pos).getIdCity()) + "&token=3748563";
+            }else {
+                urlSlideShow = "http://tms.webclever.in.ua/api/GetSliderEvent?&token=3748563";
+            }
 
             limit = 5;
             start = 0;
@@ -324,6 +317,8 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             urlEvent = "http://tms.webclever.in.ua/api/getEventList?&limit="+ String.valueOf(limit) +"&offset=" + String.valueOf(start) + "&token=3748563&city_id=" + String.valueOf(singletonCityList.get(pos).getIdCity());
             nameCityy = singletonCityList.get(pos).getNameCity();
             checkSmoothScroll = true;
+            linearLayoutSlider.removeAllViews();
+            JsonParsingImageSlider(urlSlideShow);
             JsonParsingEvent(urlEvent);
             saveNameCity();
     }
@@ -345,7 +340,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             Integer location = sharedPreferencesAutoLocation.getInt("city_id", -1);
             Integer spinnerLoc = singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity();
             if (location != -1){
-                if (!location.equals(singletonCityList.get(position).getIdCity()) && !location.equals(spinnerLoc)) {
+                if (!location.equals(singletonCityList.get(position).getIdCity()) && location.equals(spinnerLoc)) {
                     showDialog();
                 }
             }
@@ -353,7 +348,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                 editor.putInt("city_id",singletonCityList.get(position).getIdCity());
                 editor.putString("City", singletonCityList.get(position).getNameCity());
                 editor.apply();
-                Log.i("City","AutoSaveLocation" + singletonCityList.get(position).getNameCity());
+                Log.i("City", "AutoSaveLocation" + singletonCityList.get(position).getNameCity());
 
     }
 
@@ -372,7 +367,6 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     public void onDestroy() {
         super.onDestroy();
     }
-
 
     private void setJsonRequestNameCity() {
         singletonCityList.clear();
@@ -436,7 +430,6 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         AppController.getInstance().addToRequestQueue(req);
     }
 
-
     private void setCity() {
         if (getNameCity() != -1)
         {
@@ -469,5 +462,17 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     @Override
     public void onBackPressed() {
 
+    }
+
+    private void startEventFragment(Integer idEvent){
+        Bundle myBundle = new Bundle();
+        myBundle.putInt("id", idEvent);
+        myBundle.putString("fromFragment", "eventList");
+        myBundle.putString("city",nameCityy);
+        Toast.makeText(getActivity(), String.valueOf(idEvent), Toast.LENGTH_SHORT).show();
+        Fragment fragment = new SingleIvent();
+        fragment.setArguments(myBundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 }

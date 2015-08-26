@@ -427,17 +427,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         return sPref.getBoolean("user_status",false);
     }
 
-    public String getNameCity() {
-        try {
-            return fetchedAddress.getAddressLine(1);
-        }catch (Exception e)
-        {
-            //Log.e("error get address",e.getMessage());
-            return null;
-        }
-
-    }
-
     public void showSettingsAlert(String provider) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(
                 MainActivity.this);
