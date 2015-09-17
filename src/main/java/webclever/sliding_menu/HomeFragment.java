@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,8 +23,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -108,19 +111,19 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_home,container,false);
+
         sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city", Context.MODE_PRIVATE);
         sharedPreferencesAutoLocation = getActivity().getSharedPreferences("auto_location", Context.MODE_PRIVATE);
         horizontalScrollView = new HorizontalScrollView(getActivity());
         horizontalScrollView.setHorizontalScrollBarEnabled(false);
+
         linearLayoutSlider = new LinearLayout(getActivity());
         imageLoader = AppController.getInstance().getImageLoader();
-        linearLayoutSlider.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         linearLayoutSlider.setOrientation(LinearLayout.HORIZONTAL);
         linearLayoutSlider.setGravity(Gravity.CENTER);
-        linearLayoutSlider.setBackgroundColor(getResources().getColor(R.color.year));
         horizontalScrollView.addView(linearLayoutSlider);
-
-        //JsonParsingImageSlider(urlSlideShow);
+        horizontalScrollView.getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+        horizontalScrollView.setBackgroundColor(getResources().getColor(R.color.year));
         listView = (ParallaxListView) rootView.findViewById(R.id.list_view);
         adapter = new CustomListAdapter(getActivity(),getActivity(),movieList,"eventList");
         listView.addParallaxedHeaderView(horizontalScrollView);
@@ -133,7 +136,6 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                 startEventFragment(movieList.get(arg2 - 1).getId_ivent());
             }
         });
-
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override

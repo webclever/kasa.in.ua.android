@@ -1,24 +1,32 @@
 package webclever.sliding_menu;
 
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Context;
+import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
-import android.service.textservice.SpellCheckerService;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
 import adapter.TabsPagerAdapter;
+import customlistviewapp.AppController;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -48,11 +56,23 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
+import org.apache.http.Header;
+import org.apache.http.HeaderIterator;
+import org.apache.http.HttpRequest;
+import org.apache.http.ProtocolVersion;
+import org.apache.http.RequestLine;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.ResponseDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 
 /**
@@ -216,7 +236,9 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 try {
                     JSONArray jsonArrayUserInfo = response.json.getJSONArray("response");
                     JSONObject jsonObjectUserInfo = jsonArrayUserInfo.getJSONObject(0);
-                    startRegistrationActivity("Vkontakte", 2, jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), mail);
+                    //startRegistrationActivity("Vkontakte", 2, jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), mail);
+                    checkUserSigInKasa(jsonObjectUserInfo.getInt("id"),jsonObjectUserInfo.getString("first_name"),"vkontakte");
+
                     Log.i("User", "VK " + response.json.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -459,6 +481,78 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             mShouldResolve = true;
         }
 
+    }
+
+    private boolean checkUserSigInKasa(final Integer user_id, final String user_name, final String social_name){
+
+        String url = "http://tms.webclever.in.ua/api/checkAppUser?token=3748563";
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("user_id","11555142");
+            jsonObject.put("service","vkontakte");
+            jsonObject.put("name","petrovuch");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                        Log.i("Response_err", volleyError.getMessage());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("tmssec", jsonObject.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+        };
+
+
+        /*JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                url, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("Response",response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                        Log.i("Response_Err",error.getMessage());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("tmssec", "{user_id:\"11555142\",service:\"vkontakte\",name:\"petrovuch\"}");
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+        };*/
+
+        /*HttpPost post = new HttpPost(url);
+        post.addHeader("tmssec:","{user_id:\"11555142\",service:\"vkontakte\",name:\"petrovuch\"}");
+        Log.i("Response",post.toString());
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("tmssec", "tmssec: {user_id:\"11555142\",service:\"vkontakte\",name:\"petrovuch\"}");
+        Log.i("Response_Header",params.get("tmssec"));
+        */
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+        return false;
     }
 
 }

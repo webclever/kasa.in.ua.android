@@ -80,7 +80,6 @@ public class CustomListAdapter extends BaseAdapter implements Filterable{
     public int getCount ()
     {
         return movieItems.size();
-
     }
 
     @Override
@@ -169,8 +168,7 @@ public class CustomListAdapter extends BaseAdapter implements Filterable{
         }
 
         @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
+        protected void publishResults(CharSequence constraint, FilterResults results) {
 
             // Now we have to inform the adapter about the new list filtered
             if (results.count == 0)
