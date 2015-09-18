@@ -2,41 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:layout_marginTop="5dp"
-        android:id="@+id/textView23"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
     <WebView
         android:id="@+id/webviewSchema"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_below="@+id/textView23"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/sold"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ОФОРМИТИ ЗАМОВЛЕННЯ"
-        android:background="@drawable/button_selector"
-        android:textColor="@color/list_row_end_color"
-        android:id="@+id/buttonselect"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginBottom="2dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/view22"
+        android:layout_below="@+id/textView43" />
 
     <ProgressBar
         android:id="@+id/progressbarcircular"
@@ -70,9 +43,9 @@
         android:id="@+id/textView34"
         android:text="0"
         android:textSize="15sp"
-        android:layout_below="@+id/textView47"
-        android:layout_toEndOf="@+id/imageView3"
-        android:layout_marginTop="5dp" />
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView47"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,8 +55,9 @@
         android:textSize="15sp"
         android:text=" грн."
         android:id="@+id/textView43"
-        android:layout_alignTop="@+id/textView42"
-        android:layout_toEndOf="@+id/textView42" />
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageView6" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -93,9 +67,9 @@
         android:text="0"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_alignTop="@+id/textView41"
+        android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textView41"
-        android:layout_marginLeft="2dp" />
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -104,26 +78,15 @@
         android:text="КВИТКІВ НА СУМУ"
         android:id="@+id/textView41"
         android:textSize="15sp"
-        android:layout_alignTop="@+id/textView34"
-        android:layout_toEndOf="@+id/textView34"
         android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:src="@drawable/ic_action_shop_cart"
-        android:layout_above="@+id/buttonselect"
-        android:layout_alignStart="@+id/buttonselect" />
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView34" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/list_divider1"
         android:id="@+id/view223"
-        android:layout_marginTop="5dp"
-        android:layout_above="@+id/textView47"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -136,123 +99,28 @@
         android:id="@+id/confirm_button"
         android:textSize="8sp"
         android:tag="0"
-        android:layout_above="@+id/view223"
-        android:layout_alignEnd="@+id/buttonselect" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="ПАРТЕР"
-        android:layout_marginLeft="2dp"
-        android:id="@+id/textView28"
-        android:layout_marginRight="3dp"
-        android:layout_above="@+id/textView47"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp" />
-    <View
-        android:id="@+id/verticalView1"
-        android:background="@color/yellov1"
-        android:layout_width="1dp"
-        android:layout_height="12dp"
-        android:layout_above="@+id/textView47"
-        android:layout_toEndOf="@+id/textView28"
-        android:layout_marginBottom="8dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="МІСЦЕ"
-        android:id="@+id/textView31"
-        android:layout_marginRight="2dp"
-        android:layout_alignTop="@+id/textView32"
-        android:layout_toEndOf="@+id/verticalView2" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="23"
-        android:id="@+id/textView30"
-        android:layout_alignTop="@+id/textView31"
-        android:layout_toStartOf="@+id/textView42" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="₴"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:id="@+id/textView44"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="3dp"
-        android:textColor="@color/yellov1"
-        android:layout_above="@+id/textView47"
-        android:layout_toStartOf="@+id/confirm_button"
-        android:layout_marginBottom="3dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="РЯД"
-        android:layout_marginLeft="3dp"
-        android:id="@+id/textView29"
-        android:layout_alignTop="@+id/textView28"
-        android:layout_toEndOf="@+id/verticalView1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textView33"
-        android:text="2000"
-        android:textStyle="bold"
-        android:textColor="@color/yellov1"
-        android:layout_alignTop="@+id/textView44"
-        android:layout_toStartOf="@+id/textView44" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textView32"
-        android:textSize="15sp"
-        android:text="22"
-        android:layout_marginLeft="2dp"
-        android:layout_alignTop="@+id/textView28"
-        android:layout_toEndOf="@+id/textView29" />
-    <View
-        android:id="@+id/verticalView2"
-        android:background="@color/yellov1"
-        android:layout_width="1dp"
-        android:layout_height="12dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_above="@+id/textView47"
-        android:layout_toEndOf="@+id/textView32"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignTop="@+id/PriceLabel"
+        android:layout_toEndOf="@+id/PriceLabel" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/list_divider1"
         android:id="@+id/view22"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_above="@+id/confirm_button" />
+        android:layout_above="@+id/sold"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginLeft="2dp"
         android:id="@+id/sold"
         android:src="@drawable/disabled"
         android:layout_alignTop="@+id/textView24"
-        android:layout_alignStart="@+id/textView28"
-        android:layout_marginTop="5dp" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -261,13 +129,13 @@
         android:text="ПРОДАНО"
         android:layout_marginLeft="2dp"
         android:id="@+id/textView24"
-        android:layout_above="@+id/view22"
+        android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/sold" />
 
     <ImageView
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/imageView4"
         android:src="@drawable/disabled"
         android:layout_alignTop="@+id/textView24"
@@ -281,14 +149,13 @@
         android:text="БРОНЬ"
         android:layout_marginLeft="2dp"
         android:id="@+id/textView25"
-        android:layout_alignBaseline="@+id/textView24"
-        android:layout_alignBottom="@+id/textView24"
+        android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/imageView4" />
 
     <ImageView
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/imageView5"
         android:src="@drawable/disabled"
         android:layout_alignTop="@+id/imageView4"
@@ -301,17 +168,17 @@
         android:text="ЗАКРИТО"
         android:layout_marginLeft="2dp"
         android:id="@+id/textView26"
-        android:layout_above="@+id/view22"
+        android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/imageView5" />
 
     <ImageView
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/imageView6"
         android:src="@drawable/disabled"
         android:layout_alignTop="@+id/imageView5"
-        android:layout_toEndOf="@+id/textView26" />
+        android:layout_alignStart="@+id/textView42" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -336,7 +203,9 @@
         android:id="@+id/PriceLabel"
         android:gravity="center_horizontal"
         android:layout_alignTop="@+id/webviewSchema"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -348,31 +217,27 @@
         android:id="@+id/Container"
         android:gravity="center_horizontal"
         android:layout_below="@+id/PriceLabel"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/PriceLabel" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ВИ ОБРАЛИ:"
-        android:textSize="13sp"
-        android:textColor="@color/year"
-        android:id="@+id/textView46"
-        android:layout_marginTop="5dp"
-        android:layout_alignTop="@+id/view22"
-        android:layout_alignStart="@+id/textView28" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/year"
         android:text="У КОШИКУ:"
         android:textSize="13sp"
-        android:layout_marginTop="5dp"
         android:id="@+id/textView47"
-        android:layout_above="@+id/imageView3"
-        android:layout_alignStart="@+id/imageView3" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp" />
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@mipmap/ic_plus_button"
+        android:layout_alignTop="@+id/confirm_button"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -55,6 +55,7 @@ import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
+import static webclever.sliding_menu.R.id.name_event;
 
 /**
  * Created by Admin on 23.01.2015.
@@ -63,13 +64,10 @@ import static webclever.sliding_menu.R.id.frame_container;
 public class SelectPlace extends Fragment implements OnBackPressedListener{
 
     private FragmentActivity myContext;
-    private TextView textViewNameEvent;
 
     private Animation animationShake;
     private Animation animationBounce;
 
-    private View rootView;
-    private Button ConfirmPlace;
     private Button ConfirmButton;
 
     private DB_Ticket db_ticket;
@@ -96,11 +94,6 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
     private String id_place;
     private Integer serverIdPlace;
-
-    private TextView textViewPlace;
-    private TextView textViewSector;
-    private TextView textViewRow;
-    private TextView textViewPricePlace;
 
     private TextView textViewTicketCount;
     private DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
@@ -150,7 +143,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_selectplace, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_selectplace, container, false);
         stringNameEvent = getArguments().getString("name_event");
         idEvent = getArguments().getInt("id");
         fromFragment = getArguments().getString("fromFragment");
@@ -188,20 +181,18 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         JavaScriptInterface javaScriptInterface = new JavaScriptInterface(myContext);
         webViewSchema.addJavascriptInterface(javaScriptInterface,"JSInterface");
 
-        textViewPlace = (TextView) rootView.findViewById(R.id.textView30);
+        /*textViewPlace = (TextView) rootView.findViewById(R.id.textView30);
         textViewSector = (TextView) rootView.findViewById(R.id.textView28);
         textViewRow = (TextView) rootView.findViewById(R.id.textView32);
-        textViewPricePlace = (TextView) rootView.findViewById(R.id.textView33);
+        textViewPricePlace = (TextView) rootView.findViewById(R.id.textView33);*/
 
         db_ticket = new DB_Ticket(getActivity(),5);
 
         textViewPriceall = (TextView) rootView.findViewById(R.id.textView42);
         textViewTicketall = (TextView) rootView.findViewById(R.id.textView34);
 
-        textViewNameEvent = (TextView) rootView.findViewById(R.id.textView23);
-        textViewNameEvent.setText(stringNameEvent);
+        getActivity().getActionBar().setTitle(stringNameEvent);
 
-        ConfirmPlace = (Button) rootView.findViewById(R.id.buttonselect);
         ConfirmButton = (Button) rootView.findViewById(R.id.confirm_button);
 
         animationShake = AnimationUtils.loadAnimation(getActivity(),R.anim.shake);
@@ -290,15 +281,6 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         PriceLabel = (TextView) rootView.findViewById(R.id.PriceLabel);
         setPriceColorList();
 
-        ConfirmPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new PhotosFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-            }
-        });
-
         return rootView;
     }
 
@@ -368,10 +350,10 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                                      JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
                                      JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
 
-                                     textViewRow.setText(jsonObjectRow.getString("name"));
+                                     /*textViewRow.setText(jsonObjectRow.getString("name"));
                                      textViewPlace.setText(jsonObjectPlace.getString("name"));
                                      textViewSector.setText(jsonObjectSector.getString("name"));
-                                     textViewPricePlace.setText(jsonObjectInfoPlace.getString("price"));
+                                     textViewPricePlace.setText(jsonObjectInfoPlace.getString("price"));*/
                                  }
 
                              }catch (JSONException e){
@@ -516,18 +498,18 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 containerTicket.put(id_place,true);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id_ticket",serverIdPlace);
-                contentValues.put("zon_ticket",textViewSector.getText().toString());
+                /*contentValues.put("zon_ticket",textViewSector.getText().toString());
                 contentValues.put("row_ticket",textViewRow.getText().toString());
                 contentValues.put("place_ticket",textViewPlace.getText().toString());
-                contentValues.put("price_ticket",textViewPricePlace.getText().toString());
+                contentValues.put("price_ticket",textViewPricePlace.getText().toString());*/
                 contentValues.put("id_place_schema",id_place);
                 contentValues.put("name_user","Zhenya");
                 contentValues.put("last_name_user","White");
-                contentValues.put("id_event",String.valueOf(intIdEvent));
+                contentValues.put("id_event", String.valueOf(intIdEvent));
                 long id_ticket = db.insert("Ticket_table","id_ticket" + serverIdPlace,contentValues);
                 Log.i("id_ticket_add", String.valueOf(id_ticket));
                 totalTicket ++;
-                totalPrice = totalPrice + Integer.parseInt(textViewPricePlace.getText().toString());
+                //totalPrice = totalPrice + Integer.parseInt(textViewPricePlace.getText().toString());
                 textViewTicketall.setText(String.valueOf(totalTicket));
                 textViewPriceall.setText(String.valueOf(totalPrice));
                 String count = textViewTicketCount.getText().toString();
@@ -637,7 +619,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
             {
                 Bundle myBundle = new Bundle();
                 myBundle.putInt("id", idEvent);
-                myBundle.putString("name_event", String.valueOf(textViewNameEvent.getText()));
+                myBundle.putString("name_event", String.valueOf(name_event));
                 myBundle.putString("fromFragment","eventList");
                 Fragment fragment = new SingleIvent();
                 fragment.setArguments(myBundle);
@@ -647,7 +629,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
             {
                 Bundle myBundle = new Bundle();
                 myBundle.putInt("id", idEvent);
-                myBundle.putString("name_event", String.valueOf(textViewNameEvent.getText()));
+                myBundle.putString("name_event", String.valueOf(name_event));
                 myBundle.putString("fromFragment","searchFragment");
                 Fragment fragment = new SingleIvent();
                 fragment.setArguments(myBundle);
