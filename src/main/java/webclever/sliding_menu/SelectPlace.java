@@ -31,6 +31,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -68,7 +69,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
     private Animation animationShake;
     private Animation animationBounce;
 
-    private Button ConfirmButton;
+    private ImageButton ConfirmButton;
 
     private DB_Ticket db_ticket;
     private SQLiteDatabase db;
@@ -193,13 +194,13 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
         getActivity().getActionBar().setTitle(stringNameEvent);
 
-        ConfirmButton = (Button) rootView.findViewById(R.id.confirm_button);
+        ConfirmButton = (ImageButton) rootView.findViewById(R.id.confirm_button);
 
         animationShake = AnimationUtils.loadAnimation(getActivity(),R.anim.shake);
         animationShake.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                ConfirmButton.setText("ПРИБРАТИ З КОШИКА");
+                ConfirmButton.setImageResource(R.mipmap.ic_minus_button);
                 ConfirmButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                 ConfirmButton.setTag("1");
             }
@@ -219,7 +220,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         animationBounce.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                ConfirmButton.setText("ДОДАТИ ДО КОШИКА");
+                ConfirmButton.setImageResource(R.mipmap.ic_plus_button);
                 ConfirmButton.getBackground().setColorFilter(null);
                 ConfirmButton.setTag("0");
             }

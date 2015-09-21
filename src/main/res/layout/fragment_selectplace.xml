@@ -89,20 +89,20 @@
         android:id="@+id/view223"
         android:layout_alignParentStart="true" />
 
-    <Button
+    <ImageButton
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:background="@drawable/button_selector"
-        android:text="ДОДАТИ ДО КОШИКА"
-        android:textColor="@color/list_row_end_color"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:padding="15dp"
+        android:src="@mipmap/ic_plus_button"
+        android:background="@drawable/floating_background_button"
         android:id="@+id/confirm_button"
-        android:textSize="8sp"
         android:tag="0"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_alignTop="@+id/PriceLabel"
-        android:layout_toEndOf="@+id/PriceLabel" />
+        android:layout_alignParentEnd="true"/>
 
     <View
         android:layout_width="match_parent"
@@ -231,13 +231,6 @@
         android:layout_marginLeft="5dp" />
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@mipmap/ic_plus_button"
-        android:layout_alignTop="@+id/confirm_button"
-        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>
