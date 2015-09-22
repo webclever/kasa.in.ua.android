@@ -2,6 +2,7 @@ package webclever.sliding_menu;
 
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,6 +47,8 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private Validator validator = new Validator();
     private SparseBooleanArray sparseBooleanArray = new SparseBooleanArray();
     private UserProfileSingleton userProfile;
+    private LinearLayout linearLayoutContainer;
+    private LayoutInflater layoutInflater;
 
     public UserDataETicket() {
         // Required empty public constructor
@@ -59,7 +63,11 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         ticket_nameList = new ArrayList<ticket_name>();
         listViewTicket = (ListView) rootView.findViewById(R.id.listviewcontainerticket);
         eTicketAdapter = new ETicketAdapter(getActivity(),getActivity(),ticket_nameList);
+
         addTicket();
+        layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+        linearLayoutContainer = (LinearLayout) layoutInflater.inflate(R.layout.list_layout_container,null,false);
+        listViewTicket.addHeaderView(linearLayoutContainer);
         listViewTicket.setAdapter(eTicketAdapter);
 
         EditText editTextName = (EditText) rootView.findViewById(R.id.editText11);

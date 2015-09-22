@@ -109,13 +109,13 @@ public class ViewBasketAdapter extends BaseAdapter {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            //int del_id_ticket = db.delete("Ticket_table", "id_ticket=" + String.valueOf(basket_child.getId_ticket()), null);
-                            //Log.i("id_ticket_del", String.valueOf(del_id_ticket));
+                            int del_id_ticket = db.delete("Ticket_table", "id_ticket=" + String.valueOf(basket_child.getId_ticket()), null);
+                            Log.i("id_ticket_del", String.valueOf(del_id_ticket));
                             //viewGroupTicketContainer.removeView(viewGroupTicket);
                             if (arrayListBasketChild.size() == 1) {
 
-                                //int del_id_event = db.delete("Event_table","id_event="+String.valueOf(basket_child.getId_event()),null);
-                                //Log.i("id_event_del",String.valueOf(del_id_event));
+                                int del_id_event = db.delete("Event_table","id_event="+String.valueOf(basket_child.getId_event()),null);
+                                Log.i("id_event_del",String.valueOf(del_id_event));
                                 Log.i("Position", String.valueOf(position));
                                 arrayListBasketChild.remove(basket_child);
                                 viewGroupTicketContainer.removeView(viewGroupTicket);

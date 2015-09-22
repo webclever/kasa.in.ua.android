@@ -216,6 +216,26 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         return count;
     }
 
+
+    public String getTotalPrice(){
+        Integer totalPrice = 0;
+        SQLiteDatabase DB = db_ticket.getReadableDatabase();
+        Cursor cursorSelectedPlace =  DB.query("Ticket_table",new String[]{"price_ticket"},null,null,null,null,null,null);
+        if (cursorSelectedPlace != null){
+            if (cursorSelectedPlace.getCount() > 0){
+                cursorSelectedPlace.moveToFirst();
+                for (int i=0; i < cursorSelectedPlace.getCount(); i++){
+                    totalPrice = totalPrice + Integer.parseInt(cursorSelectedPlace.getString(0));
+                    cursorSelectedPlace.moveToNext();
+                }
+            }
+        }
+        assert cursorSelectedPlace != null;
+        cursorSelectedPlace.close();
+        db_ticket.close();
+        return totalPrice.toString();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

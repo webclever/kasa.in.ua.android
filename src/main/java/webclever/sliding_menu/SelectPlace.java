@@ -95,6 +95,9 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
     private String id_place;
     private Integer serverIdPlace;
+    private String Row;
+    private String Place;
+    private String Price;
 
     private TextView textViewTicketCount;
     private DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
@@ -180,17 +183,14 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         webViewSchema.setWebChromeClient(new MyWebViewChromeClient());
         webViewSchema.getSettings().setJavaScriptEnabled(true);
         JavaScriptInterface javaScriptInterface = new JavaScriptInterface(myContext);
-        webViewSchema.addJavascriptInterface(javaScriptInterface,"JSInterface");
-
-        /*textViewPlace = (TextView) rootView.findViewById(R.id.textView30);
-        textViewSector = (TextView) rootView.findViewById(R.id.textView28);
-        textViewRow = (TextView) rootView.findViewById(R.id.textView32);
-        textViewPricePlace = (TextView) rootView.findViewById(R.id.textView33);*/
+        webViewSchema.addJavascriptInterface(javaScriptInterface, "JSInterface");
 
         db_ticket = new DB_Ticket(getActivity(),5);
 
         textViewPriceall = (TextView) rootView.findViewById(R.id.textView42);
+        textViewPriceall.setText(((MainActivity) getActivity()).getTotalPrice());
         textViewTicketall = (TextView) rootView.findViewById(R.id.textView34);
+        textViewTicketall.setText(((MainActivity) getActivity()).getCountTicket());
 
         getActivity().getActionBar().setTitle(stringNameEvent);
 
@@ -318,6 +318,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         AppController.getInstance().addToRequestQueue(movieReq);
 
     }
+
     public void PopUp() {
         PriceLabel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -350,11 +351,8 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                                      JSONObject jsonObjectRow = jsonObjectInfoPlace.getJSONObject("row");
                                      JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
                                      JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
+                                     showPlaceInfo(jsonObjectRow.getString("name"),jsonObjectPlace.getString("name"),jsonObjectInfoPlace.getString("price"));
 
-                                     /*textViewRow.setText(jsonObjectRow.getString("name"));
-                                     textViewPlace.setText(jsonObjectPlace.getString("name"));
-                                     textViewSector.setText(jsonObjectSector.getString("name"));
-                                     textViewPricePlace.setText(jsonObjectInfoPlace.getString("price"));*/
                                  }
 
                              }catch (JSONException e){
@@ -407,7 +405,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 id_place = id;
                 serverIdPlace = Integer.parseInt(serverId);
                 getPlaceInfo(serverId);
-                Toast.makeText(getActivity(),id + "  " + serverId,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),id + "  " + serverId,Toast.LENGTH_SHORT).show();
                 if (!containerTicket.isEmpty()){
                     if (containerTicket.containsKey(id)){
                         if (containerTicket.get(id)){
@@ -460,6 +458,10 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         int del_id_ticket = db.delete("Ticket_table", "id_ticket=" + String.valueOf(serverIdPlace), null);
         if (del_id_ticket != 0){
             textViewTicketCount.setText(String.valueOf(--totalTicket));
+            textViewTicketall.setText(String.valueOf(totalTicket));
+            String price =String.valueOf( Integer.parseInt(textViewPriceall.getText().toString()) - Integer.parseInt(Price));
+            textViewPriceall.setText(price);
+
         }
         Log.i("id_ticket_del",String.valueOf(del_id_ticket));
         Cursor cursorDel = db.query("Ticket_table",new String[]{"id_event"},"id_event=" + String.valueOf(idEvent),null,null,null,null,null);
@@ -471,6 +473,15 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         }
         cursorDel.close();
         db_ticket.close();
+    }
+
+    private void showPlaceInfo(String row, String place, String price){
+        String placeInfo = "Ряд:" + row + " Mісце: " + place + " | " + price +" грн.";
+        Toast.makeText(getActivity(), placeInfo, Toast.LENGTH_SHORT).show();
+        Row = row;
+        Place = place;
+        Price = price;
+
     }
 
     /**Add data to data base*/
@@ -499,10 +510,10 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 containerTicket.put(id_place,true);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id_ticket",serverIdPlace);
-                /*contentValues.put("zon_ticket",textViewSector.getText().toString());
-                contentValues.put("row_ticket",textViewRow.getText().toString());
-                contentValues.put("place_ticket",textViewPlace.getText().toString());
-                contentValues.put("price_ticket",textViewPricePlace.getText().toString());*/
+                //contentValues.put("zon_ticket",textViewSector.getText().toString());
+                contentValues.put("row_ticket",Row);
+                contentValues.put("place_ticket",Place);
+                contentValues.put("price_ticket",Price);
                 contentValues.put("id_place_schema",id_place);
                 contentValues.put("name_user","Zhenya");
                 contentValues.put("last_name_user","White");
@@ -510,7 +521,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 long id_ticket = db.insert("Ticket_table","id_ticket" + serverIdPlace,contentValues);
                 Log.i("id_ticket_add", String.valueOf(id_ticket));
                 totalTicket ++;
-                //totalPrice = totalPrice + Integer.parseInt(textViewPricePlace.getText().toString());
+                totalPrice = totalPrice + Integer.parseInt(Price);
                 textViewTicketall.setText(String.valueOf(totalTicket));
                 textViewPriceall.setText(String.valueOf(totalPrice));
                 String count = textViewTicketCount.getText().toString();
@@ -600,7 +611,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         db_ticket.close();
     }
 
-    public void deleteDB() {
+    private void deleteDB() {
         db = db_ticket.getWritableDatabase();
         int rows = db.delete("Ticket_table", null, null);
         Log.i("id_ticket","del rows" + String.valueOf(rows));
