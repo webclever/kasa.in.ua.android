@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -98,6 +99,8 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
     private String Row;
     private String Place;
     private String Price;
+
+    private Toast toast = null;
 
     private TextView textViewTicketCount;
     private DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
@@ -463,7 +466,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
             textViewPriceall.setText(price);
 
         }
-        Log.i("id_ticket_del",String.valueOf(del_id_ticket));
+        Log.i("id_ticket_del", String.valueOf(del_id_ticket));
         Cursor cursorDel = db.query("Ticket_table",new String[]{"id_event"},"id_event=" + String.valueOf(idEvent),null,null,null,null,null);
         if (cursorDel.getCount() == 0)
         {
@@ -477,11 +480,16 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
     private void showPlaceInfo(String row, String place, String price){
         String placeInfo = "Ряд:" + row + " Mісце: " + place + " | " + price +" грн.";
-        Toast.makeText(getActivity(), placeInfo, Toast.LENGTH_SHORT).show();
+        if (toast != null){
+            toast.cancel();
+        }
+        toast = Toast.makeText(getActivity(),placeInfo,Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP,-10,125);
+        toast.show();
+
         Row = row;
         Place = place;
         Price = price;
-
     }
 
     /**Add data to data base*/

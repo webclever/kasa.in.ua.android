@@ -10,7 +10,7 @@
     <string-array name="nav_drawer_items">
         <item >Події</item>
         <item >Пошук події</item>
-        <item >Корзина</item>
+        <item >Кошик</item>
         <item >Історія замовлень</item>
         <item >Адреси кас</item>
         <item >Про програму</item>
