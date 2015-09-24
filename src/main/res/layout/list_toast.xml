@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:drawable/dialog_holo_dark_frame"
+    android:alpha="0.8"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="saevlneswvpn"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/textViewToast"
+        android:layout_margin="5dp" />
+</FrameLayout>

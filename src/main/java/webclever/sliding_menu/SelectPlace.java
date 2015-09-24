@@ -14,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentActivity;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +60,7 @@ import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 import static webclever.sliding_menu.R.id.name_event;
+import static webclever.sliding_menu.R.id.textView;
 
 /**
  * Created by Admin on 23.01.2015.
@@ -480,11 +483,18 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
     private void showPlaceInfo(String row, String place, String price){
         String placeInfo = "Ряд:" + row + " Mісце: " + place + " | " + price +" грн.";
+        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View  layoutToast = layoutInflater.inflate(R.layout.list_toast, null);
+        TextView textViewToast = (TextView) layoutToast.findViewById(R.id.textViewToast);
+        textViewToast.setText(placeInfo);
+
         if (toast != null){
             toast.cancel();
         }
-        toast = Toast.makeText(getActivity(),placeInfo,Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP,-10,125);
+        toast = new Toast(getActivity());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layoutToast);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP,-10,130);
         toast.show();
 
         Row = row;
