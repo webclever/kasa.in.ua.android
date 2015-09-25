@@ -83,6 +83,7 @@ public class PhotosFragment extends Fragment implements OnBackPressedListener {
     public View onCreateView (LayoutInflater inflater,ViewGroup conteiner,Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_photos,conteiner,false);
+        ((MainActivity)getActivity()).setItemChecked(2,true);
         spShowDialog = getActivity().getSharedPreferences(APP_PREFERENCES_DIALOG, Context.MODE_PRIVATE);
         listViewBasketTicket = (ListView) rootView.findViewById(R.id.listViewTicketBasket);
         mButton = (Button) rootView.findViewById(R.id.buttonBasket);
@@ -347,6 +348,13 @@ public class PhotosFragment extends Fragment implements OnBackPressedListener {
             editor.putBoolean("show_dialog",false);
             editor.apply();
         }
+    }
+
+    @Override
+    public void onDestroyView ()
+    {
+        ((MainActivity)getActivity()).setItemChecked(2,false);
+        super.onDestroyView();
     }
 
 }

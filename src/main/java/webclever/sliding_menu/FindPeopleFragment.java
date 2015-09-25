@@ -73,6 +73,7 @@ public class FindPeopleFragment extends Fragment implements OnBackPressedListene
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_find_people_fragment,conteiner,false);
+        ((MainActivity)getActivity()).setItemChecked(1,true);
         getActivity().getActionBar().setTitle("Пошук події");
         listView = (ListView) rootView.findViewById(R.id.listView);
         adapter = new CustomListAdapter(getActivity(),getActivity(),movieList,"searchEvent");
@@ -130,8 +131,8 @@ public class FindPeopleFragment extends Fragment implements OnBackPressedListene
         return rootView;
     }
 
-    private void loadEvent(String url)
-    {
+    private void loadEvent(String url) {
+
         checkDownload = false;
         progressBar.setVisibility(View.VISIBLE);
         JsonArrayRequest movieReq = new JsonArrayRequest(url,
@@ -257,6 +258,14 @@ public class FindPeopleFragment extends Fragment implements OnBackPressedListene
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+    }
+
+    @Override
+    public void onDestroyView ()
+    {
+
+        ((MainActivity)getActivity()).setItemChecked(1,false);
+        super.onDestroyView();
     }
 
 }

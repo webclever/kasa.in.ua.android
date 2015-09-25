@@ -29,6 +29,7 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_whatshot,container,false);
+        ((MainActivity)getActivity()).setItemChecked(5,true);
 
         return rootView;
     }
@@ -60,6 +61,13 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
         Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onDestroyView ()
+    {
+        ((MainActivity)getActivity()).setItemChecked(5, false);
+        super.onDestroyView();
     }
 
 }

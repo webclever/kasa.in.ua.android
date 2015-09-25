@@ -52,6 +52,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner,Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_community,conteiner,false);
+        ((MainActivity)getActivity()).setItemChecked(3,true);
         ExpandableListView expandableListViewOrdering = (ExpandableListView) rootView.findViewById(R.id.expandableListViewOrdering);
         List<OrderingParent> arrayListOrderParent = new ArrayList<OrderingParent>();
         arrayListOrderParent = addOrdering(stringUrlOrdering);
@@ -155,7 +156,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     public void onBackPressed() {
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
+    @Override
+    public void onDestroyView ()
+    {
+        ((MainActivity)getActivity()).setItemChecked(3,false);
+        super.onDestroyView();
+    }
 }

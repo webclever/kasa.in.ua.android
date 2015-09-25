@@ -1,7 +1,5 @@
 package Format;
 
-import android.util.Log;
-import android.util.SparseArray;
 
 /**
  * Created by Женя on 31.07.2015.

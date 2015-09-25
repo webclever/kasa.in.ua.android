@@ -116,6 +116,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         sharedPreferencesAutoLocation = getActivity().getSharedPreferences("auto_location", Context.MODE_PRIVATE);
         horizontalScrollView = new HorizontalScrollView(getActivity());
         horizontalScrollView.setHorizontalScrollBarEnabled(false);
+        ((MainActivity)getActivity()).setItemChecked(0,true);
 
         linearLayoutSlider = new LinearLayout(getActivity());
         imageLoader = AppController.getInstance().getImageLoader();
@@ -362,11 +363,14 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     @Override
     public void onDestroyView ()
     {
+
+        ((MainActivity)getActivity()).setItemChecked(0,false);
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
+
         super.onDestroy();
     }
 

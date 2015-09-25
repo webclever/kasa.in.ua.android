@@ -167,7 +167,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if(savedInstanceState==null)
+        if(savedInstanceState == null)
         {
             displayView(0);
         }
@@ -325,7 +325,11 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                     fragment = new PagesFragment();
                 }else {
                     Intent intent = new Intent(this,LoginActivity.class);
-                    startActivity(intent);
+                    intent.putExtra("position",position);
+                    startActivityForResult(intent, 1);
+                    FragmentManager fragmentManager = getFragmentManager();
+
+                    mDrawerList.setItemChecked(position, false);
                     mDrawerLayout.closeDrawer(mDrawerList);
                 }
                 break;
@@ -345,6 +349,18 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         else
         {
             Log.e("MainActivity","Error in creating fragment");
+        }
+
+    }
+
+    public void setItemChecked(int position, Boolean status){
+        mDrawerList.setItemChecked(position,status);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data != null) {
+            Log.i("position",String.valueOf(data.getIntExtra("position",-1)));
         }
 
     }

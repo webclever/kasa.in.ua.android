@@ -74,6 +74,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_pages,container,false);
+        ((MainActivity)getActivity()).setItemChecked(6,true);
         sparseBooleanArrayValidator = new SparseBooleanArray();
         validator = new Validator();
         sharedPreferencesUserData = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
@@ -179,6 +180,8 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
 
         return rootView;
     }
+
+
 
     @Override
     public void onStart() {
@@ -324,6 +327,13 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView () {
+
+        ((MainActivity)getActivity()).setItemChecked(6,false);
+        super.onDestroyView();
     }
 
 }

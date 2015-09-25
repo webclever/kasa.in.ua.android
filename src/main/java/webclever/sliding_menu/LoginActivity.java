@@ -96,6 +96,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     // Tab titles
     private String[] tabs = {"Вхід", "Реєстрація"};
     private CallbackManager callbackManager;
+    private Intent intent;
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
 
@@ -104,6 +105,8 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //intent = getIntent();
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -142,7 +145,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         viewPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);
-        Intent intent = getIntent();
+        intent = getIntent();
 
         actionBar = getActionBar();
         //actionBar.setHomeButtonEnabled(false);
@@ -339,6 +342,8 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
+                Log.i("position",String.valueOf(intent.getIntExtra("position",-1)));
+                setResult(1,intent);
                 finish();
                 return true;
             default:
@@ -453,8 +458,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         }
     }
 
-    public void closeActivity()
-    {
+    public void closeActivity() {
         LoginActivity.this.finish();
     }
 

@@ -74,6 +74,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_adress_kasa, conteiner, false);
+        ((MainActivity)getActivity()).setItemChecked(4,true);
         sharedPreferencesNameCity = getActivity().getSharedPreferences("name_city_map", Context.MODE_PRIVATE);
         sharedPreferencesAutoLoc = getActivity().getSharedPreferences("auto_loc_map",Context.MODE_PRIVATE);
 
@@ -113,8 +114,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void getJSonCity(String url)
-    {
+    private void getJSonCity(String url) {
         JsonArrayRequest request = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -257,6 +257,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onDestroyView () {
         saveNameCity();
+        ((MainActivity)getActivity()).setItemChecked(4, false);
         super.onDestroyView();
     }
 

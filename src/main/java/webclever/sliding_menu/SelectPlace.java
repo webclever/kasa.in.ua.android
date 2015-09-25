@@ -54,13 +54,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import DataBase.DB_Ticket;
+import Format.EncodingTicketCount;
 import Singleton.DataEventSingelton;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 import static webclever.sliding_menu.R.id.name_event;
-import static webclever.sliding_menu.R.id.textView;
 
 /**
  * Created by Admin on 23.01.2015.
@@ -109,6 +109,9 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
     private DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
     private OvershootInterpolator overshootInterpolator = new OvershootInterpolator(20f);
     private HashMap<String,Boolean> containerTicket;
+    private EncodingTicketCount encodingTicketCount;
+    private TextView textViewCountTicket;
+    private final String countTicket = " НА СУМУ";
 
     public SelectPlace()
     {
@@ -197,6 +200,10 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         textViewPriceall.setText(((MainActivity) getActivity()).getTotalPrice());
         textViewTicketall = (TextView) rootView.findViewById(R.id.textView34);
         textViewTicketall.setText(((MainActivity) getActivity()).getCountTicket());
+        encodingTicketCount = new EncodingTicketCount();
+        textViewCountTicket = (TextView) rootView.findViewById(R.id.textView41);
+        textViewCountTicket.setText(encodingTicketCount.getNumEnding(((MainActivity) getActivity()).getCountTicket()) + countTicket);
+
 
         getActivity().getActionBar().setTitle(stringNameEvent);
 
@@ -465,6 +472,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         if (del_id_ticket != 0){
             textViewTicketCount.setText(String.valueOf(--totalTicket));
             textViewTicketall.setText(String.valueOf(totalTicket));
+            textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
             String price =String.valueOf( Integer.parseInt(textViewPriceall.getText().toString()) - Integer.parseInt(Price));
             textViewPriceall.setText(price);
 
@@ -541,6 +549,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 totalTicket ++;
                 totalPrice = totalPrice + Integer.parseInt(Price);
                 textViewTicketall.setText(String.valueOf(totalTicket));
+                textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
                 textViewPriceall.setText(String.valueOf(totalPrice));
                 String count = textViewTicketCount.getText().toString();
                 Integer integerCount = Integer.parseInt(count);
