@@ -67,6 +67,4 @@ dependencies {
         transitive = true;
     }
     compile project(':vksdk_library')
-
-
 }

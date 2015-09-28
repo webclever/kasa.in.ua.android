@@ -87,6 +87,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     private AppLocationService appLocationService;
 
     private DB_Ticket db_ticket;
+    private Integer previousPos = -1;
 
     private static final String TWITTER_KEY = "NtcdkYkfnL4hRjN8jg8yNZbsH";
     private static final String TWITTER_SECRET = "gahp8a6Ro2M15sKW2aAuW1vJtitKTkLVgYJor7w2TQAQQ70vsI";
@@ -216,7 +217,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         return count;
     }
 
-
     public String getTotalPrice(){
         Integer totalPrice = 0;
         SQLiteDatabase DB = db_ticket.getReadableDatabase();
@@ -285,8 +285,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     private class SlideMenuClickListener implements ListView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view,int position, long id)
-        {
+        public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
             displayView(position);
             View viewKeyboard = getCurrentFocus();
             if (viewKeyboard != null) {
@@ -300,36 +299,49 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     private void displayView (int position) {
         Fragment fragment = null;
+
         switch (position)
         {
             case 0:
                 fragment = new HomeFragment();
+                previousPos = 0;
                 break;
             case 1:
                 fragment = new FindPeopleFragment();
+                previousPos = 1;
                 break;
             case 2:
                 fragment = new PhotosFragment();
+                previousPos = 2;
                 break;
             case 3:
                 fragment = new CommunityFragment();
+                previousPos = 3;
                 break;
             case 4:
                 fragment = new LocKasaFragment();
+                previousPos = 4;
                 break;
             case 5:
                 fragment = new WhatsHotFragment();
+                previousPos = 5;
                 break;
             case 6:
                 if (getStatusUser()){
                     fragment = new PagesFragment();
+                    previousPos = 6;
                 }else {
-                    Intent intent = new Intent(this,LoginActivity.class);
-                    intent.putExtra("position",position);
-                    startActivityForResult(intent, 1);
-                    FragmentManager fragmentManager = getFragmentManager();
 
-                    mDrawerList.setItemChecked(position, false);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    Fragment fragment1 = fragmentManager.findFragmentByTag("1");
+                    if (fragment1 == null) {
+                        previousPos = -1;
+                    }
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    intent.putExtra("position",previousPos);
+                    startActivityForResult(intent, 1);
+
+                    mDrawerList.setItemChecked(position, true);
                     mDrawerLayout.closeDrawer(mDrawerList);
                 }
                 break;
@@ -340,7 +352,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         if(fragment != null)
         {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.frame_container,fragment,"1").commit();
             mDrawerList.setItemChecked(position,true);
             mDrawerList.setSelection(position);
             setTitle(navMenuTitles[position]);
@@ -358,9 +370,16 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null) {
-            Log.i("position",String.valueOf(data.getIntExtra("position",-1)));
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (data != null ) {
+            if (data.getIntExtra("position", -1) != -1){
+                Log.i("position", String.valueOf(data.getIntExtra("position", -1)));
+                Integer position = data.getIntExtra("position",-1);
+                mDrawerList.setItemChecked(position, true);
+            }else {
+                mDrawerList.setItemChecked(6, false);
+            }
+
         }
 
     }
