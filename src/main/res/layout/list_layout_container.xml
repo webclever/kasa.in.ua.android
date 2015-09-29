@@ -1,7 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/linearLayoutContainerETicket"
     android:layout_below="@+id/textView49"
     android:orientation="vertical"
@@ -65,4 +65,20 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editText14" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Повідомлення"
+        android:id="@+id/textView23" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText5" />
+
 </LinearLayout>
