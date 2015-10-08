@@ -42,6 +42,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,8 +52,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 import Format.DateFormat;
@@ -73,7 +76,7 @@ import static webclever.sliding_menu.R.id.textView;
 public class SingleIvent  extends Fragment implements OnBackPressedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private String str_event = "http://tms.webclever.in.ua/api/getEvent?&token=3748563&id=";
+    private String str_event = "http://tms.webclever.in.ua/api/getEvent";
 
     private ProgressDialog progressDialog;
     private NetworkImageView imgSchema;
@@ -133,7 +136,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         getActivity().getActionBar().setTitle("Подія");
 
         img_url = new ArrayList<String>();
-        str_event += id_ivent;
+        //str_event += id_ivent;
         str_url = new ArrayList<String>();
 
         imageLoader = AppController.getInstance().getImageLoader();
@@ -158,7 +161,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
                 SelectPlace();
             }
         });
-        imgSchema.setImageUrl("http://s018.radikal.ru/i509/1506/19/99a431f65a0e.png",imageLoader);
+        //imgSchema.setImageUrl("http://s018.radikal.ru/i509/1506/19/99a431f65a0e.png",imageLoader);
 
         mViewGroupImage = (ViewGroup) rootView.findViewById(R.id.gallery_container);
         //mViewGroupVideo = (ViewGroup) rootView.findViewById(R.id.video_container);
@@ -180,13 +183,53 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                str_event, null, new Response.Listener<JSONObject>() {
+
+
+        /*StringRequest strReq = new StringRequest(Request.Method.POST,
+                str_event, new Response.Listener<String>() {
+
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
                 Log.d(TAG, response.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("token", "3748563");
+                params.put("id",String.valueOf(id_ivent));
+
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq);
+*/
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                str_event, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response_string) {
+                Log.d("Tag", response_string);
                 hidePDialog();
-                try{                JSONObject jsonObjectPoster = response.getJSONObject("poster");
+                try {
+                                    JSONObject response = new JSONObject(response_string);
+                                    JSONObject jsonObjectPoster = response.getJSONObject("poster");
                                     networkImageView.setImageUrl(jsonObjectPoster.getString("l"), imageLoader);
                                     textViewNameEvent.setText(response.getString("name"));
                                     textViewTimeIvent.setText(response.getString("start_time"));
@@ -224,6 +267,8 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
                                         {
                                             str_url.add((String) arrImgEvent.get(j));
                                         }
+                                    imgSchema.setImageUrl(response.getString("bitmap"),imageLoader);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -233,12 +278,19 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 hidePDialog();
-
-
             }
-            });
+            })
+                {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("token", "3748563");
+                    params.put("id",String.valueOf(id_ivent));
+                    Log.i("Params",params.toString());
+                    return params;
+                }};
 
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
+            AppController.getInstance().addToRequestQueue(strReq);
 
         buy_ticket.setOnClickListener(new View.OnClickListener() {
             @Override

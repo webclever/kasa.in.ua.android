@@ -491,10 +491,13 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
         String url = "http://tms.webclever.in.ua/api/checkAppUser?token=3748563";
         final JSONObject jsonObject = new JSONObject();
+        final JSONObject jsonObjectParams = new JSONObject();
         try {
             jsonObject.put("user_id","11555142");
             jsonObject.put("service","vkontakte");
             jsonObject.put("name","petrovuch");
+
+            jsonObjectParams.put("token","3748563");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -518,6 +521,13 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
             }
+
+            /*@Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", "3748563");
+                return params;
+            }*/
         };
 
 
