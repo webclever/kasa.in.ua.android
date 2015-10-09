@@ -493,7 +493,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         final JSONObject jsonObject = new JSONObject();
         final JSONObject jsonObjectParams = new JSONObject();
         try {
-            jsonObject.put("user_id","11555142");
+            jsonObject.put("user_id","11555166");
             jsonObject.put("service","vkontakte");
             jsonObject.put("name","petrovuch");
 
@@ -502,7 +502,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             e.printStackTrace();
         }
 
-        StringRequest stringPostRequest = new StringRequest(Request.Method.GET, url,
+       /* StringRequest stringPostRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -521,17 +521,10 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
             }
-
-            /*@Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("token", "3748563");
-                return params;
-            }*/
-        };
+        };*/
 
 
-        /*JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null,
                 new Response.Listener<JSONObject>() {
 
@@ -549,23 +542,14 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("tmssec", "{user_id:\"11555142\",service:\"vkontakte\",name:\"petrovuch\"}");
+                params.put("tmssec", jsonObject.toString());
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
             }
-        };*/
-
-        /*HttpPost post = new HttpPost(url);
-        post.addHeader("tmssec:","{user_id:\"11555142\",service:\"vkontakte\",name:\"petrovuch\"}");
-        Log.i("Response",post.toString());
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("tmssec", "tmssec: {user_id:\"11555142\",service:\"vkontakte\",name:\"petrovuch\"}");
-        Log.i("Response_Header",params.get("tmssec"));
-        */
+        };
 
 
-        AppController.getInstance().addToRequestQueue(stringPostRequest);
+        AppController.getInstance().addToRequestQueue(jsonObjReq);
 
         return false;
     }

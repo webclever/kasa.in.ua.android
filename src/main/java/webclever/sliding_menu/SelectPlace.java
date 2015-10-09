@@ -159,6 +159,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         View rootView = inflater.inflate(R.layout.fragment_selectplace, container, false);
         stringNameEvent = getArguments().getString("name_event");
         idEvent = getArguments().getInt("id");
+        Log.i("id_event",String.valueOf(idEvent));
         fromFragment = getArguments().getString("fromFragment");
 
         //Loader
@@ -169,7 +170,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         textViewStatus.setVisibility(View.GONE);
 
         webViewSchema = (WebView) rootView.findViewById(R.id.webviewSchema);
-        webViewSchema.loadUrl("http://tms.webclever.in.ua/api/previewScheme?event_id=4&token=3748563");
+        webViewSchema.loadUrl("http://tms.webclever.in.ua/api/previewScheme?event_id=" + String.valueOf(idEvent) + "&token=3748563");
 
         webViewSchema.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webViewSchema.getSettings().setDomStorageEnabled(true);
@@ -409,8 +410,8 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         }
 
         @JavascriptInterface
-        public void clickHandler(String id, String serverId) {
-            Log.i("from",id + " " + serverId);
+        public void clickHandler(String id, String serverId, String placeType) {
+            Log.i("from",id + " " + serverId + " " + placeType);
             Log.i("id_place_server: ",serverId);
 
             if (id != null)

@@ -110,6 +110,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                 if (validation()) {
                     Toast.makeText(RegistrationActivity.this, "Ви успішно зареєструвались", Toast.LENGTH_LONG).show();
                     SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
+
                     editor.putBoolean("user_status", true);
                     editor.putString("social", stringSocial);
                     editor.putInt("social_id", integerSocialID);

@@ -19,6 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -35,7 +40,14 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import Validator.Validator;
+import customlistviewapp.AppController;
 
 
 /**
@@ -54,6 +66,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
     private Validator validator = new Validator();
     private SharedPreferences sharedPreferencesUserData;
     private static final String APP_PREFERENCES = "user_profile";
+    private String url="tms.webclever.in.ua/api/register?token=3748563";
     public CreateAccount() {
         // Required empty public constructor
     }
@@ -151,19 +164,41 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                 break;
             case R.id.buttonCreateAccount:
                     if (isUserDataValid()){
-                        Toast.makeText(this.getActivity(),"User login!",Toast.LENGTH_SHORT).show();
-                        SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
-                        editor.putInt("social_id", 0);
-                        editor.putBoolean("user_status",true);
-                        editor.putString("social","Kasa.in.ua");
-                        editor.putString("user_name",editTextName.getText().toString());
-                        editor.putString("user_last_name",editTextLName.getText().toString());
-                        editor.putString("user_phone",editTextPhone.getText().toString());
-                        editor.putString("user_email",editTextEMail.getText().toString());
-                        editor.apply();
-                        editor.commit();
-                        Intent intent = new Intent(this.getActivity(),ActivitySuccessRegistration.class);
-                        startActivity(intent);
+
+                        final JSONObject jsonObject = new JSONObject();
+
+                        try {
+                            jsonObject.put("email","11555166");
+                            jsonObject.put("password","vkontakte");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        StringRequest stringPostRequest = new StringRequest(Request.Method.GET, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String s) {
+                                        Log.i("Response", s);
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Log.i("Response_err", volleyError.getMessage());
+                            }
+                        }){
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("tmssec", jsonObject.toString());
+                                Log.i("Response_Header",params.get("tmssec"));
+                                return params;
+                            }
+                        };
+
+                        AppController.getInstance().addToRequestQueue(stringPostRequest);
+                        //saveUserData();
+
                     }
                 break;
         }
@@ -171,7 +206,19 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
     }
     private void saveUserData()
     {
-
+        Toast.makeText(this.getActivity(),"User login!",Toast.LENGTH_SHORT).show();
+        SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
+        editor.putInt("social_id", 0);
+        editor.putBoolean("user_status",true);
+        editor.putString("social","Kasa.in.ua");
+        editor.putString("user_name",editTextName.getText().toString());
+        editor.putString("user_last_name",editTextLName.getText().toString());
+        editor.putString("user_phone",editTextPhone.getText().toString());
+        editor.putString("user_email",editTextEMail.getText().toString());
+        editor.apply();
+        editor.commit();
+        Intent intent = new Intent(this.getActivity(),ActivitySuccessRegistration.class);
+        startActivity(intent);
     }
 
     private Boolean isUserDataValid() {

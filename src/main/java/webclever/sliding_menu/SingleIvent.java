@@ -137,7 +137,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
 
         img_url = new ArrayList<String>();
         //str_event += id_ivent;
-        str_url = new ArrayList<String>();
+        //str_url = new ArrayList<String>();
 
         imageLoader = AppController.getInstance().getImageLoader();
         networkImageView = (NetworkImageView) rootView.findViewById(R.id.iventimage);
@@ -167,14 +167,6 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         //mViewGroupVideo = (ViewGroup) rootView.findViewById(R.id.video_container);
         imageLoader = AppController.getInstance().getImageLoader();
 
-        img_url.add("http://kasa.in.ua/images/event/813_l.jpg");
-        img_url.add("http://kasa.in.ua/images/event/1018_l.jpg");
-        img_url.add("http://kasa.in.ua/images/event/949_l.jpg");
-
-
-        addImage("http://kasa.in.ua/images/event/813_l.jpg");
-        addImage("http://kasa.in.ua/images/event/1018_l.jpg");
-        addImage("http://kasa.in.ua/images/event/949_l.jpg");
 
         /*addVideo("http://kasa.in.ua/images/event/1018_l.jpg");
         addVideo("http://kasa.in.ua/images/event/813_l.jpg");*/
@@ -262,10 +254,11 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
                                     DataEventSingelton.getInstance().setName_event(response.getString("name"));
                                     DataEventSingelton.getInstance().setPlace_event(city.getString("name"));
                                     DataEventSingelton.getInstance().setImg_url(jsonObjectPoster.getString("l"));
-                                        JSONArray arrImgEvent = response.getJSONArray("masimg_url");
+                                        JSONArray arrImgEvent = response.getJSONArray("images");
                                         for (int j=0; j < arrImgEvent.length(); j++)
                                         {
-                                            str_url.add((String) arrImgEvent.get(j));
+                                            JSONObject jsonObjectImage = arrImgEvent.getJSONObject(j);
+                                            addImage(jsonObjectImage.getString("l"));
                                         }
                                     imgSchema.setImageUrl(response.getString("bitmap"),imageLoader);
 
@@ -322,7 +315,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
     public void addImage(String url_img)
     {
         final ViewGroup newView = (ViewGroup) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.list_image, mViewGroupImage, false);
-
+        img_url.add(url_img);
         ((NetworkImageView) newView.findViewById(R.id.gallery_image)).setImageUrl(url_img, imageLoader);
         newView.findViewById(R.id.gallery_image).setOnClickListener(new View.OnClickListener() {
             @Override
