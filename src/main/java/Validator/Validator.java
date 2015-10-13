@@ -1,5 +1,6 @@
 package Validator;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.regex.Matcher;
@@ -34,6 +35,10 @@ public class Validator {
             Log.i("check_email", "InValidate");
             return false;
         }
+    }
+
+    public boolean emailValidator(String email){
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     public boolean isNameValid(String name)

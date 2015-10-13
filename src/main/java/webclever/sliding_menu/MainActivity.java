@@ -421,8 +421,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 Log.i("latitude", String.valueOf(latitude));
                 Log.i("longitude", String.valueOf(longitude));*/
 
-
-
             } else {
                 showSettingsAlert("NETWORK");
             }
@@ -488,8 +486,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
         alertDialog.setTitle(provider + " SETTINGS");
 
-        alertDialog
-                .setMessage(provider + " is not enabled! Want to go to settings menu?");
+        alertDialog.setMessage(provider + " is not enabled! Want to go to settings menu?");
 
         alertDialog.setPositiveButton("Settings",
                 new DialogInterface.OnClickListener() {
@@ -497,8 +494,10 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                         Intent intent = new Intent(
                                 Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         MainActivity.this.startActivity(intent);
+                        dialog.cancel();
                     }
                 });
+
 
         alertDialog.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {

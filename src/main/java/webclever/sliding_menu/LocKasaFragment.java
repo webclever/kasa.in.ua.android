@@ -120,7 +120,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
                     @Override
                     public void onResponse(JSONArray response) {
                             try {
-
+                                Location location = ((MainActivity) getActivity()).getLocation();
                                 for (int i=0; i < response.length(); i++) {
                                     SingletonCity singletonCity = new SingletonCity();
                                     JSONObject jsonObject = response.getJSONObject(i);
@@ -136,7 +136,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
                                     {
                                         float latitude = Float.parseFloat(jsonObject.getString("lat"));
                                         float longitude = Float.parseFloat(jsonObject.getString("lng"));
-                                        Location location = ((MainActivity) getActivity()).getLocation();
+
                                         Location locationCity = new Location("loc_city");
                                         locationCity.setLatitude(latitude);
                                         locationCity.setLongitude(longitude);
@@ -167,8 +167,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getActivity(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -245,9 +244,12 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     private void saveNameCity() {
 
         SharedPreferences.Editor editor = sharedPreferencesNameCity.edit();
-        editor.putInt("city_id",singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity());
-        editor.putString("City", nameCity);
-        editor.apply();
+        if (singletonCityList.size() != 0){
+            editor.putInt("city_id",singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity());
+            editor.putString("City", nameCity);
+            editor.apply();
+        }
+
     }
 
     private Integer getNameCity() {

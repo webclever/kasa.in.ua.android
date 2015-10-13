@@ -66,7 +66,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
     private Validator validator = new Validator();
     private SharedPreferences sharedPreferencesUserData;
     private static final String APP_PREFERENCES = "user_profile";
-    private String url="tms.webclever.in.ua/api/register?token=3748563";
+    private String url="http://tms.webclever.in.ua/api/register";
     public CreateAccount() {
         // Required empty public constructor
     }
@@ -165,33 +165,64 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
             case R.id.buttonCreateAccount:
                     if (isUserDataValid()){
 
-                        final JSONObject jsonObject = new JSONObject();
+                        final JSONObject jsonObjectHeader = new JSONObject();
+                        final JSONObject jsonObjectBody = new JSONObject();
 
                         try {
-                            jsonObject.put("email","11555166");
-                            jsonObject.put("password","vkontakte");
+                            jsonObjectHeader.put("email",editTextEMail.getText().toString());
+                            jsonObjectHeader.put("password",editTextPassword.getText().toString());
+                            jsonObjectBody.put("name",editTextName.getText().toString());
+                            jsonObjectBody.put("last_name",editTextLName.getText().toString());
+                            jsonObjectBody.put("phone",editTextPhone.getText().toString());
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        StringRequest stringPostRequest = new StringRequest(Request.Method.GET, url,
-                                new Response.Listener<String>() {
+                        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>()
+                                {
                                     @Override
                                     public void onResponse(String s) {
                                         Log.i("Response", s);
+                                        try {
+                                            JSONObject jsonObjectUserData = new JSONObject(s);
+                                            if (!jsonObjectUserData.has("user")){
+                                                saveUserData(jsonObjectUserData.getInt("user_id"),
+                                                        jsonObjectUserData.getInt("token"),
+                                                        jsonObjectUserData.getString("name"),
+                                                        jsonObjectUserData.getString("last_name"),
+                                                        jsonObjectUserData.getString("phone"),
+                                                        jsonObjectUserData.getString("email"));
+                                            }else {
+                                                Toast.makeText(getActivity(),jsonObjectUserData.getString("user"),Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError volleyError) {
-                                Log.i("Response_err", volleyError.getMessage());
+                                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
                             }
                         }){
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<String, String>();
-                                params.put("tmssec", jsonObject.toString());
+                                params.put("tmssec", jsonObjectHeader.toString());
                                 Log.i("Response_Header",params.get("tmssec"));
+                                return params;
+                            }
+
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("token","3748563");
+                                params.put("userInfo", jsonObjectBody.toString());
+                                Log.i("Params",params.toString());
                                 return params;
                             }
                         };
@@ -204,17 +235,18 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
         }
 
     }
-    private void saveUserData()
+    private void saveUserData(Integer user_id, Integer token, String name, String last_name, String phone, String email)
     {
         Toast.makeText(this.getActivity(),"User login!",Toast.LENGTH_SHORT).show();
         SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
-        editor.putInt("social_id", 0);
+        editor.putInt("user_id", user_id);
+        editor.putInt("user_token",token);
         editor.putBoolean("user_status",true);
         editor.putString("social","Kasa.in.ua");
-        editor.putString("user_name",editTextName.getText().toString());
-        editor.putString("user_last_name",editTextLName.getText().toString());
-        editor.putString("user_phone",editTextPhone.getText().toString());
-        editor.putString("user_email",editTextEMail.getText().toString());
+        editor.putString("user_name",name);
+        editor.putString("user_last_name",last_name);
+        editor.putString("user_phone",phone);
+        editor.putString("user_email",email);
         editor.apply();
         editor.commit();
         Intent intent = new Intent(this.getActivity(),ActivitySuccessRegistration.class);
@@ -224,7 +256,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
     private Boolean isUserDataValid() {
         Boolean isValid = true;
 
-        for (int i=0; i<sparseBooleanArrayValidator.size(); i++){
+        for (int i=0; i < sparseBooleanArrayValidator.size(); i++){
             EditText editText = (EditText) getActivity().findViewById(sparseBooleanArrayValidator.keyAt(i));
             if (!sparseBooleanArrayValidator.valueAt(i)){
                 editText.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
@@ -234,15 +266,11 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                 editText.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_true));
             }
         }
-        if (!editTextPassword.getText().toString().equals(editTextCPassword.getText().toString()) && editTextPassword.getText() != null){
+        if (!editTextPassword.getText().toString().equals(editTextCPassword.getText().toString())){
             isValid = false;
             editTextPassword.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
             editTextCPassword.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
             Toast.makeText(this.getActivity(),"Паролі не співпадають",Toast.LENGTH_SHORT).show();
-        }else {
-            editTextPassword.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_true));
-            editTextCPassword.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_true));
-            Log.i("User_validate",isValid.toString());
         }
 
         return isValid;
@@ -277,7 +305,8 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                     sparseBooleanArrayValidator.put(R.id.editTextPhoneCreateAccount,validator.isPhoneValid(s.toString()));
                     break;
                 case R.id.editTextEMailCreateAccount:
-                    sparseBooleanArrayValidator.put(R.id.editTextEMailCreateAccount,validator.isEmailValid(s.toString()));
+                    //sparseBooleanArrayValidator.put(R.id.editTextEMailCreateAccount,validator.isEmailValid(s.toString()));
+                    sparseBooleanArrayValidator.put(R.id.editTextEMailCreateAccount,validator.emailValidator(s.toString()));
                     break;
                 case R.id.editTextPasswordCreateAccount:
                     sparseBooleanArrayValidator.put(R.id.editTextPasswordCreateAccount,validator.isPasswordValid(s.toString()));

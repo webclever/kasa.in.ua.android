@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     private static String TAG = MainActivity.class.getSimpleName();
     private String urlEvent;
     private static final String urlCity = "http://tms.webclever.in.ua/api/getCities?&token=3748563";
-    private String urlSlideShow = "https://api.myjson.com/bins/tb8p";
+    private String urlSlideShow;
     private List<Movie> movieList = new ArrayList<Movie>();
     private DateFormat dateFormat = new DateFormat();
     private ParallaxListView listView;
@@ -244,7 +244,9 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                     JSONObject city = obj.getJSONObject("city");
                                     movie.setCity(city.getString("name"));
                                     JSONObject poster = obj.getJSONObject("poster");
-                                    movie.setThumbnailUrl(poster.getString("l"));
+                                    if(!poster.toString().equals("{}")){
+                                        movie.setThumbnailUrl(poster.getString("l"));
+                                    }
                                     movieList.add(movie);
 
                                 }catch (JSONException e)
@@ -313,7 +315,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             }else {
                 urlSlideShow = "http://tms.webclever.in.ua/api/GetSliderEvent?&token=3748563";
             }
-
+            Log.i("city_id",String.valueOf(singletonCityList.get(pos).getIdCity()));
             limit = 5;
             start = 0;
             movieList.clear();
@@ -382,6 +384,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
                         try {
+                            Location location = ((MainActivity) getActivity()).getLocation();
                             for (int i = 0; i < response.length(); i++) {
 
                                 SingletonCity singletonCity = new SingletonCity();
@@ -399,7 +402,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                 {
                                     float latitude = Float.parseFloat(object.getString("lat"));
                                     float longitude = Float.parseFloat(object.getString("lng"));
-                                    Location location = ((MainActivity) getActivity()).getLocation();
+
                                     Location locationCity = new Location("loc_city");
                                     locationCity.setLatitude(latitude);
                                     locationCity.setLongitude(longitude);

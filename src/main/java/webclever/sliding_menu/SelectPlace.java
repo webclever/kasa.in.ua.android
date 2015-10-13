@@ -205,7 +205,6 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         textViewCountTicket = (TextView) rootView.findViewById(R.id.textView41);
         textViewCountTicket.setText(encodingTicketCount.getNumEnding(((MainActivity) getActivity()).getCountTicket()) + countTicket);
 
-
         getActivity().getActionBar().setTitle(stringNameEvent);
 
         ConfirmButton = (ImageButton) rootView.findViewById(R.id.confirm_button);
@@ -639,16 +638,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         db_ticket.close();
     }
 
-    private void deleteDB() {
-        db = db_ticket.getWritableDatabase();
-        int rows = db.delete("Ticket_table", null, null);
-        Log.i("id_ticket","del rows" + String.valueOf(rows));
 
-        rows = db.delete("Event_table",null,null);
-        Log.i("id_ticket","del rows" + String.valueOf(rows));
-
-        db_ticket.close();
-    }
 
     @Override
     public void onBackPressed() {

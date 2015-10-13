@@ -2,17 +2,21 @@ package webclever.sliding_menu;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import DataBase.DB_Ticket;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
@@ -24,14 +28,35 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
     public WhatsHotFragment(){setHasOptionsMenu(true);}
 
     //private TextView versinApp;
+    private SQLiteDatabase db;
+    private DB_Ticket db_ticket;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_whatshot,container,false);
         ((MainActivity)getActivity()).setItemChecked(5,true);
+        db_ticket = new DB_Ticket(getActivity(),5);
+        Button buttonResponse = (Button) rootView.findViewById(R.id.buttonSend);
+        buttonResponse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteDB();
+            }
+        });
 
         return rootView;
+    }
+    private void deleteDB(){
+
+            db = db_ticket.getWritableDatabase();
+            int rows = db.delete("Ticket_table", null, null);
+            Log.i("id_ticket", "del rows" + String.valueOf(rows));
+
+            rows = db.delete("Event_table",null,null);
+            Log.i("id_ticket","del rows" + String.valueOf(rows));
+
+            db_ticket.close();
     }
 
     @Override
