@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import Singleton.UserProfileSingleton;
 import Validator.Validator;
 import customlistviewapp.AppController;
 
@@ -187,13 +188,23 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                                         Log.i("Response", s);
                                         try {
                                             JSONObject jsonObjectUserData = new JSONObject(s);
+                                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
                                             if (!jsonObjectUserData.has("user")){
-                                                saveUserData(jsonObjectUserData.getInt("user_id"),
+                                            /*    saveUserData(jsonObjectUserData.getInt("user_id"),
                                                         jsonObjectUserData.getInt("token"),
                                                         jsonObjectUserData.getString("name"),
                                                         jsonObjectUserData.getString("last_name"),
                                                         jsonObjectUserData.getString("phone"),
-                                                        jsonObjectUserData.getString("email"));
+                                                        jsonObjectUserData.getString("email"));*/
+                                                userProfileSingleton.setUserId(jsonObjectUserData.getInt("user_id"));
+                                                userProfileSingleton.setToken(jsonObjectUserData.getInt("token"));
+                                                userProfileSingleton.setStatus(true);
+                                                userProfileSingleton.setName(jsonObjectUserData.getString("name"));
+                                                userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
+                                                userProfileSingleton.setPhone(jsonObjectUserData.getString("phone"));
+                                                userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));
+
+
                                             }else {
                                                 Toast.makeText(getActivity(),jsonObjectUserData.getString("user"),Toast.LENGTH_SHORT).show();
                                             }
@@ -228,15 +239,13 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                         };
 
                         AppController.getInstance().addToRequestQueue(stringPostRequest);
-                        //saveUserData();
 
                     }
                 break;
         }
 
     }
-    private void saveUserData(Integer user_id, Integer token, String name, String last_name, String phone, String email)
-    {
+    private void saveUserData(Integer user_id, Integer token, String name, String last_name, String phone, String email) {
         Toast.makeText(this.getActivity(),"User login!",Toast.LENGTH_SHORT).show();
         SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
         editor.putInt("user_id", user_id);

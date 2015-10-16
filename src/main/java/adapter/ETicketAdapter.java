@@ -2,6 +2,7 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,6 +30,8 @@ public class ETicketAdapter extends BaseAdapter  {
     private Activity activity;
     private LayoutInflater layoutInflater;
     private List<ticket_name> ticketNameList = new ArrayList<ticket_name>();
+    private int lastFocussedPosition = -1;
+    private Handler handler = new Handler();
 
 
     public ETicketAdapter(Context context,Activity activity, List<ticket_name> ticketNameList)
@@ -54,7 +57,7 @@ public class ETicketAdapter extends BaseAdapter  {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (layoutInflater == null) {
             layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -69,7 +72,32 @@ public class ETicketAdapter extends BaseAdapter  {
         TextView textViewSectorEvent = (TextView) convertView.findViewById(R.id.textViewSectorEvent);
         TextView textViewRowPlace = (TextView) convertView.findViewById(R.id.textViewRowPlace);
         TextView textViewPriceTicket = (TextView) convertView.findViewById(R.id.textViewPriceTicket);
+        final EditText editTextUserLastName = (EditText) convertView.findViewById(R.id.editTextNameUser);
+        EditText editTextUserName = (EditText) convertView.findViewById(R.id.editTextLastName);
+
+        editTextUserLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    handler.postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            if (lastFocussedPosition == -1 || lastFocussedPosition == position) {
+                                lastFocussedPosition = position;
+                                editTextUserLastName.requestFocus();
+                            }
+                        }
+                    }, 200);
+
+                } else {
+                    lastFocussedPosition = -1;
+                }
+            }
+        });
+
         final ticket_name ticketName = ticketNameList.get(position);
+
         textViewNameEvent.setText(ticketName.getName_event());
         textViewSectorEvent.setText(ticketName.getSector());
         String str = "p.:" + String.valueOf(ticketName.getRow()) + ", м.:" + String.valueOf(ticketName.getPlace());

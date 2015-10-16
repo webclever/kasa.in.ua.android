@@ -68,6 +68,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
         linearLayoutContainer = (LinearLayout) layoutInflater.inflate(R.layout.list_layout_container,null,false);
         listViewTicket.addHeaderView(linearLayoutContainer);
+        listViewTicket.setItemsCanFocus(true);
         listViewTicket.setAdapter(eTicketAdapter);
 
         EditText editTextName = (EditText) rootView.findViewById(R.id.editText11);
@@ -126,10 +127,9 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                 do {
                     Log.i("id_event_basket", String.valueOf(id_event));
 
-                    final ticket_name tickets = new ticket_name();
+
                     int id_event_basket = cursorEvent.getInt(id_event);
-                    tickets.setId_event(id_event);
-                    tickets.setName_event(cursorEvent.getString(name_event));
+
                     Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","row_ticket","place_ticket","price_ticket","id_event"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
                     if (cursorTicket != null)
                     {
@@ -138,6 +138,9 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                             if (cursorTicket.moveToFirst())
                             {
                                 do {
+                                    ticket_name tickets = new ticket_name();
+                                    tickets.setId_event(id_event);
+                                    tickets.setName_event(cursorEvent.getString(name_event));
                                     String id_ticket = cursorTicket.getString(0);
                                     String zon_ticket = cursorTicket.getString(1);
                                     String row_ticket = cursorTicket.getString(2);
@@ -238,8 +241,8 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             View view1 = listViewTicket.getChildAt(i);
             EditText editTextNameUserTicket = (EditText) view1.findViewById(R.id.editTextNameUser);
             EditText editTextLasNameUserTicket = (EditText) view1.findViewById(R.id.editTextLastName);
-            String strUserName = String.valueOf(editTextNameUserTicket.getText());
-            String strLastUserName = String.valueOf(editTextLasNameUserTicket.getText());
+            String strUserName = String.valueOf(editTextNameUserTicket.getText().toString());
+            String strLastUserName = String.valueOf(editTextLasNameUserTicket.getText().toString());
             if (!validator.isNameValid(strUserName)){
                 valid = false;
                 editTextNameUserTicket.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));

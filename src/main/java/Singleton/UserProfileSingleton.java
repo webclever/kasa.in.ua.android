@@ -10,71 +10,102 @@ import android.content.SharedPreferences;
 public class UserProfileSingleton {
     private Activity activity;
     private SharedPreferences sharedPreferencesUserData;
+    private  SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "user_profile";
-    private Boolean status = false;
-    private String name;
-    private String lName;
-    private String phone;
-    private String email;
-    private String country;
-    private String oblast;
-    private String city;
-    private String address;
-    private String newPost;
-
-
-
     public UserProfileSingleton(Activity activity) {
         this.activity = activity;
         sharedPreferencesUserData = this.activity.getSharedPreferences(APP_PREFERENCES,Context.MODE_PRIVATE);
+        editor = sharedPreferencesUserData.edit();
+    }
+    public void setStatus(Boolean statusUser){
+        editor.putBoolean("user_status",statusUser);
+        editor.commit();
     }
     public Boolean getStatus()
     {
-        return status;
+        return sharedPreferencesUserData.getBoolean("user_status", false);
     }
 
-    public String getName()
-    {
-        name = sharedPreferencesUserData.getString("user_name", "");
-        return name;
+    public void setUserId(Integer userID){
+        editor.putInt("user_id",userID);
+        editor.commit();
+    }
+
+    public Integer getUserId(){
+        return sharedPreferencesUserData.getInt("user_ud",-1);
+    }
+
+    public void setToken(Integer token){
+        editor.putInt("user_token",token);
+        editor.commit();
+    }
+
+    public Integer getToken(){
+        return sharedPreferencesUserData.getInt("user_token",-1);
+    }
+    public void setName(String name){
+        editor.putString("user_name",name);
+        editor.commit();
+    }
+    public String getName() {
+        return sharedPreferencesUserData.getString("user_name", "");
+    }
+    public void setLastName(String userLastName){
+        editor.putString("user_last_name",userLastName);
+        editor.commit();
     }
     public String getLastName(){
-        lName = sharedPreferencesUserData.getString("user_last_name", "");
-        return lName;
+        return sharedPreferencesUserData.getString("user_last_name", "");
     }
-
+    public void setPhone(String phone){
+        editor.putString("user_phone",phone);
+        editor.commit();
+    }
     public String getPhone() {
-        phone = sharedPreferencesUserData.getString("user_phone", "");
-        return phone;
+        return sharedPreferencesUserData.getString("user_phone", "");
     }
-
+    public void setEmail(String email){
+        editor.putString("user_email",email);
+        editor.commit();
+    }
     public String getEmail() {
-        email = sharedPreferencesUserData.getString("user_email", "");
-        return email;
+        return sharedPreferencesUserData.getString("user_email", "");
     }
-
+    public void setCountry(String country){
+        editor.putString("user_country",country);
+        editor.commit();
+    }
     public String getCountry(){
-        country = sharedPreferencesUserData.getString("user_country", "");
-        return country;
+        return sharedPreferencesUserData.getString("user_country", "");
     }
 
-    public String getOblast(){
-        oblast = sharedPreferencesUserData.getString("user_oblast", "");
-        return oblast;
+    public void setRegion(String region){
+        editor.putString("user_region",region);
+        editor.commit();
+    }
+    public String getRegion(){
+        return sharedPreferencesUserData.getString("user_region", "");
+    }
+    public void setCity(String city){
+        editor.putString("user_city", city);
     }
 
     public String getCity(){
-        city = sharedPreferencesUserData.getString("user_city", "");
-        return city;
+        return sharedPreferencesUserData.getString("user_city", "");
+    }
+    public void setAddress(String address){
+        editor.putString("user_address",address);
     }
 
     public String getAddress(){
-        address = sharedPreferencesUserData.getString("address","");
-        return address;
+        return sharedPreferencesUserData.getString("user_address","");
+    }
+    public void setNewPost(String numberNewPost){
+        editor.putString("number_post",numberNewPost);
+        editor.commit();
     }
 
     public String getNewPost(){
-        newPost = sharedPreferencesUserData.getString("number_post","");
-        return newPost;
+        return sharedPreferencesUserData.getString("number_post","");
     }
 }

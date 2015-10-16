@@ -60,9 +60,9 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
 
         EditText editTextOblast = (EditText) rootView.findViewById(R.id.editText19);
-        editTextOblast.setText(userProfile.getOblast());
+        editTextOblast.setText(userProfile.getRegion());
         editTextOblast.addTextChangedListener(new TextWatcherETicket(editTextOblast));
-        sparseBooleanArray.put(editTextOblast.getId(),validator.isNameValid(userProfile.getOblast()));
+        sparseBooleanArray.put(editTextOblast.getId(),validator.isNameValid(userProfile.getRegion()));
 
         EditText editTextCity = (EditText) rootView.findViewById(R.id.editText20);
         editTextCity.setText(userProfile.getCity());

@@ -8,10 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -23,6 +29,15 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import Singleton.UserProfileSingleton;
+import customlistviewapp.AppController;
+
 /**
  * Created by Женя on 06.08.2015.
  */
@@ -31,7 +46,9 @@ public class Login extends Fragment implements View.OnClickListener {
     private TwitterLoginButton loginButtonTW;
     private TextView textViewRememberPassword;
     private Button buttonLogin;
-    private Thread thread;
+    private EditText editTextUserLogin;
+    private EditText editTextUserPassword;
+    private final String url = "http://tms.webclever.in.ua/api/login";
     public Login() {
         // Required empty public constructor
     }
@@ -65,6 +82,9 @@ public class Login extends Fragment implements View.OnClickListener {
             }
         });
 
+        editTextUserLogin = (EditText) rootView.findViewById(R.id.editTextEmailLogin);
+        editTextUserPassword = (EditText) rootView.findViewById(R.id.editText25);
+
         textViewRememberPassword = (TextView) rootView.findViewById(R.id.textView73);
         textViewRememberPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,18 +101,6 @@ public class Login extends Fragment implements View.OnClickListener {
 
         buttonLogin = (Button) rootView.findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
-
-        thread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3500); // As I am using LENGTH_LONG in Toast
-                    ((LoginActivity)getActivity()).closeActivity();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
 
         return rootView;
     }
@@ -130,8 +138,71 @@ public class Login extends Fragment implements View.OnClickListener {
                 break;
             case R.id.buttonLogin:
                 Toast.makeText(this.getActivity(),"User login",Toast.LENGTH_LONG).show();
-                thread.start();
+                //thread.start();
+                LogKasa();
                 break;
         }
+    }
+
+    private void LogKasa(){
+
+        Log.i("UserLogin","UserLogin" + editTextUserLogin.getText().toString() + " UserPassword " + editTextUserPassword.getText().toString());
+        final JSONObject jsonObjectHeader = new JSONObject();
+
+        try {
+            jsonObjectHeader.put("email",editTextUserLogin.getText().toString());
+            jsonObjectHeader.put("password",editTextUserPassword.getText().toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
+                            userProfileSingleton.setUserId(jsonObjectUserData.getInt("user_id"));
+                            userProfileSingleton.setToken(jsonObjectUserData.getInt("token"));
+                            userProfileSingleton.setStatus(true);
+                            userProfileSingleton.setName(jsonObjectUserData.getString("name"));
+                            userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
+                            userProfileSingleton.setPhone(jsonObjectUserData.getString("phone"));
+                            userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));
+                            getActivity().finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+                Toast.makeText(getActivity(),"Неправильно логін або пароль!",Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
     }
 }

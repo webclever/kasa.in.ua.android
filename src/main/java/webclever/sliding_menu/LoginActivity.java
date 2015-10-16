@@ -502,7 +502,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             e.printStackTrace();
         }
 
-       /* StringRequest stringPostRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -521,10 +521,18 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
             }
-        };*/
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
 
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+        /*JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null,
                 new Response.Listener<JSONObject>() {
 
@@ -546,10 +554,10 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
             }
-        };
+        };*/
 
 
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
 
         return false;
     }
