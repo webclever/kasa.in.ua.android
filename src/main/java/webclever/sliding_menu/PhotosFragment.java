@@ -216,7 +216,7 @@ public class PhotosFragment extends Fragment implements OnBackPressedListener {
                     basket.setDate(cursorEvent.getString(date_event));
                     basket.setTimeBasket(cursorEvent.getString(time_event));
                     basket.setBasket_childArrayList(new ArrayList<Basket_Child>());
-                        Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","row_ticket","place_ticket","price_ticket","id_event"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
+                        Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","name_row_ticket","row_ticket","place_ticket","price_ticket","id_event"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
                         if (cursorTicket != null)
                         {
                             if (cursorTicket.getCount() > 0)
@@ -227,10 +227,11 @@ public class PhotosFragment extends Fragment implements OnBackPressedListener {
 
                                       String id_ticket = cursorTicket.getString(0);
                                       String zon_ticket = cursorTicket.getString(1);
-                                      String row_ticket = cursorTicket.getString(2);
-                                      String place_ticket = cursorTicket.getString(3);
-                                      String price_ticket = cursorTicket.getString(4);
-                                      String id_eventt = cursorTicket.getString(5);
+                                      String name_row_ticket = cursorTicket.getString(2);
+                                      String row_ticket = cursorTicket.getString(3);
+                                      String place_ticket = cursorTicket.getString(4);
+                                      String price_ticket = cursorTicket.getString(5);
+                                      String id_eventt = cursorTicket.getString(6);
                                       final Basket_Child basket_child = new Basket_Child();
                                       tickets ++;
                                       textViewTicket.setText("125");
@@ -239,6 +240,7 @@ public class PhotosFragment extends Fragment implements OnBackPressedListener {
                                       basket_child.setId_event(Integer.parseInt(id_eventt));
                                       basket_child.setId_ticket(Integer.parseInt(id_ticket));
                                       basket_child.setNameBasketChild(zon_ticket);
+                                      basket_child.setName_row(name_row_ticket);
                                       basket_child.setRowBasketChild(row_ticket);
                                       basket_child.setPlaceBasketChild(place_ticket);
                                       basket_child.setPriceBasketChild(price_ticket);

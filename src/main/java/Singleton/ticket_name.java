@@ -7,6 +7,7 @@ public class ticket_name  {
 
     private String name_event;
     private String sector;
+    private String name_row;
     private String row;
     private String place;
     private String price;
@@ -34,6 +35,13 @@ public class ticket_name  {
     public void setId_ticket(int id_ticket)
     {
         this.id_ticket = id_ticket;
+    }
+
+    public String getName_row(){
+        return name_row;
+    }
+    public void setName_row(String name_row){
+        this.name_row = name_row;
     }
 
     public String getName_event()

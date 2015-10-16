@@ -87,13 +87,15 @@ public class ViewBasketAdapter extends BaseAdapter {
             final  Basket_Child basket_child = arrayListBasketChild.get(i);
             final ViewGroup viewGroupTicket = (ViewGroup) LayoutInflater.from(activity).inflate(R.layout.list_basket_ticket, viewGroupTicketContainer, false);
             TextView textViewSector = (TextView) viewGroupTicket.findViewById(R.id.sectorTicketBasket);
+            TextView textViewNameRow = (TextView) viewGroupTicket.findViewById(R.id.rowdef);
             TextView textViewRow = (TextView) viewGroupTicket.findViewById(R.id.rowTicketBasket);
             TextView textViewPlace = (TextView) viewGroupTicket.findViewById(R.id.placeTicketBasket);
             TextView textViewPrice = (TextView) viewGroupTicket.findViewById(R.id.priceTicketBasket);
                 textViewSector.setText(basket_child.getNameBasketChild());
+                textViewNameRow.setText(basket_child.getName_row() + ": ");
                 textViewRow.setText(String.valueOf(basket_child.getRowBasketChild()));
                 textViewPlace.setText(basket_child.getPlaceBasketChild());
-                textViewPrice.setText(basket_child.getPriceBasketChild());
+                textViewPrice.setText(basket_child.getPriceBasketChild() + " грн.");
             final View finalV = view;
             ImageView imageView = (ImageView) viewGroupTicket.findViewById(R.id.imageViewTicketBasket);
             imageView.setOnClickListener(new View.OnClickListener() {

@@ -41,7 +41,8 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
         buttonResponse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteDB();
+                //deleteDB();
+                getActivity().getApplicationContext().deleteDatabase("DataBase_Ticket");
             }
         });
 

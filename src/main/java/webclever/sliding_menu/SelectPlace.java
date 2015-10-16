@@ -100,8 +100,10 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
     private String id_place;
     private Integer serverIdPlace;
     private String Row;
+    private String name_Row;
     private String Place;
     private String Price;
+    private String Sector;
 
     private Toast toast = null;
 
@@ -364,7 +366,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                                      JSONObject jsonObjectRow = jsonObjectInfoPlace.getJSONObject("row");
                                      JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
                                      JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
-                                     showPlaceInfo(jsonObjectRow.getString("name"),jsonObjectPlace.getString("name"),jsonObjectInfoPlace.getString("price"));
+                                     showPlaceInfo(jsonObjectSector.getString("name"),jsonObjectRow.getString("prefix"),jsonObjectRow.getString("name"),jsonObjectPlace.getString("name"),jsonObjectInfoPlace.getString("price"));
 
                                  }
 
@@ -489,8 +491,8 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         db_ticket.close();
     }
 
-    private void showPlaceInfo(String row, String place, String price){
-        String placeInfo = "Ряд:" + row + " Mісце: " + place + " | " + price +" грн.";
+    private void showPlaceInfo(String sector,String rowName,String row, String place, String price){
+        String placeInfo = rowName + ": " + row + " Mісце: " + place + " | " + price +" грн.";
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View  layoutToast = layoutInflater.inflate(R.layout.list_toast, null);
         TextView textViewToast = (TextView) layoutToast.findViewById(R.id.textViewToast);
@@ -502,9 +504,10 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         toast = new Toast(getActivity());
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layoutToast);
-        toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP,-10,130);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, -10, 130);
         toast.show();
-
+        Sector = sector;
+        name_Row = rowName;
         Row = row;
         Place = place;
         Price = price;
@@ -536,7 +539,8 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 containerTicket.put(id_place,true);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id_ticket",serverIdPlace);
-                //contentValues.put("zon_ticket",textViewSector.getText().toString());
+                contentValues.put("zon_ticket",Sector);
+                contentValues.put("name_row_ticket",name_Row);
                 contentValues.put("row_ticket",Row);
                 contentValues.put("place_ticket",Place);
                 contentValues.put("price_ticket",Price);

@@ -130,7 +130,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
                     int id_event_basket = cursorEvent.getInt(id_event);
 
-                    Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","row_ticket","place_ticket","price_ticket","id_event"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
+                    Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","name_row_ticket","row_ticket","place_ticket","price_ticket","id_event"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
                     if (cursorTicket != null)
                     {
                         if (cursorTicket.getCount() > 0)
@@ -143,14 +143,16 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                                     tickets.setName_event(cursorEvent.getString(name_event));
                                     String id_ticket = cursorTicket.getString(0);
                                     String zon_ticket = cursorTicket.getString(1);
-                                    String row_ticket = cursorTicket.getString(2);
-                                    String place_ticket = cursorTicket.getString(3);
-                                    String price_ticket = cursorTicket.getString(4);
-                                    String id_eventt = cursorTicket.getString(5);
+                                    String name_row_ticket = cursorTicket.getString(2);
+                                    String row_ticket = cursorTicket.getString(3);
+                                    String place_ticket = cursorTicket.getString(4);
+                                    String price_ticket = cursorTicket.getString(5);
+                                    String id_eventt = cursorTicket.getString(6);
 
                                     tickets.setId_event(Integer.parseInt(id_eventt));
                                     tickets.setId_ticket(Integer.parseInt(id_ticket));
                                     tickets.setSector(zon_ticket);
+                                    tickets.setName_row(name_row_ticket);
                                     tickets.setRow(row_ticket);
                                     tickets.setPlace(place_ticket);
                                     tickets.setPrice(price_ticket);
@@ -236,13 +238,13 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
     private Boolean getValidUserDataTicket() {
         Boolean valid = true;
-        for(int i=0; i < listViewTicket.getChildCount(); i++)
+        for(int i=1; i < listViewTicket.getChildCount(); i++)
         {
             View view1 = listViewTicket.getChildAt(i);
             EditText editTextNameUserTicket = (EditText) view1.findViewById(R.id.editTextNameUser);
             EditText editTextLasNameUserTicket = (EditText) view1.findViewById(R.id.editTextLastName);
-            String strUserName = String.valueOf(editTextNameUserTicket.getText().toString());
-            String strLastUserName = String.valueOf(editTextLasNameUserTicket.getText().toString());
+            String strUserName = editTextNameUserTicket.getText().toString();
+            String strLastUserName = editTextLasNameUserTicket.getText().toString();
             if (!validator.isNameValid(strUserName)){
                 valid = false;
                 editTextNameUserTicket.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));

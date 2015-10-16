@@ -21,6 +21,7 @@ public class DB_Ticket extends SQLiteOpenHelper {
                 "create table Ticket_table("+
                         "id_ticket integer primary key,"+
                         "zon_ticket text,"+
+                        "name_row_ticket text,"+
                         "row_ticket text,"+
                         "place_ticket text,"+
                         "price_ticket text,"+

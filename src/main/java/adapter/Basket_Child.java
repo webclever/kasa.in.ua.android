@@ -4,6 +4,7 @@ package adapter;
  * Created by Admin on 24.03.2015.
  */
 public class Basket_Child {
+    private String name_row;
     private String name;
     private String row;
     private String place;
@@ -26,6 +27,7 @@ public class Basket_Child {
     {
         this.id_event = id_event;
     }
+
     public int getId_ticket()
     {
         return id_ticket;
@@ -34,6 +36,14 @@ public class Basket_Child {
     {
         this.id_ticket = id_ticket;
     }
+
+    public String getName_row(){
+        return name_row;
+    }
+    public void setName_row(String name_row){
+        this.name_row = name_row;
+    }
+
     public String getNameBasketChild()
     {
         return name;
