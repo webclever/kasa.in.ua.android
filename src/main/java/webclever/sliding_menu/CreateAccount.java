@@ -190,12 +190,6 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                                             JSONObject jsonObjectUserData = new JSONObject(s);
                                             UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
                                             if (!jsonObjectUserData.has("user")){
-                                            /*    saveUserData(jsonObjectUserData.getInt("user_id"),
-                                                        jsonObjectUserData.getInt("token"),
-                                                        jsonObjectUserData.getString("name"),
-                                                        jsonObjectUserData.getString("last_name"),
-                                                        jsonObjectUserData.getString("phone"),
-                                                        jsonObjectUserData.getString("email"));*/
                                                 userProfileSingleton.setUserId(jsonObjectUserData.getInt("user_id"));
                                                 userProfileSingleton.setToken(jsonObjectUserData.getInt("token"));
                                                 userProfileSingleton.setStatus(true);
@@ -203,7 +197,8 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                                                 userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
                                                 userProfileSingleton.setPhone(jsonObjectUserData.getString("phone"));
                                                 userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));
-
+                                                Intent intent = new Intent(getActivity(),ActivitySuccessRegistration.class);
+                                                startActivity(intent);
 
                                             }else {
                                                 Toast.makeText(getActivity(),jsonObjectUserData.getString("user"),Toast.LENGTH_SHORT).show();
@@ -249,17 +244,16 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
         Toast.makeText(this.getActivity(),"User login!",Toast.LENGTH_SHORT).show();
         SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
         editor.putInt("user_id", user_id);
-        editor.putInt("user_token",token);
-        editor.putBoolean("user_status",true);
+        editor.putInt("user_token", token);
+        editor.putBoolean("user_status", true);
         editor.putString("social","Kasa.in.ua");
         editor.putString("user_name",name);
         editor.putString("user_last_name",last_name);
         editor.putString("user_phone",phone);
-        editor.putString("user_email",email);
+        editor.putString("user_email", email);
         editor.apply();
         editor.commit();
-        Intent intent = new Intent(this.getActivity(),ActivitySuccessRegistration.class);
-        startActivity(intent);
+
     }
 
     private Boolean isUserDataValid() {

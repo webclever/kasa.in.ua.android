@@ -531,32 +531,6 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             }
         };
 
-
-        /*JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                url, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i("Response",response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                        Log.i("Response_Err",error.getMessage());
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("tmssec", jsonObject.toString());
-                Log.i("Response_Header",params.get("tmssec"));
-                return params;
-            }
-        };*/
-
-
         AppController.getInstance().addToRequestQueue(stringPostRequest);
 
         return false;

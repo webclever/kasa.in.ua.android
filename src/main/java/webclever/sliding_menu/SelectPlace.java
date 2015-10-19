@@ -29,6 +29,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -456,8 +457,9 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 cursorSelectedPlace.moveToFirst();
                 for (int i=0; i < cursorSelectedPlace.getCount(); i++){
                     str = cursorSelectedPlace.getString(0);
-                    containerTicket.put(str,true);
-                    webViewSchema.loadUrl("javascript:mobileCart(\'" + str + "\',1)");
+                    containerTicket.put(str, true);
+                    webViewSchema.loadUrl("javascript:mobileCart(\'" + str + "\',1);");
+
                     cursorSelectedPlace.moveToNext();
                 }
             }

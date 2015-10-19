@@ -3,10 +3,6 @@ package webclever.sliding_menu;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.database.Cursor;
@@ -18,12 +14,10 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +26,6 @@ import DataBase.DB_Ticket;
 import Singleton.UserProfileSingleton;
 import Singleton.ticket_name;
 import Validator.Validator;
-import adapter.ETicketAdapter;
 import interfaces.OnBackPressedListener;
 
 
@@ -41,14 +34,12 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private List<ticket_name> ticket_nameList;
     private DB_Ticket db_ticket;
     private SQLiteDatabase db;
-    private ListView listViewTicket;
-    private ETicketAdapter eTicketAdapter;
-    private Boolean Name = false,LastName = false,Phone = false, EMail = false;
     private Validator validator = new Validator();
     private SparseBooleanArray sparseBooleanArray = new SparseBooleanArray();
     private UserProfileSingleton userProfile;
     private LinearLayout linearLayoutContainer;
     private LayoutInflater layoutInflater;
+    private ViewGroup viewGroupTicketContainer;
 
     public UserDataETicket() {
         // Required empty public constructor
@@ -61,15 +52,12 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         userProfile = new UserProfileSingleton(this.getActivity());
         db_ticket = new DB_Ticket(getActivity(),5);
         ticket_nameList = new ArrayList<ticket_name>();
-        listViewTicket = (ListView) rootView.findViewById(R.id.listviewcontainerticket);
-        eTicketAdapter = new ETicketAdapter(getActivity(),getActivity(),ticket_nameList);
-
+        viewGroupTicketContainer = (ViewGroup) rootView.findViewById(R.id.containerETicket);
+        layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        linearLayoutContainer = (LinearLayout) layoutInflater.inflate(R.layout.list_layout_container, viewGroupTicketContainer, false);
         addTicket();
-        layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
-        linearLayoutContainer = (LinearLayout) layoutInflater.inflate(R.layout.list_layout_container,null,false);
-        listViewTicket.addHeaderView(linearLayoutContainer);
-        listViewTicket.setItemsCanFocus(true);
-        listViewTicket.setAdapter(eTicketAdapter);
+        viewGroupTicketContainer.addView(linearLayoutContainer, 0);
+
 
         EditText editTextName = (EditText) rootView.findViewById(R.id.editText11);
         editTextName.setText(userProfile.getName());
@@ -102,6 +90,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                     fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                 }
 
+
             }
         });
         return rootView;
@@ -116,7 +105,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
     private void addTicket() {
         db = db_ticket.getWritableDatabase();
-        Cursor cursorEvent = db.query("Event_table",null,null,null,null,null,null);
+        Cursor cursorEvent = db.query("Event_table", null, null, null, null, null, null);
         if (cursorEvent != null)
         {
             if (cursorEvent.moveToFirst())
@@ -156,7 +145,8 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                                     tickets.setRow(row_ticket);
                                     tickets.setPlace(place_ticket);
                                     tickets.setPrice(price_ticket);
-
+                                    addTicketContainer(cursorEvent.getString(name_event),zon_ticket,
+                                            name_row_ticket,row_ticket,place_ticket,price_ticket);
                                     ticket_nameList.add(tickets);
 
                                 }while (cursorTicket.moveToNext());
@@ -168,12 +158,27 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
                 }while (cursorEvent.moveToNext());
 
-                //this adapter
-                eTicketAdapter.notifyDataSetChanged();
             }
             cursorEvent.close();
         }
         db_ticket.close();
+
+    }
+
+    private void addTicketContainer(String name_event,String zon_ticket,String name_row_ticket,String row_ticket,String place_ticket,String price_ticket){
+        final ViewGroup viewGroupTicket = (ViewGroup) LayoutInflater.from(this.getActivity()).inflate(R.layout.list_ticket_data,viewGroupTicketContainer,false);
+        String str = name_row_ticket+": " + row_ticket + ", м.:" + String.valueOf(place_ticket);
+        TextView textViewNameEvent = (TextView) viewGroupTicket.findViewById(R.id.textViewNameEvent);
+        TextView textViewSectorEvent = (TextView) viewGroupTicket.findViewById(R.id.textViewSectorEvent);
+        TextView textViewRowPlace = (TextView) viewGroupTicket.findViewById(R.id.textViewRowPlace);
+        TextView textViewPriceTicket = (TextView) viewGroupTicket.findViewById(R.id.textViewPriceTicket);
+
+        textViewNameEvent.setText(name_event);
+        textViewSectorEvent.setText(zon_ticket);
+        textViewRowPlace.setText(str);
+        textViewPriceTicket.setText(price_ticket + "грн.");
+
+        viewGroupTicketContainer.addView(viewGroupTicket,0);
 
     }
 
@@ -238,9 +243,9 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
     private Boolean getValidUserDataTicket() {
         Boolean valid = true;
-        for(int i=1; i < listViewTicket.getChildCount(); i++)
+        for(int i=1; i < viewGroupTicketContainer.getChildCount(); i++)
         {
-            View view1 = listViewTicket.getChildAt(i);
+            View view1 = viewGroupTicketContainer.getChildAt(i);
             EditText editTextNameUserTicket = (EditText) view1.findViewById(R.id.editTextNameUser);
             EditText editTextLasNameUserTicket = (EditText) view1.findViewById(R.id.editTextLastName);
             String strUserName = editTextNameUserTicket.getText().toString();
