@@ -11,11 +11,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentActivity;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -48,6 +50,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 
+import org.apache.http.util.EncodingUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -458,7 +461,23 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 for (int i=0; i < cursorSelectedPlace.getCount(); i++){
                     str = cursorSelectedPlace.getString(0);
                     containerTicket.put(str, true);
+
+                    ValueCallback<String> resultCallback;;
+                    resultCallback = new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String value) {
+                            Log.i("error",value);
+                        }
+                    };
+
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        webViewSchema.evaluateJavascript("javascript:mobileCart(\'" + str + "\',1);", resultCallback);
+                    } else {
+                        webViewSchema.loadUrl("javascript:mobileCart(\'" + str + "\',1);");
+                    }
+
                     webViewSchema.loadUrl("javascript:mobileCart(\'" + str + "\',1);");
+
 
                     cursorSelectedPlace.moveToNext();
                 }

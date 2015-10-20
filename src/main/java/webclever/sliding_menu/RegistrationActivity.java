@@ -61,6 +61,8 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
     private SharedPreferences sharedPreferencesUserData;
     private static final String APP_PREFERENCES = "user_profile";
 
+    private final String urlUserRegistration = "http://tms.webclever.in.ua/api/register";
+
     private GoogleApiClient mGoogleApiClient;
 
     private Boolean statusUserLogin = false;

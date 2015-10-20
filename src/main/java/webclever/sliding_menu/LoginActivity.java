@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
+
+import Singleton.UserProfileSingleton;
 import adapter.TabsPagerAdapter;
 import customlistviewapp.AppController;
 
@@ -19,11 +21,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -69,6 +73,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -291,7 +296,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                                     // Application code
                                     JSONObject jsonObjectUserInfo = response.getJSONObject();
                                     try {
-                                        startRegistrationActivity("Facebook", 1, jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), jsonObjectUserInfo.getString("email"));
+                                        startRegistrationActivity( 1, "Facebook",jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), jsonObjectUserInfo.getString("email"));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -384,7 +389,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 String personName = currentPerson.getDisplayName();
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
                 String[] userName = personName.split(" ");
-                startRegistrationActivity("Google+",3, userName[0], userName[1], email);
+                startRegistrationActivity(3,"Google+", userName[0], userName[1], email);
                 Log.e("User", "Name: " + userName[0] + userName[1] + ", email: " + email);
 
             } else {
@@ -462,7 +467,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         LoginActivity.this.finish();
     }
 
-    public void startRegistrationActivity(String social,Integer soc_id, String UserName, String UserLName, String EMail) {
+    public void startRegistrationActivity(Integer soc_id,String social, String UserName, String UserLName, String EMail) {
         Intent intent = new Intent(this,RegistrationActivity.class);
         intent.putExtra("SOCIAL",social);
         intent.putExtra("SOCIAL_ID",soc_id);
@@ -493,9 +498,9 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         final JSONObject jsonObject = new JSONObject();
         final JSONObject jsonObjectParams = new JSONObject();
         try {
-            jsonObject.put("user_id","11555166");
-            jsonObject.put("service","vkontakte");
-            jsonObject.put("name","petrovuch");
+            jsonObject.put("user_id",user_id);
+            jsonObject.put("service",social_name);
+            jsonObject.put("name",user_name);
 
             jsonObjectParams.put("token","3748563");
         } catch (JSONException e) {
@@ -507,13 +512,31 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                     @Override
                     public void onResponse(String s) {
                         Log.i("Response", s);
+                        try {
+
+                            JSONObject jsonObjectUser = new JSONObject(s);
+                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getParent());
+                            userProfileSingleton.setStatus(true);
+                            userProfileSingleton.setUserId(jsonObjectUser.getInt("user_id"));
+                            userProfileSingleton.setToken(jsonObjectUser.getInt("token"));
+                            userProfileSingleton.setName(jsonObjectUser.getString("name"));
+                            userProfileSingleton.setLastName(jsonObjectUser.getString("las_name"));
+                            userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));
+                            userProfileSingleton.setEmail(jsonObjectUser.getString("email"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                        Log.i("Response_err", volleyError.getMessage());
+                        Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+                        startRegistrationActivity(user_id,social_name,user_name,"white","zhenya@white.com");
             }
         }){
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();

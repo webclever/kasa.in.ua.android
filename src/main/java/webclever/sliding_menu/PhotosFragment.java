@@ -235,8 +235,10 @@ public class PhotosFragment extends Fragment implements OnBackPressedListener {
                                       final Basket_Child basket_child = new Basket_Child();
                                       tickets ++;
                                       textViewTicket.setText("125");
-                                      price = price + Integer.parseInt(price_ticket);
-                                      Log.i("price_ticket",String.valueOf(tickets));
+                                      if (price_ticket != null) {
+                                          price = price + Integer.parseInt(price_ticket);
+                                          Log.i("price_ticket", String.valueOf(tickets));
+                                      }
                                       basket_child.setId_event(Integer.parseInt(id_eventt));
                                       basket_child.setId_ticket(Integer.parseInt(id_ticket));
                                       basket_child.setNameBasketChild(zon_ticket);
