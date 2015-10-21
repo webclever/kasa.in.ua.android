@@ -72,7 +72,7 @@ public class Login extends Fragment implements View.OnClickListener {
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
                 Log.i("LogTW", "userLogin");
-                ((LoginActivity)getActivity()).startRegistrationActivity("Twitter",5, result.data.getUserName(), "", "");
+                //((LoginActivity)getActivity()).startRegistrationActivity("Twitter",5, result.data.getUserName(), "", "");
             }
 
             @Override
@@ -182,7 +182,7 @@ public class Login extends Fragment implements View.OnClickListener {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.i("Response_err", String.valueOf(volleyError.getMessage()));
-                Toast.makeText(getActivity(),"Неправильно логін або пароль!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Неправильний логін або пароль!",Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

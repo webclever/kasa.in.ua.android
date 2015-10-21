@@ -20,6 +20,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
@@ -33,7 +38,15 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import Singleton.UserProfileSingleton;
 import Validator.Validator;
+import customlistviewapp.AppController;
 
 /**
  * Created by Admin on 22.10.2014.
@@ -53,6 +66,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
 
     private String stringSocial;
     private Integer integerSocialID;
+    private Integer integerUserID;
     private String stringUserName;
     private String stringLUserName;
     private String stringUserPhone;
@@ -80,7 +94,8 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
 
         if (intent != null){
         stringSocial = intent.getStringExtra("SOCIAL");
-        integerSocialID = intent.getIntExtra("SOCIAL_ID",0);
+        integerSocialID = intent.getIntExtra("SOCIAL_ID", 0);
+        integerUserID = intent.getIntExtra("USER_ID",0);
         stringUserName = intent.getStringExtra("USER_NAME");
         stringLUserName = intent.getStringExtra("USER_LNAME");
         stringUserPhone = intent.getStringExtra("USER_PHONE");
@@ -100,7 +115,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
         editTextUserPhone = (EditText) findViewById(R.id.editTextPhone);
         editTextUserPhone.addTextChangedListener(new myTextWatcher(editTextUserPhone));
         editTextUserPhone.setText(stringUserPhone);
-        sparseBooleanArrayValidator.put(editTextUserPhone.getId(), validator.isPhoneValid(stringUserPhone));
+        sparseBooleanArrayValidator.put(editTextUserPhone.getId(), validator.isPhoneValid("+380"));
         editTextUserEmail = (EditText) findViewById(R.id.editTextEmailAddress);
         editTextUserEmail.addTextChangedListener(new myTextWatcher(editTextUserEmail));
         editTextUserEmail.setText(stringUserEMail);
@@ -110,20 +125,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
             @Override
             public void onClick(View v) {
                 if (validation()) {
-                    Toast.makeText(RegistrationActivity.this, "Ви успішно зареєструвались", Toast.LENGTH_LONG).show();
-                    SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
-
-                    editor.putBoolean("user_status", true);
-                    editor.putString("social", stringSocial);
-                    editor.putInt("social_id", integerSocialID);
-                    editor.putString("user_name", editTextUserName.getText().toString());
-                    editor.putString("user_last_name", editTextUserLastNAme.getText().toString());
-                    editor.putString("user_phone", editTextUserPhone.getText().toString());
-                    editor.putString("user_email", editTextUserEmail.getText().toString());
-                    editor.apply();
-                    statusUserLogin = true;
-                    Intent intent = new Intent(getApplicationContext(), ActivitySuccessRegistration.class);
-                    startActivity(intent);
+                   RegistrationUser();
                 }
             }
         });
@@ -158,6 +160,80 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                 .build();
 
 
+    }
+
+    private void RegistrationUser(){
+
+        String url = "http://tms.webclever.in.ua/api/register";
+        final JSONObject jsonObject = new JSONObject();
+        final JSONObject jsonObjectParams = new JSONObject();
+        try {
+
+            jsonObject.put("user_id",integerSocialID);
+            jsonObject.put("service",stringSocial);
+            jsonObject.put("name",editTextUserName.getText().toString());
+
+            jsonObjectParams.put("last_name",editTextUserLastNAme.getText().toString());
+            jsonObjectParams.put("email",editTextUserEmail.getText().toString());
+            jsonObjectParams.put("phone",editTextUserPhone.getText().toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+
+                            JSONObject jsonObjectUser = new JSONObject(s);
+                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getParent());
+                            userProfileSingleton.setStatus(true);
+                            userProfileSingleton.setUserId(jsonObjectUser.getInt("user_id"));
+                            userProfileSingleton.setToken(jsonObjectUser.getInt("token"));
+                            userProfileSingleton.setName(jsonObjectUser.getString("name"));
+                            userProfileSingleton.setLastName(jsonObjectUser.getString("las_name"));
+                            userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));
+                            userProfileSingleton.setEmail(jsonObjectUser.getString("email"));
+                            statusUserLogin = true;
+                            Toast.makeText(RegistrationActivity.this, "Ви успішно зареєструвались", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), ActivitySuccessRegistration.class);
+                            startActivity(intent);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+            }
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("tmssec", jsonObject.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token","3748563");
+                params.put("userInfo",jsonObjectParams.toString());
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 
     @Override
@@ -292,6 +368,8 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
         LogOut(integerSocialID);
         finish();
     }
+
+
 
 
 }

@@ -92,7 +92,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
-                ((LoginActivity) getActivity()).startRegistrationActivity("Twitter",5, result.data.getUserName(), "", "");
+                //((LoginActivity) getActivity()).startRegistrationActivity("Twitter",5, result.data.getUserName(), "", "");
             }
 
             @Override

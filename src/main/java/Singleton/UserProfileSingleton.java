@@ -108,4 +108,24 @@ public class UserProfileSingleton {
     public String getNewPost(){
         return sharedPreferencesUserData.getString("number_post","");
     }
+
+    public Integer getSocialId(){
+        return sharedPreferencesUserData.getInt("social_id", -1);
+    }
+
+    public void setSocialId(Integer socialId){
+        editor.putInt("social_id", socialId);
+        editor.commit();
+    }
+
+    public String getNameSocial(){
+        return sharedPreferencesUserData.getString("name_social","");
+    }
+
+    public void setNameSocial(String social_name){
+        editor.putString("social_name", social_name);
+        editor.commit();
+    }
+
+
 }
