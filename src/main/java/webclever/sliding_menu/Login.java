@@ -71,8 +71,9 @@ public class Login extends Fragment implements View.OnClickListener {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
+
                 Log.i("LogTW", "userLogin");
-                //((LoginActivity)getActivity()).startRegistrationActivity("Twitter",5, result.data.getUserName(), "", "");
+                ((LoginActivity)getActivity()).checkUserSigInKasa(String.valueOf(result.data.getUserId()),result.data.getUserName(),"","","Twitter",6);
             }
 
             @Override
@@ -166,7 +167,9 @@ public class Login extends Fragment implements View.OnClickListener {
                         try {
                             JSONObject jsonObjectUserData = new JSONObject(s);
                             UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
-                            userProfileSingleton.setUserId(jsonObjectUserData.getInt("user_id"));
+                            userProfileSingleton.setNameSocial("Kasa.in.ua");
+                            userProfileSingleton.setSocialId(0);
+                            userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUserData.getInt("token"));
                             userProfileSingleton.setStatus(true);
                             userProfileSingleton.setName(jsonObjectUserData.getString("name"));

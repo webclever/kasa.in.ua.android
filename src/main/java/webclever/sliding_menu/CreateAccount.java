@@ -92,7 +92,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
-                //((LoginActivity) getActivity()).startRegistrationActivity("Twitter",5, result.data.getUserName(), "", "");
+                ((LoginActivity)getActivity()).checkUserSigInKasa(String.valueOf(result.data.getUserId()),result.data.getUserName(),"","","Twitter",6);
             }
 
             @Override
@@ -190,7 +190,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                                             JSONObject jsonObjectUserData = new JSONObject(s);
                                             UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
                                             if (!jsonObjectUserData.has("user")){
-                                                userProfileSingleton.setUserId(jsonObjectUserData.getInt("user_id"));
+                                                userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
                                                 userProfileSingleton.setToken(jsonObjectUserData.getInt("token"));
                                                 userProfileSingleton.setStatus(true);
                                                 userProfileSingleton.setName(jsonObjectUserData.getString("name"));
@@ -238,21 +238,6 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                     }
                 break;
         }
-
-    }
-    private void saveUserData(Integer user_id, Integer token, String name, String last_name, String phone, String email) {
-        Toast.makeText(this.getActivity(),"User login!",Toast.LENGTH_SHORT).show();
-        SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
-        editor.putInt("user_id", user_id);
-        editor.putInt("user_token", token);
-        editor.putBoolean("user_status", true);
-        editor.putString("social","Kasa.in.ua");
-        editor.putString("user_name",name);
-        editor.putString("user_last_name",last_name);
-        editor.putString("user_phone",phone);
-        editor.putString("user_email", email);
-        editor.apply();
-        editor.commit();
 
     }
 

@@ -36,6 +36,7 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import Singleton.UserProfileSingleton;
 import Validator.Validator;
 import interfaces.OnBackPressedListener;
 
@@ -61,8 +62,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     private Spinner spinnerOblast;
     private Spinner spinnerCity;
 
-    private SharedPreferences sharedPreferencesUserData;
-    private static final String APP_PREFERENCES = "user_profile";
+    private UserProfileSingleton userProfile;
 
     private SparseBooleanArray sparseBooleanArrayValidator;
     private Validator validator;
@@ -75,35 +75,34 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     {
         View rootView = inflater.inflate(R.layout.fragment_pages,container,false);
         ((MainActivity)getActivity()).setItemChecked(6,true);
+        userProfile = new UserProfileSingleton(getActivity());
         sparseBooleanArrayValidator = new SparseBooleanArray();
         validator = new Validator();
-        sharedPreferencesUserData = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         textViewSigIn = (TextView) rootView.findViewById(R.id.textViewSigIn);
-        textViewSigIn.setText(sharedPreferencesUserData.getString("social",""));
-        validator = new Validator();
+        textViewSigIn.setText(userProfile.getNameSocial());
+
         editTextName = (EditText) rootView.findViewById(R.id.editText2);
-        editTextName.setText(sharedPreferencesUserData.getString("user_name", ""));
+        editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new MyTextWatcher(editTextName));
-        sparseBooleanArrayValidator.put(editTextName.getId(), validator.isNameValid(sharedPreferencesUserData.getString("user_name", "")));
+        sparseBooleanArrayValidator.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
         editTextLName = (EditText) rootView.findViewById(R.id.editText27);
-        editTextLName.setText(sharedPreferencesUserData.getString("user_last_name", ""));
+        editTextLName.setText(userProfile.getLastName());
         editTextLName.addTextChangedListener(new MyTextWatcher(editTextLName));
-        sparseBooleanArrayValidator.put(editTextLName.getId(), validator.isNameValid(sharedPreferencesUserData.getString("user_last_name", "")));
+        sparseBooleanArrayValidator.put(editTextLName.getId(), validator.isNameValid(userProfile.getLastName()));
         editTextPhone = (EditText) rootView.findViewById(R.id.editText3);
-        editTextPhone.setText(sharedPreferencesUserData.getString("user_phone", ""));
+        editTextPhone.setText(userProfile.getPhone());
         editTextPhone.addTextChangedListener(new MyTextWatcher(editTextPhone));
-        sparseBooleanArrayValidator.put(editTextPhone.getId(), validator.isPhoneValid(sharedPreferencesUserData.getString("user_phone", "")));
+        sparseBooleanArrayValidator.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
         editTextEmail = (EditText) rootView.findViewById(R.id.editText4);
-        editTextEmail.setText(sharedPreferencesUserData.getString("user_email", ""));
+        editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new MyTextWatcher(editTextEmail));
-        sparseBooleanArrayValidator.put(editTextEmail.getId(), validator.isEmailValid(sharedPreferencesUserData.getString("user_email", "")));
+        sparseBooleanArrayValidator.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
 
         editTextAddress = (EditText)rootView.findViewById(R.id.editText8);
-        editTextAddress.setText(sharedPreferencesUserData.getString("address",""));
+        editTextAddress.setText(userProfile.getAddress());
         editTextNPost = (EditText)rootView.findViewById(R.id.editText9);
-        editTextNPost.setText(sharedPreferencesUserData.getString("number_post", ""));
-
-        //editTextAddress.addTextChangedListener(new MyTextWatcher(editTextName));
+        editTextNPost.setText(userProfile.getNewPost());
 
         Button mButtonSaveChange = (Button) rootView.findViewById(R.id.savechangebutton);
         mButtonSaveChange.setOnClickListener(new View.OnClickListener() {
@@ -120,10 +119,8 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
         buttonExitAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logOutSocial(sharedPreferencesUserData.getInt("social_id", 0));
-                SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
-                editor.clear();
-                editor.apply();
+                logOutSocial(userProfile.getSocialId());
+                userProfile.deleteUserData();
                 ((MainActivity) getActivity()).changeMenuItems(false);
                 Toast.makeText(getActivity(), "User is Logout !", Toast.LENGTH_SHORT).show();
                 Fragment fragment = new HomeFragment();
@@ -135,7 +132,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
         Button buttonChangePassword = (Button) rootView.findViewById(R.id.buttonChangePassword);
         buttonChangePassword.setEnabled(false);
         buttonChangePassword.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-        if (sharedPreferencesUserData.getInt("social_id", 0) == 0){
+        if (userProfile.getSocialId() == 0){
             buttonChangePassword.setEnabled(true);
             buttonChangePassword.getBackground().setColorFilter(null);
             buttonChangePassword.setOnClickListener(new View.OnClickListener() {
@@ -291,15 +288,15 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     }
 
     private Boolean SaveUserData(){
-        SharedPreferences.Editor editor = sharedPreferencesUserData.edit();
-        editor.putString("social",textViewSigIn.getText().toString());
-        editor.putString("user_name",editTextName.getText().toString());
-        editor.putString("user_last_name",editTextLName.getText().toString());
-        editor.putString("user_phone",editTextPhone.getText().toString());
-        editor.putString("user_email",editTextEmail.getText().toString());
-        editor.putString("address",editTextAddress.getText().toString());
-        editor.putString("number_post",editTextNPost.getText().toString());
-        editor.apply();
+
+        userProfile.setName(editTextName.getText().toString());
+        userProfile.setLastName(editTextLName.getText().toString());
+        userProfile.setPhone(editTextPhone.getText().toString());
+        userProfile.setEmail(editTextEmail.getText().toString());
+        userProfile.setAddress(editTextAddress.getText().toString());
+        userProfile.setNewPost(editTextNPost.getText().toString());
+
+
         return true;
     }
 

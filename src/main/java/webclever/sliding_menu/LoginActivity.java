@@ -6,6 +6,8 @@ import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.renderscript.Long2;
+import android.renderscript.Long4;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -244,8 +246,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 try {
                     JSONArray jsonArrayUserInfo = response.json.getJSONArray("response");
                     JSONObject jsonObjectUserInfo = jsonArrayUserInfo.getJSONObject(0);
-                    //startRegistrationActivity("Vkontakte", 2, jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), mail);
-                    checkUserSigInKasa(jsonObjectUserInfo.getInt("id"),jsonObjectUserInfo.getString("first_name"),jsonObjectUserInfo.getString("last_name"),mail,"vkontakte", 2);
+                    checkUserSigInKasa(jsonObjectUserInfo.getString("id"),jsonObjectUserInfo.getString("first_name"),jsonObjectUserInfo.getString("last_name"),mail,"Vkontakte", 2);
 
                     Log.i("User", "VK " + response.json.toString());
                 } catch (JSONException e) {
@@ -285,7 +286,6 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 @Override
                 public void onSuccess(LoginResult loginResult) {
                     // App code
-                    Log.i("user", "Login user Facebook!");
                     GraphRequest request = GraphRequest.newMeRequest(
                             loginResult.getAccessToken(),
                             new GraphRequest.GraphJSONObjectCallback() {
@@ -296,12 +296,15 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                                     // Application code
                                     try {
                                         JSONObject jsonObjectUserInfo = response.getJSONObject();
-                                        startRegistrationActivity(jsonObjectUserInfo.getInt("id"), jsonObjectUserInfo.getString("first_name"), jsonObjectUserInfo.getString("last_name"), jsonObjectUserInfo.getString("email"),"Facebook",1);
+                                        checkUserSigInKasa(jsonObjectUserInfo.getString("id"),
+                                                jsonObjectUserInfo.getString("first_name"),
+                                                jsonObjectUserInfo.getString("last_name"),
+                                                jsonObjectUserInfo.getString("email"),
+                                                "Facebook", 1);
                                         Log.i("Response_data_Facebook",jsonObjectUserInfo.toString());
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    Log.i("User", response.toString());
                                 }
                             });
                     Bundle parameters = new Bundle();
@@ -389,9 +392,10 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
                 String personName = currentPerson.getDisplayName();
                 String user_id = currentPerson.getId();
+
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
                 String[] userName = personName.split(" ");
-                startRegistrationActivity(Integer.parseInt(user_id),userName[0],userName[1],email,"Google+",3);
+                checkUserSigInKasa(user_id, userName[0], userName[1], email, "Google+", 3);
                 Log.e("User", "Name: " + userName[0] + userName[1] + ", email: " + email);
 
             } else {
@@ -485,7 +489,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
     }
 
-    private boolean checkUserSigInKasa(final Integer user_id, final String user_name, final String user_last_name, final String user_email, final String social_name, final Integer soc_id){
+    public void checkUserSigInKasa(final String user_id, final String user_name, final String user_last_name, final String user_email, final String social_name, final Integer soc_id){
 
 
 
@@ -512,12 +516,14 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                             JSONObject jsonObjectUser = new JSONObject(s);
                             UserProfileSingleton userProfileSingleton = new UserProfileSingleton(LoginActivity.this);
                             userProfileSingleton.setStatus(true);
-                            userProfileSingleton.setUserId(jsonObjectUser.getInt("user_id"));
+                            userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUser.getInt("token"));
                             userProfileSingleton.setName(jsonObjectUser.getString("name"));
                             userProfileSingleton.setLastName(jsonObjectUser.getString("last_name"));
                             userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));
                             userProfileSingleton.setEmail(jsonObjectUser.getString("email"));
+                            userProfileSingleton.setNameSocial(social_name);
+                            userProfileSingleton.setSocialId(soc_id);
                             closeActivity();
 
                         } catch (JSONException e) {
@@ -553,10 +559,9 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);
 
-        return false;
     }
 
-    public void startRegistrationActivity(Integer user_id,String user_name, String user_last_name, String user_email, String social_name, Integer social_id) {
+    public void startRegistrationActivity(String user_id,String user_name, String user_last_name, String user_email, String social_name, Integer social_id) {
 
         Intent intent = new Intent(this,RegistrationActivity.class);
         intent.putExtra("SOCIAL",social_name);

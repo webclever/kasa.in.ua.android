@@ -26,13 +26,13 @@ public class UserProfileSingleton {
         return sharedPreferencesUserData.getBoolean("user_status", false);
     }
 
-    public void setUserId(Integer userID){
-        editor.putInt("user_id",userID);
+    public void setUserId(String userID){
+        editor.putString("user_id",userID);
         editor.commit();
     }
 
-    public Integer getUserId(){
-        return sharedPreferencesUserData.getInt("user_ud",-1);
+    public String getUserId(){
+        return sharedPreferencesUserData.getString("user_ud","");
     }
 
     public void setToken(Integer token){
@@ -119,12 +119,17 @@ public class UserProfileSingleton {
     }
 
     public String getNameSocial(){
-        return sharedPreferencesUserData.getString("name_social","");
+        return sharedPreferencesUserData.getString("social_name","");
     }
 
     public void setNameSocial(String social_name){
         editor.putString("social_name", social_name);
         editor.commit();
+    }
+
+    public void deleteUserData(){
+        editor.clear();
+        editor.apply();
     }
 
 

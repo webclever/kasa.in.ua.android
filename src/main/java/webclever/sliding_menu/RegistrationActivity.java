@@ -66,15 +66,11 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
 
     private String stringSocial;
     private Integer integerSocialID;
-    private Integer integerUserID;
+    private String stringUserID;
     private String stringUserName;
     private String stringLUserName;
     private String stringUserPhone;
     private String stringUserEMail;
-
-    private SharedPreferences sharedPreferencesUserData;
-    private static final String APP_PREFERENCES = "user_profile";
-
     private final String urlUserRegistration = "http://tms.webclever.in.ua/api/register";
 
     private GoogleApiClient mGoogleApiClient;
@@ -90,12 +86,12 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
 
-        sharedPreferencesUserData = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
 
         if (intent != null){
         stringSocial = intent.getStringExtra("SOCIAL");
         integerSocialID = intent.getIntExtra("SOCIAL_ID", 0);
-        integerUserID = intent.getIntExtra("USER_ID",0);
+        stringUserID = intent.getStringExtra("USER_ID");
         stringUserName = intent.getStringExtra("USER_NAME");
         stringLUserName = intent.getStringExtra("USER_LNAME");
         stringUserPhone = intent.getStringExtra("USER_PHONE");
@@ -169,7 +165,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
         final JSONObject jsonObjectParams = new JSONObject();
         try {
 
-            jsonObject.put("user_id",integerSocialID);
+            jsonObject.put("user_id",stringUserID);
             jsonObject.put("service",stringSocial);
             jsonObject.put("name",editTextUserName.getText().toString());
 
@@ -189,12 +185,14 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                         try {
 
                             JSONObject jsonObjectUser = new JSONObject(s);
-                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getParent());
+                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(RegistrationActivity.this);
+                            userProfileSingleton.setNameSocial(stringSocial);
+                            userProfileSingleton.setSocialId(integerSocialID);
                             userProfileSingleton.setStatus(true);
-                            userProfileSingleton.setUserId(jsonObjectUser.getInt("user_id"));
+                            userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUser.getInt("token"));
                             userProfileSingleton.setName(jsonObjectUser.getString("name"));
-                            userProfileSingleton.setLastName(jsonObjectUser.getString("las_name"));
+                            userProfileSingleton.setLastName(jsonObjectUser.getString("last_name"));
                             userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));
                             userProfileSingleton.setEmail(jsonObjectUser.getString("email"));
                             statusUserLogin = true;
