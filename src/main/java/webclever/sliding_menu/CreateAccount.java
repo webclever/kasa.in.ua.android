@@ -1,10 +1,7 @@
 package webclever.sliding_menu;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -24,21 +21,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.common.SignInButton;
-import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.vk.sdk.VKCallback;
-import com.vk.sdk.VKSdk;
-import com.vk.sdk.api.VKError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,12 +49,9 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
     private EditText editTextEMail;
     private EditText editTextPassword;
     private EditText editTextCPassword;
-    private Button buttonCreateAccount;
     private SparseBooleanArray sparseBooleanArrayValidator;
     private Validator validator = new Validator();
-    private SharedPreferences sharedPreferencesUserData;
-    private static final String APP_PREFERENCES = "user_profile";
-    private String url="http://tms.webclever.in.ua/api/register";
+
     public CreateAccount() {
         // Required empty public constructor
     }
@@ -82,7 +66,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_account, container, false);
         // Inflate the layout for this fragment
-        sharedPreferencesUserData = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         ImageView btnSignIn = (ImageView) rootView.findViewById(R.id.sign_in_button);
         btnSignIn.setOnClickListener(this);
 
@@ -126,7 +110,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
         editTextCPassword = (EditText) rootView.findViewById(R.id.editTextConfirmPasswordCreateAccount);
         editTextCPassword.addTextChangedListener(new myTextWatcher(editTextCPassword));
         sparseBooleanArrayValidator.put(editTextCPassword.getId(), false);
-        buttonCreateAccount = (Button) rootView.findViewById(R.id.buttonCreateAccount);
+        Button buttonCreateAccount = (Button) rootView.findViewById(R.id.buttonCreateAccount);
         buttonCreateAccount.setOnClickListener(this);
 
         return rootView;
@@ -180,6 +164,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
 
+                        String url = "http://tms.webclever.in.ua/api/register";
                         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>()
                                 {
@@ -217,7 +202,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
                         }){
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                Map<String, String> params = new HashMap<String, String>();
+                                Map<String, String> params = new HashMap<>();
                                 params.put("tmssec", jsonObjectHeader.toString());
                                 Log.i("Response_Header",params.get("tmssec"));
                                 return params;
@@ -225,7 +210,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
 
                             @Override
                             protected Map<String, String> getParams() {
-                                Map<String, String> params = new HashMap<String, String>();
+                                Map<String, String> params = new HashMap<>();
                                 params.put("token","3748563");
                                 params.put("userInfo", jsonObjectBody.toString());
                                 Log.i("Params",params.toString());

@@ -16,6 +16,7 @@
         <item >Про програму</item>
         <item >Ваш акаунт</item>
         <item >Вхід/Реєстрація</item>
+        <item >Контакти</item>
     </string-array>
 
     <integer name="com_vk_sdk_AppId">4785213</integer>
@@ -30,6 +31,7 @@
         <item>@drawable/ic_action_place</item>
         <item>@drawable/ic_action_about</item>
         <item>@mipmap/ic_launcher_profile</item>
+        <item>@mipmap/ic_call_white</item>
     </array>
 
     <string name="price">Ціни</string>
@@ -45,5 +47,7 @@
     <string name="description_event">ОПИС ПОДІЇ</string>
     <string name="forgot_password"><u>Забули пароль?</u></string>
     <string name="number_ordering_text">Ви можете отримати ваші квитки в найбличій касі. Ваше замовлення діятиме протягом трьох днів. Будь ласка, не демонструйте квитки стороннім людям. Яскравих вражень!</string>
+    <string name="web_site_kasa_in_ua"><u>www.kasa.in.ua</u></string>
+    <string name="email_kasa_in_ua"><u>info@kasa.in.ua</u></string>
 
 </resources>

@@ -131,6 +131,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],navMenuIcons.getResourceId(2,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],navMenuIcons.getResourceId(3,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],navMenuIcons.getResourceId(5,-1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[8],navMenuIcons.getResourceId(8,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],navMenuIcons.getResourceId(6,-1)));
 
         if (getStatusUser()){
@@ -201,9 +202,9 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     public void changeMenuItems(Boolean statusUser) {
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
         if (statusUser) {
-            navDrawerItems.set(6, new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(4, -1)));
+            navDrawerItems.set(7, new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(4, -1)));
     }   else {
-            navDrawerItems.set(6, new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
+            navDrawerItems.set(7, new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
         }
         adapter.notifyDataSetChanged();
     }
@@ -323,13 +324,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 previousPos = 4;
                 break;
             case 5:
-                fragment = new WhatsHotFragment();
+                fragment = new FragmentContacts();
                 previousPos = 5;
                 break;
             case 6:
+                fragment = new WhatsHotFragment();
+                previousPos = 6;
+                break;
+            case 7:
                 if (getStatusUser()){
                     fragment = new PagesFragment();
-                    previousPos = 6;
+                    previousPos = 7;
                 }else {
 
                     FragmentManager fragmentManager = getFragmentManager();
@@ -347,8 +352,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 break;
             default:
                 break;
-
         }
+
         if(fragment != null)
         {
             FragmentManager fragmentManager = getFragmentManager();
