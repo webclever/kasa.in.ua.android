@@ -74,7 +74,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_pages,container,false);
-        ((MainActivity)getActivity()).setItemChecked(6,true);
+        ((MainActivity)getActivity()).setItemChecked(7,true);
         userProfile = new UserProfileSingleton(getActivity());
         sparseBooleanArrayValidator = new SparseBooleanArray();
         validator = new Validator();
@@ -196,7 +196,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
         getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
-
+        if (!((MainActivity) getActivity()).getCountTicket().equals("0")){
         MenuItem item = menu.findItem(R.id.menuCount);
         RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +210,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
         TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
         textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
 
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater);}
     }
 
     @Override
@@ -329,7 +329,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     @Override
     public void onDestroyView () {
 
-        ((MainActivity)getActivity()).setItemChecked(6,false);
+        ((MainActivity)getActivity()).setItemChecked(7,false);
         super.onDestroyView();
     }
 

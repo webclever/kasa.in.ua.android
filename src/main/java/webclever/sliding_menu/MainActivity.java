@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -41,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataBase.DB_Ticket;
-import Singleton.UserProfileSingleton;
 import adapter.NavDrawerListAdapter;
 import interfaces.OnBackPressedListener;
 import location.AppLocationService;
@@ -70,7 +68,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
-    private static String TAG = MainActivity.class.getSimpleName();
+
 
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
@@ -83,7 +81,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     private Address fetchedAddress;
     public static final String APP_PREFERENCES = "user_profile";
     private SharedPreferences sPref;
-    private String STATUS_USER = "status_user";
     private AppLocationService appLocationService;
 
     private DB_Ticket db_ticket;
@@ -98,7 +95,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db_ticket = new DB_Ticket(this,5);
-        addresses = new ArrayList<Address>();
+        addresses = new ArrayList<>();
         appLocationService = new AppLocationService(MainActivity.this);
         sPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -120,24 +117,25 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
 
-        mDrawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList=(ListView) findViewById(R.id.list_slidermenu);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
         mDrawerList.setOnItemClickListener( new SlideMenuClickListener());
 
-        navDrawerItems = new ArrayList<NavDrawerItem>();
+        navDrawerItems = new ArrayList<>();
 
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0],navMenuIcons.getResourceId(0,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],navMenuIcons.getResourceId(1,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],navMenuIcons.getResourceId(2,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],navMenuIcons.getResourceId(3,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],navMenuIcons.getResourceId(5,-1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[8],navMenuIcons.getResourceId(8,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],navMenuIcons.getResourceId(6,-1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],navMenuIcons.getResourceId(7,-1)));
+
 
         if (getStatusUser()){
-            navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],navMenuIcons.getResourceId(4,-1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],navMenuIcons.getResourceId(4,-1)));
         }else {
-            navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],navMenuIcons.getResourceId(7,-1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[8],navMenuIcons.getResourceId(8,-1)));
         }
 
         navMenuIcons.recycle();
@@ -163,7 +161,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                     imm.hideSoftInputFromWindow(viewKeyboard.getWindowToken(), 0);
                 }
                 getActionBar().setTitle(mDrawerTitle);
-                //invalidateOptionsMenu();
             }
         };
 
@@ -200,11 +197,12 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     }
 
     public void changeMenuItems(Boolean statusUser) {
+
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
         if (statusUser) {
-            navDrawerItems.set(7, new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(4, -1)));
+            navDrawerItems.set(7, new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(4, -1)));
     }   else {
-            navDrawerItems.set(7, new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
+            navDrawerItems.set(7, new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1)));
         }
         adapter.notifyDataSetChanged();
     }
@@ -239,21 +237,11 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
        // int id = item.getItemId();
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
-        /*switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            default:
-            return super.onOptionsItemSelected(item);
-        }*/
-
         return false;
 
     }
@@ -300,7 +288,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     private void displayView (int position) {
         Fragment fragment = null;
-
         switch (position)
         {
             case 0:
@@ -343,7 +330,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                         previousPos = -1;
                     }
                     Intent intent = new Intent(this, LoginActivity.class);
-                    intent.putExtra("position",previousPos);
                     startActivityForResult(intent, 1);
 
                     mDrawerList.setItemChecked(position, true);
@@ -358,7 +344,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container,fragment,"1").commit();
-            mDrawerList.setItemChecked(position,true);
+            mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
             setTitle(navMenuTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
@@ -372,17 +358,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     public void setItemChecked(int position, Boolean status){
         mDrawerList.setItemChecked(position,status);
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (data != null ) {
             if (data.getIntExtra("position", -1) != -1){
-                Log.i("position", String.valueOf(data.getIntExtra("position", -1)));
                 Integer position = data.getIntExtra("position",-1);
                 mDrawerList.setItemChecked(position, true);
             }else {
-                mDrawerList.setItemChecked(6, false);
+                mDrawerList.setItemChecked(7, false);
             }
 
         }

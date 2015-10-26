@@ -40,11 +40,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="?android:selectableItemBackground"
         android:textSize="15sp"
-        android:textColor="@color/year"
-        android:text=" +38 093 0000 754,\n +38 066 0000 754,\n +38 097 0000 754."
+        android:textColor="@color/price"
+        android:text="@string/kasa_phone3"
         android:id="@+id/textView33"
-        android:layout_below="@+id/textView32"
+        android:layout_below="@+id/textView97"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 
@@ -57,20 +58,19 @@
         android:text="Сайт:"
         android:id="@+id/textView44"
         android:layout_below="@+id/textView33"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="?android:selectableItemBackground"
         android:textSize="15sp"
         android:textColor="@color/price"
         android:text="@string/web_site_kasa_in_ua"
         android:id="@+id/textViewKasaInUa"
         android:layout_below="@+id/textView44"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,20 +81,19 @@
         android:text="e-mail:"
         android:id="@+id/textView96"
         android:layout_below="@+id/textViewKasaInUa"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="?android:selectableItemBackground"
         android:textSize="15sp"
         android:textColor="@color/price"
         android:text="@string/email_kasa_in_ua"
         android:id="@+id/textViewMailKasa"
         android:layout_below="@+id/textView96"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp" />
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="match_parent"
@@ -108,6 +107,32 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="?android:selectableItemBackground"
+        android:textSize="15sp"
+        android:textColor="@color/price"
+        android:text="@string/kasa_phone1"
+        android:id="@+id/textView46"
+        android:layout_below="@+id/textView32"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="?android:selectableItemBackground"
+        android:textSize="15sp"
+        android:textColor="@color/price"
+        android:text="@string/kasa_phone2"
+        android:id="@+id/textView97"
+        android:layout_below="@+id/textView46"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
 
 
 </RelativeLayout>

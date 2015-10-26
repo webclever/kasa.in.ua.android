@@ -44,16 +44,14 @@ import interfaces.OnBackPressedListener;
 import static webclever.sliding_menu.R.id.frame_container;
 //import static webclever.sliding_menu.R.id.loginText;
 
-/**
- * Created by Admin on 17.02.2015.
- */
+
 public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelectedListener , OnBackPressedListener {
 
     private static String TAG = MainActivity.class.getSimpleName();
     private static final String url="http://location.webclever.in.ua/api/getCities";
     private static final String url_kasa_city="http://location.webclever.in.ua/api/getPointsByCity?id=";
 
-    private List<Loc_Kasa_Singelton> kasaList = new ArrayList<Loc_Kasa_Singelton>();
+    private List<Loc_Kasa_Singelton> kasaList = new ArrayList<>();
     private ListView listView;
     private LocKasaAdapter locKasaAdapter;
     private Spinner spinner;
@@ -61,7 +59,6 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     private ObjectSpinnerAdapter objectSpinnerAdapter;
     private String nameCity;
     private SharedPreferences sharedPreferencesNameCity;
-    private Integer idCity;
     private SharedPreferences sharedPreferencesAutoLoc;
     float distance;
     int position = 0;
@@ -80,7 +77,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
 
         spinner = (Spinner) rootView.findViewById(R.id.select_city_spinner);
         spinner.setOnItemSelectedListener(this);
-        singletonCityList = new ArrayList<SingletonCity>();
+        singletonCityList = new ArrayList<>();
         objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),singletonCityList);
         spinner.setAdapter(objectSpinnerAdapter);
         listView = (ListView) rootView.findViewById(R.id.list_address);
@@ -96,8 +93,8 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
+        if (!((MainActivity) getActivity()).getCountTicket().equals("0")){
         getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
-
         MenuItem item = menu.findItem(R.id.menuCount);
         RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +108,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
         TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
         textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
 
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater);}
     }
 
     private void getJSonCity(String url) {

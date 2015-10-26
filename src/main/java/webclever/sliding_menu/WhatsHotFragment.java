@@ -33,7 +33,7 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_whatshot,container,false);
-        ((MainActivity)getActivity()).setItemChecked(5,true);
+        ((MainActivity)getActivity()).setItemChecked(6,true);
         //db_ticket = new DB_Ticket(getActivity(),5);
         Calendar calendar = Calendar.getInstance();
 
@@ -68,6 +68,7 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
+        if (!((MainActivity) getActivity()).getCountTicket().equals("0")){
         getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
         MenuItem item = menu.findItem(R.id.menuCount);
         RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
@@ -81,7 +82,7 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
         });
         TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
         textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater);}
     }
 
     @Override
@@ -97,7 +98,7 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
     @Override
     public void onDestroyView ()
     {
-        ((MainActivity)getActivity()).setItemChecked(5, false);
+        ((MainActivity)getActivity()).setItemChecked(6, false);
         super.onDestroyView();
     }
 
