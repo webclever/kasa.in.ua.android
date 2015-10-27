@@ -43,47 +43,51 @@
                 android:id="@+id/iventDate"
                 android:layout_width="wrap_content"
                 android:layout_height="17dp"
-                android:text="05.12.2014"
                 android:textSize="15sp"
                 android:gravity="fill_horizontal"
                 android:textColor="@color/year"
                 android:layout_below="@+id/iventLocation"
-                android:layout_alignStart="@+id/iventLocation" />
+                android:layout_alignStart="@+id/iventLocation"
+                android:layout_marginTop="5dp" />
 
             <ImageView
                 android:layout_width="11dp"
                 android:layout_height="11dp"
                 android:id="@+id/imageView9"
                 android:src="@drawable/clock1"
-                android:layout_alignTop="@+id/imageView8"
-                android:layout_toStartOf="@+id/textIventTime"
-                android:layout_marginRight="3dp"
-                android:layout_marginTop="1dp" />
+                android:layout_below="@+id/imageView8"
+                android:layout_alignEnd="@+id/imageView8"
+                android:layout_marginTop="11dp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:id="@+id/imageView8"
+                android:layout_below="@+id/imageView7"
+                android:layout_alignStart="@+id/imageView7"
+                android:src="@drawable/calendar1"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/textIventTime"
                 android:layout_width="wrap_content"
                 android:layout_height="17dp"
-                android:text="20:00"
                 android:textSize="15sp"
                 android:gravity="top"
                 android:textColor="@color/year"
-                android:layout_marginRight="10dp"
-                android:layout_alignBaseline="@+id/iventDate"
-                android:layout_alignBottom="@+id/iventDate"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@+id/iventDate"
+                android:layout_alignStart="@+id/iventDate"
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:id="@+id/iventLocation"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="New Text"
                 android:gravity="left"
                 android:textColor="@color/year"
                 android:textSize="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_below="@+id/event_address"
-                android:layout_alignEnd="@+id/textIventTime"
                 android:layout_toEndOf="@+id/imageView7"
                 android:layout_marginTop="7dp"
                 android:layout_marginLeft="5dp" />
@@ -93,11 +97,11 @@
                 android:id="@+id/event_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/year"
                 android:gravity="left"
                 android:layout_marginLeft="10dp"
                 android:text="Львівський Національний Академічний театр опери та балету ім. Соломії ..."
                 android:layout_alignTop="@+id/iventimage"
-                android:layout_alignEnd="@+id/textIventTime"
                 android:layout_toEndOf="@+id/iventimage" />
 
             <ImageView
@@ -115,71 +119,44 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="@color/orangecolor"
-                android:layout_above="@+id/schema"
-                android:layout_alignEnd="@+id/textIventTime" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/list_divider1"
-                android:id="@+id/iventView"
-                android:layout_below="@+id/textviewschema"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/iventPrice" />
-
-            <TextView
-                android:id="@+id/textviewschema"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/year"
-                android:textSize="15sp"
-                android:text="СХЕМА ЗАЛУ"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/iventimage"
-                android:layout_alignParentStart="true" />
-
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/schema"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/iventView"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/iventPrice" />
-
-            <TextView
-                android:id="@+id/textViewDescription"
-                android:text="@string/description_event"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/schema"
-                />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/list_divider1"
-                android:id="@+id/descriptionView"
-                android:layout_below="@+id/textViewDescription"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/RLayout" />
+                android:layout_below="@+id/imageView9"
+                android:layout_alignStart="@+id/imageView8"
+                android:layout_marginTop="10dp" />
 
             <RelativeLayout
                 android:id="@+id/RLayout"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:selectableItemBackground"
-                android:layout_below="@+id/descriptionView"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/schema">
+                android:layout_below="@+id/iventimage"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:id="@+id/textViewDescription"
+                    android:text="@string/description_event"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="@color/list_divider1"
+                    android:id="@+id/descriptionView"
+                    android:layout_below="@+id/textViewDescription"
+                    android:layout_alignParentStart="true" />
+
+
                 <TextView
                     android:id="@+id/iventDescription"
                     android:layout_width="wrap_content"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="200dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    />
+                    android:layout_below="@+id/textViewDescription"
+                    android:layout_alignParentStart="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -241,30 +218,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"/>
             </HorizontalScrollView>     -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:background="@drawable/button_selector"
-                android:text="ОБРАТИ МІСЦЯ"
-                android:textSize="15dp"
-                android:layout_marginTop="80dp"
-                android:textColor="@color/white"
-                android:id="@+id/textView45"
-                android:layout_alignTop="@+id/schema"
-                android:layout_centerHorizontal="true" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:id="@+id/imageView8"
-                android:layout_below="@+id/imageView7"
-                android:layout_alignStart="@+id/imageView7"
-                android:src="@drawable/calendar1"
-                android:layout_marginTop="5dp" />
-
-
 
         </RelativeLayout>
 

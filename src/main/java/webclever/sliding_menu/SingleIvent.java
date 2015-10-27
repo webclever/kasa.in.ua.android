@@ -79,7 +79,6 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
     private String str_event = "http://tms.webclever.in.ua/api/getEvent";
 
     private ProgressDialog progressDialog;
-    private NetworkImageView imgSchema;
     private ImageLoader imageLoader;
     private TextView textViewTimeIvent;
     private TextView textViewDateIvent;
@@ -143,24 +142,16 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         networkImageView = (NetworkImageView) rootView.findViewById(R.id.iventimage);
 
         buy_ticket = (Button) rootView.findViewById(R.id.buy_ticket);
-        imgSchema = (NetworkImageView) rootView.findViewById(R.id.schema);
+
         textViewTimeIvent = (TextView) rootView.findViewById(R.id.textIventTime);
         textViewDateIvent = (TextView) rootView.findViewById(R.id.iventDate);
         textViewPriceIvent = (TextView) rootView.findViewById(R.id.iventPrice);
         textViewLocationIvent = (TextView) rootView.findViewById(R.id.iventLocation);
         textViewEventAddress = (TextView) rootView.findViewById(R.id.event_address);
-        textViewLocationIvent.setAllCaps(true);
         textViewDescriptionIvent = (TextView) rootView.findViewById(R.id.iventDescription);
         textViewNameEvent = (TextView) rootView.findViewById(R.id.name_event);
 
         relativeLayout = (RelativeLayout) rootView.findViewById(R.id.RLayout);
-        TextView textViewSelectPlace = (TextView) rootView.findViewById(R.id.textView45);
-        textViewSelectPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SelectPlace();
-            }
-        });
         //imgSchema.setImageUrl("http://s018.radikal.ru/i509/1506/19/99a431f65a0e.png",imageLoader);
 
         mViewGroupImage = (ViewGroup) rootView.findViewById(R.id.gallery_container);
@@ -249,7 +240,13 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
 
                                     JSONObject city = jsonObjectLocEvent.getJSONObject("city");
                                     textViewLocationIvent.setText(city.getString("name"));
-                                    textViewDescriptionIvent.setText(Html.fromHtml(response.getString("description")));
+                                    if (!response.getString("description").equals("")){
+                                        RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.RLayout);
+                                        relativeLayout.setVisibility(View.VISIBLE);
+                                        textViewDescriptionIvent.setText(Html.fromHtml(response.getString("description")));
+
+                                    }
+
                                     DataEventSingelton.getInstance().setId_event(id_ivent);
                                     DataEventSingelton.getInstance().setName_event(response.getString("name"));
                                     DataEventSingelton.getInstance().setPlace_event(city.getString("name"));
@@ -260,7 +257,6 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
                                             JSONObject jsonObjectImage = arrImgEvent.getJSONObject(j);
                                             addImage(jsonObjectImage.getString("l"));
                                         }
-                                    imgSchema.setImageUrl(response.getString("bitmap"),imageLoader);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -292,12 +288,6 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
             }
         });
 
-        imgSchema.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SelectPlace();
-            }
-        });
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,17 +330,20 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
 
         getActivity().getMenuInflater().inflate(R.menu.single_menu, menu);
         MenuItem item = menu.findItem(R.id.menuCount);
-        RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
-        relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new PhotosFragment();
-                android.app.FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-            }
-        });
-        TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
-        textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
+        if (((MainActivity) getActivity()).getCountTicket().equals("0")) {
+            menu.getItem(0).setVisible(false);
+        }
+            RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
+            relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment = new PhotosFragment();
+                    android.app.FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+                }
+            });
+            TextView textViewTicketCount = (TextView) relativeLayoutShopCart.getChildAt(1);
+            textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
 
         /** Getting the actionprovider associated with the menu item whose id is share */
         mShareActionProvider = (android.widget.ShareActionProvider) menu.findItem(R.id.share).getActionProvider();

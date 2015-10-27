@@ -93,11 +93,6 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
     private ProgressBar mProgress;
     private TextView textViewStatus;
 
-    //PriceColor
-    private TextView PriceLabel;
-    private LinearLayout Container;
-    private boolean status = false;
-    private final String url_price_color = "https://api.myjson.com/bins/5177x";
     private static String TAG = MainActivity.class.getSimpleName();
     private String fromFragment;
 
@@ -204,6 +199,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         db_ticket = new DB_Ticket(getActivity(),5);
 
         textViewPriceall = (TextView) rootView.findViewById(R.id.textView42);
+        totalPrice = Integer.parseInt(((MainActivity) getActivity()).getTotalPrice());
         textViewPriceall.setText(((MainActivity) getActivity()).getTotalPrice());
         textViewTicketall = (TextView) rootView.findViewById(R.id.textView34);
         textViewTicketall.setText(((MainActivity) getActivity()).getCountTicket());
@@ -272,7 +268,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         textViewTicketCount.animate().setInterpolator(overshootInterpolator).scaleX(1f).scaleY(1f);
                     }
-                }else if (ConfirmButton.getTag() == "1"){
+                } else if (ConfirmButton.getTag() == "1") {
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 
@@ -290,72 +286,17 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         });
 
         ImageView sold = (ImageView) rootView.findViewById(R.id.sold);
-        sold.setColorFilter(Color.parseColor("#FF3300"), PorterDuff.Mode.MULTIPLY);
+        sold.setColorFilter(Color.parseColor("#e5e6e6"), PorterDuff.Mode.MULTIPLY);
         ImageView imageView2 = (ImageView) rootView.findViewById(R.id.imageView4);
-        imageView2.setColorFilter(Color.parseColor("#FFFF00"), PorterDuff.Mode.MULTIPLY);
+        imageView2.setColorFilter(Color.parseColor("#ffef00"), PorterDuff.Mode.MULTIPLY);
+        ImageView imageView4 = (ImageView) rootView.findViewById(R.id.imageView5);
+        imageView4.setColorFilter(Color.parseColor("#a5bfbd"),PorterDuff.Mode.MULTIPLY);
         ImageView imageView3 = (ImageView) rootView.findViewById(R.id.imageView6);
-        imageView3.setColorFilter(Color.parseColor("#0066FF"),PorterDuff.Mode.MULTIPLY);
-
-        Container = (LinearLayout) rootView.findViewById(R.id.Container);
-        Container.setVisibility(View.GONE);
-        PriceLabel = (TextView) rootView.findViewById(R.id.PriceLabel);
-        setPriceColorList();
+        imageView3.setColorFilter(Color.parseColor("#ff4214"),PorterDuff.Mode.MULTIPLY);
 
         return rootView;
     }
 
-    private void setPriceColorList() {
-        JsonArrayRequest movieReq = new JsonArrayRequest(url_price_color,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-
-                            for(int i = 0; i < jsonArray.length(); i++)
-                            {
-                                try {
-                                    JSONObject obj = jsonArray.getJSONObject(i);
-                                    View view = getActivity().getLayoutInflater().inflate(R.layout.price_color, Container, false);
-                                    TextView textView = (TextView) view.findViewById(R.id.PriceLabel);
-                                    textView.setText(obj.getString("price"));
-                                    textView.setBackgroundColor(Color.parseColor(obj.getString("color")));
-                                    Container.addView(view);
-
-                                }catch (JSONException e)
-                                {
-                                    e.printStackTrace();
-                                }
-                            }
-                        PopUp();
-                    }
-                },new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-
-        });
-        AppController.getInstance().addToRequestQueue(movieReq);
-
-    }
-
-    public void PopUp() {
-        PriceLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation anim = null;
-                if (status == false) {
-                    Container.setVisibility(View.VISIBLE);
-                    status = true;
-                    anim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.my_fade_in);
-                } else if (status == true) {
-                    Container.setVisibility(View.GONE);
-                    status = false;
-                    anim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.my_fade_out);
-                }
-                Container.startAnimation(anim);
-            }
-        });
-    }
 
     private void getPlaceInfo(String schemaIdPlace) {
         final String urlInfoPlace = "http://tms.webclever.in.ua/api/getPlaces?places=["+schemaIdPlace+"]&token=3748563";
@@ -371,7 +312,6 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                                      JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
                                      JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
                                      showPlaceInfo(jsonObjectSector.getString("name"),jsonObjectRow.getString("prefix"),jsonObjectRow.getString("name"),jsonObjectPlace.getString("name"),jsonObjectInfoPlace.getString("price"));
-
                                  }
 
                              }catch (JSONException e){
