@@ -60,6 +60,7 @@
         android:id="@+id/webviewSchema"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
+        android:hardwareAccelerated="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/lineralTicketCount"
         android:layout_above="@+id/view22" />

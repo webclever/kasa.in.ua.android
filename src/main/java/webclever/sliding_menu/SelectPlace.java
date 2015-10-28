@@ -172,6 +172,8 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
         webViewSchema = (WebView) rootView.findViewById(R.id.webviewSchema);
         webViewSchema.loadUrl("http://tms.webclever.in.ua/api/previewScheme?event_id=" + String.valueOf(idEvent) + "&token=3748563");
+        webViewSchema.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webViewSchema.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         webViewSchema.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webViewSchema.getSettings().setDomStorageEnabled(true);
@@ -222,8 +224,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
-
+                ConfirmButton.setEnabled(true);
             }
 
             @Override
@@ -242,7 +243,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                ConfirmButton.setEnabled(true);
             }
 
             @Override
@@ -262,7 +263,8 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
                         Log.i("add_ticket", "yes");
                         webViewSchema.loadUrl("javascript:mobileCart(\'" + id_place + "\',1)");
-                        addTicket();
+                        if (id_place != null){
+                        addTicket();}
                         textViewTicketCount.animate().setInterpolator(decelerateInterpolator).scaleX(.7f).scaleY(.7f);
 
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -356,15 +358,19 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
         @JavascriptInterface
         public void clickHandler(String id, String serverId, String placeType) {
-            Log.i("from",id + " " + serverId + " " + placeType);
-            Log.i("id_place_server: ",serverId);
+            Log.i("from", id + " " + serverId + " " + placeType);
+            Log.i("id_place_server: ", serverId);
 
-            if (id != null)
-            {
+            if (placeType.equals("2")){
+                ConfirmButton.startAnimation(animationBounce);
+                ConfirmButton.setEnabled(true);
+            }
+
+            if (!serverId.equals("null")) {
+
                 id_place = id;
                 serverIdPlace = Integer.parseInt(serverId);
                 getPlaceInfo(serverId);
-                //Toast.makeText(getActivity(),id + "  " + serverId,Toast.LENGTH_SHORT).show();
                 if (!containerTicket.isEmpty()){
                     if (containerTicket.containsKey(id)){
                         if (containerTicket.get(id)){
@@ -378,7 +384,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 }else {
                     ConfirmButton.startAnimation(animationBounce);
                 }
-                ConfirmButton.setEnabled(true);
+
             }else{
                 id_place = null;
                 ConfirmButton.setEnabled(false);

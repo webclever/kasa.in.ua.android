@@ -38,7 +38,7 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
         Calendar calendar = Calendar.getInstance();
 
         TextView textViewRightsReserved = (TextView) rootView.findViewById(R.id.prava);
-        textViewRightsReserved.setText("Всі права захищеноі. kassa.in.ua © " + String.valueOf(calendar.get(Calendar.YEAR)));
+        textViewRightsReserved.setText("Всі права захищеноі. kasa.in.ua © " + String.valueOf(calendar.get(Calendar.YEAR)));
         TextView version_App = (TextView) rootView.findViewById(R.id.version_program);
         PackageInfo pInfo = null;
         try {
@@ -52,18 +52,6 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
 
         return rootView;
     }
-
-    /*private void deleteDB(){
-
-        SQLiteDatabase db = db_ticket.getWritableDatabase();
-            int rows = db.delete("Ticket_table", null, null);
-            Log.i("id_ticket", "del rows" + String.valueOf(rows));
-
-            rows = db.delete("Event_table", null, null);
-            Log.i("id_ticket","del rows" + String.valueOf(rows));
-
-            db_ticket.close();
-    }*/
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

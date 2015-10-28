@@ -2,9 +2,11 @@ package webclever.sliding_menu;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import DataBase.DB_Ticket;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
@@ -23,9 +26,11 @@ import static webclever.sliding_menu.R.id.frame_container;
 public class FragmentContacts extends Fragment implements View.OnClickListener , OnBackPressedListener {
 
     private final String[] phoneNumberKasaInUA = {"+380930000754","+380660000754","+380970000754"};
+    private DB_Ticket db_ticket;
     public FragmentContacts() {
             setHasOptionsMenu(true);
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -52,6 +57,7 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ((MainActivity)getActivity()).setItemChecked(5,true);
+        db_ticket = new DB_Ticket(getActivity(),5);
         View rootView = inflater.inflate(R.layout.fragment_fragment_contacts, container, false);
         TextView textViewKasaPhone1 = (TextView) rootView.findViewById(R.id.textView46);
         textViewKasaPhone1.setOnClickListener(this);
@@ -85,6 +91,7 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
                 sendEMail();
                 break;
             case R.id.textViewKasaInUa:
+                deleteDB();
                 openWebKasaInUA();
                 break;
             case R.id.button_kasa_adress:
@@ -135,5 +142,17 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
         Fragment fragment = new LocKasaFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+    private void deleteDB(){
+
+        SQLiteDatabase db = db_ticket.getWritableDatabase();
+            int rows = db.delete("Ticket_table", null, null);
+            Log.i("id_ticket", "del rows" + String.valueOf(rows));
+
+            rows = db.delete("Event_table", null, null);
+            Log.i("id_ticket","del rows" + String.valueOf(rows));
+
+            db_ticket.close();
     }
 }

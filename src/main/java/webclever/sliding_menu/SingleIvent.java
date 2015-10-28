@@ -6,17 +6,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItemCompat;
 import android.text.Html;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,10 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
-//import android.support.v7.widget.ShareActionProvider;
 
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +30,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 
@@ -48,13 +37,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -63,20 +47,12 @@ import Singleton.DataEventSingelton;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
-import static webclever.sliding_menu.R.id.data;
 import static webclever.sliding_menu.R.id.frame_container;
-//import static webclever.sliding_menu.R.id.loginText;
-import static webclever.sliding_menu.R.id.namecity;
-import static webclever.sliding_menu.R.id.textView;
 
 
-/**
- * Created by Admin on 23.09.2014.
- */
+
 public class SingleIvent  extends Fragment implements OnBackPressedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    private String str_event = "http://tms.webclever.in.ua/api/getEvent";
 
     private ProgressDialog progressDialog;
     private ImageLoader imageLoader;
@@ -87,26 +63,18 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
     private TextView textViewDescriptionIvent;
     private TextView textViewNameEvent;
     private TextView textViewEventAddress;
-    private ArrayList<String> str_url;
-
-    private ShareActionProvider mShareActionProvider;
-
 
     private NetworkImageView networkImageView;
 
-    private Button buy_ticket;
-    private Button maps_button;
     private int id_ivent;
     private String fromFragment;
 
-    private FragmentActivity myContext;
 
     private ViewGroup mViewGroupImage;
-    private ViewGroup mViewGroupVideo;
+    //private ViewGroup mViewGroupVideo;
 
-    private String videoID = "99LOtY-unkA";
+    //private String videoID = "99LOtY-unkA";
     private ArrayList<String> img_url;
-    private RelativeLayout relativeLayout;
 
     private DateFormat dateFormat = new DateFormat();
 
@@ -134,14 +102,14 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         Log.i("id_event", String.valueOf(id_ivent));
         getActivity().getActionBar().setTitle("Подія");
 
-        img_url = new ArrayList<String>();
+        img_url = new ArrayList<>();
         //str_event += id_ivent;
         //str_url = new ArrayList<String>();
 
         imageLoader = AppController.getInstance().getImageLoader();
         networkImageView = (NetworkImageView) rootView.findViewById(R.id.iventimage);
 
-        buy_ticket = (Button) rootView.findViewById(R.id.buy_ticket);
+        Button buy_ticket = (Button) rootView.findViewById(R.id.buy_ticket);
 
         textViewTimeIvent = (TextView) rootView.findViewById(R.id.textIventTime);
         textViewDateIvent = (TextView) rootView.findViewById(R.id.iventDate);
@@ -151,7 +119,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         textViewDescriptionIvent = (TextView) rootView.findViewById(R.id.iventDescription);
         textViewNameEvent = (TextView) rootView.findViewById(R.id.name_event);
 
-        relativeLayout = (RelativeLayout) rootView.findViewById(R.id.RLayout);
+        RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.RLayout);
         //imgSchema.setImageUrl("http://s018.radikal.ru/i509/1506/19/99a431f65a0e.png",imageLoader);
 
         mViewGroupImage = (ViewGroup) rootView.findViewById(R.id.gallery_container);
@@ -204,6 +172,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         AppController.getInstance().addToRequestQueue(strReq);
 */
 
+        String str_event = "http://tms.webclever.in.ua/api/getEvent";
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 str_event, new Response.Listener<String>() {
             @Override
@@ -232,7 +201,8 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
                                     JSONObject price = response.getJSONObject("minMaxPrice");
                                     if (price.getString("min")!= null & price.getString("max") != null)
                                     {
-                                        textViewPriceIvent.setText(price.getString("min") + " - " + price.getString("max") + " UAH");
+                                        String string = price.getString("min") + " - " + price.getString("max") + " UAH";
+                                        textViewPriceIvent.setText(string);
                                     }else
                                     {
                                         textViewPriceIvent.setVisibility(View.GONE);
@@ -272,7 +242,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
                 {
                 @Override
                 protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
+                    Map<String, String> params = new HashMap<>();
                     params.put("token", "3748563");
                     params.put("id",String.valueOf(id_ivent));
                     Log.i("Params",params.toString());
@@ -292,9 +262,9 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),ActivityDescription.class);
+                Intent intent = new Intent(getActivity(), ActivityDescription.class);
                 String str = String.valueOf(textViewDescriptionIvent.getText());
-                intent.putExtra("description",str);
+                intent.putExtra("description", str);
                 startActivity(intent);
             }
         });
@@ -346,7 +316,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
             textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
 
         /** Getting the actionprovider associated with the menu item whose id is share */
-        mShareActionProvider = (android.widget.ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
 
         /** Setting a share intent */
         mShareActionProvider.setShareIntent(getDefaultShareIntent());

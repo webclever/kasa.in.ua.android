@@ -28,13 +28,12 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="fr" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="INFO" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e8a881ca-2874-49b0-bfad-c131b0b213bc" name="Default" comment="KAA-96">
+    <list default="true" id="e8a881ca-2874-49b0-bfad-c131b0b213bc" name="Default" comment="">
       <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\appcompat_v7_22_2_1.xml" afterPath="" />
       <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\bolts_android_1_2_0.xml" afterPath="" />
       <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\design_22_2_1.xml" afterPath="" />
@@ -75,12 +74,11 @@
       <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\twitter_1_6_1.xml" afterPath="" />
       <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\twitter_core_1_4_1.xml" afterPath="" />
       <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\volley.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\src\main\res\anim\my_fade_in.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\src\main\res\anim\my_fade_out.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentContacts.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentContacts.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SelectPlace.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SelectPlace.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SingleIvent.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SingleIvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/WhatsHotFragment.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/WhatsHotFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_selectplace.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_selectplace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/singleivent.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/singleivent.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="app.iws" />
@@ -121,8 +119,6 @@
                 <element signature="method#getLocation#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#getMyLocationAddress#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#showSettingsAlert#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#16909#16910#0" expanded="false" />
-                <element signature="e#16972#16973#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -130,42 +126,35 @@
       </file>
       <file leaf-file-name="fragment_selectplace.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_selectplace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.137931">
+              <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
           <provider editor-type-id="android-designer">
             <state />
           </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.379311">
-              <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
         </entry>
       </file>
-      <file leaf-file-name="SelectPlace.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SelectPlace.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SelectPlace.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="313" column="226" selection-start-line="313" selection-start-column="226" selection-end-line="313" selection-end-column="226" />
+            <state vertical-scroll-proportion="-0.7990815">
+              <caret line="501" column="57" selection-start-line="501" selection-start-column="57" selection-end-line="501" selection-end-column="57" />
               <folding>
-                <element signature="method#onCreateView#0;class#SelectPlace#0" expanded="false" />
-                <element signature="class#8231:8793" expanded="false" />
-                <element signature="method#onAnimationStart#0;class#8231:8793" expanded="false" />
-                <element signature="class#8935:9463" expanded="false" />
-                <element signature="method#getBasketTicket#0;class#SelectPlace#0" expanded="false" />
-                <element signature="method#addTicket#0;class#SelectPlace#0" expanded="false" />
-                <element signature="method#readDB#0;class#SelectPlace#0" expanded="false" />
+                <element signature="class#8396:9004" expanded="false" />
+                <element signature="method#onAnimationStart#0;class#8396:9004" expanded="false" />
+                <element signature="e#8828#8829#0" expanded="true" />
+                <element signature="e#8890#8891#0" expanded="true" />
+                <element signature="class#9146:9721" expanded="false" />
+                <element signature="method#onAnimationStart#0;class#9146:9721" expanded="false" />
+                <element signature="e#9545#9546#0" expanded="true" />
+                <element signature="e#9607#9608#0" expanded="true" />
+                <element signature="e#9766#11411#0" expanded="true" />
+                <element signature="e#11410#11411#0" expanded="true" />
                 <element signature="method#onBackPressed#0;class#SelectPlace#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SingleIvent.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SingleIvent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1773913">
-              <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -1889,7 +1878,6 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/list_slider_image.xml" />
         <option value="$PROJECT_DIR$/src/main/res/anim/my_fade_in.xml" />
         <option value="$PROJECT_DIR$/src/main/res/anim/my_fade_out.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/drawable/floating_background_button.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/list_toast.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Format/EncodingTicketCount.java" />
@@ -1924,12 +1912,13 @@
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/PagesFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/LocKasaFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/WhatsHotFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentContacts.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/singleivent.xml" />
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SingleIvent.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_selectplace.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/drawable/floating_background_button.xml" />
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SelectPlace.java" />
+        <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/WhatsHotFragment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentContacts.java" />
       </list>
     </option>
   </component>
@@ -1991,9 +1980,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2014,6 +2002,42 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2060,12 +2084,13 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="PAP3400DUO" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="610d5e3d" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_22_x86" />
     <property name="FullScreen" value="false" />
     <property name="OverrideImplement.combined" value="true" />
@@ -2447,7 +2472,13 @@
       <option name="project" value="LOCAL" />
       <updated>1445875930546</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="KAA-96">
+      <created>1445962981593</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1445962981593</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2471,12 +2502,12 @@
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34149054" sideWeight="0.4978678" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34149054" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34149054" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17217484" sideWeight="0.5058043" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2528,18 +2559,11 @@
           <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="75" />
+      <option name="time" value="78" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FullScreenViewActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/libs/volley.jar!/com/android/volley/toolbox/BasicNetwork.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34854016">
@@ -2576,14 +2600,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_login.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/adapter/Basket_Child.java">
@@ -2601,14 +2625,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/list_basket_ticket.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33254156">
           <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/adapter/ViewBasketAdapter.java">
@@ -2626,25 +2650,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/list_layout_container.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8384798">
           <caret line="81" column="38" selection-start-line="81" selection-start-column="38" selection-end-line="81" selection-end-column="38" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/list_ticket_data.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/list_ticket_data.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.793103">
           <caret line="55" column="25" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="41" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://C:/Program Files/Android/android-sdk/sources/android-21/android/database/AbstractWindowedCursor.java">
@@ -2655,21 +2679,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_user_data_eticket.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.448276">
           <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://C:/Program Files/Android/android-sdk/sources/android-21/android/os/Looper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33203125">
-          <caret line="194" column="0" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
-        </state>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataETicket.java">
@@ -2681,13 +2698,6 @@
             <element signature="method#afterTextChanged#0;class#TextWatcherETicket#0;class#UserDataETicket#0" expanded="false" />
             <element signature="method#getValidUserData#0;class#UserDataETicket#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files/Android/android-sdk/sources/android-21/android/os/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33203125">
-          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2741,14 +2751,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/list_row.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35391924">
           <caret line="81" column="4" selection-start-line="81" selection-start-column="4" selection-end-line="81" selection-end-column="4" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/LoginActivity.java">
@@ -2775,20 +2785,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/list_kasa_adress.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25178146">
           <caret line="62" column="57" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="62" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_fragment_contacts.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_fragment_contacts.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.793103">
           <caret line="118" column="33" selection-start-line="118" selection-start-column="33" selection-end-line="118" selection-end-column="35" />
@@ -2798,6 +2805,9 @@
             <element signature="e#5222#5243#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://C:/Program Files/Android/android-sdk/sources/android-21/android/content/Intent.java">
@@ -2826,17 +2836,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_whatshot.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19239905">
-          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/adapter/NavDrawerListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.078071184">
@@ -2859,13 +2858,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/PagesFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6452174">
-          <caret line="212" column="51" selection-start-line="212" selection-start-column="51" selection-end-line="212" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/LocKasaFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.6591303">
@@ -2873,17 +2865,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentContacts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23421355">
-          <caret line="32" column="71" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/singleivent.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-54.793102">
           <caret line="164" column="52" selection-start-line="164" selection-start-column="52" selection-end-line="164" selection-end-column="52" />
@@ -2893,6 +2875,9 @@
             <element signature="e#7227#7250#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/menu/single_menu.xml">
@@ -2914,8 +2899,6 @@
             <element signature="method#getLocation#0;class#MainActivity#0" expanded="false" />
             <element signature="method#getMyLocationAddress#0;class#MainActivity#0" expanded="false" />
             <element signature="method#showSettingsAlert#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#16909#16910#0" expanded="false" />
-            <element signature="e#16972#16973#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2928,47 +2911,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/WhatsHotFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SingleIvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.096440874">
+          <caret line="208" column="37" selection-start-line="208" selection-start-column="37" selection-end-line="208" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/PagesFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="51" selection-start-line="84" selection-start-column="51" selection-end-line="84" selection-end-column="51" />
+          <caret line="133" column="98" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="98" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Program Files/Android/android-sdk/sources/android-21/android/os/Handler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33203125">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Android/android-sdk/sources/android-21/android/os/Looper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33203125">
+          <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
+          <folding>
+            <element signature="e#6848#6849#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_selectplace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.137931">
+          <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/floating_background_button.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.379311">
-          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.75886524">
+          <caret line="137" column="11" selection-start-line="137" selection-start-column="11" selection-end-line="137" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_whatshot.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19254659">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentContacts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.9592199">
+          <caret line="99" column="9" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/WhatsHotFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51241136">
+          <caret line="36" column="53" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SelectPlace.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="313" column="226" selection-start-line="313" selection-start-column="226" selection-end-line="313" selection-end-column="226" />
+        <state vertical-scroll-proportion="-0.7990815">
+          <caret line="501" column="57" selection-start-line="501" selection-start-column="57" selection-end-line="501" selection-end-column="57" />
           <folding>
-            <element signature="method#onCreateView#0;class#SelectPlace#0" expanded="false" />
-            <element signature="class#8231:8793" expanded="false" />
-            <element signature="method#onAnimationStart#0;class#8231:8793" expanded="false" />
-            <element signature="class#8935:9463" expanded="false" />
-            <element signature="method#getBasketTicket#0;class#SelectPlace#0" expanded="false" />
-            <element signature="method#addTicket#0;class#SelectPlace#0" expanded="false" />
-            <element signature="method#readDB#0;class#SelectPlace#0" expanded="false" />
+            <element signature="class#8396:9004" expanded="false" />
+            <element signature="method#onAnimationStart#0;class#8396:9004" expanded="false" />
+            <element signature="e#8828#8829#0" expanded="true" />
+            <element signature="e#8890#8891#0" expanded="true" />
+            <element signature="class#9146:9721" expanded="false" />
+            <element signature="method#onAnimationStart#0;class#9146:9721" expanded="false" />
+            <element signature="e#9545#9546#0" expanded="true" />
+            <element signature="e#9607#9608#0" expanded="true" />
+            <element signature="e#9766#11411#0" expanded="true" />
+            <element signature="e#11410#11411#0" expanded="true" />
             <element signature="method#onBackPressed#0;class#SelectPlace#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/SingleIvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1773913">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
