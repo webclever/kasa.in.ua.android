@@ -15,9 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentActivity;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,11 +33,8 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,7 +45,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 
-import org.apache.http.util.EncodingUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +64,7 @@ import static webclever.sliding_menu.R.id.name_event;
  * Created by Admin on 23.01.2015.
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class SelectPlace extends Fragment implements OnBackPressedListener{
+public class FragmentSelectPlace extends Fragment implements OnBackPressedListener{
 
     private FragmentActivity myContext;
 
@@ -114,7 +108,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
     private TextView textViewCountTicket;
     private final String countTicket = " НА СУМУ";
 
-    public SelectPlace()
+    public FragmentSelectPlace()
     {
         setHasOptionsMenu(true);
     }
@@ -133,7 +127,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new PhotosFragment();
+                Fragment fragment = new FragmentBasket();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
             }
@@ -157,7 +151,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_selectplace, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_select_place, container, false);
         stringNameEvent = getArguments().getString("name_event");
         idEvent = getArguments().getInt("id");
         Log.i("id_event",String.valueOf(idEvent));
@@ -424,7 +418,6 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
 
                     webViewSchema.loadUrl("javascript:mobileCart(\'" + str + "\',1);");
 
-
                     cursorSelectedPlace.moveToNext();
                 }
             }
@@ -555,6 +548,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
     }
 
     private void readDB() {
+
         db = db_ticket.getWritableDatabase();
         Cursor cursor = db.query("Ticket_table", null, null, null, null, null, null);
         if (cursor.moveToFirst())
@@ -609,12 +603,9 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
         db_ticket.close();
     }
 
-
-
     @Override
     public void onBackPressed() {
         // TODO Auto-generated method stub
-        //SingleIvent singleIvent = (SingleIvent)getFragmentManager().findFragmentById(R.id.frame_container);
 
             if (fromFragment.equals("eventList"))
             {
@@ -622,7 +613,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 myBundle.putInt("id", idEvent);
                 myBundle.putString("name_event", String.valueOf(name_event));
                 myBundle.putString("fromFragment","eventList");
-                Fragment fragment = new SingleIvent();
+                Fragment fragment = new FragmentEventPage();
                 fragment.setArguments(myBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -632,7 +623,7 @@ public class SelectPlace extends Fragment implements OnBackPressedListener{
                 myBundle.putInt("id", idEvent);
                 myBundle.putString("name_event", String.valueOf(name_event));
                 myBundle.putString("fromFragment","searchFragment");
-                Fragment fragment = new SingleIvent();
+                Fragment fragment = new FragmentEventPage();
                 fragment.setArguments(myBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
