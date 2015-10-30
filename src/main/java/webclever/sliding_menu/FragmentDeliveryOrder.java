@@ -2,8 +2,12 @@ package webclever.sliding_menu;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -17,15 +21,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
 
 import interfaces.OnBackPressedListener;
+import my_services.TimerService;
 
-/**
- * Created by Zhenya on 17.02.2015.
- */
-public class Fragment_Setings extends Fragment implements OnBackPressedListener {
+
+//Created by Zhenya on 17.02.2015.
+
+public class FragmentDeliveryOrder extends Fragment implements OnBackPressedListener {
 
 
 
@@ -48,13 +52,13 @@ public class Fragment_Setings extends Fragment implements OnBackPressedListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_setings, conteiner, false);
+        final View rootView = inflater.inflate(R.layout.fragment_delivery_order, conteiner, false);
 
         radioGroupKasa = (RadioGroup) rootView.findViewById(R.id.radioGroupKasa);
         radioGroupNewPost = (RadioGroup) rootView.findViewById(R.id.radioGroupNewPost);
         radioGroupCourier = (RadioGroup) rootView.findViewById(R.id.radioGroupCourier);
         radioGroupE_ticket = (RadioGroup) rootView.findViewById(R.id.radioGroupE_ticket);
-        fragmentSparseArray = new SparseArray<Fragment>();
+        fragmentSparseArray = new SparseArray<>();
         fragmentSparseArray.put(radioGroupKasa.getId(), new FragmentUserDataKasa());
         fragmentSparseArray.put(radioGroupNewPost.getId(), new UserDataPost());
         fragmentSparseArray.put(radioGroupCourier.getId(), new UserDataCourier());
@@ -157,7 +161,8 @@ public class Fragment_Setings extends Fragment implements OnBackPressedListener 
         });
 
 
-        new CountDownTimer(960000,1000) {
+
+        new CountDownTimer(900000,1000) {
 
             @Override
             public void onTick(long millis) {
@@ -175,6 +180,8 @@ public class Fragment_Setings extends Fragment implements OnBackPressedListener 
         }.start();
 
 
+        startService();
+
         return rootView;
     }
 
@@ -184,6 +191,23 @@ public class Fragment_Setings extends Fragment implements OnBackPressedListener 
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+
+    }
+
+    private void startService(){
+        Intent intent = new Intent("webclever.sliding_menu");
+        ServiceConnection sConn = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                //TimerService myService  = ((TimerService.ALARM_SERVICE));
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        };
+
 
     }
 }
