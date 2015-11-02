@@ -89,6 +89,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     private Long aLongTimer = null;
 
+    private CountDownTimer countDownTimer;
+
     private static final String TWITTER_KEY = "NtcdkYkfnL4hRjN8jg8yNZbsH";
     private static final String TWITTER_SECRET = "gahp8a6Ro2M15sKW2aAuW1vJtitKTkLVgYJor7w2TQAQQ70vsI";
 
@@ -501,8 +503,21 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         alertDialog.show();
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+        stopTimer();
+    }
+
+    public void stopTimer(){
+        if (countDownTimer != null){
+            countDownTimer.onFinish();
+            aLongTimer = null;
+        }
+    }
+
     public void startTimer(){
-        new CountDownTimer(900000,1000) {
+      countDownTimer =  new CountDownTimer(900000,1000) {
 
             @Override
             public void onTick(long millis) {
@@ -515,6 +530,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 aLongTimer = null;
             }
         }.start();
+
     }
 
     public long getTimer(){

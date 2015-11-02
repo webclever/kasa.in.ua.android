@@ -1,9 +1,12 @@
 package webclever.sliding_menu;
 
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import Singleton.UserProfileSingleton;
@@ -24,6 +28,8 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     private SparseBooleanArray sparseBooleanArray = new SparseBooleanArray();
     private Validator validator = new Validator();
     private UserProfileSingleton userProfile;
+    private TextView textViewTimer;
+    private Integer paymentMethod;
     public UserDataCourier() { }
 
     @Override
@@ -35,8 +41,13 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         final View rootView = inflater.inflate(R.layout.fragment_user_data_courier, container, false);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            paymentMethod = bundle.getInt("payment_method");
+        }
+
         Toast.makeText(getActivity().getApplicationContext(), getArguments().getString("type"), Toast.LENGTH_SHORT).show();
         userProfile = new UserProfileSingleton(this.getActivity());
 
@@ -79,7 +90,18 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         editTextAddress.addTextChangedListener(new TextWatcherETicket(editTextAddress));
         sparseBooleanArray.put(editTextAddress.getId(), validator.isAddressValid(userProfile.getAddress()));
 
+        textViewTimer = (TextView) rootView.findViewById(R.id.textView100);
+
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
+        switch (paymentMethod){
+            case 1:
+                buttonConfirm.setText("оформити замовлення");
+                break;
+            case 2:
+                buttonConfirm.setText("перейти до оплати");
+                break;
+        }
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +112,49 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                 }
             }
         });
+        startService();
         return rootView;
+    }
+
+
+    private void startService(){
+
+        long timer = ((MainActivity)getActivity()).getTimer();
+        if (timer != 0){
+            new CountDownTimer(timer,1000) {
+
+                @Override
+                public void onTick(long millis) {
+                    int seconds = (int) (millis / 1000) % 60 ;
+                    int minutes = (int) ((millis / (1000*60)) % 60);
+
+                    String text = String.format("%02d : %02d",minutes,seconds);
+                    textViewTimer.setText(text);
+
+                }
+
+                @Override
+                public void onFinish() {
+                    textViewTimer.setText("Бронювання скасоване !");
+                    showAlertDialog();
+                }
+            }.start();
+        }
+    }
+
+    private void showAlertDialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Fragment fragment = new FragmentBasket();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "1").commit();
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
     }
 
 

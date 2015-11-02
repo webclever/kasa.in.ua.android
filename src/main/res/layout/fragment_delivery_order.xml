@@ -94,6 +94,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/back"
             android:text="Оплата готівкою в касі"
+            android:tag="1"
             android:id="@+id/radioButton5" />
 
         <RadioButton
@@ -101,6 +102,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/back"
             android:text="Оплата платіжною карткою"
+            android:tag="2"
             android:id="@+id/radioButton6"
             android:layout_marginTop="2dp" />
     </RadioGroup>
@@ -120,6 +122,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Оплата готівкою у відділенні"
+            android:tag="3"
             android:id="@+id/radioButton"
             android:background="@drawable/back"
             android:checked="false" />
@@ -130,6 +133,7 @@
             android:text="Оплата платіжною карткою"
             android:id="@+id/radioButton2"
             android:background="@drawable/back"
+            android:tag="4"
             android:checked="false"
             android:layout_marginTop="2dp" />
     </RadioGroup>
@@ -150,6 +154,7 @@
             android:layout_height="wrap_content"
             android:text="Оплата готівкою кур&apos;єру"
             android:background="@drawable/back"
+            android:tag="5"
             android:id="@+id/radioButton3"
             android:checked="false" />
 
@@ -158,6 +163,7 @@
             android:layout_height="wrap_content"
             android:text="Оплата платіжною карткою"
             android:background="@drawable/back"
+            android:tag="6"
             android:id="@+id/radioButton4"
             android:layout_marginTop="2dp"
             android:checked="false" />
@@ -179,6 +185,7 @@
             android:layout_height="wrap_content"
             android:text="Оплата платіжною карткою"
             android:background="@drawable/back"
+            android:tag="7"
             android:id="@+id/radioButton7"
             android:checked="false" />
     </RadioGroup>

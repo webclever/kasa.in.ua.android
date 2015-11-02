@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import Singleton.UserProfileSingleton;
 import Validator.Validator;
 import interfaces.OnBackPressedListener;
 
+import static webclever.sliding_menu.R.id.frame_container;
+
 /**
  * Created by Zhenya on 03.07.2015.
  */
@@ -32,12 +35,19 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private Validator validator = new Validator();
     private UserProfileSingleton userProfile;
     private TextView textViewTimer;
-
+    private Integer paymentMethod;
     public FragmentUserDataKasa()    { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_user_data_kasa, container, false);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            paymentMethod = bundle.getInt("payment_method");
+        }
+
+
         Toast.makeText(getActivity().getApplicationContext(),getArguments().getString("type"),Toast.LENGTH_SHORT).show();
         userProfile = new UserProfileSingleton(this.getActivity());
         EditText editTextName = (EditText) rootView.findViewById(R.id.editText11);
@@ -65,6 +75,17 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
+
+        switch (paymentMethod){
+            case 1:
+                buttonConfirm.setText("оформити замовлення");
+                break;
+            case 2:
+                buttonConfirm.setText("перейти до оплати");
+                break;
+        }
+
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,10 +202,11 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                     public void onClick(DialogInterface dialog, int which) {
                         Fragment fragment = new FragmentBasket();
                         FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "1").commit();
+                        fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
                         dialog.cancel();
                     }
                 });
+        alertDialog.show();
     }
 
 

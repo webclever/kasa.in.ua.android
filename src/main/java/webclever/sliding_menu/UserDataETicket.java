@@ -1,8 +1,11 @@
 package webclever.sliding_menu;
 
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.database.Cursor;
@@ -40,6 +43,10 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private LinearLayout linearLayoutContainer;
     private LayoutInflater layoutInflater;
     private ViewGroup viewGroupTicketContainer;
+    private TextView textViewTimer;
+    private FragmentManager fragmentManager;
+
+    private Integer paymentMethod;
 
     public UserDataETicket() {
         // Required empty public constructor
@@ -49,14 +56,20 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_user_data_eticket, container, false);
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            paymentMethod = bundle.getInt("payment_method");
+        }
+        fragmentManager = getFragmentManager();
         userProfile = new UserProfileSingleton(this.getActivity());
         db_ticket = new DB_Ticket(getActivity(),5);
-        ticket_nameList = new ArrayList<ticket_name>();
+        ticket_nameList = new ArrayList<>();
         viewGroupTicketContainer = (ViewGroup) rootView.findViewById(R.id.containerETicket);
         layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayoutContainer = (LinearLayout) layoutInflater.inflate(R.layout.list_layout_container, viewGroupTicketContainer, false);
         addTicket();
         viewGroupTicketContainer.addView(linearLayoutContainer, 0);
+        textViewTimer = (TextView) rootView.findViewById(R.id.textView102);
 
 
         EditText editTextName = (EditText) rootView.findViewById(R.id.editText11);
@@ -84,6 +97,13 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         sparseBooleanArray.put(editTextEMail.getId(),validator.isEmailValid(userProfile.getEmail()));
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
+
+        switch (paymentMethod) {
+            case 7:
+                buttonConfirm.setText("перейти до оплати");
+                break;
+        }
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +117,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
             }
         });
+        startService();
         return rootView;
     }
 
@@ -269,4 +290,44 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         }
         return valid;
     }
+
+    private void startService() {
+
+        long timer = ((MainActivity)getActivity()).getTimer();
+        if (timer != 0){
+            new CountDownTimer(timer,1000) {
+
+                @Override
+                public void onTick(long millis) {
+                    int seconds = (int) (millis / 1000) % 60 ;
+                    int minutes = (int) ((millis / (1000*60)) % 60);
+
+                    String text = String.format("%02d : %02d",minutes,seconds);
+                    textViewTimer.setText(text);
+
+                }
+
+                @Override
+                public void onFinish() {
+                    textViewTimer.setText("Бронювання скасоване !");
+                    showAlertDialog();
+                }
+            }.start();
+        }
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Fragment fragment = new FragmentBasket();
+                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "1").commit();
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
+    }
+
 }

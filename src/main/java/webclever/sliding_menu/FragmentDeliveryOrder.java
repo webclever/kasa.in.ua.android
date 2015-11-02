@@ -49,11 +49,12 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
 
     private SparseArray<Fragment> fragmentSparseArray;
 
+    private FragmentManager fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_delivery_order, conteiner, false);
-
+        fragmentManager = getActivity().getFragmentManager();
         radioGroupKasa = (RadioGroup) rootView.findViewById(R.id.radioGroupKasa);
         radioGroupNewPost = (RadioGroup) rootView.findViewById(R.id.radioGroupNewPost);
         radioGroupCourier = (RadioGroup) rootView.findViewById(R.id.radioGroupCourier);
@@ -147,8 +148,8 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
                         Fragment fragment = fragmentSparseArray.get(radioGroup.getId());
                         Bundle bundleType = new Bundle();
                         bundleType.putString("type", String.valueOf(radioButton.getText()));
+                        bundleType.putInt("payment_method", Integer.parseInt(radioButton.getTag().toString()));
                         fragment.setArguments(bundleType);
-                        FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                         Toast.makeText(getActivity().getApplicationContext(), String.valueOf(radioButton.getText()), Toast.LENGTH_SHORT).show();
 
@@ -160,27 +161,6 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
             }
         });
 
-
-
-        new CountDownTimer(900000,1000) {
-
-            @Override
-            public void onTick(long millis) {
-                int seconds = (int) (millis / 1000) % 60 ;
-                int minutes = (int) ((millis / (1000*60)) % 60);
-
-                String text = String.format("%02d : %02d",minutes,seconds);
-                textViewTimer.setText(text);
-
-            }
-
-            @Override
-            public void onFinish() {
-                textViewTimer.setText("Бронювання скасоване !");
-            }
-        }.start();
-
-
         startService();
 
         return rootView;
@@ -190,16 +170,14 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     public void onBackPressed() {
 
         Fragment fragment = new HomeFragment();
-        FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-
     }
 
     private void startService(){
 
         long timer = ((MainActivity)getActivity()).getTimer();
         if (timer != 0){
-        new CountDownTimer(timer,1000) {
+            new CountDownTimer(timer,1000) {
 
             @Override
             public void onTick(long millis) {
@@ -218,6 +196,5 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
         }.start();
         }
     }
-
 
 }

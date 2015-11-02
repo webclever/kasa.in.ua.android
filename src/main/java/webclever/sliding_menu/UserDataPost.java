@@ -1,8 +1,11 @@
 package webclever.sliding_menu;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import Singleton.UserProfileSingleton;
@@ -24,6 +28,12 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     private Validator validator = new Validator();
     private UserProfileSingleton userProfile;
 
+    private TextView textViewTimer;
+    private CountDownTimer countDownTimer;
+    private FragmentManager fragmentManager;
+
+    private Integer paymentMethod;
+
     public UserDataPost() { }
 
     @Override
@@ -36,6 +46,12 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                              final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_userdata_post, container, false);
         Toast.makeText(getActivity().getApplicationContext(), getArguments().getString("type"), Toast.LENGTH_SHORT).show();
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            paymentMethod = bundle.getInt("payment_method");
+        }
+
         userProfile = new UserProfileSingleton(this.getActivity());
 
         EditText editTextName = (EditText) rootView.findViewById(R.id.editText15);
@@ -65,7 +81,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         EditText editTextOblast = (EditText) rootView.findViewById(R.id.editText19);
         editTextOblast.setText(userProfile.getRegion());
         editTextOblast.addTextChangedListener(new TextWatcherETicket(editTextOblast));
-        sparseBooleanArray.put(editTextOblast.getId(),validator.isNameValid(userProfile.getRegion()));
+        sparseBooleanArray.put(editTextOblast.getId(), validator.isNameValid(userProfile.getRegion()));
 
         EditText editTextCity = (EditText) rootView.findViewById(R.id.editText20);
         editTextCity.setText(userProfile.getCity());
@@ -77,18 +93,32 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         editTextNDepartament.addTextChangedListener(new TextWatcherETicket(editTextNDepartament));
         sparseBooleanArray.put(editTextNDepartament.getId(), validator.isNumberValid(userProfile.getNewPost()));
 
+        textViewTimer = (TextView) rootView.findViewById(R.id.textView104);
+
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
+
+        switch (paymentMethod){
+            case 3:
+                buttonConfirm.setText("оформити замовлення");
+                break;
+            case 4:
+                buttonConfirm.setText("перейти до оплати");
+                break;
+        }
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (getValidUserData()){
+                if (getValidUserData()) {
                     Fragment fragment = new FragmentSuccessfulOrder();
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                 }
             }
         });
+        startService();
 
+        fragmentManager = getActivity().getFragmentManager();
         return rootView;
     }
 
@@ -96,7 +126,6 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     public void onBackPressed() {
 
         Fragment fragment = new FragmentDeliveryOrder();
-        FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
@@ -166,6 +195,44 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         }
 
         return valid;
+    }
+
+    private void startService(){
+
+        long timer = ((MainActivity)getActivity()).getTimer();
+        if (timer != 0){
+        countDownTimer = new CountDownTimer(timer,1000) {
+
+                @Override
+                public void onTick(long millis) {
+                    int seconds = (int) (millis / 1000) % 60 ;
+                    int minutes = (int) ((millis / (1000*60)) % 60);
+
+                    String text = String.format("%02d : %02d",minutes,seconds);
+                    textViewTimer.setText(text);
+                }
+
+                @Override
+                public void onFinish() {
+                    textViewTimer.setText("Бронювання скасоване !");
+                    showAlertDialog();
+                }
+            }.start();
+        }
+    }
+
+    private void showAlertDialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Fragment fragment = new FragmentBasket();
+                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "1").commit();
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
     }
 
 }
