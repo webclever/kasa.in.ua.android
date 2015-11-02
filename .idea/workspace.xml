@@ -34,7 +34,7 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e8a881ca-2874-49b0-bfad-c131b0b213bc" name="Default" comment="testCommit">
+    <list default="true" id="e8a881ca-2874-49b0-bfad-c131b0b213bc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentDeliveryOrder.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentDeliveryOrder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -122,8 +122,8 @@
       <file leaf-file-name="FragmentDeliveryOrder.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentDeliveryOrder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32261768">
-              <caret line="173" column="27" selection-start-line="173" selection-start-column="27" selection-end-line="173" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.1216992">
+              <caret line="173" column="16" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
               <folding>
                 <element signature="e#2777#5714#0" expanded="true" />
                 <element signature="e#5713#5714#0" expanded="true" />
@@ -2439,7 +2439,13 @@
       <option name="project" value="LOCAL" />
       <updated>1446456765278</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="testCommit">
+      <created>1446457165606</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1446457165606</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2948,8 +2954,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentDeliveryOrder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32261768">
-          <caret line="173" column="27" selection-start-line="173" selection-start-column="27" selection-end-line="173" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.1216992">
+          <caret line="173" column="16" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
           <folding>
             <element signature="e#2777#5714#0" expanded="true" />
             <element signature="e#5713#5714#0" expanded="true" />

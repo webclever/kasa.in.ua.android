@@ -171,7 +171,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
 
                 String text = String.format("%02d : %02d",minutes,seconds);
                 textViewTimer.setText(text);
-                //Hi people
+
             }
 
             @Override
