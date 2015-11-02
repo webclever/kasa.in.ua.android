@@ -201,7 +201,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textAllCaps="true"
         android:textColor="@color/yellov1"
-        android:text="Medium Text"
         android:id="@+id/textView63"
         android:layout_below="@+id/textView65"
         android:layout_centerHorizontal="true" />

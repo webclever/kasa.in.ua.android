@@ -3,6 +3,7 @@
     android:background="@color/white"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -10,10 +11,9 @@
         android:text="ЗАПОВНІТЬ КОНТАКТНІ ДАНІ"
         android:textColor="@color/year"
         android:id="@+id/textView49"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp" />
+        android:layout_below="@+id/textView98"
+        android:layout_alignStart="@+id/linearLayout" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -108,5 +108,26 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="КВИТКИ БУДУТЬ ЗАРЕЗЕРВОВАНІ ЩЕ:"
+        android:textColor="@color/list_divider1"
+        android:textSize="12sp"
+        android:id="@+id/textView45"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAllCaps="true"
+        android:textColor="@color/yellov1"
+        android:id="@+id/textView98"
+        android:layout_below="@+id/textView45"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

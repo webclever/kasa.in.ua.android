@@ -19,6 +19,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -86,6 +87,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     private DB_Ticket db_ticket;
     private Integer previousPos = -1;
 
+    private Long aLongTimer = null;
+
     private static final String TWITTER_KEY = "NtcdkYkfnL4hRjN8jg8yNZbsH";
     private static final String TWITTER_SECRET = "gahp8a6Ro2M15sKW2aAuW1vJtitKTkLVgYJor7w2TQAQQ70vsI";
 
@@ -129,8 +132,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],navMenuIcons.getResourceId(3,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],navMenuIcons.getResourceId(5,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],navMenuIcons.getResourceId(6,-1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],navMenuIcons.getResourceId(7,-1)));
-
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(7, -1)));
 
         if (getStatusUser()){
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],navMenuIcons.getResourceId(4,-1)));
@@ -265,7 +267,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 
@@ -358,6 +359,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     public void setItemChecked(int position, Boolean status){
         mDrawerList.setItemChecked(position,status);
+
     }
 
     @Override
@@ -497,5 +499,25 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 });
 
         alertDialog.show();
+    }
+
+    public void startTimer(){
+        new CountDownTimer(900000,1000) {
+
+            @Override
+            public void onTick(long millis) {
+                aLongTimer = millis;
+
+            }
+
+            @Override
+            public void onFinish() {
+                aLongTimer = null;
+            }
+        }.start();
+    }
+
+    public long getTimer(){
+        return aLongTimer;
     }
 }

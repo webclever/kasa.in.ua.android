@@ -1,8 +1,13 @@
 package webclever.sliding_menu;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
@@ -11,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import Singleton.UserProfileSingleton;
@@ -25,6 +31,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private SparseBooleanArray sparseBooleanArray = new SparseBooleanArray();
     private Validator validator = new Validator();
     private UserProfileSingleton userProfile;
+    private TextView textViewTimer;
 
     public FragmentUserDataKasa()    { }
 
@@ -68,6 +75,8 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                 }
             }
         });
+        textViewTimer = (TextView) rootView.findViewById(R.id.textView98);
+        startService();
         return rootView;
     }
 
@@ -78,6 +87,31 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
+    }
+
+    private void startService(){
+
+        long timer = ((MainActivity)getActivity()).getTimer();
+        if (timer != 0){
+            new CountDownTimer(timer,1000) {
+
+                @Override
+                public void onTick(long millis) {
+                    int seconds = (int) (millis / 1000) % 60 ;
+                    int minutes = (int) ((millis / (1000*60)) % 60);
+
+                    String text = String.format("%02d : %02d",minutes,seconds);
+                    textViewTimer.setText(text);
+
+                }
+
+                @Override
+                public void onFinish() {
+                    textViewTimer.setText("Бронювання скасоване !");
+                    showAlertDialog();
+                }
+            }.start();
+        }
     }
 
     private class TextWatcherETicket implements TextWatcher {
@@ -137,6 +171,20 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         }
 
         return valid;
+    }
+
+    private void showAlertDialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Fragment fragment = new FragmentBasket();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "1").commit();
+                        dialog.cancel();
+                    }
+                });
     }
 
 

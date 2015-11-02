@@ -5,12 +5,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,7 +62,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     private SharedPreferences spShowDialog;
 
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
@@ -95,6 +97,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startService();
                 if (((MainActivity)getActivity()).getStatusUser()) {
                     Fragment fragment = new FragmentDeliveryOrder();
                     FragmentManager fragmentManager = getFragmentManager();
@@ -275,14 +278,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         textViewPrice.setText(String.valueOf(this.price));
     }
 
-    @Override
-    public void onBackPressed() {
-        // TODO Auto-generated method stub
-        Fragment fragment = new HomeFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
-    }
+
 
     private void showDialog() {
 
@@ -342,11 +338,23 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         }
     }
 
+    private void startService(){
+        ((MainActivity)getActivity()).startTimer();
+    }
+
     @Override
-    public void onDestroyView ()
-    {
+    public void onDestroyView () {
         ((MainActivity)getActivity()).setItemChecked(2,false);
         super.onDestroyView();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
     }
 
 }

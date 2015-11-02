@@ -24,7 +24,6 @@ import android.widget.Toast;
 import java.util.Timer;
 
 import interfaces.OnBackPressedListener;
-import my_services.TimerService;
 
 
 //Created by Zhenya on 17.02.2015.
@@ -49,6 +48,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     private Animation anim;
 
     private SparseArray<Fragment> fragmentSparseArray;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
@@ -196,19 +196,28 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     }
 
     private void startService(){
-        Intent intent = new Intent("webclever.sliding_menu");
-        ServiceConnection sConn = new ServiceConnection() {
+
+        long timer = ((MainActivity)getActivity()).getTimer();
+        if (timer != 0){
+        new CountDownTimer(timer,1000) {
+
             @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                //TimerService myService  = ((TimerService.ALARM_SERVICE));
+            public void onTick(long millis) {
+                int seconds = (int) (millis / 1000) % 60 ;
+                int minutes = (int) ((millis / (1000*60)) % 60);
+
+                String text = String.format("%02d : %02d",minutes,seconds);
+                textViewTimer.setText(text);
+
             }
 
             @Override
-            public void onServiceDisconnected(ComponentName name) {
-
+            public void onFinish() {
+                textViewTimer.setText("Бронювання скасоване !");
             }
-        };
-
-
+        }.start();
+        }
     }
+
+
 }
