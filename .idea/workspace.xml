@@ -35,17 +35,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8a881ca-2874-49b0-bfad-c131b0b213bc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentDeliveryOrder.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentDeliveryOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentUserDataKasa.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentUserDataKasa.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataCourier.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataCourier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataETicket.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataETicket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataPost.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataPost.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_delivery_order.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_delivery_order.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_user_data_courier.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_user_data_courier.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_user_data_eticket.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_user_data_eticket.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_user_data_kasa.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_user_data_kasa.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_userdata_post.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_userdata_post.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="app.iws" />
@@ -153,8 +142,8 @@
       <file leaf-file-name="UserDataETicket.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataETicket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31572905">
-              <caret line="104" column="9" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.27669346">
+              <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
               <folding>
                 <element signature="method#addTicket#0;class#UserDataETicket#0" expanded="false" />
                 <element signature="method#addTicketContainer#0;class#UserDataETicket#0" expanded="false" />
@@ -2521,7 +2510,13 @@
       <option name="project" value="LOCAL" />
       <updated>1446465239533</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="testCommit">
+      <created>1446482239959</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1446482239959</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3069,8 +3064,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/UserDataETicket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31572905">
-          <caret line="104" column="9" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.27669346">
+          <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
           <folding>
             <element signature="method#addTicket#0;class#UserDataETicket#0" expanded="false" />
             <element signature="method#addTicketContainer#0;class#UserDataETicket#0" expanded="false" />
