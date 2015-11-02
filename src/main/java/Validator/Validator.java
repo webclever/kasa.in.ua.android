@@ -43,7 +43,7 @@ public class Validator {
 
     public boolean isNameValid(String name)
     {
-        String regExpn = "^[а-яА-Яa-zA-Z]{3,15}$";
+        String regExpn = "^[-АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюяа-яА-Яa-zA-Z]{3,15}$";
 
         CharSequence inputStr = name;
 
@@ -128,7 +128,6 @@ public class Validator {
     public boolean isPasswordValid(String password){
 
         String regExpn = "((?=.*[a-zA-Z])(?=.*[0-9]).{8,20})";
-
 
             CharSequence inputStr = password;
 

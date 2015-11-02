@@ -3,7 +3,6 @@ package webclever.sliding_menu;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,11 @@ import android.widget.Button;
 /**
  * Created by Admin on 13.05.2015.
  */
-public class fragment_NumberOrder extends Fragment {
+public class FragmentNumberOrder extends Fragment {
 
     @Override
     public View onCreateView (LayoutInflater inflater,ViewGroup conteiner,Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_order_result, conteiner, false);
+        View rootView = inflater.inflate(R.layout.fragment_number_order, conteiner, false);
         /**return to home fragment*/
         ((Button)rootView.findViewById(R.id.Main)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,9 +40,6 @@ public class fragment_NumberOrder extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
             }
         });
-
-
-
 
         return rootView;
     }

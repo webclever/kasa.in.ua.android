@@ -51,7 +51,11 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
 
         EditText editTextPhone = (EditText) rootView.findViewById(R.id.editText17);
-        editTextPhone.setText(userProfile.getPhone());
+        if (!userProfile.getPhone().equals("")){
+            editTextPhone.setText(userProfile.getPhone());
+        }else {
+            editTextPhone.setText("+38");
+        }
         editTextPhone.addTextChangedListener(new TextWatcherETicket(editTextPhone));
         sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
 
@@ -92,7 +96,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
 
     @Override
     public void onBackPressed() {
-        Fragment fragment = new Fragment_Setings();
+        Fragment fragment = new FragmentDeliveryOrder();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }

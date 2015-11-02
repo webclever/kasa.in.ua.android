@@ -3,11 +3,9 @@ package adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.widget.Switch;
 
-import webclever.sliding_menu.CreateAccount;
-import webclever.sliding_menu.Login;
-import webclever.sliding_menu.LoginActivity;
+import webclever.sliding_menu.FragmentCreateAccount;
+import webclever.sliding_menu.FragmentLogin;
 
 
 /**
@@ -23,9 +21,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new Login();
+                return new FragmentLogin();
             case 1:
-                return new CreateAccount();
+                return new FragmentCreateAccount();
         }
 
         return null;

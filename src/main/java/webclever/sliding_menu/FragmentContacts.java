@@ -42,7 +42,7 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new PhotosFragment();
+                Fragment fragment = new FragmentBasket();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
             }

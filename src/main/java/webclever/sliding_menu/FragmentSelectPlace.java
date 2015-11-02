@@ -16,6 +16,7 @@ import android.os.Bundle;
 
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -166,6 +168,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
         webViewSchema = (WebView) rootView.findViewById(R.id.webviewSchema);
         webViewSchema.loadUrl("http://tms.webclever.in.ua/api/previewScheme?event_id=" + String.valueOf(idEvent) + "&token=3748563");
+        //webViewSchema.loadUrl("https://upload.wikimedia.org/wikipedia/commons/1/12/%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80_%D1%87%D0%B5%D1%80%D1%82%D0%B5%D0%B6%D0%B0_%D0%B2_SVG_%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B5.svg");
         webViewSchema.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         webViewSchema.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
@@ -173,7 +176,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         webViewSchema.getSettings().setDomStorageEnabled(true);
 
         webViewSchema.getSettings().setSupportZoom(true);
-        webViewSchema.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+
         webViewSchema.getSettings().setDisplayZoomControls(true);
         webViewSchema.getSettings().setBuiltInZoomControls(true);
 
@@ -184,7 +187,13 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
         webViewSchema.getSettings().setLoadWithOverviewMode(true);
         webViewSchema.getSettings().setUseWideViewPort(true);
-        webViewSchema.setInitialScale(1);
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            webViewSchema.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            webViewSchema.setInitialScale(0);
+        }else {
+            webViewSchema.setInitialScale(1);
+        }
+
 
         mProgress.setProgress(0);
         webViewSchema.setWebChromeClient(new MyWebViewChromeClient());
@@ -388,7 +397,16 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         public void schemeLoadingListener()
         {
             getBasketTicket();
+            setZoom();
         }
+    }
+
+    private void setZoom(){
+
+        /*webViewSchema.getSettings().setLoadWithOverviewMode(true);
+        webViewSchema.getSettings().setUseWideViewPort(true);
+        webViewSchema.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        webViewSchema.setInitialScale(0);*/
     }
 
     private void getBasketTicket() {
@@ -402,7 +420,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                     str = cursorSelectedPlace.getString(0);
                     containerTicket.put(str, true);
 
-                    ValueCallback<String> resultCallback;;
+                    ValueCallback<String> resultCallback;
                     resultCallback = new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String value) {

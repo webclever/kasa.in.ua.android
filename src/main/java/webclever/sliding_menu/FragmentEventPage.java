@@ -51,7 +51,7 @@ import static webclever.sliding_menu.R.id.frame_container;
 
 
 
-public class SingleIvent  extends Fragment implements OnBackPressedListener {
+public class FragmentEventPage extends Fragment implements OnBackPressedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private ProgressDialog progressDialog;
@@ -78,7 +78,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
 
     private DateFormat dateFormat = new DateFormat();
 
-    public SingleIvent() {
+    public FragmentEventPage() {
         setHasOptionsMenu(true);
     }
     @Override
@@ -95,7 +95,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.singleivent, conteiner, false);
+        final View rootView = inflater.inflate(R.layout.fragment_event_page, conteiner, false);
         id_ivent = getArguments().getInt("id");
         fromFragment = getArguments().getString("fromFragment");
 
@@ -307,7 +307,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
             relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Fragment fragment = new PhotosFragment();
+                    Fragment fragment = new FragmentBasket();
                     android.app.FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
                 }
@@ -329,7 +329,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
         myBundle.putInt("id", id_ivent);
         myBundle.putString("name_event", String.valueOf(textViewNameEvent.getText()));
         myBundle.putString("fromFragment", fromFragment);
-        Fragment fragment = new SelectPlace();
+        Fragment fragment = new FragmentSelectPlace();
         fragment.setArguments(myBundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -386,7 +386,7 @@ public class SingleIvent  extends Fragment implements OnBackPressedListener {
             Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
         }else
         {
-            Fragment fragment = new FindPeopleFragment();
+            Fragment fragment = new FragmentSearchEvent();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
             Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();

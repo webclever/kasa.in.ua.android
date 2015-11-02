@@ -2,12 +2,9 @@ package webclever.sliding_menu;
 
 
 import android.app.ActionBar;
-import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
-import android.renderscript.Long2;
-import android.renderscript.Long4;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -23,32 +20,21 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.vk.sdk.VKAccessToken;
@@ -62,24 +48,14 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
-import org.apache.http.Header;
-import org.apache.http.HeaderIterator;
-import org.apache.http.HttpRequest;
-import org.apache.http.ProtocolVersion;
-import org.apache.http.RequestLine;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.ResponseDate;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 
 
 /**
@@ -106,7 +82,6 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     private Intent intent;
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -211,7 +186,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             @Override
             public void onError(VKError error) {
                 // User didn't pass Authorization
-                Log.i("User", "User Login VK error!");
+                Log.i("User", "User login VK error!");
             }
         };
 
@@ -235,7 +210,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     }
 
     private void getUserDataVK(final String mail) {
-        Log.i("VK", "User Login VK!");
+        Log.i("VK", "User login VK!");
         VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,email"));
         request.secure = false;
         request.useSystemLanguage = false;
@@ -301,7 +276,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                                                 jsonObjectUserInfo.getString("last_name"),
                                                 jsonObjectUserInfo.getString("email"),
                                                 "Facebook", 1);
-                                        Log.i("Response_data_Facebook",jsonObjectUserInfo.toString());
+                                        Log.i("Response_data_Facebook", jsonObjectUserInfo.toString());
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -408,12 +383,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     }
 
     private void updateUI(boolean isSignedIn) {
-        if (isSignedIn) {
-            statusUserGoogle = true;
-
-        } else {
-            statusUserGoogle = false;
-        }
+        statusUserGoogle = isSignedIn;
     }
 
     @Override
@@ -473,7 +443,14 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         LoginActivity.this.finish();
     }
 
-
+    private void sigOutGooglePlus(){
+        if (mGoogleApiClient.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            mGoogleApiClient.disconnect();
+            mShouldResolve = false;
+            Log.i("User", "logout G+ !");
+        }
+    }
 
     public void sigInGooglePlus(){
         if (mGoogleApiClient.isConnected()) {
@@ -524,6 +501,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                             userProfileSingleton.setEmail(jsonObjectUser.getString("email"));
                             userProfileSingleton.setNameSocial(social_name);
                             userProfileSingleton.setSocialId(soc_id);
+                            sigOutGooglePlus();
                             closeActivity();
 
                         } catch (JSONException e) {
@@ -542,7 +520,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("tmssec", jsonObject.toString());
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
@@ -550,7 +528,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("token","3748563");
                 Log.i("Params",params.toString());
                 return params;
@@ -571,7 +549,9 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
         intent.putExtra("USER_LNAME",user_last_name);
         intent.putExtra("USER_EMAIL",user_email);
         startActivity(intent);
+        sigOutGooglePlus();
         closeActivity();
+
     }
 
 }

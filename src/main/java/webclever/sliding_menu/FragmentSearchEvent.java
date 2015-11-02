@@ -6,8 +6,6 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -37,7 +33,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import Format.DateFormat;
 import customlistviewadapter.CustomListAdapter;
@@ -50,7 +45,7 @@ import static webclever.sliding_menu.R.id.frame_container;
 /**
  * Created by User on 13.08.2014.
  */
-public class FindPeopleFragment extends Fragment implements OnBackPressedListener {
+public class FragmentSearchEvent extends Fragment implements OnBackPressedListener {
 
     //private static final String url="http://org.kasa.in.ua/api/eventlist";
     private static final String url="http://tms.webclever.in.ua/api/getEventList?&token=3748563&city_id=0";
@@ -65,14 +60,14 @@ public class FindPeopleFragment extends Fragment implements OnBackPressedListene
     private int start = 0;
     private Boolean checkDownload;
 
-    public FindPeopleFragment(){
+    public FragmentSearchEvent(){
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.fragment_find_people_fragment,conteiner,false);
+        View rootView = inflater.inflate(R.layout.fragment_search_event,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(1,true);
         getActivity().getActionBar().setTitle("Пошук події");
         listView = (ListView) rootView.findViewById(R.id.listView);
@@ -92,7 +87,7 @@ public class FindPeopleFragment extends Fragment implements OnBackPressedListene
                 myBundle.putInt("id",id_ivent);
                 myBundle.putString("fromFragment","searchFragment");
                 Toast.makeText(getActivity(),String.valueOf(id_ivent),Toast.LENGTH_SHORT).show();
-                Fragment fragment = new SingleIvent();
+                Fragment fragment = new FragmentEventPage();
                 fragment.setArguments(myBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
@@ -222,7 +217,7 @@ public class FindPeopleFragment extends Fragment implements OnBackPressedListene
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new PhotosFragment();
+                Fragment fragment = new FragmentBasket();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
             }

@@ -41,7 +41,7 @@ import customlistviewapp.AppController;
 /**
  * Created by Женя on 06.08.2015.
  */
-public class Login extends Fragment implements View.OnClickListener {
+public class FragmentLogin extends Fragment implements View.OnClickListener {
 
     private TwitterLoginButton loginButtonTW;
     private TextView textViewRememberPassword;
@@ -49,7 +49,7 @@ public class Login extends Fragment implements View.OnClickListener {
     private EditText editTextUserLogin;
     private EditText editTextUserPassword;
     private final String url = "http://tms.webclever.in.ua/api/login";
-    public Login() {
+    public FragmentLogin() {
         // Required empty public constructor
     }
 

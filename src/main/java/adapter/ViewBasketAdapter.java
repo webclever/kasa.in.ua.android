@@ -9,10 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.Transformation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -20,7 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import DataBase.DB_Ticket;
-import webclever.sliding_menu.PhotosFragment;
+import webclever.sliding_menu.FragmentBasket;
 import webclever.sliding_menu.R;
 
 /**
@@ -130,8 +127,8 @@ public class ViewBasketAdapter extends BaseAdapter {
                                 deleteCell(viewGroupTicket, viewGroupTicketContainer);
                             }
 
-                            PhotosFragment photosFragment = (PhotosFragment) activity.getFragmentManager().findFragmentById(R.id.frame_container);
-                            photosFragment.Price(basket_child.getPriceBasketChild());
+                            FragmentBasket fragmentBasket = (FragmentBasket) activity.getFragmentManager().findFragmentById(R.id.frame_container);
+                            fragmentBasket.Price(basket_child.getPriceBasketChild());
                             db_ticket.close();
 
                         }

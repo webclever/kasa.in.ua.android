@@ -15,7 +15,6 @@ import android.os.Bundle;
 
 
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,14 +22,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -49,7 +46,6 @@ import java.util.List;
 
 import Format.DateFormat;
 import Parallaxed.ParallaxListView;
-import Singleton.DataEventSingelton;
 import Singleton.SingletonCity;
 import adapter.ObjectSpinnerAdapter;
 import customlistviewadapter.CustomListAdapter;
@@ -294,7 +290,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                Fragment fragment = new FindPeopleFragment();
+                Fragment fragment = new FragmentSearchEvent();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
                 return true;
@@ -479,7 +475,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         myBundle.putString("fromFragment", "eventList");
         myBundle.putString("city",nameCityy);
         Toast.makeText(getActivity(), String.valueOf(idEvent), Toast.LENGTH_SHORT).show();
-        Fragment fragment = new SingleIvent();
+        Fragment fragment = new FragmentEventPage();
         fragment.setArguments(myBundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();

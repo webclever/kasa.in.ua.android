@@ -51,8 +51,7 @@ import customlistviewapp.AppController;
 /**
  * Created by Admin on 22.10.2014.
  */
-public class RegistrationActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
+public class RegistrationActivity extends FragmentActivity implements
         ResultCallback<People.LoadPeopleResult>  {
 
     private SparseBooleanArray sparseBooleanArrayValidator;
@@ -73,9 +72,9 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
     private String stringUserEMail;
     private final String urlUserRegistration = "http://tms.webclever.in.ua/api/register";
 
-    private GoogleApiClient mGoogleApiClient;
+    //private GoogleApiClient mGoogleApiClient;
 
-    private Boolean statusUserLogin = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,14 +147,6 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
             }
         });
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Plus.API)
-                .addScope(new Scope(Scopes.PROFILE))
-                .build();
-
-
     }
 
     private void RegistrationUser(){
@@ -195,7 +186,6 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                             userProfileSingleton.setLastName(jsonObjectUser.getString("last_name"));
                             userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));
                             userProfileSingleton.setEmail(jsonObjectUser.getString("email"));
-                            statusUserLogin = true;
                             Toast.makeText(RegistrationActivity.this, "Ви успішно зареєструвались", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(), ActivitySuccessRegistration.class);
                             startActivity(intent);
@@ -232,22 +222,6 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
         };
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-
-        Plus.PeopleApi.loadVisible(mGoogleApiClient, null).setResultCallback(this);
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
     }
 
     @Override
@@ -309,8 +283,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                if (!statusUserLogin){
-                    LogOut(integerSocialID);}
+                    LogOut(integerSocialID);
                 finish();
                 return true;
             default:
@@ -320,13 +293,13 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
     @Override
     public void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
+
     }
 
     @Override
@@ -348,7 +321,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                     Log.i("User", "is logout VK !");
                 }
                 break;
-            case 3:
+            /*case 3:
                 if (mGoogleApiClient.isConnected()) {
                     Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
                     mGoogleApiClient.disconnect();
@@ -357,7 +330,7 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
                 } else {
                     Log.i("User", "no logout G++ !");
                 }
-                break;
+                break;*/
         }
     }
 
@@ -366,8 +339,5 @@ public class RegistrationActivity extends FragmentActivity implements GoogleApiC
         LogOut(integerSocialID);
         finish();
     }
-
-
-
 
 }

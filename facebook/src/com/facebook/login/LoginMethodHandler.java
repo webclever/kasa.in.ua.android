@@ -138,7 +138,7 @@ abstract class LoginMethodHandler implements Parcelable {
         Date expires = Utility.getBundleLongAsDate(bundle, AccessToken.EXPIRES_IN_KEY, new Date());
         String token = bundle.getString(AccessToken.ACCESS_TOKEN_KEY);
 
-        // With Login v4, we now get back the actual permissions granted, so update the permissions
+        // With login v4, we now get back the actual permissions granted, so update the permissions
         // to be the real thing
         String grantedPermissions = bundle.getString("granted_scopes");
         if (!Utility.isNullOrEmpty(grantedPermissions)) {

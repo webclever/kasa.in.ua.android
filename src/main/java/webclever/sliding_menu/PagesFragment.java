@@ -2,9 +2,7 @@ package webclever.sliding_menu;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -27,11 +25,6 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.plus.Plus;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
@@ -45,13 +38,10 @@ import static webclever.sliding_menu.R.id.frame_container;
 /**
  * Created by User on 13.08.2014.
  */
-public class PagesFragment extends Fragment implements OnBackPressedListener,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+public class PagesFragment extends Fragment implements OnBackPressedListener {
 
     public PagesFragment(){setHasOptionsMenu(true);}
 
-    private TextView textViewSigIn;
     private EditText editTextName;
     private EditText editTextLName;
     private EditText editTextPhone;
@@ -67,9 +57,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     private SparseBooleanArray sparseBooleanArrayValidator;
     private Validator validator;
 
-    private GoogleApiClient mGoogleApiClient;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -79,7 +66,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
         sparseBooleanArrayValidator = new SparseBooleanArray();
         validator = new Validator();
 
-        textViewSigIn = (TextView) rootView.findViewById(R.id.textViewSigIn);
+        TextView textViewSigIn = (TextView) rootView.findViewById(R.id.textViewSigIn);
         textViewSigIn.setText(userProfile.getNameSocial());
 
         editTextName = (EditText) rootView.findViewById(R.id.editText2);
@@ -167,13 +154,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
             }
         });
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this.getActivity())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Plus.API)
-                .addScope(new Scope(Scopes.PROFILE))
-                .build();
-        mGoogleApiClient.connect();
 
         return rootView;
     }
@@ -183,13 +163,13 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
     @Override
     public void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
+
     }
 
     @Override
@@ -202,7 +182,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new PhotosFragment();
+                Fragment fragment = new FragmentBasket();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
             }
@@ -222,20 +202,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
         Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        Log.i("User","onConnected with GooglePlus");
-    }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
 
     private class MyTextWatcher implements TextWatcher{
         private View view;
@@ -314,7 +281,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
                     Log.i("User", "is logout VK !");
                 }
                 break;
-            case 3:
+           /* case 3:
                 if (mGoogleApiClient.isConnected()) {
                     Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
                     mGoogleApiClient.disconnect();
@@ -322,7 +289,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener,
                 }else {
                     Log.i("User", "no logout G+ !");
                 }
-                break;
+                break;*/
         }
     }
 

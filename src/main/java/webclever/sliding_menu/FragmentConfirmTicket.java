@@ -2,9 +2,6 @@ package webclever.sliding_menu;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.gesture.GestureStroke;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -14,10 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -29,13 +24,13 @@ import interfaces.OnBackPressedListener;
 /**
  * Created by Admin on 01.02.2015.
  */
-public class Fragment_Confirm_Ticket extends Fragment implements OnBackPressedListener {
+public class FragmentConfirmTicket extends Fragment implements OnBackPressedListener {
 
     private final String TAG = "EditBox";
 
     private Button buttonDeliverTicket;
 
-    public Fragment_Confirm_Ticket(){}
+    public FragmentConfirmTicket(){}
     private RadioGroup mRadioGroup;
     private RadioGroup mRadioGroup2;
 
@@ -200,7 +195,7 @@ public class Fragment_Confirm_Ticket extends Fragment implements OnBackPressedLi
             public void onClick(View view) {
                 Bundle myBundle = new Bundle();
                 myBundle.putInt("id", 0);
-                Fragment fragment = new fragment_NumberOrder();
+                Fragment fragment = new FragmentNumberOrder();
                 fragment.setArguments(myBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -249,7 +244,7 @@ public class Fragment_Confirm_Ticket extends Fragment implements OnBackPressedLi
     @Override
     public void onBackPressed() {
         // TODO Auto-generated method stub
-        Fragment fragment = new PhotosFragment();
+        Fragment fragment = new FragmentBasket();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
         Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();

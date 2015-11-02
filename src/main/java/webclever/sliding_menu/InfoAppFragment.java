@@ -24,15 +24,15 @@ import static webclever.sliding_menu.R.id.frame_container;
 
 //Created by User on 13.08.2014.
 
-public class WhatsHotFragment extends Fragment implements OnBackPressedListener {
-    public WhatsHotFragment(){setHasOptionsMenu(true);}
+public class InfoAppFragment extends Fragment implements OnBackPressedListener {
+    public InfoAppFragment(){setHasOptionsMenu(true);}
 
     //private DB_Ticket db_ticket;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.fragment_whatshot,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_info_app,container,false);
         ((MainActivity)getActivity()).setItemChecked(6,true);
         //db_ticket = new DB_Ticket(getActivity(),5);
         Calendar calendar = Calendar.getInstance();
@@ -63,7 +63,7 @@ public class WhatsHotFragment extends Fragment implements OnBackPressedListener 
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new PhotosFragment();
+                Fragment fragment = new FragmentBasket();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
             }

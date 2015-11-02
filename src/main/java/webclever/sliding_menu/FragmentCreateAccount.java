@@ -41,7 +41,7 @@ import customlistviewapp.AppController;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateAccount extends Fragment implements View.OnClickListener {
+public class FragmentCreateAccount extends Fragment implements View.OnClickListener {
     private TwitterLoginButton loginButton;
     private EditText editTextName;
     private EditText editTextLName;
@@ -52,7 +52,7 @@ public class CreateAccount extends Fragment implements View.OnClickListener {
     private SparseBooleanArray sparseBooleanArrayValidator;
     private Validator validator = new Validator();
 
-    public CreateAccount() {
+    public FragmentCreateAccount() {
         // Required empty public constructor
     }
 

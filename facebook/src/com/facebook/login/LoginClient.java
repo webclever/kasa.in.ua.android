@@ -218,7 +218,7 @@ class LoginClient implements Parcelable {
     }
 
     private void completeWithFailure() {
-        complete(Result.createErrorResult(pendingRequest, "Login attempt failed.", null));
+        complete(Result.createErrorResult(pendingRequest, "login attempt failed.", null));
     }
 
     private void addLoggingExtra(String key, String value, boolean accumulate) {

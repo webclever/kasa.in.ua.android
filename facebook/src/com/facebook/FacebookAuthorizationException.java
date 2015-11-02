@@ -21,7 +21,7 @@
 package com.facebook;
 
 /**
- * An Exception indicating that Login failed.
+ * An Exception indicating that login failed.
  */
 public class FacebookAuthorizationException extends FacebookException {
     static final long serialVersionUID = 1;

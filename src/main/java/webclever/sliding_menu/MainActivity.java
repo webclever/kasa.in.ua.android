@@ -295,15 +295,15 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 previousPos = 0;
                 break;
             case 1:
-                fragment = new FindPeopleFragment();
+                fragment = new FragmentSearchEvent();
                 previousPos = 1;
                 break;
             case 2:
-                fragment = new PhotosFragment();
+                fragment = new FragmentBasket();
                 previousPos = 2;
                 break;
             case 3:
-                fragment = new CommunityFragment();
+                fragment = new FragmentHistoryOrdering();
                 previousPos = 3;
                 break;
             case 4:
@@ -315,7 +315,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 previousPos = 5;
                 break;
             case 6:
-                fragment = new WhatsHotFragment();
+                fragment = new InfoAppFragment();
                 previousPos = 6;
                 break;
             case 7:
@@ -358,7 +358,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     public void setItemChecked(int position, Boolean status){
         mDrawerList.setItemChecked(position,status);
-
     }
 
     @Override

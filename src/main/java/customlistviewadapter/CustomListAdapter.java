@@ -1,13 +1,7 @@
 package customlistviewadapter;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.Image;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +18,11 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import customlistviewapp.AppController;
 import customlistviewmodel.Movie;
 
-import webclever.sliding_menu.PhotosFragment;
 import webclever.sliding_menu.R;
-import webclever.sliding_menu.SingleIvent;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by Web on 05.09.2014.

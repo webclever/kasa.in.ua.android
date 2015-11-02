@@ -2,7 +2,6 @@ package webclever.sliding_menu;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,17 +38,17 @@ import static webclever.sliding_menu.R.id.frame_container;
 /**
  * Created by User on 13.08.2014.
  */
-public class CommunityFragment extends Fragment implements OnBackPressedListener {
+public class FragmentHistoryOrdering extends Fragment implements OnBackPressedListener {
 
     private static final String stringUrlOrdering = "https://api.myjson.com/bins/1myei";
     private OrderingAdapter orderingAdapter;
 
-    public CommunityFragment(){setHasOptionsMenu(true);}
+    public FragmentHistoryOrdering(){setHasOptionsMenu(true);}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner,Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.fragment_community,conteiner,false);
+        View rootView = inflater.inflate(R.layout.fragment_history_ordering,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(3,true);
         ExpandableListView expandableListViewOrdering = (ExpandableListView) rootView.findViewById(R.id.expandableListViewOrdering);
         List<OrderingParent> arrayListOrderParent = new ArrayList<OrderingParent>();
@@ -70,7 +67,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new PhotosFragment();
+                Fragment fragment = new FragmentBasket();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
             }
