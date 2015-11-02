@@ -2516,7 +2516,13 @@
       <option name="project" value="LOCAL" />
       <updated>1446482239959</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="testCommit">
+      <created>1446482384631</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1446482384631</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView">
