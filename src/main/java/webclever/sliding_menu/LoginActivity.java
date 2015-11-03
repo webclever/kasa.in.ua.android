@@ -468,8 +468,6 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
     public void checkUserSigInKasa(final String user_id, final String user_name, final String user_last_name, final String user_email, final String social_name, final Integer soc_id){
 
-
-
         String url = "http://tms.webclever.in.ua/api/checkAppUser";
         final JSONObject jsonObject = new JSONObject();
         final JSONObject jsonObjectParams = new JSONObject();

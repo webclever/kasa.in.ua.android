@@ -27,14 +27,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import DataBase.DB_Ticket;
 import Format.EncodingTicketCount;
 import adapter.Basket;
 import adapter.Basket_Child;
 import adapter.ViewBasketAdapter;
+import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
@@ -57,6 +69,8 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     private Button mButton;
     private EncodingTicketCount ticketCount;
     private int tickets = 0, price = 0;
+    private String[] masIdTickets = null;
+    private JSONArray jsonArray;
 
     private static final String APP_PREFERENCES_DIALOG = "dialog_show";
     private SharedPreferences spShowDialog;
@@ -74,6 +88,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     {
         View rootView = inflater.inflate(R.layout.fragment_basket,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(2,true);
+        jsonArray = new JSONArray();
         spShowDialog = getActivity().getSharedPreferences(APP_PREFERENCES_DIALOG, Context.MODE_PRIVATE);
         listViewBasketTicket = (ListView) rootView.findViewById(R.id.listViewTicketBasket);
         mButton = (Button) rootView.findViewById(R.id.buttonBasket);
@@ -98,6 +113,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(View v) {
                 startService();
+                checkFreeTickets();
                 if (((MainActivity)getActivity()).getStatusUser()) {
                     Fragment fragment = new FragmentDeliveryOrder();
                     FragmentManager fragmentManager = getFragmentManager();
@@ -116,6 +132,43 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
             }
         });
         return  rootView;
+    }
+
+    private void checkFreeTickets(){
+        Log.i("id_ticket_mas", jsonArray.toString());
+        final String url = "http://tms.webclever.in.ua/api/createTempOrder";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
+                            Log.i("Response", s);
+                            JSONObject jsonObjectOrdering = new JSONObject(s);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("event_id", jsonArray.toString());
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+
     }
 
     public void deleteDB() {
@@ -215,8 +268,11 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                                 if (cursorTicket.moveToFirst())
                                 {
                                   do {
-
+                                      masIdTickets = new String[cursorTicket.getCount()];
                                       String id_ticket = cursorTicket.getString(0);
+                                      masIdTickets[cursorTicket.getPosition()] = id_ticket;
+
+                                      jsonArray.put(id_ticket);
                                       String zon_ticket = cursorTicket.getString(1);
                                       String name_row_ticket = cursorTicket.getString(2);
                                       String row_ticket = cursorTicket.getString(3);
@@ -277,8 +333,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         textViewTicket.setText(String.valueOf(tickets));
         textViewPrice.setText(String.valueOf(this.price));
     }
-
-
 
     private void showDialog() {
 

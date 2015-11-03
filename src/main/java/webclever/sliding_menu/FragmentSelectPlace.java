@@ -397,16 +397,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         public void schemeLoadingListener()
         {
             getBasketTicket();
-            setZoom();
+
         }
-    }
-
-    private void setZoom(){
-
-        /*webViewSchema.getSettings().setLoadWithOverviewMode(true);
-        webViewSchema.getSettings().setUseWideViewPort(true);
-        webViewSchema.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        webViewSchema.setInitialScale(0);*/
     }
 
     private void getBasketTicket() {

@@ -5,6 +5,9 @@ import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -15,14 +18,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 
+import DataBase.DB_Ticket;
+import Singleton.UserProfileSingleton;
+import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 
@@ -47,6 +67,9 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     private int lastIdRadioGroup  = -1;
     private Animation anim;
 
+    private DB_Ticket db_ticket;
+    private SQLiteDatabase db;
+
     private SparseArray<Fragment> fragmentSparseArray;
 
     private FragmentManager fragmentManager;
@@ -54,6 +77,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_delivery_order, conteiner, false);
+        db_ticket = new DB_Ticket(getActivity(),5);
 
         fragmentManager = getActivity().getFragmentManager();
         radioGroupKasa = (RadioGroup) rootView.findViewById(R.id.radioGroupKasa);
@@ -68,8 +92,8 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
         textViewDeliveryMethod = (TextView) rootView.findViewById(R.id.textViewDeliveryMethod);
         textViewTimer = (TextView) rootView.findViewById(R.id.textView63);
         buttonContinue = (Button) rootView.findViewById(R.id.buttonContinue);
-
         radioGroupDeliveryMethod = (RadioGroup) rootView.findViewById(R.id.radioGroupDeliveryMethod);
+        getPaymentMethod();
         if (getArguments() != null) {
             setCheckedDeliveryOrder(getArguments());
         }
@@ -175,7 +199,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     @Override
     public void onBackPressed() {
 
-        Fragment fragment = new HomeFragment();
+        Fragment fragment = new FragmentBasket();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
     }
 
@@ -244,5 +268,139 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
                 break;
         }
 
+    }
+
+    private void getPaymentMethod(){
+        String url = "http://tms.webclever.in.ua/api/getPaymentMethod";
+        final String [] id_events = getIDEvents();
+        Log.i("events", Arrays.toString(id_events));
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
+                            Log.i("Response", s);
+                            JSONArray jsonArrayPaymentsMethod = new JSONArray(s);
+                            for(int i=0; i< jsonArrayPaymentsMethod.length(); i++){
+                                setPaymentMethod(jsonArrayPaymentsMethod.getInt(i));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("event_id", Arrays.toString(id_events));
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+    }
+
+    private void setPaymentMethod (Integer paymentMethod){
+        RadioButton deliveryMethodKasa = (RadioButton) radioGroupDeliveryMethod.getChildAt(0);
+        RadioButton deliveryMethodPost = (RadioButton) radioGroupDeliveryMethod.getChildAt(1);
+        RadioButton deliveryMethodCourier = (RadioButton) radioGroupDeliveryMethod.getChildAt(2);
+        RadioButton deliveryMethodTicketOnLine = (RadioButton) radioGroupDeliveryMethod.getChildAt(3);
+        switch (paymentMethod){
+            case 1:
+                if (deliveryMethodKasa.getVisibility() == View.GONE){
+                    deliveryMethodKasa.setVisibility(View.VISIBLE);
+                }
+                RadioButton paymentMethodKasaPay = (RadioButton) radioGroupKasa.getChildAt(0);
+                if (paymentMethodKasaPay.getVisibility() == View.GONE){
+                    paymentMethodKasaPay.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2:
+                if (deliveryMethodKasa.getVisibility() == View.GONE){
+                    deliveryMethodKasa.setVisibility(View.VISIBLE);
+                }
+                RadioButton paymentMethodKasaOnLine = (RadioButton) radioGroupKasa.getChildAt(1);
+                if (paymentMethodKasaOnLine.getVisibility() == View.GONE){
+                    paymentMethodKasaOnLine.setVisibility(View.VISIBLE);
+                }
+
+                break;
+            case 3:
+                if (deliveryMethodPost.getVisibility() == View.GONE){
+                    deliveryMethodPost.setVisibility(View.VISIBLE);
+                }
+                RadioButton paymentMethodNewPostPay = (RadioButton) radioGroupNewPost.getChildAt(0);
+                if (paymentMethodNewPostPay.getVisibility() == View.GONE){
+                    paymentMethodNewPostPay.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 4:
+                if (deliveryMethodPost.getVisibility() == View.GONE){
+                    deliveryMethodPost.setVisibility(View.VISIBLE);
+                }
+                RadioButton paymentMethodNewPostOnLine = (RadioButton) radioGroupNewPost.getChildAt(1);
+                if (paymentMethodNewPostOnLine.getVisibility() == View.GONE){
+                    paymentMethodNewPostOnLine.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 5:
+                if (deliveryMethodCourier.getVisibility() == View.GONE){
+                    deliveryMethodCourier.setVisibility(View.VISIBLE);
+                }
+                RadioButton paymentMethodCourierPay = (RadioButton) radioGroupCourier.getChildAt(0);
+                if (paymentMethodCourierPay.getVisibility() == View.GONE){
+                    paymentMethodCourierPay.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 6:
+                if (deliveryMethodCourier.getVisibility() == View.GONE){
+                    deliveryMethodCourier.setVisibility(View.VISIBLE);
+                }
+                RadioButton paymentMethodCourierOnLine = (RadioButton) radioGroupCourier.getChildAt(1);
+                if (paymentMethodCourierOnLine.getVisibility() == View.GONE){
+                    paymentMethodCourierOnLine.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 8:
+                if (deliveryMethodTicketOnLine.getVisibility() == View.GONE){
+                    deliveryMethodTicketOnLine.setVisibility(View.VISIBLE);
+                }
+                RadioButton paymentMethodTicketOnline = (RadioButton) radioGroupE_ticket.getChildAt(0);
+                if (paymentMethodTicketOnline.getVisibility() == View.GONE){
+                    paymentMethodTicketOnline.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
+
+    }
+
+    private String[] getIDEvents(){
+        String[] masIdEvents = null;
+        db = db_ticket.getReadableDatabase();
+        Cursor cursorSelectedPlace =  db.query("Event_table",new String[]{"id_event"},null,null,null,null,null,null);
+        if (cursorSelectedPlace != null){
+            if (cursorSelectedPlace.getCount() > 0){
+                cursorSelectedPlace.moveToFirst();
+                masIdEvents = new String[cursorSelectedPlace.getCount()];
+                for (int i=0; i < cursorSelectedPlace.getCount(); i++){
+                    masIdEvents[i] = cursorSelectedPlace.getString(0);
+                    Log.i("event_id",cursorSelectedPlace.getString(0));
+                    cursorSelectedPlace.moveToNext();
+                }
+            }
+        }
+        assert cursorSelectedPlace != null;
+        cursorSelectedPlace.close();
+        db_ticket.close();
+        return masIdEvents;
     }
 }

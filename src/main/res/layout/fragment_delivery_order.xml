@@ -30,6 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Самовивіз"
+            android:visibility="gone"
             android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonKasa" />
 
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Нова Пошта (на відділення)"
             android:id="@+id/radioButtonNewPost"
+            android:visibility="gone"
             android:background="@drawable/background_ordering"
             android:layout_marginTop="5dp" />
 
@@ -45,6 +47,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Кур&apos;єр по місту"
+            android:visibility="gone"
             android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonCourier"
             android:layout_marginTop="5dp" />
@@ -53,6 +56,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Електронний квиток"
+            android:visibility="gone"
             android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonE_ticket"
             android:layout_marginTop="5dp" />
@@ -89,6 +93,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_ordering"
             android:text="Оплата готівкою в касі"
+            android:visibility="gone"
             android:tag="1"
             android:id="@+id/radioButton5" />
 
@@ -97,6 +102,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_ordering"
             android:text="Оплата платіжною карткою"
+            android:visibility="gone"
             android:tag="2"
             android:id="@+id/radioButton6"
             android:layout_marginTop="5dp" />
@@ -118,6 +124,7 @@
             android:layout_height="wrap_content"
             android:text="Оплата готівкою у відділенні"
             android:tag="3"
+            android:visibility="gone"
             android:id="@+id/radioButton"
             android:background="@drawable/background_ordering"/>
 
@@ -128,6 +135,7 @@
             android:id="@+id/radioButton2"
             android:background="@drawable/background_ordering"
             android:tag="4"
+            android:visibility="gone"
             android:checked="false"
             android:layout_marginTop="5dp" />
     </RadioGroup>
@@ -149,6 +157,7 @@
             android:text="Оплата готівкою кур&apos;єру"
             android:background="@drawable/background_ordering"
             android:tag="5"
+            android:visibility="gone"
             android:id="@+id/radioButton3"
             android:checked="false" />
 
@@ -158,6 +167,7 @@
             android:text="Оплата платіжною карткою"
             android:background="@drawable/background_ordering"
             android:tag="6"
+            android:visibility="gone"
             android:id="@+id/radioButton4"
             android:layout_marginTop="5dp"
             android:checked="false" />
@@ -180,6 +190,7 @@
             android:text="Оплата платіжною карткою"
             android:background="@drawable/background_ordering"
             android:tag="7"
+            android:visibility="gone"
             android:id="@+id/radioButton7"
             android:checked="false" />
     </RadioGroup>
