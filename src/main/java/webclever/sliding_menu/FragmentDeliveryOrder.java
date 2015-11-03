@@ -30,7 +30,7 @@ import interfaces.OnBackPressedListener;
 
 public class FragmentDeliveryOrder extends Fragment implements OnBackPressedListener {
 
-
+    private RadioGroup radioGroupDeliveryMethod;
 
     private RadioGroup radioGroupKasa;
     private RadioGroup radioGroupNewPost;
@@ -54,6 +54,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_delivery_order, conteiner, false);
+
         fragmentManager = getActivity().getFragmentManager();
         radioGroupKasa = (RadioGroup) rootView.findViewById(R.id.radioGroupKasa);
         radioGroupNewPost = (RadioGroup) rootView.findViewById(R.id.radioGroupNewPost);
@@ -68,7 +69,10 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
         textViewTimer = (TextView) rootView.findViewById(R.id.textView63);
         buttonContinue = (Button) rootView.findViewById(R.id.buttonContinue);
 
-        RadioGroup radioGroupDeliveryMethod = (RadioGroup) rootView.findViewById(R.id.radioGroupDeliveryMethod);
+        radioGroupDeliveryMethod = (RadioGroup) rootView.findViewById(R.id.radioGroupDeliveryMethod);
+        if (getArguments() != null) {
+            setCheckedDeliveryOrder(getArguments());
+        }
         radioGroupDeliveryMethod.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -148,6 +152,8 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
                         Fragment fragment = fragmentSparseArray.get(radioGroup.getId());
                         Bundle bundleType = new Bundle();
                         bundleType.putString("type", String.valueOf(radioButton.getText()));
+                        bundleType.putInt("delivery_method", radioGroupDeliveryMethod.getCheckedRadioButtonId());
+                        bundleType.putInt("payment_button_id",radioButton.getId());
                         bundleType.putInt("payment_method", Integer.parseInt(radioButton.getTag().toString()));
                         fragment.setArguments(bundleType);
                         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -197,4 +203,46 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
         }
     }
 
+    private void setCheckedDeliveryOrder(Bundle bundle){
+
+        radioGroupDeliveryMethod.check(bundle.getInt("delivery_method"));
+        textViewDeliveryMethod.setVisibility(View.VISIBLE);
+        buttonContinue.setVisibility(View.VISIBLE);
+        switch (bundle.getInt("delivery_method")){
+            case R.id.radioButtonKasa:
+
+                radioGroupKasa.setVisibility(View.VISIBLE);
+                radioGroupKasa.check(bundle.getInt("payment_button_id"));
+                lastIdRadioGroup = radioGroupKasa.getId();
+
+                break;
+
+
+            case R.id.radioButtonNewPost:
+
+                radioGroupNewPost.setVisibility(View.VISIBLE);
+                radioGroupNewPost.check(bundle.getInt("payment_button_id"));
+                lastIdRadioGroup = radioGroupNewPost.getId();
+
+                break;
+
+
+            case R.id.radioButtonCourier:
+
+                radioGroupCourier.setVisibility(View.VISIBLE);
+                radioGroupCourier.check(bundle.getInt("payment_button_id"));
+                lastIdRadioGroup = radioGroupCourier.getId();
+
+                break;
+
+            case R.id.radioButtonE_ticket:
+
+                radioGroupE_ticket.setVisibility(View.VISIBLE);
+                radioGroupE_ticket.check(bundle.getInt("payment_button_id"));
+                lastIdRadioGroup = radioGroupE_ticket.getId();
+
+                break;
+        }
+
+    }
 }

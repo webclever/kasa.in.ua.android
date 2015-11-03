@@ -30,37 +30,32 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Самовивіз"
-            android:background="@drawable/back"
-            android:id="@+id/radioButtonKasa"
-            android:checked="false" />
+            android:background="@drawable/background_ordering"
+            android:id="@+id/radioButtonKasa" />
 
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Нова Пошта (на відділення)"
             android:id="@+id/radioButtonNewPost"
-            android:background="@drawable/back"
-            android:checked="false"
-            android:buttonTint="@color/yellov1"
-            android:layout_marginTop="2dp" />
+            android:background="@drawable/background_ordering"
+            android:layout_marginTop="5dp" />
 
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Кур&apos;єр по місту"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonCourier"
-            android:checked="false"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp" />
 
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Електронний квиток"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonE_ticket"
-            android:checked="false"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp" />
 
     </RadioGroup>
 
@@ -92,7 +87,7 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:text="Оплата готівкою в касі"
             android:tag="1"
             android:id="@+id/radioButton5" />
@@ -100,11 +95,11 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:text="Оплата платіжною карткою"
             android:tag="2"
             android:id="@+id/radioButton6"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp" />
     </RadioGroup>
 
     <RadioGroup
@@ -124,18 +119,17 @@
             android:text="Оплата готівкою у відділенні"
             android:tag="3"
             android:id="@+id/radioButton"
-            android:background="@drawable/back"
-            android:checked="false" />
+            android:background="@drawable/background_ordering"/>
 
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Оплата платіжною карткою"
             android:id="@+id/radioButton2"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:tag="4"
             android:checked="false"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp" />
     </RadioGroup>
 
     <RadioGroup
@@ -153,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Оплата готівкою кур&apos;єру"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:tag="5"
             android:id="@+id/radioButton3"
             android:checked="false" />
@@ -162,10 +156,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Оплата платіжною карткою"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:tag="6"
             android:id="@+id/radioButton4"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
             android:checked="false" />
     </RadioGroup>
 
@@ -184,7 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Оплата платіжною карткою"
-            android:background="@drawable/back"
+            android:background="@drawable/background_ordering"
             android:tag="7"
             android:id="@+id/radioButton7"
             android:checked="false" />

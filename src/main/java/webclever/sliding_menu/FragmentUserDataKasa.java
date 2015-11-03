@@ -36,14 +36,17 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private UserProfileSingleton userProfile;
     private TextView textViewTimer;
     private Integer paymentMethod;
+    private FragmentManager fragmentManager;
+    private Bundle bundle;
     public FragmentUserDataKasa()    { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_user_data_kasa, container, false);
+        fragmentManager = getFragmentManager();
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
+        if(getArguments() != null){
+            bundle = getArguments();
             paymentMethod = bundle.getInt("payment_method");
         }
 
@@ -91,7 +94,6 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             public void onClick(View view) {
                 if (getValidUserData()){
                     Fragment fragment = new FragmentSuccessfulOrder();
-                    FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                 }
             }
@@ -105,7 +107,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     public void onBackPressed() {
 
         Fragment fragment = new FragmentDeliveryOrder();
-        FragmentManager fragmentManager = getFragmentManager();
+        fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
     }

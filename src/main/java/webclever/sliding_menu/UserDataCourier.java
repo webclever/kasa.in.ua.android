@@ -30,6 +30,8 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     private UserProfileSingleton userProfile;
     private TextView textViewTimer;
     private Integer paymentMethod;
+    private FragmentManager fragmentManager;
+    private Bundle bundle;
     public UserDataCourier() { }
 
     @Override
@@ -42,9 +44,10 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_user_data_courier, container, false);
+        fragmentManager  = getFragmentManager();
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
+        if(getArguments() != null){
+            bundle = getArguments();
             paymentMethod = bundle.getInt("payment_method");
         }
 
@@ -107,7 +110,6 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             public void onClick(View view) {
                 if (getValidUserData()){
                     Fragment fragment = new FragmentSuccessfulOrder();
-                    FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                 }
             }
@@ -161,7 +163,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     @Override
     public void onBackPressed() {
         Fragment fragment = new FragmentDeliveryOrder();
-        FragmentManager fragmentManager = getFragmentManager();
+        fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 

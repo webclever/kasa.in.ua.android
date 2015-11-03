@@ -29,10 +29,11 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     private UserProfileSingleton userProfile;
 
     private TextView textViewTimer;
-    private CountDownTimer countDownTimer;
     private FragmentManager fragmentManager;
 
     private Integer paymentMethod;
+
+    private Bundle bundle;
 
     public UserDataPost() { }
 
@@ -47,8 +48,9 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         final View rootView = inflater.inflate(R.layout.fragment_userdata_post, container, false);
         Toast.makeText(getActivity().getApplicationContext(), getArguments().getString("type"), Toast.LENGTH_SHORT).show();
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
+
+        if(getArguments() != null){
+            bundle = getArguments();
             paymentMethod = bundle.getInt("payment_method");
         }
 
@@ -126,6 +128,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     public void onBackPressed() {
 
         Fragment fragment = new FragmentDeliveryOrder();
+        fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
@@ -201,7 +204,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
         long timer = ((MainActivity)getActivity()).getTimer();
         if (timer != 0){
-        countDownTimer = new CountDownTimer(timer,1000) {
+        new CountDownTimer(timer,1000) {
 
                 @Override
                 public void onTick(long millis) {

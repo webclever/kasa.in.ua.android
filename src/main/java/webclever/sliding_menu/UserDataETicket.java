@@ -45,6 +45,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private ViewGroup viewGroupTicketContainer;
     private TextView textViewTimer;
     private FragmentManager fragmentManager;
+    private Bundle bundle;
 
     private Integer paymentMethod;
 
@@ -56,8 +57,9 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_user_data_eticket, container, false);
-        Bundle bundle = getArguments();
-        if(bundle != null){
+
+        if(getArguments() != null){
+            bundle = getArguments();
             paymentMethod = bundle.getInt("payment_method");
         }
         fragmentManager = getFragmentManager();
@@ -110,7 +112,6 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
                 if (getValidUserData() && getValidUserDataTicket()){
                     Fragment fragment = new FragmentSuccessfulOrder();
-                    FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                 }
 
@@ -124,7 +125,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     @Override
     public void onBackPressed() {
         Fragment fragment = new FragmentDeliveryOrder();
-        FragmentManager fragmentManager = getFragmentManager();
+        fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
