@@ -32,7 +32,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Format.DateFormat;
 import customlistviewadapter.CustomListAdapter;
@@ -48,7 +50,7 @@ import static webclever.sliding_menu.R.id.frame_container;
 public class FragmentSearchEvent extends Fragment implements OnBackPressedListener {
 
     //private static final String url="http://org.kasa.in.ua/api/eventlist";
-    private static final String url="http://tms.webclever.in.ua/api/getEventList?&token=3748563&city_id=0";
+    //private static final String url="?&token=3748563&city_id=0";
     private ProgressDialog pDialog;
     private List<Movie> movieList = new ArrayList<Movie>();
     private ListView listView;
@@ -68,14 +70,13 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_search_event,conteiner,false);
-        ((MainActivity)getActivity()).setItemChecked(1,true);
+        ((MainActivity)getActivity()).setItemChecked(1, true);
         getActivity().getActionBar().setTitle("Пошук події");
         listView = (ListView) rootView.findViewById(R.id.listView);
         adapter = new CustomListAdapter(getActivity(),getActivity(),movieList,"searchEvent");
-
         listView.setAdapter(adapter);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar2);
-        loadEvent(url);
+
 
         listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
@@ -83,23 +84,23 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
 
                 Bundle myBundle = new Bundle();
                 int id_ivent = movieList.get(arg2).getId_ivent();
-                myBundle.putInt("id",id_ivent);
-                myBundle.putString("fromFragment","searchFragment");
-                Toast.makeText(getActivity(),String.valueOf(id_ivent),Toast.LENGTH_SHORT).show();
+                myBundle.putInt("id", id_ivent);
+                myBundle.putString("fromFragment", "searchFragment");
+                Toast.makeText(getActivity(), String.valueOf(id_ivent), Toast.LENGTH_SHORT).show();
                 Fragment fragment = new FragmentEventPage();
                 fragment.setArguments(myBundle);
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
             }
         });
-        listView.setTextFilterEnabled(true);
+
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-                int threshold = 1;
+                /*int threshold = 1;
                 int count = listView.getCount();
                 if (scrollState == SCROLL_STATE_IDLE) {
                     if (listView.getLastVisiblePosition() >= count
@@ -113,7 +114,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                             Log.i("Scroll end", "yes");
                         }
                     }
-                }
+                }*/
 
             }
 
@@ -125,45 +126,108 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         return rootView;
     }
 
-    private void loadEvent(String url) {
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+
+        /** Inflating the current activity's menu with res/menu/items.xml */
+        getActivity().getMenuInflater().inflate(R.menu.serch_event, menu);
+        MenuItem item = menu.findItem(R.id.menuCount);
+        if (((MainActivity) getActivity()).getCountTicket().equals("0")) {
+            menu.getItem(1).setVisible(false);
+        }
+        RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
+        relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new FragmentBasket();
+                android.app.FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+            }
+        });
+        TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
+        textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        android.widget.SearchView searchView = (android.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                movieList.clear();
+                if (newText.length() > 1) {
+                    loadEvent(newText);
+                }
+                //adapter.getFilter().filter(newText);
+                Log.i("SerchView", newText);
+
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+    }
+
+    @Override
+    public void onDestroyView () {
+        ((MainActivity)getActivity()).setItemChecked(1,false);
+        super.onDestroyView();
+    }
+
+    private void loadEvent(final String name_event) {
+        final String search_event_url = "http://tms.webclever.in.ua/api/getEventList";
         checkDownload = false;
         progressBar.setVisibility(View.VISIBLE);
-        JsonArrayRequest movieReq = new JsonArrayRequest(url,
+        JsonArrayRequest movieReq = new JsonArrayRequest(search_event_url,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
                         Log.d(TAG, jsonArray.toString());
 
                         if (limit < jsonArray.length()){
-                        for(int i = start; i < limit; i++)
-                        {
-                            try {
-                                JSONObject obj = jsonArray.getJSONObject(i);
-                                Movie movie = new Movie();
-                                movie.setId_ivent(obj.getInt("id"));
-                                movie.setName(obj.getString("name"));
-                                movie.setTime(obj.getString("start_time"));
-                                if (dateFormat.getData(obj.getString("start_time")) != null)
-                                {
-                                    movie.setData(dateFormat.getData(obj.getString("start_time")));
-                                }
-                                if (dateFormat.getTime(obj.getString("start_time")) != null)
-                                {
-                                    movie.setTime(dateFormat.getTime(obj.getString("start_time")));
-                                }
-                                JSONObject city = obj.getJSONObject("city");
-                                movie.setCity(city.getString("name"));
-                                JSONObject poster = obj.getJSONObject("poster");
-                                movie.setThumbnailUrl(poster.getString("l"));
-                                movieList.add(movie);
-
-                            }catch (JSONException e)
+                            for(int i = start; i < limit; i++)
                             {
-                                e.printStackTrace();
+                                try {
+                                    JSONObject obj = jsonArray.getJSONObject(i);
+                                    Movie movie = new Movie();
+                                    movie.setId_ivent(obj.getInt("id"));
+                                    movie.setName(obj.getString("name"));
+                                    movie.setTime(obj.getString("start_time"));
+                                    if (dateFormat.getData(obj.getString("start_time")) != null)
+                                    {
+                                        movie.setData(dateFormat.getData(obj.getString("start_time")));
+                                    }
+                                    if (dateFormat.getTime(obj.getString("start_time")) != null)
+                                    {
+                                        movie.setTime(dateFormat.getTime(obj.getString("start_time")));
+                                    }
+                                    JSONObject city = obj.getJSONObject("city");
+                                    movie.setCity(city.getString("name"));
+                                    JSONObject poster = obj.getJSONObject("poster");
+                                    movie.setThumbnailUrl(poster.getString("l"));
+                                    movieList.add(movie);
 
-                            }
-                        }checkDownload = true;
+                                }catch (JSONException e)
+                                {
+                                    e.printStackTrace();
+
+                                }
+                            }checkDownload = true;
                         }
                         else {
                             for(int i = start; i < jsonArray.length(); i++)
@@ -201,67 +265,18 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
 
             }
 
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("name", name_event);
+                params.put("city_id","0");
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
         AppController.getInstance().addToRequestQueue(movieReq);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Add your menu entries here
-
-        /** Inflating the current activity's menu with res/menu/items.xml */
-        getActivity().getMenuInflater().inflate(R.menu.serch_event, menu);
-        MenuItem item = menu.findItem(R.id.menuCount);
-        if (((MainActivity) getActivity()).getCountTicket().equals("0")) {
-            menu.getItem(1).setVisible(false);
-        }
-        RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
-        relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new FragmentBasket();
-                android.app.FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-            }
-        });
-        TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
-        textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
-
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        android.widget.SearchView searchView = (android.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                adapter.getFilter().filter(newText);
-                Log.i("SerchView", newText);
-
-                return false;
-            }
-        });
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onBackPressed() {
-        Fragment fragment = new HomeFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-    }
-
-    @Override
-    public void onDestroyView ()
-    {
-        ((MainActivity)getActivity()).setItemChecked(1,false);
-        super.onDestroyView();
     }
 
 }

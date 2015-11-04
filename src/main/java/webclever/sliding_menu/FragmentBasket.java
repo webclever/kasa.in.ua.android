@@ -153,7 +153,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                             e.printStackTrace();
 
                         }
-
                     }
                 }, new Response.ErrorListener() {
             @Override

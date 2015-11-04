@@ -27,13 +27,13 @@ import webclever.sliding_menu.R;
 /**
  * Created by Web on 05.09.2014.
  */
-public class CustomListAdapter extends BaseAdapter implements Filterable{
+public class CustomListAdapter extends BaseAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
     private List<Movie> movieItems;
     private List<Movie> originalMovieItems;
-    private EventFilter eventFilter;
+    //private EventFilter eventFilter;
     private Context mContext;
     private String fromFragment;
     private ArrayList<Movie> arrayList;
@@ -120,17 +120,16 @@ public class CustomListAdapter extends BaseAdapter implements Filterable{
         movieItems = originalMovieItems;
     }
 
-    @Override
+   /* @Override
     public Filter getFilter() {
 
         if (eventFilter == null)
             eventFilter = new EventFilter();
         Log.i("serchtext","getFilter");
         return eventFilter;
-    }
+    }*/
 
-    private class EventFilter extends Filter
-    {
+    /*private class EventFilter extends Filter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
@@ -170,6 +169,6 @@ public class CustomListAdapter extends BaseAdapter implements Filterable{
 
         }
 
-    }
+    }*/
 
 }
