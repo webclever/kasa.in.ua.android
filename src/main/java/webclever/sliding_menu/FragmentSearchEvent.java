@@ -77,7 +77,6 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar2);
         loadEvent(url);
 
-
         listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
@@ -213,6 +212,9 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         /** Inflating the current activity's menu with res/menu/items.xml */
         getActivity().getMenuInflater().inflate(R.menu.serch_event, menu);
         MenuItem item = menu.findItem(R.id.menuCount);
+        if (((MainActivity) getActivity()).getCountTicket().equals("0")) {
+            menu.getItem(1).setVisible(false);
+        }
         RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,7 +260,6 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
     @Override
     public void onDestroyView ()
     {
-
         ((MainActivity)getActivity()).setItemChecked(1,false);
         super.onDestroyView();
     }

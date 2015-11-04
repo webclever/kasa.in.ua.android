@@ -7,11 +7,14 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -27,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -69,7 +74,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     private Button mButton;
     private EncodingTicketCount ticketCount;
     private int tickets = 0, price = 0;
-    private String[] masIdTickets = null;
     private JSONArray jsonArray;
 
     private static final String APP_PREFERENCES_DIALOG = "dialog_show";
@@ -84,8 +88,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     }
 
     @Override
-    public View onCreateView (LayoutInflater inflater,ViewGroup conteiner,Bundle savedInstanceState)
-    {
+    public View onCreateView (LayoutInflater inflater,ViewGroup conteiner,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_basket,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(2,true);
         jsonArray = new JSONArray();
@@ -93,8 +96,8 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         listViewBasketTicket = (ListView) rootView.findViewById(R.id.listViewTicketBasket);
         mButton = (Button) rootView.findViewById(R.id.buttonBasket);
         textViewEmptyCart = (TextView) rootView.findViewById(R.id.textViewEmptyCart);
-        //mButton.setEnabled(false);
-        //mButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+        mButton.setEnabled(false);
+        mButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         if (!((MainActivity)getActivity()).getCountTicket().equals("0"))
         {
             mButton.setEnabled(true);
@@ -112,20 +115,16 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startService();
-                checkFreeTickets();
+
                 if (((MainActivity)getActivity()).getStatusUser()) {
-                    Fragment fragment = new FragmentDeliveryOrder();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+
+                    checkFreeTickets();
 
                 } else {
                     if (spShowDialog.getBoolean("show_dialog",true)){
                     showDialog();
                     }else {
-                        Fragment fragment = new FragmentDeliveryOrder();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+                        checkFreeTickets();
                     }
                 }
                 //deleteDB();
@@ -143,100 +142,62 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                     public void onResponse(String s) {
                         try {
                             Log.i("Response", s);
-                            JSONObject jsonObjectOrdering = new JSONObject(s);
+                            JSONObject jsonObject = new JSONObject(s);
+                            Fragment fragment = new FragmentDeliveryOrder();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+                            startService();
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+
                         }
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+                if (volleyError.networkResponse != null) {
+                    Log.d("Error Response code " , String.valueOf(volleyError.networkResponse.statusCode));
+                }
+                NetworkResponse response = volleyError.networkResponse;
+                if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
+                    switch(response.statusCode){
+                        case 400:
+                            try {
+                                String json = new String(response.data);
+                                JSONObject jsonObject = new JSONObject(json);
+                                JSONArray jsonArrayTicket = jsonObject.getJSONArray("ids");
+                                showDialogSoldTicket(jsonArrayTicket);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                    }
+                }
+
             }
         }){
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("token","3748563");
-                params.put("event_id", jsonArray.toString());
+                params.put("places", jsonArray.toString());
                 Log.i("Params",params.toString());
                 return params;
             }
         };
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);
-
-
-    }
-
-    public void deleteDB() {
-        db = db_ticket.getWritableDatabase();
-        int rows = db.delete("Ticket_table", null, null);
-        Log.i("id_ticket","del rows" + String.valueOf(rows));
-
-        rows = db.delete("Event_table", null, null);
-        Log.i("id_ticket", "del rows" + String.valueOf(rows));
-
-        db_ticket.close();
-    }
-
-    private ArrayList<Basket> addDataBasket() {
-        final ArrayList<Basket> basketsParent = new ArrayList<Basket>();
-            final Basket basket = new Basket();
-            //basket.setUrl_img("http://kasa.in.ua/images/event/1282_l.jpg");
-            basket.setNameBasket("Basta");
-            basket.setCityBasket("lviv");
-            basket.setDate("24.03.2015");
-            basket.setTimeBasket("20:00");
-            basket.setBasket_childArrayList(new ArrayList<Basket_Child>());
-
-
-            final Basket_Child basket_child = new Basket_Child();
-            basket_child.setNameBasketChild("parter");
-            basket_child.setRowBasketChild("2");
-            basket_child.setPlaceBasketChild("12");
-            basket_child.setPriceBasketChild("200");
-            basket.getBasket_childArrayList().add(basket_child);
-
-            final Basket_Child basket_child1 = new Basket_Child();
-            basket_child1.setNameBasketChild("parter1");
-            basket_child1.setRowBasketChild("1");
-            basket_child1.setPlaceBasketChild("12");
-            basket_child1.setPriceBasketChild("200");
-            basket.getBasket_childArrayList().add(basket_child1);
-            basketsParent.add(basket);
-
-        final Basket baskett = new Basket();
-        //baskett.setUrl_img("http://kasa.in.ua/images/event/1282_l.jpg");
-        baskett.setNameBasket("Basta1");
-        baskett.setCityBasket("lviv");
-        baskett.setDate("24.03.2015");
-        baskett.setTimeBasket("20:00");
-        baskett.setBasket_childArrayList(new ArrayList<Basket_Child>());
-
-        final Basket_Child basket_child2 = new Basket_Child();
-        basket_child2.setNameBasketChild("parter2");
-        basket_child2.setRowBasketChild("2");
-        basket_child2.setPlaceBasketChild("12");
-        basket_child2.setPriceBasketChild("200");
-        baskett.getBasket_childArrayList().add(basket_child2);
-
-        final Basket_Child basket_child3 = new Basket_Child();
-        basket_child3.setNameBasketChild("parter2");
-        basket_child3.setRowBasketChild("1");
-        basket_child3.setPlaceBasketChild("12");
-        basket_child3.setPriceBasketChild("200");
-        baskett.getBasket_childArrayList().add(basket_child3);
-        basketsParent.add(baskett);
-
-        return basketsParent;
     }
 
     private ArrayList<Basket> addTicket() {
-        final ArrayList<Basket> basketsParent = new ArrayList<Basket>();
-
+        final ArrayList<Basket> basketsParent = new ArrayList<>();
+        tickets = 0;
+        price = 0;
         db = db_ticket.getWritableDatabase();
         Cursor cursorEvent = db.query("Event_table",null,null,null,null,null,null);
         if (cursorEvent != null)
@@ -268,10 +229,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                                 if (cursorTicket.moveToFirst())
                                 {
                                   do {
-                                      masIdTickets = new String[cursorTicket.getCount()];
                                       String id_ticket = cursorTicket.getString(0);
-                                      masIdTickets[cursorTicket.getPosition()] = id_ticket;
-
                                       jsonArray.put(id_ticket);
                                       String zon_ticket = cursorTicket.getString(1);
                                       String name_row_ticket = cursorTicket.getString(2);
@@ -311,19 +269,68 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         return basketsParent;
     }
 
+    private void showDialogSoldTicket(final JSONArray jsonArray){
+
+        final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
+        alBuilder.setTitle("Увага!");
+        alBuilder.setMessage("Деякі з обраних вами квитків вже зайняті!");
+        alBuilder.setCancelable(false);
+        alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteSoldTickets(jsonArray);
+                dialog.cancel();
+            }
+        });
+        alBuilder.show();
+
+    }
+
+    private void deleteSoldTickets(JSONArray jsonArraySoldTickets){
+        try {
+            for (int i=0; i < jsonArraySoldTickets.length(); i++){
+                db_ticket = new DB_Ticket(getActivity(),5);
+                db = db_ticket.getWritableDatabase();
+                int del_id_ticket = 0;
+                int id_event = 0;
+                Cursor cursorDel = db.query("Ticket_table",new String[]{"id_event"},"id_ticket=" + jsonArraySoldTickets.getString(i),null,null,null,null,null);
+                if (cursorDel != null){
+                    cursorDel.moveToFirst();
+                    id_event = Integer.parseInt(cursorDel.getString(0));
+                    cursorDel.close();
+                }
+                del_id_ticket = db.delete("Ticket_table", "id_ticket=" + jsonArraySoldTickets.getString(i), null);
+                Log.i("id_ticket_del", String.valueOf(del_id_ticket));
+                Cursor cursorDelEvent = db.query("Ticket_table",new String[]{"id_event"},"id_event=" + String.valueOf(id_event),null,null,null,null,null);
+                if (cursorDelEvent.getCount() == 0)
+                {
+                    Log.i("getcountEvent",String.valueOf(cursorDelEvent.getCount()));
+                    int del_id_event = db.delete("Event_table","id_event="+String.valueOf(id_event),null);
+                    Log.i("id_event_del", String.valueOf(del_id_event));
+                }
+                cursorDelEvent.close();
+                db_ticket.close();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        basketArrayList.clear();
+        basketArrayList = addTicket();
+        loadHosts(basketArrayList);
+
+    }
+
     private void loadHosts(final ArrayList<Basket> newBasket) {
         viewBasketAdapter = new ViewBasketAdapter(this.getActivity(),newBasket);
         listViewBasketTicket.setAdapter(viewBasketAdapter);
         viewBasketAdapter.notifyDataSetChanged();
-
     }
 
     private void setPrice() {
-        if (tickets > 0 ){
-        textViewCountTicket.setText(ticketCount.getNumEnding(String.valueOf(tickets)));
-        textViewPrice.setText(String.valueOf(price));
-        textViewTicket.setText(String.valueOf(tickets));
-        }
+            textViewCountTicket.setText(ticketCount.getNumEnding(String.valueOf(tickets)));
+            textViewPrice.setText(String.valueOf(price));
+            textViewTicket.setText(String.valueOf(tickets));
     }
 
     public void Price(String price) {
@@ -369,9 +376,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                 checkShowDialog(checkBox.isChecked());
 
                 alertDialog.dismiss();
-                Fragment fragment = new FragmentDeliveryOrder();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+                checkFreeTickets();
             }
         });
 
@@ -398,7 +403,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
 
     @Override
     public void onDestroyView () {
-        ((MainActivity)getActivity()).setItemChecked(2,false);
+        ((MainActivity) getActivity()).setItemChecked(2,false);
         super.onDestroyView();
     }
 
@@ -409,6 +414,58 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+    }
+
+    private ArrayList<Basket> addDataBasket() {
+        final ArrayList<Basket> basketsParent = new ArrayList<Basket>();
+        final Basket basket = new Basket();
+        //basket.setUrl_img("http://kasa.in.ua/images/event/1282_l.jpg");
+        basket.setNameBasket("Basta");
+        basket.setCityBasket("lviv");
+        basket.setDate("24.03.2015");
+        basket.setTimeBasket("20:00");
+        basket.setBasket_childArrayList(new ArrayList<Basket_Child>());
+
+
+        final Basket_Child basket_child = new Basket_Child();
+        basket_child.setNameBasketChild("parter");
+        basket_child.setRowBasketChild("2");
+        basket_child.setPlaceBasketChild("12");
+        basket_child.setPriceBasketChild("200");
+        basket.getBasket_childArrayList().add(basket_child);
+
+        final Basket_Child basket_child1 = new Basket_Child();
+        basket_child1.setNameBasketChild("parter1");
+        basket_child1.setRowBasketChild("1");
+        basket_child1.setPlaceBasketChild("12");
+        basket_child1.setPriceBasketChild("200");
+        basket.getBasket_childArrayList().add(basket_child1);
+        basketsParent.add(basket);
+
+        final Basket baskett = new Basket();
+        //baskett.setUrl_img("http://kasa.in.ua/images/event/1282_l.jpg");
+        baskett.setNameBasket("Basta1");
+        baskett.setCityBasket("lviv");
+        baskett.setDate("24.03.2015");
+        baskett.setTimeBasket("20:00");
+        baskett.setBasket_childArrayList(new ArrayList<Basket_Child>());
+
+        final Basket_Child basket_child2 = new Basket_Child();
+        basket_child2.setNameBasketChild("parter2");
+        basket_child2.setRowBasketChild("2");
+        basket_child2.setPlaceBasketChild("12");
+        basket_child2.setPriceBasketChild("200");
+        baskett.getBasket_childArrayList().add(basket_child2);
+
+        final Basket_Child basket_child3 = new Basket_Child();
+        basket_child3.setNameBasketChild("parter2");
+        basket_child3.setRowBasketChild("1");
+        basket_child3.setPlaceBasketChild("12");
+        basket_child3.setPriceBasketChild("200");
+        baskett.getBasket_childArrayList().add(basket_child3);
+        basketsParent.add(baskett);
+
+        return basketsParent;
     }
 
 }

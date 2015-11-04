@@ -36,9 +36,6 @@ public class ViewBasketAdapter extends BaseAdapter {
     {
         this.activity = activity;
         this.basketList = basketList;
-
-
-
     }
 
     @Override

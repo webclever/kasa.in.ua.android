@@ -489,6 +489,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                         try {
 
                             JSONObject jsonObjectUser = new JSONObject(s);
+                            if (jsonObject.has("user")){
                             UserProfileSingleton userProfileSingleton = new UserProfileSingleton(LoginActivity.this);
                             userProfileSingleton.setStatus(true);
                             userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
@@ -501,6 +502,9 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                             userProfileSingleton.setSocialId(soc_id);
                             sigOutGooglePlus();
                             closeActivity();
+                            }else {
+                                startRegistrationActivity(user_id, user_name, user_last_name, user_email, social_name, soc_id);
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();

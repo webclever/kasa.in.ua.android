@@ -445,7 +445,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             textViewTicketCount.setText(String.valueOf(--totalTicket));
             textViewTicketall.setText(String.valueOf(totalTicket));
             textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
-            String price =String.valueOf( Integer.parseInt(textViewPriceall.getText().toString()) - Integer.parseInt(Price));
+            String price = String.valueOf( Integer.parseInt(textViewPriceall.getText().toString()) - Integer.parseInt(Price));
             textViewPriceall.setText(price);
 
         }

@@ -58,8 +58,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
     private Validator validator;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
         View rootView = inflater.inflate(R.layout.fragment_pages,container,false);
         ((MainActivity)getActivity()).setItemChecked(7,true);
         userProfile = new UserProfileSingleton(getActivity());
@@ -175,8 +174,9 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
-        getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
         if (!((MainActivity) getActivity()).getCountTicket().equals("0")){
+        getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
+
         MenuItem item = menu.findItem(R.id.menuCount);
         RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {

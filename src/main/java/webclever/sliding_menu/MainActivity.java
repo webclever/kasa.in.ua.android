@@ -87,8 +87,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     private DB_Ticket db_ticket;
     private Integer previousPos = -1;
 
-    private Long aLongTimer = null;
-
+    private Long aLongTimer = 900000l;
     private CountDownTimer countDownTimer;
 
     private static final String TWITTER_KEY = "NtcdkYkfnL4hRjN8jg8yNZbsH";
@@ -302,8 +301,10 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 previousPos = 1;
                 break;
             case 2:
-                fragment = new FragmentBasket();
-                previousPos = 2;
+                if (!getCountTicket().equals("0")) {
+                    fragment = new FragmentBasket();
+                    previousPos = 2;
+                }
                 break;
             case 3:
                 fragment = new FragmentHistoryOrdering();
@@ -354,15 +355,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         }
         else
         {
-            Log.e("MainActivity","Error in creating fragment");
+            showAlertDialog();
+            Log.e("MainActivity", "Error in creating fragment");
+            mDrawerList.setItemChecked(previousPos, true);
+            mDrawerList.setSelection(previousPos);
+            setTitle(navMenuTitles[previousPos]);
+            mDrawerLayout.closeDrawer(mDrawerList);
         }
 
     }
 
-    public void setItemChecked(int position, Boolean status){
-        mDrawerList.setItemChecked(position,status);
 
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -375,6 +378,26 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
             }
 
         }
+
+    }
+
+    private void showAlertDialog(){
+        final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
+        alBuilder.setTitle("Увага!");
+        alBuilder.setMessage("У вашому кошику немає квитків!");
+        alBuilder.setCancelable(false);
+        alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.cancel();
+            }
+        });
+        alBuilder.show();
+    }
+
+    public void setItemChecked(int position, Boolean status){
+        mDrawerList.setItemChecked(position,status);
 
     }
 
@@ -475,7 +498,9 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     }
 
     public void showSettingsAlert(String provider) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+
+        /** disable commit this code  */
+        /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(
                 MainActivity.this);
 
         alertDialog.setTitle(provider + " SETTINGS");
@@ -500,7 +525,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                     }
                 });
 
-        alertDialog.show();
+        alertDialog.show();*/
     }
 
     @Override

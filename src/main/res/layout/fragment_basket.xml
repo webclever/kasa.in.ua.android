@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/buttonBasket"
-            android:text="ОФОРМИТИ ЗАМОВЛЕННЯ"
+            android:text="ПРОДОВЖИТИ"
             android:textColor="@color/list_row_end_color"
             android:background="@drawable/button_selector"
             android:layout_width="match_parent"

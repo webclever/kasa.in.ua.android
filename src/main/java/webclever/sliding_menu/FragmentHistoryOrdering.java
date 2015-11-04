@@ -61,21 +61,23 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
-        getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
-        MenuItem item = menu.findItem(R.id.menuCount);
-        RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
-        relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new FragmentBasket();
-                android.app.FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-            }
-        });
-        TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
-        textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
+        if (!((MainActivity) getActivity()).getCountTicket().equals("0")) {
+            getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
+            MenuItem item = menu.findItem(R.id.menuCount);
+            RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
+            relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment = new FragmentBasket();
+                    android.app.FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+                }
+            });
+            TextView textViewTicketCount = (TextView) relativeLayoutShopCart.getChildAt(1);
+            textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
 
-        super.onCreateOptionsMenu(menu, inflater);
+            super.onCreateOptionsMenu(menu, inflater);
+        }
     }
 
     private ArrayList<OrderingParent> addOrdering(String url)

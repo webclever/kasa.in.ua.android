@@ -2,13 +2,16 @@ package webclever.sliding_menu;
 
 
 import android.app.FragmentManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import DataBase.DB_Ticket;
 import interfaces.OnBackPressedListener;
 
 
@@ -16,6 +19,8 @@ import interfaces.OnBackPressedListener;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentSuccessfulOrder extends Fragment implements OnBackPressedListener {
+
+    private DB_Ticket db_ticket;
 
     public FragmentSuccessfulOrder() {
         // Required empty public constructor
@@ -36,6 +41,8 @@ public class FragmentSuccessfulOrder extends Fragment implements OnBackPressedLi
                 fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
             }
         });
+        db_ticket = new DB_Ticket(getActivity(),5);
+        deleteDB();
 
         return rootView;
     }
@@ -47,4 +54,17 @@ public class FragmentSuccessfulOrder extends Fragment implements OnBackPressedLi
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
+
+    public void deleteDB() {
+
+        SQLiteDatabase db = db_ticket.getWritableDatabase();
+        int rows = db.delete("Ticket_table", null, null);
+        Log.i("id_ticket", "del rows" + String.valueOf(rows));
+
+        rows = db.delete("Event_table", null, null);
+        Log.i("id_ticket", "del rows" + String.valueOf(rows));
+
+        db_ticket.close();
+    }
+
 }
