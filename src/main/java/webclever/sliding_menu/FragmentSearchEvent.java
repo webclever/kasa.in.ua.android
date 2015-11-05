@@ -22,10 +22,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -153,7 +155,9 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         android.widget.SearchView searchView = (android.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false);
+        //searchView.setIconifiedByDefault(false);
+        searchView.onActionViewExpanded();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -164,15 +168,15 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
             @Override
             public boolean onQueryTextChange(String newText) {
                 movieList.clear();
-                if (newText.length() > 1) {
-                    loadEvent(newText);
-                }
+                loadEvent(newText);
+
                 //adapter.getFilter().filter(newText);
                 Log.i("SerchView", newText);
 
                 return false;
             }
         });
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -193,16 +197,17 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         final String search_event_url = "http://tms.webclever.in.ua/api/getEventList";
         checkDownload = false;
         progressBar.setVisibility(View.VISIBLE);
-        JsonArrayRequest movieReq = new JsonArrayRequest(search_event_url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        Log.d(TAG, jsonArray.toString());
-
-                        if (limit < jsonArray.length()){
-                            for(int i = start; i < limit; i++)
+        StringRequest movieReq = new StringRequest(Request.Method.POST, search_event_url,
+        new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                        Log.d(TAG, s);
+                        try {
+                            JSONArray jsonArray = new JSONArray(s);
+                        //if (limit < jsonArray.length()){
+                            for(int i = 0; i < jsonArray.length(); i++)
                             {
-                                try {
+
                                     JSONObject obj = jsonArray.getJSONObject(i);
                                     Movie movie = new Movie();
                                     movie.setId_ivent(obj.getInt("id"));
@@ -221,16 +226,14 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                                     JSONObject poster = obj.getJSONObject("poster");
                                     movie.setThumbnailUrl(poster.getString("l"));
                                     movieList.add(movie);
-
-                                }catch (JSONException e)
-                                {
-                                    e.printStackTrace();
-
-                                }
-                            }checkDownload = true;
+                            }
+                        }catch (JSONException e)
+                        {
+                            e.printStackTrace();
                         }
-                        else {
-                            for(int i = start; i < jsonArray.length(); i++)
+                        checkDownload = true;
+                        //}
+                          /*else {  for(int i = start; i < jsonArray.length(); i++)
                             {
                                 try {
                                     JSONObject obj = jsonArray.getJSONObject(i);
@@ -252,7 +255,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                                 }
                             }
                             checkDownload = false;
-                        }
+                        }*/
                         progressBar.setVisibility(View.INVISIBLE);
                         adapter.notifyDataSetChanged();
 
@@ -261,8 +264,6 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-
-
             }
 
         }){

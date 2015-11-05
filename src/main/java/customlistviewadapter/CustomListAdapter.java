@@ -2,6 +2,7 @@ package customlistviewadapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,7 +108,7 @@ public class CustomListAdapter extends BaseAdapter {
         Movie m = movieItems.get(position);
 
         thumbNail.setImageUrl(m.getThumbnailUrl(),imageLoader);
-        name.setText(m.getName());
+        name.setText(Html.fromHtml(m.getName()));
         data.setText(m.getData());
         time.setText(m.getTime());
         city.setText(m.getCity());

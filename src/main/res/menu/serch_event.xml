@@ -4,8 +4,10 @@
         android:icon="@drawable/ic_action_search1"
         android:title="description_search"
         android:orderInCategory="0"
+        android:checked="true"
+        android:iconifiedByDefault="false"
         android:actionViewClass="android.widget.SearchView"
-        android:showAsAction="ifRoom|collapseActionView" />
+        android:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuCount"
         android:showAsAction="ifRoom"

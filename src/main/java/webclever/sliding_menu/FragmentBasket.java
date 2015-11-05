@@ -115,26 +115,25 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (((MainActivity)getActivity()).getStatusUser()) {
-
                     checkFreeTickets();
-
                 } else {
                     if (spShowDialog.getBoolean("show_dialog",true)){
-                    showDialog();
-                    }else {
+                        showDialog();
+                    } else {
                         checkFreeTickets();
                     }
                 }
-                //deleteDB();
+
             }
         });
+
         return  rootView;
     }
 
-    private void checkFreeTickets(){
+    private void checkFreeTickets() {
         Log.i("id_ticket_mas", jsonArray.toString());
+        jsonArray = getIdTickets();
         final String url = "http://tms.webclever.in.ua/api/createTempOrder";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -210,6 +209,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                 int place_event = cursorEvent.getColumnIndex("place_event");
 
                 do {
+
                     Log.i("id_event_basket",String.valueOf(id_event));
 
                     final Basket basket = new Basket();
@@ -229,7 +229,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                                 {
                                   do {
                                       String id_ticket = cursorTicket.getString(0);
-                                      jsonArray.put(id_ticket);
                                       String zon_ticket = cursorTicket.getString(1);
                                       String name_row_ticket = cursorTicket.getString(2);
                                       String row_ticket = cursorTicket.getString(3);
@@ -238,7 +237,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                                       String id_eventt = cursorTicket.getString(6);
                                       final Basket_Child basket_child = new Basket_Child();
                                       tickets ++;
-                                      textViewTicket.setText("125");
                                       if (price_ticket != null) {
                                           price = price + Integer.parseInt(price_ticket);
                                           Log.i("price_ticket", String.valueOf(tickets));
@@ -268,6 +266,21 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         return basketsParent;
     }
 
+    private JSONArray getIdTickets(){
+
+        db = db_ticket.getWritableDatabase();
+        Cursor cursorIdTickets = db.query("Ticket_table",new String[]{"id_ticket"},null,null,null,null,null,null);
+        if (cursorIdTickets != null && cursorIdTickets.getCount() > 0){
+            cursorIdTickets.moveToFirst();
+            do {
+                jsonArray.put(cursorIdTickets.getString(0));
+            }while (cursorIdTickets.moveToNext());
+            cursorIdTickets.close();
+        }
+        db.close();
+        return jsonArray;
+    }
+
     private void showDialogSoldTicket(final JSONArray jsonArray){
 
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
@@ -278,11 +291,13 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteSoldTickets(jsonArray);
+                if (((MainActivity)getActivity()).getCountTicket().equals("0")){
+                    closeFragment();
+                }
                 dialog.cancel();
             }
         });
         alBuilder.show();
-
     }
 
     private void deleteSoldTickets(JSONArray jsonArraySoldTickets){
@@ -290,10 +305,10 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
             for (int i=0; i < jsonArraySoldTickets.length(); i++){
                 db_ticket = new DB_Ticket(getActivity(),5);
                 db = db_ticket.getWritableDatabase();
-                int del_id_ticket = 0;
+                int del_id_ticket ;
                 int id_event = 0;
                 Cursor cursorDel = db.query("Ticket_table",new String[]{"id_event"},"id_ticket=" + jsonArraySoldTickets.getString(i),null,null,null,null,null);
-                if (cursorDel != null){
+                if (cursorDel != null ){
                     cursorDel.moveToFirst();
                     id_event = Integer.parseInt(cursorDel.getString(0));
                     cursorDel.close();
@@ -338,7 +353,21 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         textViewCountTicket.setText(ticketCount.getNumEnding(String.valueOf(tickets)));
         textViewTicket.setText(String.valueOf(tickets));
         textViewPrice.setText(String.valueOf(this.price));
+        if (tickets == 0){
+            closeFragment();
+        }
     }
+
+    private void closeFragment(){
+        ((MainActivity)getActivity()).showAlertDialog();
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+
+
+
 
     private void showDialog() {
 

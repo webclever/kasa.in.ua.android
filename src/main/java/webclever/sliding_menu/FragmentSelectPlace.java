@@ -59,8 +59,10 @@ import Singleton.DataEventSingelton;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
+import static webclever.sliding_menu.R.id.com_facebook_body_frame;
 import static webclever.sliding_menu.R.id.frame_container;
 import static webclever.sliding_menu.R.id.name_event;
+import static webclever.sliding_menu.R.id.thumbnail;
 
 /**
  * Created by Admin on 23.01.2015.
@@ -110,6 +112,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private TextView textViewCountTicket;
     private final String countTicket = " НА СУМУ";
 
+    private Menu menu;
+
     public FragmentSelectPlace()
     {
         setHasOptionsMenu(true);
@@ -123,7 +127,9 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
+        this.menu = menu;
         getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
+        cheSowSopCart();
         MenuItem item = menu.findItem(R.id.menuCount);
         RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
         relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
@@ -259,7 +265,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 textViewTicketCount.animate().setDuration(200);
-
+                cheSowSopCart();
                 if (ConfirmButton.getTag() == "0") {
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -639,6 +645,14 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                 fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
             }
 
+    }
+
+    private void cheSowSopCart() {
+        if(((MainActivity)getActivity()).getCountTicket().equals("0")){
+            menu.getItem(0).setVisible(false);
+        }else {
+            menu.getItem(0).setVisible(true);
+        }
     }
 
 }

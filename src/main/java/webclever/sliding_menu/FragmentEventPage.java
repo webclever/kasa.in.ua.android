@@ -183,7 +183,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                                     JSONObject response = new JSONObject(response_string);
                                     JSONObject jsonObjectPoster = response.getJSONObject("poster");
                                     networkImageView.setImageUrl(jsonObjectPoster.getString("l"), imageLoader);
-                                    textViewNameEvent.setText(response.getString("name"));
+                                    textViewNameEvent.setText(Html.fromHtml(response.getString("name")));
                                     textViewTimeIvent.setText(response.getString("start_time"));
                                     JSONObject jsonObjectLocEvent = response.getJSONObject("location");
                                     textViewEventAddress.setText(jsonObjectLocEvent.getString("name"));

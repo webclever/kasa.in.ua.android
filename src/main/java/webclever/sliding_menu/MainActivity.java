@@ -381,7 +381,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     }
 
-    private void showAlertDialog(){
+    public void showAlertDialog(){
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
         alBuilder.setTitle("Увага!");
         alBuilder.setMessage("У вашому кошику немає квитків!");
