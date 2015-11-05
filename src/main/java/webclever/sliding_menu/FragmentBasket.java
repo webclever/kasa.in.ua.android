@@ -365,10 +365,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
-
-
-
-
     private void showDialog() {
 
         AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());

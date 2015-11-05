@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
@@ -23,10 +24,12 @@ public class ObjectSpinnerAdapter extends BaseAdapter implements SpinnerAdapter 
     private List<SingletonCity> mItems = new ArrayList<>();
     private Activity activity;
     private LayoutInflater inflater;
-    public ObjectSpinnerAdapter(Activity activity,List<SingletonCity> mItems)
+    private Boolean booleanStatus;
+    public ObjectSpinnerAdapter(Activity activity,List<SingletonCity> mItems, Boolean booleanStatus)
     {
         this.activity = activity;
         this.mItems = mItems;
+        this.booleanStatus = booleanStatus;
     }
 
 
@@ -58,6 +61,10 @@ public class ObjectSpinnerAdapter extends BaseAdapter implements SpinnerAdapter 
         SingletonCity singletonCity = mItems.get(position);
         TextView textViewNameCity = (TextView) convertView.findViewById(R.id.namecity);
         textViewNameCity.setText(singletonCity.getNameCity());
+        if (!booleanStatus){
+            ImageView imageViewStatus = (ImageView) convertView.findViewById(R.id.imageviewstatus);
+            imageViewStatus.setVisibility(View.GONE);
+        }
 
         return convertView;
     }

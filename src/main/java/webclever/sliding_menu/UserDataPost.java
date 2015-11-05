@@ -8,17 +8,38 @@ import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import Singleton.SingletonCity;
 import Singleton.UserProfileSingleton;
 import Validator.Validator;
+import adapter.ObjectSpinnerAdapter;
+import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 
@@ -27,11 +48,14 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     private SparseBooleanArray sparseBooleanArray = new SparseBooleanArray();
     private Validator validator = new Validator();
     private UserProfileSingleton userProfile;
-
+    private Spinner spinnerCountry;
+    private List<SingletonCity> listCountries;
+    private ObjectSpinnerAdapter objectSpinnerAdapter;
     private TextView textViewTimer;
     private FragmentManager fragmentManager;
-
     private Integer paymentMethod;
+
+    private EditText editTextCity;
 
     private Bundle bundle;
 
@@ -80,22 +104,36 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         editTextEmail.addTextChangedListener(new TextWatcherETicket(editTextEmail));
         sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
 
-        EditText editTextOblast = (EditText) rootView.findViewById(R.id.editText19);
-        editTextOblast.setText(userProfile.getRegion());
-        editTextOblast.addTextChangedListener(new TextWatcherETicket(editTextOblast));
-        sparseBooleanArray.put(editTextOblast.getId(), validator.isNameValid(userProfile.getRegion()));
-
-        EditText editTextCity = (EditText) rootView.findViewById(R.id.editText20);
-        editTextCity.setText(userProfile.getCity());
-        editTextCity.addTextChangedListener(new TextWatcherETicket(editTextCity));
-        sparseBooleanArray.put(editTextCity.getId(), validator.isLastNameValid(userProfile.getCity()));
-
         EditText editTextNDepartament = (EditText) rootView.findViewById(R.id.editText21);
         editTextNDepartament.setText(userProfile.getNewPost());
         editTextNDepartament.addTextChangedListener(new TextWatcherETicket(editTextNDepartament));
         sparseBooleanArray.put(editTextNDepartament.getId(), validator.isNumberValid(userProfile.getNewPost()));
 
         textViewTimer = (TextView) rootView.findViewById(R.id.textView104);
+
+        spinnerCountry = (Spinner) rootView.findViewById(R.id.spinner);
+        listCountries = getCountries();
+        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),listCountries,false);
+        spinnerCountry.setAdapter(objectSpinnerAdapter);
+        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Post", "Country id: " + String.valueOf(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        editTextCity = (EditText) rootView.findViewById(R.id.editText19);
+        editTextCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectCityDialog();
+            }
+        });
+
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
 
@@ -123,6 +161,8 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         fragmentManager = getActivity().getFragmentManager();
         return rootView;
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -166,12 +206,6 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                     break;
                 case R.id.editText18:
                     sparseBooleanArray.put(R.id.editText18,validator.isEmailValid(editable.toString()));
-                    break;
-                case R.id.editText19:
-                    sparseBooleanArray.put(R.id.editText19, validator.isNameValid(editable.toString()));
-                    break;
-                case R.id.editText20:
-                    sparseBooleanArray.put(R.id.editText20,validator.isNameValid(editable.toString()));
                     break;
                 case R.id.editText21:
                     sparseBooleanArray.put(R.id.editText21,validator.isNumberValid(editable.toString()));
@@ -236,6 +270,58 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                     }
                 });
         alertDialog.show();
+    }
+
+    private ArrayList<SingletonCity> getCountries(){
+        final String url = "http://tms.webclever.in.ua/api/GetCountries";
+        final ArrayList<SingletonCity> singletonCityArrayList = new ArrayList<>();
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(s);
+                            for(int i=0; i<jsonArray.length();i++){
+                                SingletonCity singletonCity = new SingletonCity();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                singletonCity.setIdCity(jsonObject.getInt("id"));
+                                singletonCity.setNameCity(jsonObject.getString("name"));
+
+                                singletonCityArrayList.add(singletonCity);
+                            }
+                            objectSpinnerAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+        return singletonCityArrayList;
+    }
+
+    private void showSelectCityDialog(){
+
+
+
+
+
+
     }
 
 }

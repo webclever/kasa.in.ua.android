@@ -78,7 +78,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
         spinner = (Spinner) rootView.findViewById(R.id.select_city_spinner);
         spinner.setOnItemSelectedListener(this);
         singletonCityList = new ArrayList<>();
-        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),singletonCityList);
+        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),singletonCityList, true);
         spinner.setAdapter(objectSpinnerAdapter);
         listView = (ListView) rootView.findViewById(R.id.list_address);
         listView.setVerticalFadingEdgeEnabled(true);

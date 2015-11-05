@@ -281,7 +281,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         spinner = (Spinner) item.getActionView();
         singletonCityList = new ArrayList<>();
         setJsonRequestNameCity();
-        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),singletonCityList);
+        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),singletonCityList,true);
         spinner.setAdapter(objectSpinnerAdapter);
         spinner.setOnItemSelectedListener(this);
 

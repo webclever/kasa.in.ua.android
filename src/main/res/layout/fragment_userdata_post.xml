@@ -107,12 +107,10 @@
                 android:text="Країна"
                 android:id="@+id/textView59" />
 
-            <EditText
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:id="@+id/editText19" />
+                android:id="@+id/spinner" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -121,12 +119,11 @@
                 android:text="Місто"
                 android:id="@+id/textView60" />
 
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:id="@+id/editText20" />
+                android:id="@+id/editText19" />
 
             <TextView
                 android:layout_width="wrap_content"

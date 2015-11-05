@@ -403,4 +403,5 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
         db_ticket.close();
         return masIdEvents;
     }
+
 }
