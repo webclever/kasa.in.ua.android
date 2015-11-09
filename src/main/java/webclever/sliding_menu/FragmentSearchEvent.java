@@ -155,7 +155,6 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         android.widget.SearchView searchView = (android.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        //searchView.setIconifiedByDefault(false);
         searchView.onActionViewExpanded();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

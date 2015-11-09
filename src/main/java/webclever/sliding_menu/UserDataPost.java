@@ -1,6 +1,7 @@
 package webclever.sliding_menu;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -51,9 +54,12 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     private Spinner spinnerCountry;
     private List<SingletonCity> listCountries;
     private ObjectSpinnerAdapter objectSpinnerAdapter;
+    private Integer idSelectedCountry = -1;
     private TextView textViewTimer;
     private FragmentManager fragmentManager;
     private Integer paymentMethod;
+    private ArrayAdapter arrayAdapter;
+    private List<String> stringListCity;
 
     private EditText editTextCity;
 
@@ -119,6 +125,8 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Post", "Country id: " + String.valueOf(position));
+                SingletonCity singletonCity = listCountries.get(position);
+                idSelectedCountry = singletonCity.getIdCity();
             }
 
             @Override
@@ -130,7 +138,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         editTextCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSelectCityDialog();
+                showSelectCityDialog(idSelectedCountry);
             }
         });
 
@@ -315,13 +323,85 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         return singletonCityArrayList;
     }
 
-    private void showSelectCityDialog(){
+    private void showSelectCityDialog(final Integer id_country){
+
+        AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        final View viewLayout = layoutInflater.inflate(R.layout.list_dialog_select_city, null);
+        alBuilder.setTitle("Виберіть місто.");
+        alBuilder.setView(viewLayout);
+        stringListCity = getListCity(1,"ль");
+        arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1, stringListCity);
+        EditText editText = (EditText) viewLayout.findViewById(R.id.editText20);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        final Dialog alertDialog = alBuilder.create();
 
 
+        alertDialog.show();
+    }
 
+    private List<String> getListCity(final Integer id_country, final String text){
 
+        final String url = "http://tms.webclever.in.ua/api/searchCity";
+        final ArrayList<SingletonCity> singletonCityArrayList = new ArrayList<>();
+        final List<String> stringListCity = new ArrayList<>();
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
 
+                            JSONArray jsonArray = new JSONArray(s);
+                            for(int i=0; i < jsonArray.length(); i++){
+                                SingletonCity singletonCity = new SingletonCity();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                singletonCity.setIdCity(jsonObject.getInt("id"));
+                                singletonCity.setNameCity(jsonObject.getString("text"));
+                                singletonCityArrayList.add(singletonCity);
+                                stringListCity.add(jsonObject.getString("text"));
 
+                            }
+
+                            arrayAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token", "3748563");
+                params.put("country_id", String.valueOf(id_country));
+                params.put("name",text);
+                params.put("all","1");
+                Log.i("Params", params.toString());
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+        return stringListCity;
     }
 
 }
