@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import java.util.Map;
 import Singleton.SingletonCity;
 import Singleton.UserProfileSingleton;
 import Validator.Validator;
+import adapter.AdapterSelectCity;
 import adapter.ObjectSpinnerAdapter;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
@@ -58,8 +60,11 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     private TextView textViewTimer;
     private FragmentManager fragmentManager;
     private Integer paymentMethod;
-    private ArrayAdapter arrayAdapter;
-    private List<String> stringListCity;
+
+    private AdapterSelectCity adapterSelectCity;
+    private ArrayList<SingletonCity> singletonCityArrayList;
+    private Integer cityID;
+
 
     private EditText editTextCity;
 
@@ -330,8 +335,14 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         final View viewLayout = layoutInflater.inflate(R.layout.list_dialog_select_city, null);
         alBuilder.setTitle("Виберіть місто.");
         alBuilder.setView(viewLayout);
-        stringListCity = getListCity(1,"ль");
-        arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1, stringListCity);
+        final Dialog alertDialog = alBuilder.create();
+        singletonCityArrayList = new ArrayList<>();
+
+        adapterSelectCity = new AdapterSelectCity(getActivity(),singletonCityArrayList);
+        ListView listView = (ListView) viewLayout.findViewById(R.id.listView2);
+
+
+        listView.setAdapter(adapterSelectCity);
         EditText editText = (EditText) viewLayout.findViewById(R.id.editText20);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -341,7 +352,11 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (count > 1){
+                    singletonCityArrayList.clear();
+                    singletonCityArrayList = getListCity(id_country, s.toString());
+                    Log.i("dialog",s.toString());
+                }
             }
 
             @Override
@@ -349,17 +364,22 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
             }
         });
-        final Dialog alertDialog = alBuilder.create();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editTextCity.setText(singletonCityArrayList.get(position).getNameCity());
+                cityID = singletonCityArrayList.get(position).getIdCity();
+                alertDialog.dismiss();
+            }
+        });
 
 
         alertDialog.show();
     }
 
-    private List<String> getListCity(final Integer id_country, final String text){
+    private ArrayList<SingletonCity> getListCity(final Integer id_country, final String text){
 
         final String url = "http://tms.webclever.in.ua/api/searchCity";
-        final ArrayList<SingletonCity> singletonCityArrayList = new ArrayList<>();
-        final List<String> stringListCity = new ArrayList<>();
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -373,11 +393,10 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                                 singletonCity.setIdCity(jsonObject.getInt("id"));
                                 singletonCity.setNameCity(jsonObject.getString("text"));
                                 singletonCityArrayList.add(singletonCity);
-                                stringListCity.add(jsonObject.getString("text"));
-
                             }
 
-                            arrayAdapter.notifyDataSetChanged();
+                            adapterSelectCity.notifyDataSetChanged();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -401,7 +420,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
             }
         };
         AppController.getInstance().addToRequestQueue(stringPostRequest);
-        return stringListCity;
+        return singletonCityArrayList;
     }
 
 }
