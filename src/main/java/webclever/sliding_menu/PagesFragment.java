@@ -1,5 +1,7 @@
 package webclever.sliding_menu;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -16,21 +18,40 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import Singleton.SingletonCity;
 import Singleton.UserProfileSingleton;
 import Validator.Validator;
+import adapter.AdapterSelectCity;
+import adapter.ObjectSpinnerAdapter;
+import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
@@ -48,9 +69,17 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
     private EditText editTextEmail;
     private EditText editTextAddress;
     private EditText editTextNPost;
+    private EditText editTextSurname;
     private Spinner spinnerCountry;
-    private Spinner spinnerOblast;
-    private Spinner spinnerCity;
+    private List<SingletonCity> listCountries;
+    private ObjectSpinnerAdapter objectSpinnerAdapter;
+    private Integer idSelectedCountry = -1;
+
+    private AdapterSelectCity adapterSelectCity;
+    private ArrayList<SingletonCity> singletonCityArrayList;
+    private Integer cityID;
+    private EditText editTextCity;
+
 
     private UserProfileSingleton userProfile;
 
@@ -68,6 +97,29 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         TextView textViewSigIn = (TextView) rootView.findViewById(R.id.textViewSigIn);
         textViewSigIn.setText(userProfile.getNameSocial());
 
+        VKSdk.wakeUpSession(this.getActivity(), new VKCallback<VKSdk.LoginState>() {
+            @Override
+            public void onResult(VKSdk.LoginState res) {
+                switch (res) {
+                    case LoggedOut:
+                        Log.i("VK", "user is logout");
+                        break;
+                    case LoggedIn:
+                        Log.i("VK", "user is login!");
+                        break;
+                    case Pending:
+                        break;
+                    case Unknown:
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(VKError error) {
+
+            }
+        });
+
         editTextName = (EditText) rootView.findViewById(R.id.editText2);
         editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new MyTextWatcher(editTextName));
@@ -76,6 +128,9 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         editTextLName.setText(userProfile.getLastName());
         editTextLName.addTextChangedListener(new MyTextWatcher(editTextLName));
         sparseBooleanArrayValidator.put(editTextLName.getId(), validator.isNameValid(userProfile.getLastName()));
+        editTextSurname = (EditText) rootView.findViewById(R.id.editText22);
+        editTextSurname.setText(userProfile.getSurname());
+        sparseBooleanArrayValidator.put(editTextSurname.getId(), true);
         editTextPhone = (EditText) rootView.findViewById(R.id.editText3);
         editTextPhone.setText(userProfile.getPhone());
         editTextPhone.addTextChangedListener(new MyTextWatcher(editTextPhone));
@@ -89,6 +144,35 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         editTextAddress.setText(userProfile.getAddress());
         editTextNPost = (EditText)rootView.findViewById(R.id.editText9);
         editTextNPost.setText(userProfile.getNewPost());
+
+        spinnerCountry = (Spinner) rootView.findViewById(R.id.spinnerCountry);
+        listCountries = getCountries();
+        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),listCountries,false);
+        spinnerCountry.setAdapter(objectSpinnerAdapter);
+        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Post", "Country id: " + String.valueOf(position));
+                SingletonCity singletonCity = listCountries.get(position);
+                idSelectedCountry = singletonCity.getIdCity();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        editTextCity = (EditText) rootView.findViewById(R.id.editText31);
+        editTextCity.setText(userProfile.getCity());
+        editTextCity.addTextChangedListener(new MyTextWatcher(editTextCity));
+        sparseBooleanArrayValidator.put(editTextCity.getId(), validator.isAddressValid(userProfile.getCity()));
+        editTextCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectCityDialog(idSelectedCountry);
+            }
+        });
 
         Button mButtonSaveChange = (Button) rootView.findViewById(R.id.savechangebutton);
         mButtonSaveChange.setOnClickListener(new View.OnClickListener() {
@@ -130,34 +214,146 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
             });
         }
 
-        VKSdk.wakeUpSession(this.getActivity(), new VKCallback<VKSdk.LoginState>() {
+        return rootView;
+    }
+
+    private ArrayList<SingletonCity> getCountries(){
+        final String url = "http://tms.webclever.in.ua/api/GetCountries";
+        final ArrayList<SingletonCity> singletonCityArrayList = new ArrayList<>();
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(s);
+                            for(int i=0; i<jsonArray.length();i++){
+                                SingletonCity singletonCity = new SingletonCity();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                singletonCity.setIdCity(jsonObject.getInt("id"));
+                                singletonCity.setNameCity(jsonObject.getString("name"));
+
+                                singletonCityArrayList.add(singletonCity);
+                            }
+                            objectSpinnerAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onResult(VKSdk.LoginState res) {
-                switch (res) {
-                    case LoggedOut:
-                        Log.i("VK", "user is logout");
-                        break;
-                    case LoggedIn:
-                        Log.i("VK", "user is login!");
-                        break;
-                    case Pending:
-                        break;
-                    case Unknown:
-                        break;
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+        return singletonCityArrayList;
+    }
+
+    private void showSelectCityDialog(final Integer id_country){
+
+        AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        final View viewLayout = layoutInflater.inflate(R.layout.list_dialog_select_city, null);
+        alBuilder.setTitle("Виберіть місто.");
+        alBuilder.setView(viewLayout);
+        final Dialog alertDialog = alBuilder.create();
+        singletonCityArrayList = new ArrayList<>();
+
+        adapterSelectCity = new AdapterSelectCity(getActivity(),singletonCityArrayList);
+        ListView listView = (ListView) viewLayout.findViewById(R.id.listView2);
+
+
+        listView.setAdapter(adapterSelectCity);
+        EditText editText = (EditText) viewLayout.findViewById(R.id.editText20);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 1){
+                    singletonCityArrayList.clear();
+                    singletonCityArrayList = getListCity(id_country, s.toString());
+                    Log.i("dialog",s.toString());
                 }
             }
 
             @Override
-            public void onError(VKError error) {
+            public void afterTextChanged(Editable s) {
 
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editTextCity.setText(singletonCityArrayList.get(position).getNameCity());
+                cityID = singletonCityArrayList.get(position).getIdCity();
+                alertDialog.dismiss();
             }
         });
 
 
-        return rootView;
+        alertDialog.show();
     }
 
+    private ArrayList<SingletonCity> getListCity(final Integer id_country, final String text){
 
+        final String url = "http://tms.webclever.in.ua/api/searchCity";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
+
+                            JSONArray jsonArray = new JSONArray(s);
+                            for(int i=0; i < jsonArray.length(); i++){
+                                SingletonCity singletonCity = new SingletonCity();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                singletonCity.setIdCity(jsonObject.getInt("id"));
+                                singletonCity.setNameCity(jsonObject.getString("text"));
+                                singletonCityArrayList.add(singletonCity);
+                            }
+
+                            adapterSelectCity.notifyDataSetChanged();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token", "3748563");
+                params.put("country_id", String.valueOf(id_country));
+                params.put("name",text);
+                params.put("all","1");
+                Log.i("Params", params.toString());
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+        return singletonCityArrayList;
+    }
 
     @Override
     public void onStart() {
@@ -202,44 +398,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
     }
 
-
-
-    private class MyTextWatcher implements TextWatcher{
-        private View view;
-        public MyTextWatcher(View view){
-            this.view = view;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()){
-                case R.id.editText2:
-                    sparseBooleanArrayValidator.put(R.id.editTextName,validator.isNameValid(editable.toString()));
-                    break;
-                case R.id.editText27:
-                    sparseBooleanArrayValidator.put(R.id.editText27,validator.isLastNameValid(editable.toString()));
-                    break;
-                case R.id.editText3:
-                    sparseBooleanArrayValidator.put(R.id.editText3,validator.isPhoneValid(editable.toString()));
-                    break;
-                case R.id.editText4:
-                    sparseBooleanArrayValidator.put(R.id.editText4,validator.isEmailValid(editable.toString()));
-                    break;
-            }
-
-        }
-    }
-
     private Boolean checkValid(){
         Boolean valid = true;
         for (int i=0; i<sparseBooleanArrayValidator.size(); i++){
@@ -258,11 +416,12 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
         userProfile.setName(editTextName.getText().toString());
         userProfile.setLastName(editTextLName.getText().toString());
+        userProfile.setSurname(editTextSurname.getText().toString());
         userProfile.setPhone(editTextPhone.getText().toString());
         userProfile.setEmail(editTextEmail.getText().toString());
+        userProfile.setCity(editTextCity.getText().toString());
         userProfile.setAddress(editTextAddress.getText().toString());
         userProfile.setNewPost(editTextNPost.getText().toString());
-
 
         return true;
     }
@@ -300,4 +459,42 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         super.onDestroyView();
     }
 
+    private class MyTextWatcher implements TextWatcher{
+        private View view;
+        public MyTextWatcher(View view){
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()){
+                case R.id.editText2:
+                    sparseBooleanArrayValidator.put(R.id.editTextName,validator.isNameValid(editable.toString()));
+                    break;
+                case R.id.editText27:
+                    sparseBooleanArrayValidator.put(R.id.editText27,validator.isLastNameValid(editable.toString()));
+                    break;
+                case R.id.editText3:
+                    sparseBooleanArrayValidator.put(R.id.editText3,validator.isPhoneValid(editable.toString()));
+                    break;
+                case R.id.editText4:
+                    sparseBooleanArrayValidator.put(R.id.editText4,validator.isEmailValid(editable.toString()));
+                    break;
+                case R.id.editText31:
+                    sparseBooleanArrayValidator.put(R.id.editText31,validator.isAddressValid(editable.toString()));
+                    break;
+            }
+
+        }
+    }
 }

@@ -154,8 +154,10 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                         final JSONObject jsonObjectBody = new JSONObject();
 
                         try {
+
                             jsonObjectHeader.put("email",editTextEMail.getText().toString());
                             jsonObjectHeader.put("password",editTextPassword.getText().toString());
+                            jsonObjectHeader.put("service","Kasa.in.ua");
                             jsonObjectBody.put("name",editTextName.getText().toString());
                             jsonObjectBody.put("last_name",editTextLName.getText().toString());
                             jsonObjectBody.put("phone",editTextPhone.getText().toString());
@@ -175,8 +177,10 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                                             JSONObject jsonObjectUserData = new JSONObject(s);
                                             UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
                                             if (!jsonObjectUserData.has("user")){
+                                                userProfileSingleton.setNameSocial("Kasa.in.ua");
+                                                userProfileSingleton.setSocialId(0);
                                                 userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
-                                                userProfileSingleton.setToken(jsonObjectUserData.getInt("token"));
+                                                userProfileSingleton.setToken(jsonObjectUserData.getLong("token"));
                                                 userProfileSingleton.setStatus(true);
                                                 userProfileSingleton.setName(jsonObjectUserData.getString("name"));
                                                 userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
@@ -291,7 +295,5 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
 
         }
     }
-
-
 
 }

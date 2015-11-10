@@ -485,15 +485,15 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
-                        Log.i("Response", s);
+                        Log.i("Response user data", s);
                         try {
-
                             JSONObject jsonObjectUser = new JSONObject(s);
-                            if (jsonObject.has("user")){
+
+                            if (jsonObjectUser.has("user_id")){
                             UserProfileSingleton userProfileSingleton = new UserProfileSingleton(LoginActivity.this);
                             userProfileSingleton.setStatus(true);
                             userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
-                            userProfileSingleton.setToken(jsonObjectUser.getInt("token"));
+                            userProfileSingleton.setToken(jsonObjectUser.getLong("token"));
                             userProfileSingleton.setName(jsonObjectUser.getString("name"));
                             userProfileSingleton.setLastName(jsonObjectUser.getString("last_name"));
                             userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));

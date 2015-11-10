@@ -116,7 +116,7 @@ public class Validator {
     public boolean isAddressValid(String address)
     {
 
-        if(address.length() > 3) {
+        if(address.length() > 2) {
             Log.i("check_lastName","Validate");
             return true;
         }else{

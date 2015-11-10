@@ -32,16 +32,16 @@ public class UserProfileSingleton {
     }
 
     public String getUserId(){
-        return sharedPreferencesUserData.getString("user_ud","");
+        return sharedPreferencesUserData.getString("user_id","");
     }
 
-    public void setToken(Integer token){
-        editor.putInt("user_token",token);
+    public void setToken(Long token){
+        editor.putLong("user_token", token);
         editor.commit();
     }
 
-    public Integer getToken(){
-        return sharedPreferencesUserData.getInt("user_token",-1);
+    public Long getToken(){
+        return sharedPreferencesUserData.getLong("user_token", -1);
     }
     public void setName(String name){
         editor.putString("user_name",name);
@@ -57,6 +57,15 @@ public class UserProfileSingleton {
     public String getLastName(){
         return sharedPreferencesUserData.getString("user_last_name", "");
     }
+    public void setSurname(String surname){
+        editor.putString("user_surname", surname);
+        editor.commit();
+    }
+
+    public String getSurname(){
+        return sharedPreferencesUserData.getString("user_surname","");
+    }
+
     public void setPhone(String phone){
         editor.putString("user_phone",phone);
         editor.commit();

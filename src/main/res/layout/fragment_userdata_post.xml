@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Ім&apos;я"
+                android:text="Ім&apos;я*"
                 android:id="@+id/textView55" />
 
             <EditText
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Прізвище"
+                android:text="Прізвище*"
                 android:id="@+id/textView56" />
 
             <EditText
@@ -74,7 +74,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Телефон"
+                android:text="По батькові*"
+                android:id="@+id/textView105" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText29" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Телефон*"
                 android:id="@+id/textView57" />
 
             <EditText
@@ -90,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="E-mail"
+                android:text="E-mail*"
                 android:id="@+id/textView58" />
 
             <EditText
@@ -104,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Країна"
+                android:text="Країна*"
                 android:id="@+id/textView59" />
 
             <Spinner
@@ -116,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Місто"
+                android:text="Місто*"
                 android:id="@+id/textView60" />
 
 
@@ -130,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="№ відділення"
+                android:text="№ відділення*"
                 android:id="@+id/textView61" />
 
             <EditText

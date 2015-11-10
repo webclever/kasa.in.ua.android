@@ -65,7 +65,6 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
     private ArrayList<SingletonCity> singletonCityArrayList;
     private Integer cityID;
 
-
     private EditText editTextCity;
 
     private Bundle bundle;
@@ -100,6 +99,11 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         editTextLasName.setText(userProfile.getLastName());
         editTextLasName.addTextChangedListener(new TextWatcherETicket(editTextLasName));
         sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
+
+        EditText editTextSurname = (EditText) rootView.findViewById(R.id.editText29);
+        editTextSurname.setText(userProfile.getSurname());
+        editTextSurname.addTextChangedListener(new TextWatcherETicket(editTextSurname));
+        sparseBooleanArray.put(editTextSurname.getId(),validator.isNameValid(userProfile.getSurname()));
 
         EditText editTextPhone = (EditText) rootView.findViewById(R.id.editText17);
         if (!userProfile.getPhone().equals("")){
@@ -139,14 +143,17 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
             }
         });
+
         editTextCity = (EditText) rootView.findViewById(R.id.editText19);
+        editTextCity.setText(userProfile.getCity());
+        editTextCity.addTextChangedListener(new TextWatcherETicket(editTextCity));
+        sparseBooleanArray.put(editTextCity.getId(),validator.isAddressValid(userProfile.getCity()));
         editTextCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showSelectCityDialog(idSelectedCountry);
             }
         });
-
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
 
@@ -175,57 +182,12 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         return rootView;
     }
 
-
-
     @Override
     public void onBackPressed() {
 
         Fragment fragment = new FragmentDeliveryOrder();
         fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-    }
-
-    private class TextWatcherETicket implements TextWatcher {
-
-        private View view;
-        public TextWatcherETicket(View view)
-        {
-            this.view = view;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-
-            switch (view.getId())
-            {
-                case R.id.editText15:
-                    sparseBooleanArray.put(R.id.editText15,validator.isNameValid(editable.toString()));
-                    break;
-                case R.id.editText16:
-                    sparseBooleanArray.put(R.id.editText16,validator.isLastNameValid(editable.toString()));
-                    break;
-                case R.id.editText17:
-                    sparseBooleanArray.put(R.id.editText17,validator.isPhoneValid(editable.toString()));
-                    break;
-                case R.id.editText18:
-                    sparseBooleanArray.put(R.id.editText18,validator.isEmailValid(editable.toString()));
-                    break;
-                case R.id.editText21:
-                    sparseBooleanArray.put(R.id.editText21,validator.isNumberValid(editable.toString()));
-                    break;
-            }
-
-        }
     }
 
     private Boolean getValidUserData() {
@@ -423,4 +385,51 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         return singletonCityArrayList;
     }
 
+    private class TextWatcherETicket implements TextWatcher {
+
+        private View view;
+        public TextWatcherETicket(View view)
+        {
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+            switch (view.getId())
+            {
+                case R.id.editText15:
+                    sparseBooleanArray.put(R.id.editText15,validator.isNameValid(editable.toString()));
+                    break;
+                case R.id.editText16:
+                    sparseBooleanArray.put(R.id.editText16,validator.isLastNameValid(editable.toString()));
+                    break;
+                case R.id.editText29:
+                    sparseBooleanArray.put(R.id.editText29, validator.isNameValid(editable.toString()));
+                    break;
+                case R.id.editText17:
+                    sparseBooleanArray.put(R.id.editText17,validator.isPhoneValid(editable.toString()));
+                    break;
+                case R.id.editText18:
+                    sparseBooleanArray.put(R.id.editText18,validator.isEmailValid(editable.toString()));
+                    break;
+                case R.id.editText21:
+                    sparseBooleanArray.put(R.id.editText21,validator.isNumberValid(editable.toString()));
+                    break;
+                case R.id.editText19:
+                    sparseBooleanArray.put(R.id.editText19,validator.isAddressValid(editable.toString()));
+            }
+
+        }
+    }
 }

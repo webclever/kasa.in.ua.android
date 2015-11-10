@@ -181,7 +181,7 @@ public class RegistrationActivity extends FragmentActivity implements
                             userProfileSingleton.setSocialId(integerSocialID);
                             userProfileSingleton.setStatus(true);
                             userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
-                            userProfileSingleton.setToken(jsonObjectUser.getInt("token"));
+                            userProfileSingleton.setToken(jsonObjectUser.getLong("token"));
                             userProfileSingleton.setName(jsonObjectUser.getString("name"));
                             userProfileSingleton.setLastName(jsonObjectUser.getString("last_name"));
                             userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));

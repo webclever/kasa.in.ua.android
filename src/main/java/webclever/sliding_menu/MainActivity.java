@@ -304,7 +304,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 if (!getCountTicket().equals("0")) {
                     fragment = new FragmentBasket();
                     previousPos = 2;
-                }
+
+                }else {showAlertDialog();}
                 break;
             case 3:
                 fragment = new FragmentHistoryOrdering();
@@ -355,12 +356,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         }
         else
         {
-            showAlertDialog();
             Log.e("MainActivity", "Error in creating fragment");
-            mDrawerList.setItemChecked(previousPos, true);
-            mDrawerList.setSelection(previousPos);
-            setTitle(navMenuTitles[previousPos]);
-            mDrawerLayout.closeDrawer(mDrawerList);
         }
 
     }
@@ -382,6 +378,12 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     }
 
     public void showAlertDialog(){
+
+        mDrawerList.setItemChecked(previousPos, true);
+        mDrawerList.setSelection(previousPos);
+        setTitle(navMenuTitles[previousPos]);
+        mDrawerLayout.closeDrawer(mDrawerList);
+
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
         alBuilder.setTitle("Увага!");
         alBuilder.setMessage("У вашому кошику немає квитків!");
