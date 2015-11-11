@@ -54,6 +54,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -391,7 +392,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     }
 
     private void getPlaceInfoFun(final String id_fun){
-
+        final String[] arrIdTicketFunZone = getIdTicketFunZone(id_fun);
         final String url = "http://tms.webclever.in.ua/api/getPlaces";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -418,7 +419,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                 params.put("token", "3748563");
                 params.put("sector_id", id_fun);
                 params.put("event_id", String.valueOf(idEvent));
-                params.put("places","[]");
+                params.put("places", Arrays.toString(arrIdTicketFunZone));
 
                 Log.i("Params", params.toString());
                 return params;
@@ -427,6 +428,32 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);
 
+    }
+
+    private String[] getIdTicketFunZone(String id_fun_zone){
+        readDB();
+        String id = id_fun_zone;
+        db_ticket = new DB_Ticket(getActivity(),5);
+        db = db_ticket.getReadableDatabase();
+        //Cursor cursorSelectedPlace = db.query("Ticket_table",new String[]{"id_ticket"},"id_place_schema=row35col4sector179",null,null,null,null,null);
+        Cursor cursorSelectedPlace = db.query("Ticket_table",new String[]{"id_place_schema"},"id_place_schema=row35col4sector179",null,null,null,null,null);
+        if (cursorSelectedPlace != null){
+            if (cursorSelectedPlace.getCount() > 0){
+                String[] idTicketFunZone = new String[cursorSelectedPlace.getCount()];
+                cursorSelectedPlace.moveToFirst();
+                idTicketFunZone = new String[cursorSelectedPlace.getCount()];
+                for (int i=0; i < cursorSelectedPlace.getCount(); i++){
+                    idTicketFunZone[i] = cursorSelectedPlace.getString(0);
+                    cursorSelectedPlace.moveToNext();
+                }
+                Log.i("id_ticket_fun", Arrays.toString(idTicketFunZone));
+            }
+        }
+        assert cursorSelectedPlace != null;
+        cursorSelectedPlace.close();
+        db_ticket.close();
+
+        return null;
     }
 
     private void getPlaceInfo(String schemaIdPlace) {
@@ -529,7 +556,6 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
             String price = String.valueOf( Integer.parseInt(textViewPriceall.getText().toString()) - Integer.parseInt(Price));
             textViewPriceall.setText(price);
-
         }
         Log.i("id_ticket_del", String.valueOf(del_id_ticket));
         Cursor cursorDel = db.query("Ticket_table",new String[]{"id_event"},"id_event=" + String.valueOf(idEvent),null,null,null,null,null);
