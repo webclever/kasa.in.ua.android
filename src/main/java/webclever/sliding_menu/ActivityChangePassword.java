@@ -89,9 +89,7 @@ public class ActivityChangePassword extends FragmentActivity {
     }
 
 
-    private boolean changePassword(){
-
-
+    private boolean changePassword() {
 
         final JSONObject jsonObjectHeader = new JSONObject();
 
@@ -118,7 +116,7 @@ public class ActivityChangePassword extends FragmentActivity {
                             JSONObject jsonObjectUserData = new JSONObject(s);
                             if (jsonObjectUserData.getBoolean("change_password")){
 
-                                Toast.makeText(getApplicationContext(),"Зміни збережено!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Пароль змінено!",Toast.LENGTH_SHORT).show();
                                 ActivityChangePassword.this.finish();
                             }
 

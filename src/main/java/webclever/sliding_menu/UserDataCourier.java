@@ -267,7 +267,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         final View viewLayout = layoutInflater.inflate(R.layout.list_dialog_select_city, null);
-        alBuilder.setTitle("Виберіть місто.");
+        alBuilder.setTitle("Введіть назву міста");
         alBuilder.setView(viewLayout);
         final Dialog alertDialog = alBuilder.create();
         singletonCityArrayList = new ArrayList<>();

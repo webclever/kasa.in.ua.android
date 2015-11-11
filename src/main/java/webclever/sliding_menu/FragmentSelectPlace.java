@@ -14,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Display;
@@ -42,20 +43,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import DataBase.DB_Ticket;
 import Format.EncodingTicketCount;
 import Singleton.DataEventSingelton;
+import Singleton.SingletonCity;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
@@ -111,6 +116,9 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private EncodingTicketCount encodingTicketCount;
     private TextView textViewCountTicket;
     private final String countTicket = " НА СУМУ";
+
+    /** delete*/
+    private String id_schema_place;
 
     private Menu menu;
 
@@ -174,7 +182,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
         webViewSchema = (WebView) rootView.findViewById(R.id.webviewSchema);
         webViewSchema.loadUrl("http://tms.webclever.in.ua/api/previewScheme?event_id=" + String.valueOf(idEvent) + "&token=3748563");
-        //webViewSchema.loadUrl("https://upload.wikimedia.org/wikipedia/commons/1/12/%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80_%D1%87%D0%B5%D1%80%D1%82%D0%B5%D0%B6%D0%B0_%D0%B2_SVG_%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B5.svg");
+
         webViewSchema.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         webViewSchema.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
@@ -309,34 +317,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     }
 
 
-    private void getPlaceInfo(String schemaIdPlace) {
-        final String urlInfoPlace = "http://tms.webclever.in.ua/api/getPlaces?places=["+schemaIdPlace+"]&token=3748563";
-        Log.i("url_place", urlInfoPlace);
-        JsonArrayRequest jsonArrayRequestPlaceInfo = new JsonArrayRequest(urlInfoPlace,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                             try {
-                                 for (int i=0; i < jsonArray.length(); i++){
-                                     JSONObject jsonObjectInfoPlace = jsonArray.getJSONObject(i);
-                                     JSONObject jsonObjectRow = jsonObjectInfoPlace.getJSONObject("row");
-                                     JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
-                                     JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
-                                     showPlaceInfo(jsonObjectSector.getString("name"),jsonObjectRow.getString("prefix"),jsonObjectRow.getString("name"),jsonObjectPlace.getString("name"),jsonObjectInfoPlace.getString("price"));
-                                 }
 
-                             }catch (JSONException e){
-                                 e.printStackTrace();
-                             }
-                    }
-                },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        });
-        AppController.getInstance().addToRequestQueue(jsonArrayRequestPlaceInfo);
-    }
 
     public class MyWebViewChromeClient extends WebChromeClient {
         @Override
@@ -371,14 +352,16 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             Log.i("id_place_server: ", serverId);
 
             if (placeType.equals("2")){
-                ConfirmButton.startAnimation(animationBounce);
-                ConfirmButton.setEnabled(true);
+                //ConfirmButton.startAnimation(animationBounce);
+                //ConfirmButton.setEnabled(true);
+                getPlaceInfoFun(id);
             }
 
             if (!serverId.equals("null")) {
 
                 id_place = id;
                 serverIdPlace = Integer.parseInt(serverId);
+                /** uncoment */
                 getPlaceInfo(serverId);
                 if (!containerTicket.isEmpty()){
                     if (containerTicket.containsKey(id)){
@@ -407,43 +390,136 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         }
     }
 
+    private void getPlaceInfoFun(final String id_fun){
+
+        final String url = "http://tms.webclever.in.ua/api/getPlaces";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
+                            JSONArray jsonObject = new JSONArray(s);
+                            Log.i("REsponse",s);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token", "3748563");
+                params.put("sector_id", id_fun);
+                params.put("event_id", String.valueOf(idEvent));
+                params.put("places","[]");
+
+                Log.i("Params", params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+    }
+
+    private void getPlaceInfo(String schemaIdPlace) {
+        final String urlInfoPlace = "http://tms.webclever.in.ua/api/getPlaces?places=["+schemaIdPlace+"]&token=3748563";
+        Log.i("url_place", urlInfoPlace);
+        JsonArrayRequest jsonArrayRequestPlaceInfo = new JsonArrayRequest(urlInfoPlace,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray jsonArray) {
+                        try {
+                            for (int i=0; i < jsonArray.length(); i++){
+                                JSONObject jsonObjectInfoPlace = jsonArray.getJSONObject(i);
+                                JSONObject jsonObjectRow = jsonObjectInfoPlace.getJSONObject("row");
+                                JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
+                                JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
+                                showPlaceInfo(jsonObjectSector.getString("name"),jsonObjectRow.getString("prefix"),jsonObjectRow.getString("name"),jsonObjectPlace.getString("name"),jsonObjectInfoPlace.getString("price"));
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        });
+        AppController.getInstance().addToRequestQueue(jsonArrayRequestPlaceInfo);
+    }
+
     private void getBasketTicket() {
-        String str = "";
+
+        String[] str;
         db = db_ticket.getReadableDatabase();
         Cursor cursorSelectedPlace =  db.query("Ticket_table",new String[]{"id_place_schema"},"id_event="+String.valueOf(idEvent),null,null,null,null,null);
         if (cursorSelectedPlace != null){
             if (cursorSelectedPlace.getCount() > 0){
                 cursorSelectedPlace.moveToFirst();
+                str = new String[cursorSelectedPlace.getCount()];
                 for (int i=0; i < cursorSelectedPlace.getCount(); i++){
-                    str = cursorSelectedPlace.getString(0);
-                    containerTicket.put(str, true);
-
-                    ValueCallback<String> resultCallback;
-                    resultCallback = new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String value) {
-                            Log.i("error",value);
-                        }
-                    };
-
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        webViewSchema.evaluateJavascript("javascript:mobileCart(\'" + str + "\',1);", resultCallback);
-                    } else {
-                        webViewSchema.loadUrl("javascript:mobileCart(\'" + str + "\',1);");
-                    }
-
-                    webViewSchema.loadUrl("javascript:mobileCart(\'" + str + "\',1);");
+                    str[i] = cursorSelectedPlace.getString(0);
+                    id_schema_place = cursorSelectedPlace.getString(0);
+                    containerTicket.put(id_schema_place, true);
 
                     cursorSelectedPlace.moveToNext();
                 }
+                addTicketToSchema(str);
             }
         }
         assert cursorSelectedPlace != null;
         cursorSelectedPlace.close();
         db_ticket.close();
+
     }
 
-    private void delTicket(){
+    private void addTicketToSchema(final String[] masIDSchema) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                webViewSchema.post(new Runnable() {
+                    @Override
+                    public void run() {
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ValueCallback<String> resultCallback;
+                                    resultCallback = new ValueCallback<String>() {
+                                        @Override
+                                        public void onReceiveValue(String value) {
+                                            Log.i("error", value);
+                                        }
+                                    };
+
+                                    for (int i = 0; i < masIDSchema.length; i++) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                            webViewSchema.evaluateJavascript("javascript:mobileCart(\'" + masIDSchema[i] + "\',1);", resultCallback);
+                                        }
+                                    }
+                                }
+                            });
+                    }
+                });
+
+            } else {
+                for (int i = 0; i < masIDSchema.length; i++) {
+                    webViewSchema.loadUrl("javascript:mobileCart(\'" + masIDSchema[i] + "\',1);");
+                }
+            }
+
+
+    }
+
+    private void delTicket() {
         db_ticket = new DB_Ticket(getActivity(),5);
         db = db_ticket.getWritableDatabase();
         int del_id_ticket = db.delete("Ticket_table", "id_ticket=" + String.valueOf(serverIdPlace), null);
@@ -467,7 +543,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         db_ticket.close();
     }
 
-    private void showPlaceInfo(String sector,String rowName,String row, String place, String price){
+    private void showPlaceInfo(String sector,String rowName,String row, String place, String price) {
         String placeInfo = rowName + ": " + row + " Mісце: " + place + " | " + price +" грн.";
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View  layoutToast = layoutInflater.inflate(R.layout.list_toast, null);

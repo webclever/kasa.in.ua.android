@@ -91,7 +91,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     public View onCreateView (LayoutInflater inflater,ViewGroup conteiner,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_basket,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(2,true);
-        jsonArray = new JSONArray();
+
         spShowDialog = getActivity().getSharedPreferences(APP_PREFERENCES_DIALOG, Context.MODE_PRIVATE);
         listViewBasketTicket = (ListView) rootView.findViewById(R.id.listViewTicketBasket);
         mButton = (Button) rootView.findViewById(R.id.buttonBasket);
@@ -124,7 +124,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                         checkFreeTickets();
                     }
                 }
-
             }
         });
 
@@ -132,6 +131,8 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     }
 
     private void checkFreeTickets() {
+
+        jsonArray = new JSONArray();
         Log.i("id_ticket_mas", jsonArray.toString());
         jsonArray = getIdTickets();
         final String url = "http://tms.webclever.in.ua/api/createTempOrder";
@@ -140,13 +141,21 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                     @Override
                     public void onResponse(String s) {
                         try {
-                            Log.i("Response", s);
-                            JSONObject jsonObject = new JSONObject(s);
-                            Fragment fragment = new FragmentDeliveryOrder();
-                            FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-                            startService();
+                            Log.i("Response_ticket", s);
 
+                            JSONObject jsonObject = new JSONObject(s);
+                            if (jsonObject.has("msg")){
+
+                                JSONArray jsonArrayTicket = jsonObject.getJSONArray("place_ids");
+                                showDialogSoldTicket(jsonArrayTicket);
+
+                            }else {
+
+                                Fragment fragment = new FragmentDeliveryOrder();
+                                FragmentManager fragmentManager = getFragmentManager();
+                                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+                                startService();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -160,6 +169,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                 if (volleyError.networkResponse != null) {
                     Log.d("Error Response code " , String.valueOf(volleyError.networkResponse.statusCode));
                 }
+
                 NetworkResponse response = volleyError.networkResponse;
                 if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
                     switch(response.statusCode){
@@ -167,7 +177,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                             try {
                                 String json = new String(response.data);
                                 JSONObject jsonObject = new JSONObject(json);
-                                JSONArray jsonArrayTicket = jsonObject.getJSONArray("ids");
+                                JSONArray jsonArrayTicket = jsonObject.getJSONArray("place_ids");
                                 showDialogSoldTicket(jsonArrayTicket);
 
                             } catch (JSONException e) {
@@ -266,8 +276,9 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         return basketsParent;
     }
 
-    private JSONArray getIdTickets(){
+    private JSONArray getIdTickets() {
 
+        JSONArray jsonArray = new JSONArray();
         db = db_ticket.getWritableDatabase();
         Cursor cursorIdTickets = db.query("Ticket_table",new String[]{"id_ticket"},null,null,null,null,null,null);
         if (cursorIdTickets != null && cursorIdTickets.getCount() > 0){
@@ -281,7 +292,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         return jsonArray;
     }
 
-    private void showDialogSoldTicket(final JSONArray jsonArray){
+    private void showDialogSoldTicket(final JSONArray jsonArrays){
 
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
         alBuilder.setTitle("Увага!");
@@ -290,7 +301,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteSoldTickets(jsonArray);
+                deleteSoldTickets(jsonArrays);
                 if (((MainActivity)getActivity()).getCountTicket().equals("0")){
                     closeFragment();
                 }
@@ -324,15 +335,15 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                 }
                 cursorDelEvent.close();
                 db_ticket.close();
+
+                basketArrayList.clear();
+                basketArrayList = addTicket();
+                loadHosts(basketArrayList);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        basketArrayList.clear();
-        basketArrayList = addTicket();
-        loadHosts(basketArrayList);
-
     }
 
     private void loadHosts(final ArrayList<Basket> newBasket) {

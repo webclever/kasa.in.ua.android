@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -179,9 +180,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(View v) {
                 if (checkValid()) {
-                    if (SaveUserData()) {
-                        Toast.makeText(getActivity(), "Дані успішно збережено!", Toast.LENGTH_SHORT).show();
-                    }
+                    SaveUserData();
                 }
             }
         });
@@ -215,6 +214,58 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         }
 
         return rootView;
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void onDestroyView () {
+
+        ((MainActivity)getActivity()).setItemChecked(7, false);
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        if (!((MainActivity) getActivity()).getCountTicket().equals("0")){
+        getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
+
+        MenuItem item = menu.findItem(R.id.menuCount);
+        RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
+        relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new FragmentBasket();
+                android.app.FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+            }
+        });
+        TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
+        textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
+
+        super.onCreateOptionsMenu(menu, inflater);}
     }
 
     private ArrayList<SingletonCity> getCountries(){
@@ -265,7 +316,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         final View viewLayout = layoutInflater.inflate(R.layout.list_dialog_select_city, null);
-        alBuilder.setTitle("Виберіть місто.");
+        alBuilder.setTitle("Введіть назву міста");
         alBuilder.setView(viewLayout);
         final Dialog alertDialog = alBuilder.create();
         singletonCityArrayList = new ArrayList<>();
@@ -355,50 +406,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         return singletonCityArrayList;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Add your menu entries here
-        if (!((MainActivity) getActivity()).getCountTicket().equals("0")){
-        getActivity().getMenuInflater().inflate(R.menu.menu_select_place, menu);
-
-        MenuItem item = menu.findItem(R.id.menuCount);
-        RelativeLayout relativeLayoutShopCart = (RelativeLayout) item.getActionView();
-        relativeLayoutShopCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new FragmentBasket();
-                android.app.FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-            }
-        });
-        TextView textViewTicketCount = (TextView)relativeLayoutShopCart.getChildAt(1);
-        textViewTicketCount.setText(((MainActivity) getActivity()).getCountTicket());
-
-        super.onCreateOptionsMenu(menu, inflater);}
-    }
-
-    @Override
-    public void onBackPressed() {
-        // TODO Auto-generated method stub
-        Fragment fragment = new HomeFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
-    }
-
-    private Boolean checkValid(){
+    private Boolean checkValid() {
         Boolean valid = true;
         for (int i=0; i<sparseBooleanArrayValidator.size(); i++){
             EditText editText = (EditText) getActivity().findViewById(sparseBooleanArrayValidator.keyAt(i));
@@ -412,21 +420,85 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         return valid;
     }
 
-    private Boolean SaveUserData(){
+    private void SaveUserData() {
 
-        userProfile.setName(editTextName.getText().toString());
-        userProfile.setLastName(editTextLName.getText().toString());
-        userProfile.setSurname(editTextSurname.getText().toString());
-        userProfile.setPhone(editTextPhone.getText().toString());
-        userProfile.setEmail(editTextEmail.getText().toString());
-        userProfile.setCity(editTextCity.getText().toString());
-        userProfile.setAddress(editTextAddress.getText().toString());
-        userProfile.setNewPost(editTextNPost.getText().toString());
+        final JSONObject jsonObjectHeader = new JSONObject();
 
-        return true;
+        try {
+
+            jsonObjectHeader.put("user_id", userProfile.getUserId());
+            jsonObjectHeader.put("token", userProfile.getToken());
+            jsonObjectHeader.put("name", editTextName.getText().toString());
+            jsonObjectHeader.put("surname", editTextLName.getText().toString());
+            jsonObjectHeader.put("----", editTextSurname.getText().toString());
+            jsonObjectHeader.put("phone", editTextPhone.getText().toString());
+            jsonObjectHeader.put("country_id", idSelectedCountry);
+            jsonObjectHeader.put("city_id", cityID);
+            jsonObjectHeader.put("email", editTextEmail.getText().toString());
+            jsonObjectHeader.put("address", editTextAddress.getText().toString());
+            jsonObjectHeader.put("np_id", Integer.parseInt(editTextNPost.getText().toString()));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String url = "http://tms.webclever.in.ua/api/changePassword";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response p", s);
+                        try {
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+                            if (jsonObjectUserData.getBoolean("change_user_data")){
+
+                                Toast.makeText(getActivity().getApplicationContext(),"Дані збережено!",Toast.LENGTH_SHORT).show();
+
+                                userProfile.setName(editTextName.getText().toString());
+                                userProfile.setLastName(editTextLName.getText().toString());
+                                userProfile.setSurname(editTextSurname.getText().toString());
+                                userProfile.setPhone(editTextPhone.getText().toString());
+                                userProfile.setEmail(editTextEmail.getText().toString());
+                                userProfile.setCity(editTextCity.getText().toString());
+                                userProfile.setAddress(editTextAddress.getText().toString());
+                                userProfile.setNewPost(editTextNPost.getText().toString());
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
     }
 
-    private void logOutSocial(Integer soc_id){
+    private void logOutSocial(Integer soc_id) {
         switch (soc_id){
             case 1:
                 AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -450,13 +522,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                 }
                 break;*/
         }
-    }
-
-    @Override
-    public void onDestroyView () {
-
-        ((MainActivity)getActivity()).setItemChecked(7,false);
-        super.onDestroyView();
     }
 
     private class MyTextWatcher implements TextWatcher{
