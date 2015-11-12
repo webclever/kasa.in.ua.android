@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Format.EncodingTicketCount;
 import Singleton.OrderingChild;
 import Singleton.OrderingParent;
 import Singleton.TicketChildOrdering;
@@ -24,9 +25,10 @@ public class OrderingAdapter extends BaseExpandableListAdapter {
     private LayoutInflater layoutInflater;
     private LayoutInflater layoutInflaterChild;
     private List<OrderingParent> orderingParents;
+    private EncodingTicketCount encodingTicketCount;
 
     public OrderingAdapter(Activity activity, List<OrderingParent> orderingParents)
-    {
+    {   encodingTicketCount = new EncodingTicketCount();
         this.activity = activity;
         this.orderingParents = orderingParents;
     }
@@ -91,7 +93,7 @@ public class OrderingAdapter extends BaseExpandableListAdapter {
         RelativeLayout relativeLayoutHeader = (RelativeLayout) convertView.findViewById(R.id.relLayoutOrderingHeader);
 
         textViewNumber.setText("# " + orderingParent.getNumberOrdering());
-        String countTicket = orderingParent.getTotalCountTicket() + " квитків " + orderingParent.getTotalPriceTicket() + " грн.";
+        String countTicket = orderingParent.getTotalCountTicket() + " " + encodingTicketCount.getNumEnding(orderingParent.getTotalCountTicket()) + " " + orderingParent.getTotalPriceTicket() + " грн.";
         textViewStatus.setText(countTicket);
 
         if (isExpanded)
@@ -154,7 +156,7 @@ public class OrderingAdapter extends BaseExpandableListAdapter {
             textViewRowTicket.setText(ticketChildOrdering.getRowOrdering());
             textViewPlaceTicket.setText(ticketChildOrdering.getPlaceOrdering());
             textViewPriceTicket.setText(ticketChildOrdering.getPriceOrdering() + "₴");
-            if (!ticketChildOrdering.getStatusTicket()){
+            if (!ticketChildOrdering.getStatusTicket().equals("1")){
                 textViewStatusTicket.setVisibility(View.VISIBLE);
             }
             viewGroupTicketContainer.addView(viewGroupTicket,0);

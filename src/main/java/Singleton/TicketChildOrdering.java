@@ -9,7 +9,7 @@ public class TicketChildOrdering {
     private String rowOrdering;
     private String placeOrdering;
     private String priceOrdering;
-    private Boolean statusTicket;
+    private String statusTicket;
 
     public static TicketChildOrdering getInstance() {
         if (ourInstance ==null)
@@ -58,11 +58,11 @@ public class TicketChildOrdering {
         this.priceOrdering = priceOrdering;
     }
 
-    public Boolean getStatusTicket()
+    public String getStatusTicket()
     {
         return this.statusTicket;
     }
-    public void setStatusTicket(Boolean statusTicket)
+    public void setStatusTicket(String statusTicket)
     {
         this.statusTicket = statusTicket;
     }
