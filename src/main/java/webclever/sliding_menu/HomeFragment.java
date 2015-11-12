@@ -290,6 +290,8 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
+                //getActivity().deleteDatabase("DataBase_Ticket");
+
                 Fragment fragment = new FragmentSearchEvent();
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
@@ -359,8 +361,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     }
 
     @Override
-    public void onDestroyView ()
-    {
+    public void onDestroyView () {
 
         ((MainActivity)getActivity()).setItemChecked(0,false);
         super.onDestroyView();
@@ -465,9 +466,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() { }
 
     private void startEventFragment(Integer idEvent){
         Bundle myBundle = new Bundle();

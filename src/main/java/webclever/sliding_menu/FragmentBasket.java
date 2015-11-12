@@ -48,6 +48,8 @@ import java.util.Map;
 
 import DataBase.DB_Ticket;
 import Format.EncodingTicketCount;
+import Singleton.DataEventSingelton;
+import Singleton.SingletonTempOrder;
 import adapter.Basket;
 import adapter.Basket_Child;
 import adapter.ViewBasketAdapter;
@@ -151,6 +153,8 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
 
                             }else {
 
+                                SingletonTempOrder.getInstance().setOrder_id(jsonObject.getInt("order_id"));
+                                SingletonTempOrder.getInstance().setToken(jsonObject.getString("token"));
                                 Fragment fragment = new FragmentDeliveryOrder();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();

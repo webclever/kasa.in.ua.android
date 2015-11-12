@@ -93,6 +93,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             @Override
             public void onClick(View view) {
                 if (getValidUserData()){
+
                     Fragment fragment = new FragmentSuccessfulOrder();
                     fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                 }
@@ -210,6 +211,10 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                 });
         alertDialog.show();
     }
+
+
+
+
 
 
 }

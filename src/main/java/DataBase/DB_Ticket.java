@@ -25,10 +25,9 @@ public class DB_Ticket extends SQLiteOpenHelper {
                         "row_ticket text,"+
                         "place_ticket text,"+
                         "price_ticket text,"+
-                        "name_user text,"+
-                        "last_name_user text,"+
                         "id_place_schema text,"+
-                        "id_event text" + ");"
+                        "id_event text," +
+                        "type_sector text" + ");"
         );
 
         db.execSQL(

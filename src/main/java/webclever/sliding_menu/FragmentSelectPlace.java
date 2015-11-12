@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,7 +25,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -61,14 +59,12 @@ import java.util.Map;
 import DataBase.DB_Ticket;
 import Format.EncodingTicketCount;
 import Singleton.DataEventSingelton;
-import Singleton.SingletonCity;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
-import static webclever.sliding_menu.R.id.com_facebook_body_frame;
+
 import static webclever.sliding_menu.R.id.frame_container;
 import static webclever.sliding_menu.R.id.name_event;
-import static webclever.sliding_menu.R.id.thumbnail;
 
 /**
  * Created by Admin on 23.01.2015.
@@ -80,7 +76,6 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
     private Animation animationShake;
     private Animation animationBounce;
-
     private ImageButton ConfirmButton;
 
     private DB_Ticket db_ticket;
@@ -100,13 +95,14 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private static String TAG = MainActivity.class.getSimpleName();
     private String fromFragment;
 
-    private String id_place;
     private Integer serverIdPlace;
+    private String schemaIdPlace;
     private String Row;
     private String name_Row;
     private String Place;
     private String Price;
     private String Sector;
+    private String Sector_type;
 
     private Toast toast = null;
 
@@ -118,8 +114,6 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private TextView textViewCountTicket;
     private final String countTicket = " НА СУМУ";
 
-    /** delete*/
-    private String id_schema_place;
 
     private Menu menu;
 
@@ -242,7 +236,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                ConfirmButton.setEnabled(true);
+
             }
 
             @Override
@@ -261,7 +255,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                ConfirmButton.setEnabled(true);
+
             }
 
             @Override
@@ -279,10 +273,11 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 
-                        Log.i("add_ticket", "yes");
-                        webViewSchema.loadUrl("javascript:mobileCart(\'" + id_place + "\',1)");
-                        if (id_place != null){
-                        addTicket();}
+                        Log.i("add_ticket", schemaIdPlace);
+                        webViewSchema.loadUrl("javascript:mobileCart(\'" + schemaIdPlace + "\',1)");
+                       if (serverIdPlace != null){
+                            addTicket();
+                       }
                         textViewTicketCount.animate().setInterpolator(decelerateInterpolator).scaleX(.7f).scaleY(.7f);
 
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -292,9 +287,11 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 
-                        webViewSchema.loadUrl("javascript:mobileCart(\'" + id_place + "\',0)");
-                        delTicket();
-                        containerTicket.put(id_place, false);
+                        webViewSchema.loadUrl("javascript:mobileCart(\'" + schemaIdPlace + "\',0)");
+                        if (serverIdPlace != null) {
+                            delTicket();
+                        }
+                        containerTicket.put(schemaIdPlace, false);
                         textViewTicketCount.animate().setInterpolator(decelerateInterpolator).scaleX(1.3f).scaleY(1.3f);
 
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -336,7 +333,6 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         {
             mProgress.setVisibility(View.INVISIBLE);
             textViewStatus.setVisibility(View.INVISIBLE);
-
         }
     }
 
@@ -353,17 +349,13 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             Log.i("id_place_server: ", serverId);
 
             if (placeType.equals("2")){
-                //ConfirmButton.startAnimation(animationBounce);
-                //ConfirmButton.setEnabled(true);
                 getPlaceInfoFun(id);
-            }
+                ConfirmButton.startAnimation(animationBounce);
 
-            if (!serverId.equals("null")) {
 
-                id_place = id;
-                serverIdPlace = Integer.parseInt(serverId);
-                /** uncoment */
-                getPlaceInfo(serverId);
+            }else if (placeType.equals("1")){
+
+                getPlaceInfo(id,serverId);
                 if (!containerTicket.isEmpty()){
                     if (containerTicket.containsKey(id)){
                         if (containerTicket.get(id)){
@@ -379,13 +371,12 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                 }
 
             }else{
-                id_place = null;
-                ConfirmButton.setEnabled(false);
+                serverIdPlace = null;
+
             }
         }
         @JavascriptInterface
-        public void schemeLoadingListener()
-        {
+        public void schemeLoadingListener() {
             getBasketTicket();
 
         }
@@ -399,8 +390,19 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                     @Override
                     public void onResponse(String s) {
                         try {
-                            JSONArray jsonObject = new JSONArray(s);
-                            Log.i("REsponse",s);
+                            JSONArray jsonArray = new JSONArray(s);
+                            Log.i("REsponse", s);
+
+                            for (int i=0; i<jsonArray.length(); i++){
+
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                JSONObject jsonObjectSector = jsonObject.getJSONObject("sector");
+                                schemaIdPlace = id_fun;
+                                serverIdPlace = jsonObject.getInt("id");
+                                showPlaceInfo(jsonObject.getString("label"), jsonObjectSector.getString("name"), "","",jsonObject.getString("price"),jsonObject.getString("type"));
+
+                            }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -432,16 +434,15 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
     private String[] getIdTicketFunZone(String id_fun_zone){
         readDB();
-        String id = id_fun_zone;
         db_ticket = new DB_Ticket(getActivity(),5);
         db = db_ticket.getReadableDatabase();
-        //Cursor cursorSelectedPlace = db.query("Ticket_table",new String[]{"id_ticket"},"id_place_schema=row35col4sector179",null,null,null,null,null);
-        Cursor cursorSelectedPlace = db.query("Ticket_table",new String[]{"id_place_schema"},"id_place_schema=row35col4sector179",null,null,null,null,null);
+        String[] idTicketFunZone = new String[0];
+
+        Cursor cursorSelectedPlace = db.query("Ticket_table", new String[]{"id_ticket"}, "id_place_schema = ? AND id_event = ?", new String[]{id_fun_zone, String.valueOf(idEvent)}, null, null, null, null);
         if (cursorSelectedPlace != null){
+            idTicketFunZone = new String[cursorSelectedPlace.getCount()];
             if (cursorSelectedPlace.getCount() > 0){
-                String[] idTicketFunZone = new String[cursorSelectedPlace.getCount()];
                 cursorSelectedPlace.moveToFirst();
-                idTicketFunZone = new String[cursorSelectedPlace.getCount()];
                 for (int i=0; i < cursorSelectedPlace.getCount(); i++){
                     idTicketFunZone[i] = cursorSelectedPlace.getString(0);
                     cursorSelectedPlace.moveToNext();
@@ -453,23 +454,33 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         cursorSelectedPlace.close();
         db_ticket.close();
 
-        return null;
+        return idTicketFunZone;
     }
 
-    private void getPlaceInfo(String schemaIdPlace) {
-        final String urlInfoPlace = "http://tms.webclever.in.ua/api/getPlaces?places=["+schemaIdPlace+"]&token=3748563";
-        Log.i("url_place", urlInfoPlace);
+    private void getPlaceInfo(final String schemaId, final String serverId) {
+        final String urlInfoPlace = "http://tms.webclever.in.ua/api/getPlaces?places=["+serverId+"]&token=3748563";
         JsonArrayRequest jsonArrayRequestPlaceInfo = new JsonArrayRequest(urlInfoPlace,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
                         try {
                             for (int i=0; i < jsonArray.length(); i++){
+                                Log.i("Response",jsonArray.toString());
+
                                 JSONObject jsonObjectInfoPlace = jsonArray.getJSONObject(i);
+
+                                serverIdPlace = jsonObjectInfoPlace.getInt("id");
+                                schemaIdPlace = schemaId;
+
                                 JSONObject jsonObjectRow = jsonObjectInfoPlace.getJSONObject("row");
                                 JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
                                 JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
-                                showPlaceInfo(jsonObjectSector.getString("name"),jsonObjectRow.getString("prefix"),jsonObjectRow.getString("name"),jsonObjectPlace.getString("name"),jsonObjectInfoPlace.getString("price"));
+                                showPlaceInfo(jsonObjectSector.getString("name"),
+                                        jsonObjectRow.getString("prefix"),
+                                        jsonObjectRow.getString("name"),
+                                        jsonObjectPlace.getString("name"),
+                                        jsonObjectInfoPlace.getString("price"),
+                                        jsonObjectInfoPlace.getString("type"));
                             }
 
                         }catch (JSONException e){
@@ -489,16 +500,16 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
         String[] str;
         db = db_ticket.getReadableDatabase();
-        Cursor cursorSelectedPlace =  db.query("Ticket_table",new String[]{"id_place_schema"},"id_event="+String.valueOf(idEvent),null,null,null,null,null);
+        Cursor cursorSelectedPlace =  db.query("Ticket_table",new String[]{"id_place_schema , type_sector"},"id_event="+String.valueOf(idEvent),null,null,null,null,null);
         if (cursorSelectedPlace != null){
             if (cursorSelectedPlace.getCount() > 0){
                 cursorSelectedPlace.moveToFirst();
                 str = new String[cursorSelectedPlace.getCount()];
                 for (int i=0; i < cursorSelectedPlace.getCount(); i++){
-                    str[i] = cursorSelectedPlace.getString(0);
-                    id_schema_place = cursorSelectedPlace.getString(0);
-                    containerTicket.put(id_schema_place, true);
-
+                    if (cursorSelectedPlace.getString(1).equals("1")) {
+                        str[i] = cursorSelectedPlace.getString(0);
+                        containerTicket.put(cursorSelectedPlace.getString(0), true);
+                    }
                     cursorSelectedPlace.moveToNext();
                 }
                 addTicketToSchema(str);
@@ -569,7 +580,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         db_ticket.close();
     }
 
-    private void showPlaceInfo(String sector,String rowName,String row, String place, String price) {
+    private void showPlaceInfo(String sector,String rowName,String row, String place, String price, String type_sector) {
         String placeInfo = rowName + ": " + row + " Mісце: " + place + " | " + price +" грн.";
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View  layoutToast = layoutInflater.inflate(R.layout.list_toast, null);
@@ -585,6 +596,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, -10, 130);
         toast.show();
         Sector = sector;
+        Sector_type = type_sector;
         name_Row = rowName;
         Row = row;
         Place = place;
@@ -603,7 +615,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         String stringImgUrlEvent = DataEventSingelton.getInstance().getImg_url();
         Log.i("img_urlll", stringImgUrlEvent);
 
-        Cursor cursorT = db.query("Ticket_table", new String[]{"id_ticket"}, "id_ticket=" + serverIdPlace, null, null, null, null, null);
+        Cursor cursorT = db.query("Ticket_table", new String[]{"id_ticket"}, "id_ticket=" + String.valueOf(serverIdPlace), null, null, null, null, null);
 
         if (cursorT != null)
         {
@@ -614,28 +626,34 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
             }else
             {
-                containerTicket.put(id_place,true);
+
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id_ticket",serverIdPlace);
                 contentValues.put("zon_ticket",Sector);
-                contentValues.put("name_row_ticket",name_Row);
+                contentValues.put("name_row_ticket", name_Row);
                 contentValues.put("row_ticket",Row);
                 contentValues.put("place_ticket",Place);
                 contentValues.put("price_ticket",Price);
-                contentValues.put("id_place_schema",id_place);
-                contentValues.put("name_user","Zhenya");
-                contentValues.put("last_name_user","White");
+                contentValues.put("id_place_schema", schemaIdPlace);
                 contentValues.put("id_event", String.valueOf(intIdEvent));
-                long id_ticket = db.insert("Ticket_table","id_ticket" + serverIdPlace,contentValues);
+                contentValues.put("type_sector", Sector_type);
+
+                long id_ticket = db.insert("Ticket_table", "id_ticket=" + serverIdPlace, contentValues);
                 Log.i("id_ticket_add", String.valueOf(id_ticket));
-                totalTicket ++;
-                totalPrice = totalPrice + Integer.parseInt(Price);
-                textViewTicketall.setText(String.valueOf(totalTicket));
-                textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
-                textViewPriceall.setText(String.valueOf(totalPrice));
-                String count = textViewTicketCount.getText().toString();
-                Integer integerCount = Integer.parseInt(count);
-                textViewTicketCount.setText(String.valueOf(++integerCount));
+                if(id_ticket != -1){
+
+                    containerTicket.put(schemaIdPlace,true);
+                    totalTicket ++;
+                    totalPrice = totalPrice + Integer.parseInt(Price);
+                    textViewTicketall.setText(String.valueOf(totalTicket));
+                    textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
+                    textViewPriceall.setText(String.valueOf(totalPrice));
+                    String count = textViewTicketCount.getText().toString();
+                    Integer integerCount = Integer.parseInt(count);
+                    textViewTicketCount.setText(String.valueOf(++integerCount));
+
+                }
+
             }
             cursorT.close();
         }
