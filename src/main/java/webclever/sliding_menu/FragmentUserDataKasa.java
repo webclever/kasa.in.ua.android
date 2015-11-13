@@ -138,6 +138,42 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         }
     }
 
+
+
+    private Boolean getValidUserData() {
+        Boolean valid = true;
+
+        for(int i=0; i<sparseBooleanArray.size(); i++)
+        {
+            if (sparseBooleanArray.valueAt(i))
+            {
+                EditText editText = (EditText)getActivity().findViewById(sparseBooleanArray.keyAt(i));
+                editText.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_true));
+            }else {
+                valid = false;
+                EditText editText = (EditText)getActivity().findViewById(sparseBooleanArray.keyAt(i));
+                editText.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
+            }
+        }
+
+        return valid;
+    }
+
+    private void showAlertDialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Fragment fragment = new FragmentBasket();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
+    }
+
     private class TextWatcherETicket implements TextWatcher {
 
         private View view;
@@ -177,42 +213,6 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
         }
     }
-
-    private Boolean getValidUserData() {
-        Boolean valid = true;
-
-        for(int i=0; i<sparseBooleanArray.size(); i++)
-        {
-            if (sparseBooleanArray.valueAt(i))
-            {
-                EditText editText = (EditText)getActivity().findViewById(sparseBooleanArray.keyAt(i));
-                editText.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_true));
-            }else {
-                valid = false;
-                EditText editText = (EditText)getActivity().findViewById(sparseBooleanArray.keyAt(i));
-                editText.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
-            }
-        }
-
-        return valid;
-    }
-
-    private void showAlertDialog(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
-        alertDialog.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Fragment fragment = new FragmentBasket();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-                        dialog.cancel();
-                    }
-                });
-        alertDialog.show();
-    }
-
-
 
 
 

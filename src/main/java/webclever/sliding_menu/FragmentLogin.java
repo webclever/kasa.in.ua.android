@@ -73,7 +73,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                 // Do something with result, which provides a TwitterSession for making API calls
 
                 Log.i("LogTW", "userLogin");
-                ((LoginActivity)getActivity()).checkUserSigInKasa(String.valueOf(result.data.getUserId()),result.data.getUserName(),"","","Twitter",6);
+                ((LoginActivity)getActivity()).checkUserSigInKasa(String.valueOf(result.data.getUserId()),result.data.getUserName(),"","","twitter",6);
             }
 
             @Override

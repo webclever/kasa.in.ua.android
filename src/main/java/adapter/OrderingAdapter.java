@@ -152,12 +152,18 @@ public class OrderingAdapter extends BaseExpandableListAdapter {
             TextView textViewPriceTicket = (TextView) viewGroupTicket.findViewById(R.id.priceTicketOrdering);
             TextView textViewStatusTicket = (TextView) viewGroupTicket.findViewById(R.id.textViewStatusTicket);
 
+            if (ticketChildOrdering.getTypeTicket().equals("1")){
+
             textViewSectorTicket.setText(ticketChildOrdering.getSectorOrdering());
             textViewRowTicket.setText(ticketChildOrdering.getRowOrdering());
             textViewPlaceTicket.setText(ticketChildOrdering.getPlaceOrdering());
             textViewPriceTicket.setText(ticketChildOrdering.getPriceOrdering() + "₴");
             if (!ticketChildOrdering.getStatusTicket().equals("1")){
                 textViewStatusTicket.setVisibility(View.VISIBLE);
+            }}else {
+                textViewSectorTicket.setText(ticketChildOrdering.getSectorOrdering());
+                textViewRowTicket.setVisibility(View.GONE);
+                textViewPlaceTicket.setVisibility(View.GONE);
             }
             viewGroupTicketContainer.addView(viewGroupTicket,0);
             Log.i("Count_view",String.valueOf(viewGroupTicketContainer.getChildCount()));

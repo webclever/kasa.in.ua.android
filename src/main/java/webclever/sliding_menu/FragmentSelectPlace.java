@@ -114,6 +114,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private TextView textViewCountTicket;
     private final String countTicket = " НА СУМУ";
 
+    private ImageButton imageButtonBack;
+
 
     private Menu menu;
 
@@ -167,6 +169,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         idEvent = getArguments().getInt("id");
         Log.i("id_event",String.valueOf(idEvent));
         fromFragment = getArguments().getString("fromFragment");
+
+        imageButtonBack = (ImageButton) rootView.findViewById(R.id.back_button_schema);
 
         //Loader
         textViewStatus = (TextView) rootView.findViewById(R.id.textViewStatus);
@@ -275,9 +279,9 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
                         Log.i("add_ticket", schemaIdPlace);
                         webViewSchema.loadUrl("javascript:mobileCart(\'" + schemaIdPlace + "\',1)");
-                       if (serverIdPlace != null){
+                        if (serverIdPlace != null) {
                             addTicket();
-                       }
+                        }
                         textViewTicketCount.animate().setInterpolator(decelerateInterpolator).scaleX(.7f).scaleY(.7f);
 
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -299,6 +303,14 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                     }
                 }
                 return false;
+            }
+        });
+
+        imageButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webViewSchema.loadUrl("javascript:backToMacro()");
+                imageButtonBack.setVisibility(View.GONE);
             }
         });
 
@@ -377,8 +389,31 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         }
         @JavascriptInterface
         public void schemeLoadingListener() {
-            getBasketTicket();
 
+            Log.i("schemeLoadingListener", "finish");
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    Log.i("checkShowBackButton", "finish2");
+                    getBasketTicket();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void showMacroBackButton(String checkShowBack)
+        {
+            final Boolean checkShowBackButton = new Boolean(checkShowBack);
+            Log.i("checkShowBackButtonBool", String.valueOf(checkShowBackButton));
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    if(checkShowBackButton){
+                        imageButtonBack.setVisibility(View.VISIBLE);
+                    }else {
+                        imageButtonBack.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     }
 

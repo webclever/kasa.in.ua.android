@@ -221,7 +221,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 try {
                     JSONArray jsonArrayUserInfo = response.json.getJSONArray("response");
                     JSONObject jsonObjectUserInfo = jsonArrayUserInfo.getJSONObject(0);
-                    checkUserSigInKasa(jsonObjectUserInfo.getString("id"),jsonObjectUserInfo.getString("first_name"),jsonObjectUserInfo.getString("last_name"),mail,"Vkontakte", 2);
+                    checkUserSigInKasa(jsonObjectUserInfo.getString("id"),jsonObjectUserInfo.getString("first_name"),jsonObjectUserInfo.getString("last_name"),mail,"vkontakte", 2);
 
                     Log.i("User", "VK " + response.json.toString());
                 } catch (JSONException e) {
@@ -275,7 +275,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                                                 jsonObjectUserInfo.getString("first_name"),
                                                 jsonObjectUserInfo.getString("last_name"),
                                                 jsonObjectUserInfo.getString("email"),
-                                                "Facebook", 1);
+                                                "facebook", 1);
                                         Log.i("Response_data_Facebook", jsonObjectUserInfo.toString());
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -370,7 +370,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
                 String[] userName = personName.split(" ");
-                checkUserSigInKasa(user_id, userName[0], userName[1], email, "Google+", 3);
+                checkUserSigInKasa(user_id, userName[0], userName[1], email, "google_oauth", 3);
                 Log.e("User", "Name: " + userName[0] + userName[1] + ", email: " + email);
 
             } else {

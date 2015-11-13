@@ -10,6 +10,7 @@ public class TicketChildOrdering {
     private String placeOrdering;
     private String priceOrdering;
     private String statusTicket;
+    private String typeTicket;
 
     public static TicketChildOrdering getInstance() {
         if (ourInstance ==null)
@@ -65,5 +66,12 @@ public class TicketChildOrdering {
     public void setStatusTicket(String statusTicket)
     {
         this.statusTicket = statusTicket;
+    }
+
+    public String getTypeTicket(){
+        return typeTicket;
+    }
+    public void setTypeTicket(String typeTicket){
+        this.typeTicket = typeTicket;
     }
 }

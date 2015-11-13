@@ -76,7 +76,7 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
-                ((LoginActivity)getActivity()).checkUserSigInKasa(String.valueOf(result.data.getUserId()),result.data.getUserName(),"","","Twitter",6);
+                ((LoginActivity)getActivity()).checkUserSigInKasa(String.valueOf(result.data.getUserId()),result.data.getUserName(),"","","twitter",6);
             }
 
             @Override
@@ -155,12 +155,12 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
 
                         try {
 
-                            jsonObjectHeader.put("email",editTextEMail.getText().toString());
-                            jsonObjectHeader.put("password",editTextPassword.getText().toString());
+                            jsonObjectHeader.put("email", editTextEMail.getText().toString());
+                            jsonObjectHeader.put("password", editTextPassword.getText().toString());
                             jsonObjectHeader.put("service","Kasa.in.ua");
-                            jsonObjectBody.put("name",editTextName.getText().toString());
-                            jsonObjectBody.put("last_name",editTextLName.getText().toString());
-                            jsonObjectBody.put("phone",editTextPhone.getText().toString());
+                            jsonObjectBody.put("name", editTextName.getText().toString());
+                            jsonObjectBody.put("last_name", editTextLName.getText().toString());
+                            jsonObjectBody.put("phone", editTextPhone.getText().toString());
 
                         } catch (JSONException e) {
                             e.printStackTrace();

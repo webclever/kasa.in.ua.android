@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     private CustomListAdapter adapter;
 
     //progressBAr
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     //spinner
     private List<SingletonCity> singletonCityList;

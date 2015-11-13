@@ -23,16 +23,6 @@
         android:layout_alignParentStart="true" />
 
 
-    <TextView android:id="@+id/rowdef"
-        style="?android:textAppearanceMedium"
-        android:textSize="15sp"
-        android:textColor="@color/yellov1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ряд:"
-        android:layout_below="@+id/sectorTicketOrdering"
-        android:layout_alignStart="@+id/sectorTicketOrdering" />
-
     <TextView android:id="@+id/rowTicketOrdering"
         style="?android:textAppearanceMedium"
         android:textSize="15sp"
@@ -40,20 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="12"
-        android:layout_marginLeft="2dp"
-        android:layout_alignTop="@+id/rowdef"
-        android:layout_toEndOf="@+id/rowdef" />
-
-    <TextView android:id="@+id/placedef"
-        style="?android:textAppearanceMedium"
-        android:textSize="15sp"
-        android:textColor="@color/yellov1"
-        android:text="Mісце:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_alignTop="@+id/rowTicketOrdering"
-        android:layout_toEndOf="@+id/rowTicketOrdering" />
+        android:layout_below="@+id/sectorTicketOrdering"
+        android:layout_alignStart="@+id/sectorTicketOrdering" />
 
     <TextView android:id="@+id/placeTicketOrdering"
         style="?android:textAppearanceMedium"
@@ -63,8 +41,8 @@
         android:layout_height="wrap_content"
         android:text="125"
         android:layout_marginLeft="2dp"
-        android:layout_alignTop="@+id/placedef"
-        android:layout_toEndOf="@+id/placedef" />
+        android:layout_alignTop="@+id/rowTicketOrdering"
+        android:layout_toEndOf="@+id/rowTicketOrdering" />
 
     <TextView android:id="@+id/priceTicketOrdering"
         style="?android:textAppearanceMedium"
@@ -74,8 +52,7 @@
         android:layout_height="wrap_content"
         android:text="450₴"
         android:layout_marginRight="2dp"
-        android:layout_alignBaseline="@+id/placeTicketOrdering"
-        android:layout_alignBottom="@+id/placeTicketOrdering"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true" />
 
     <TextView

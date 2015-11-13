@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,6 +52,8 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
     private OrderingAdapter orderingAdapter;
     private DateFormat dateFormat;
 
+    private ProgressBar progressBar;
+
     public FragmentHistoryOrdering(){setHasOptionsMenu(true);}
 
     @Override
@@ -60,6 +63,9 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
         dateFormat = new DateFormat();
         ExpandableListView expandableListViewOrdering = (ExpandableListView) rootView.findViewById(R.id.expandableListViewOrdering);
         List<OrderingParent> arrayListOrderParent = new ArrayList<OrderingParent>();
+
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBarOrdering);
+
         /*arrayListOrderParent = addOrdering(stringUrlOrdering);*/
         arrayListOrderParent = addOrdering1();
         orderingAdapter = new OrderingAdapter(this.getActivity(), arrayListOrderParent);
@@ -160,6 +166,7 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
 
     private ArrayList<OrderingParent> addOrdering1()
     {
+        progressBar.setVisibility(View.VISIBLE);
         final ArrayList<OrderingParent> orderingParentArrayList = new ArrayList<OrderingParent>();
         final String url = "http://tms.webclever.in.ua/api/getOrders";
 
@@ -215,23 +222,22 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
                             {
                                 JSONObject jsonObjectTicket = jsonArrayTicket.getJSONObject(k);
                                 final TicketChildOrdering ticketChildOrdering = new TicketChildOrdering();
-                                if (jsonObjectTicket.getString("type").equals("1")){
 
                                 ticketChildOrdering.setSectorOrdering(jsonObjectTicket.getString("sector"));
                                 ticketChildOrdering.setRowOrdering(jsonObjectTicket.getString("row"));
                                 ticketChildOrdering.setPlaceOrdering(jsonObjectTicket.getString("place"));
                                 ticketChildOrdering.setPriceOrdering(jsonObjectTicket.getString("price"));
                                 ticketChildOrdering.setStatusTicket(jsonObjectTicket.getString("status"));
+                                ticketChildOrdering.setTypeTicket(jsonObjectTicket.getString("type"));
                                 orderingChild.getTicketChildOrderingArrayList().add(ticketChildOrdering);
 
-                                }
                             }
                             orderingParent.getOrderingChildArrayList().add(orderingChild);
                         }
 
                         orderingParentArrayList.add(orderingParent);
                     }
-
+                        progressBar.setVisibility(View.GONE);
                     orderingAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
