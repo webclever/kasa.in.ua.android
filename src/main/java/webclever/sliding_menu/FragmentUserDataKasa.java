@@ -154,7 +154,6 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                 @Override
                 public void onFinish() {
                     textViewTimer.setText("Бронювання скасоване !");
-                    ((ActivityOrder)getActivity()).showAlertDialog();
                 }
             }.start();
         }

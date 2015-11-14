@@ -227,7 +227,6 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                 @Override
                 public void onFinish() {
                     textViewTimer.setText("Бронювання скасоване !");
-                    ((ActivityOrder)getActivity()).showAlertDialog();
                 }
             }.start();
         }

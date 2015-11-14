@@ -199,6 +199,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     @Override
     public void onBackPressed() {
 
+        ((ActivityOrder)getActivity()).showAlertDialogCancelOrder();
 
     }
 
