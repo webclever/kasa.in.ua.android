@@ -87,9 +87,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     private DB_Ticket db_ticket;
     private Integer previousPos = -1;
 
-    private Long aLongTimer = 900000l;
-    private CountDownTimer countDownTimer;
-
     private static final String TWITTER_KEY = "NtcdkYkfnL4hRjN8jg8yNZbsH";
     private static final String TWITTER_SECRET = "gahp8a6Ro2M15sKW2aAuW1vJtitKTkLVgYJor7w2TQAQQ70vsI";
 
@@ -533,34 +530,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     @Override
     protected void onStop(){
         super.onStop();
-        stopTimer();
     }
 
-    public void stopTimer(){
-        if (countDownTimer != null){
-            countDownTimer.onFinish();
-            aLongTimer = null;
-        }
-    }
-
-    public void startTimer(){
-      countDownTimer =  new CountDownTimer(900000,1000) {
-
-            @Override
-            public void onTick(long millis) {
-                aLongTimer = millis;
-
-            }
-
-            @Override
-            public void onFinish() {
-                aLongTimer = null;
-            }
-        }.start();
-
-    }
-
-    public long getTimer(){
-        return aLongTimer;
-    }
 }

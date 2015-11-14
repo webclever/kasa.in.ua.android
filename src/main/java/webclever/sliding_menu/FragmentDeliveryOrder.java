@@ -180,7 +180,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
                         bundleType.putInt("payment_button_id",radioButton.getId());
                         bundleType.putInt("payment_method", Integer.parseInt(radioButton.getTag().toString()));
                         fragment.setArguments(bundleType);
-                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                        fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
                         Toast.makeText(getActivity().getApplicationContext(), String.valueOf(radioButton.getText()), Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -199,13 +199,12 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     @Override
     public void onBackPressed() {
 
-        Fragment fragment = new FragmentBasket();
-        fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+
     }
 
     private void startService(){
 
-        long timer = ((MainActivity)getActivity()).getTimer();
+        long timer = ((ActivityOrder)getActivity()).getTimer();
         if (timer != 0){
             new CountDownTimer(timer,1000) {
 
@@ -216,7 +215,6 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
 
                 String text = String.format("%02d : %02d",minutes,seconds);
                 textViewTimer.setText(text);
-
             }
 
             @Override

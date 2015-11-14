@@ -20,10 +20,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import Singleton.SingletonTempOrder;
 import Singleton.UserProfileSingleton;
 import Validator.Validator;
+import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
+import static webclever.sliding_menu.R.id.editText;
+import static webclever.sliding_menu.R.id.editTextName;
+import static webclever.sliding_menu.R.id.fragments_container;
 import static webclever.sliding_menu.R.id.frame_container;
 
 /**
@@ -38,6 +55,12 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private Integer paymentMethod;
     private FragmentManager fragmentManager;
     private Bundle bundle;
+
+    private EditText editTextName;
+    private EditText editTextLasName;
+    private EditText editTextPhone;
+    private EditText editTextEmail;
+
     public FragmentUserDataKasa()    { }
 
     @Override
@@ -53,17 +76,17 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
         Toast.makeText(getActivity().getApplicationContext(),getArguments().getString("type"),Toast.LENGTH_SHORT).show();
         userProfile = new UserProfileSingleton(this.getActivity());
-        EditText editTextName = (EditText) rootView.findViewById(R.id.editText11);
+        editTextName = (EditText) rootView.findViewById(R.id.editText11);
         editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new TextWatcherETicket(editTextName));
         sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
 
-        EditText editTextLasName = (EditText) rootView.findViewById(R.id.editText12);
+        editTextLasName = (EditText) rootView.findViewById(R.id.editText12);
         editTextLasName.setText(userProfile.getLastName());
         editTextLasName.addTextChangedListener(new TextWatcherETicket(editTextLasName));
         sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
 
-        EditText editTextPhone = (EditText) rootView.findViewById(R.id.editText13);
+        editTextPhone = (EditText) rootView.findViewById(R.id.editText13);
         if (!userProfile.getPhone().equals("")){
         editTextPhone.setText(userProfile.getPhone());
         }else {
@@ -72,7 +95,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         editTextPhone.addTextChangedListener(new TextWatcherETicket(editTextPhone));
         sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
 
-        EditText editTextEmail = (EditText) rootView.findViewById(R.id.editText14);
+        editTextEmail = (EditText) rootView.findViewById(R.id.editText14);
         editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new TextWatcherETicket(editTextEmail));
         sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
@@ -94,8 +117,8 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             public void onClick(View view) {
                 if (getValidUserData()){
 
-                    Fragment fragment = new FragmentSuccessfulOrder();
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    //Fragment fragment = new FragmentSuccessfulOrder();
+                    //fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
                 }
             }
         });
@@ -109,13 +132,13 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
         Fragment fragment = new FragmentDeliveryOrder();
         fragment.setArguments(bundle);
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
 
     }
 
     private void startService(){
 
-        long timer = ((MainActivity)getActivity()).getTimer();
+        long timer = ((ActivityOrder)getActivity()).getTimer();
         if (timer != 0){
             new CountDownTimer(timer,1000) {
 
@@ -126,19 +149,16 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
                     String text = String.format("%02d : %02d",minutes,seconds);
                     textViewTimer.setText(text);
-
                 }
 
                 @Override
                 public void onFinish() {
                     textViewTimer.setText("Бронювання скасоване !");
-                    showAlertDialog();
+                    ((ActivityOrder)getActivity()).showAlertDialog();
                 }
             }.start();
         }
     }
-
-
 
     private Boolean getValidUserData() {
         Boolean valid = true;
@@ -159,20 +179,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         return valid;
     }
 
-    private void showAlertDialog(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
-        alertDialog.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Fragment fragment = new FragmentBasket();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-                        dialog.cancel();
-                    }
-                });
-        alertDialog.show();
-    }
+
 
     private class TextWatcherETicket implements TextWatcher {
 
@@ -214,7 +221,68 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         }
     }
 
+    private void saveOrder(){
+        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
+        String order_id = SingletonTempOrder.getInstance().getOrder_id();
+        String order_token = SingletonTempOrder.getInstance().getToken();
 
+        final JSONObject jsonObjectHeader = new JSONObject();
+        final JSONObject jsonObjectParams = new JSONObject();
+        try {
 
+            jsonObjectHeader.put("tempOrder",order_id);
+            jsonObjectHeader.put("token",order_token);
+            jsonObjectHeader.put("orderType",paymentMethod);
+            jsonObjectHeader.put("name",editTextName.getText().toString());
+            jsonObjectHeader.put("surname",editTextLasName.getText().toString());
+            jsonObjectHeader.put("phone",editTextPhone.getText().toString());
+            jsonObjectHeader.put("email",editTextEmail.getText().toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(s);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+            }
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token","3748563");
+                params.put("userInfo",jsonObjectParams.toString());
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+    }
 
 }

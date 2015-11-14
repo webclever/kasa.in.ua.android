@@ -6,8 +6,10 @@ package Singleton;
 public class SingletonTempOrder {
     private static SingletonTempOrder ourInstance = new SingletonTempOrder();
 
-    private Integer order_id;
+    private Boolean existenceOrder;
+    private String order_id;
     private String token;
+
 
     public static SingletonTempOrder getInstance() {
 
@@ -23,17 +25,23 @@ public class SingletonTempOrder {
 
     }
 
-    public Integer getOrder_id(){
-        return order_id;
+    public Boolean getExistenceOrder(){
+        return this.existenceOrder;
     }
-    public void setOrder_id(Integer order_id){
+    public void setExistenceOrder(Boolean existenceOrder){
+        this.existenceOrder = existenceOrder;
+    }
+
+    public String getOrder_id(){
+        return this.order_id;
+    }
+    public void setOrder_id(String order_id){
         this.order_id = order_id;
     }
 
     public String getToken(){
-        return token;
+        return this.token;
     }
-
     public void setToken(String token){
         this.token = token;
     }

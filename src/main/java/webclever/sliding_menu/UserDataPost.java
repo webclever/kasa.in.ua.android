@@ -172,7 +172,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                 if (getValidUserData()) {
                     Fragment fragment = new FragmentSuccessfulOrder();
                     FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
                 }
             }
         });
@@ -187,7 +187,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
         Fragment fragment = new FragmentDeliveryOrder();
         fragment.setArguments(bundle);
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
     }
 
     private Boolean getValidUserData() {
@@ -211,7 +211,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
     private void startService(){
 
-        long timer = ((MainActivity)getActivity()).getTimer();
+        long timer = ((ActivityOrder)getActivity()).getTimer();
         if (timer != 0){
         new CountDownTimer(timer,1000) {
 
@@ -227,24 +227,10 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                 @Override
                 public void onFinish() {
                     textViewTimer.setText("Бронювання скасоване !");
-                    showAlertDialog();
+                    ((ActivityOrder)getActivity()).showAlertDialog();
                 }
             }.start();
         }
-    }
-
-    private void showAlertDialog(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
-        alertDialog.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Fragment fragment = new FragmentBasket();
-                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "1").commit();
-                        dialog.cancel();
-                    }
-                });
-        alertDialog.show();
     }
 
     private ArrayList<SingletonCity> getCountries(){

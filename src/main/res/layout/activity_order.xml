@@ -1,0 +1,4 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragments_container"
+    android:name="webclever.sliding_menu.FragmentDeliveryOrder" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:layout="@layout/fragment_delivery_order" />

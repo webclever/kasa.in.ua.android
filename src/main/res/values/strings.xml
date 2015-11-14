@@ -54,5 +54,6 @@
     <string name="kasa_phone1"><u>+38 093 0000 754,</u></string>
     <string name="kasa_phone2"><u>+38 066 0000 754,</u></string>
     <string name="kasa_phone3"><u>+38 097 0000 754.</u></string>
+    <string name="title_activity_activity_order">ActivityOrder</string>
 
 </resources>

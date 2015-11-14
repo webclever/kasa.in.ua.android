@@ -153,12 +153,12 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
 
                             }else {
 
-                                SingletonTempOrder.getInstance().setOrder_id(jsonObject.getInt("order_id"));
+                                SingletonTempOrder.getInstance().setExistenceOrder(true);
+                                SingletonTempOrder.getInstance().setOrder_id(jsonObject.getString("order_id"));
                                 SingletonTempOrder.getInstance().setToken(jsonObject.getString("token"));
-                                Fragment fragment = new FragmentDeliveryOrder();
-                                FragmentManager fragmentManager = getFragmentManager();
-                                fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
-                                startService();
+
+                                Intent intent = new Intent(getActivity(),ActivityOrder.class);
+                                startActivityForResult(intent, 1);
                             }
 
                         } catch (JSONException e) {
@@ -434,10 +434,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
             editor.putBoolean("show_dialog",false);
             editor.apply();
         }
-    }
-
-    private void startService(){
-        ((MainActivity)getActivity()).startTimer();
     }
 
     @Override
