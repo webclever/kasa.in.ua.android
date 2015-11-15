@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataBase.DB_Ticket;
+import Singleton.UserProfileSingleton;
 import adapter.NavDrawerListAdapter;
 import interfaces.OnBackPressedListener;
 import location.AppLocationService;
@@ -305,7 +306,11 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 }else {showAlertDialog();}
                 break;
             case 3:
-                fragment = new FragmentHistoryOrdering();
+                if (getStatusUser()) {
+                    fragment = new FragmentHistoryOrdering();
+                }else {
+                    showAlertDialogHistoryOrder();
+                }
                 previousPos = 3;
                 break;
             case 4:
@@ -396,7 +401,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     }
 
     public void setItemChecked(int position, Boolean status){
-        mDrawerList.setItemChecked(position,status);
+        mDrawerList.setItemChecked(position, status);
 
     }
 
@@ -525,6 +530,18 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 });
 
         alertDialog.show();*/
+    }
+
+    private void showAlertDialogHistoryOrder(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("На жаль, історія замовлень лише для авторизованих користувачі!");
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
     }
 
     @Override

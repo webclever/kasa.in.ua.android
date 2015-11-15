@@ -308,6 +308,9 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                 @Override
                 public void onClick(View view) {
                     Fragment fragment = new FragmentBasket();
+                    Bundle myBundle = new Bundle();
+                    myBundle.putString("id_previus","event_page");
+                    fragment.setArguments(myBundle);
                     android.app.FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
                 }

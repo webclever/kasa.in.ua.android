@@ -77,6 +77,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     private EncodingTicketCount ticketCount;
     private int tickets = 0, price = 0;
     private JSONArray jsonArray;
+    private Bundle bundle;
 
     private static final String APP_PREFERENCES_DIALOG = "dialog_show";
     private SharedPreferences spShowDialog;
@@ -93,6 +94,8 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     public View onCreateView (LayoutInflater inflater,ViewGroup conteiner,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_basket,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(2,true);
+
+
 
         spShowDialog = getActivity().getSharedPreferences(APP_PREFERENCES_DIALOG, Context.MODE_PRIVATE);
         listViewBasketTicket = (ListView) rootView.findViewById(R.id.listViewTicketBasket);
