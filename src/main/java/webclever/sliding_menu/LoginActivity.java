@@ -353,7 +353,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     @Override
     public void onConnected(Bundle bundle) {
 
-        Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
+        /*Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();*/
         mShouldResolve = false;
         // Get user's information
         getProfileInformation();
@@ -374,8 +374,8 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                 Log.e("User", "Name: " + userName[0] + userName[1] + ", email: " + email);
 
             } else {
-                Toast.makeText(getApplicationContext(),
-                        "Person information is null", Toast.LENGTH_LONG).show();
+                /*Toast.makeText(getApplicationContext(),
+                        "Person information is null", Toast.LENGTH_LONG).show();*/
             }
         } catch (Exception e) {
             e.printStackTrace();

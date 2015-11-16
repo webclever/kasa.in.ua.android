@@ -106,7 +106,7 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -117,7 +117,7 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
         }
 
         catch (android.content.ActivityNotFoundException ex){
-            Toast.makeText(getActivity().getApplicationContext(),"yourActivity is not founded",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity().getApplicationContext(),"yourActivity is not founded",Toast.LENGTH_SHORT).show();
         }
     }
 

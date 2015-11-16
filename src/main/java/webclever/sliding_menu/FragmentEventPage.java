@@ -280,7 +280,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
         newView.findViewById(R.id.gallery_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getBaseContext(), String.valueOf(mViewGroupImage.indexOfChild(newView)), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getBaseContext(), String.valueOf(mViewGroupImage.indexOfChild(newView)), Toast.LENGTH_SHORT).show();
 
                 Intent i = new Intent(getActivity(), FullScreenViewActivity.class);
                 i.putExtra("position", mViewGroupImage.indexOfChild(newView));
@@ -386,13 +386,13 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
             Fragment fragment = new HomeFragment();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-            Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();*/
         }else
         {
             Fragment fragment = new FragmentSearchEvent();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-            Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -77,7 +77,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         }
 
 
-        Toast.makeText(getActivity().getApplicationContext(),getArguments().getString("type"),Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getActivity().getApplicationContext(),getArguments().getString("type"),Toast.LENGTH_SHORT).show();*/
         userProfile = new UserProfileSingleton(this.getActivity());
         editTextName = (EditText) rootView.findViewById(R.id.editText11);
         editTextName.setText(userProfile.getName());

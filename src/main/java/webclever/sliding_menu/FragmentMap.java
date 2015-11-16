@@ -119,7 +119,7 @@ public class FragmentMap extends Fragment implements OnBackPressedListener, OnMa
         //fragment.setArguments(myBundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();*/
     }
 
 }

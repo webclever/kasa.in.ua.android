@@ -181,7 +181,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
                         bundleType.putInt("payment_method", Integer.parseInt(radioButton.getTag().toString()));
                         fragment.setArguments(bundleType);
                         fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
-                        Toast.makeText(getActivity().getApplicationContext(), String.valueOf(radioButton.getText()), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity().getApplicationContext(), String.valueOf(radioButton.getText()), Toast.LENGTH_SHORT).show();
 
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "Виберіть спосіб оплати!", Toast.LENGTH_SHORT).show();

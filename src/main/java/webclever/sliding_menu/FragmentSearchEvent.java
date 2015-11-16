@@ -88,7 +88,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                 int id_ivent = movieList.get(arg2).getId_ivent();
                 myBundle.putInt("id", id_ivent);
                 myBundle.putString("fromFragment", "searchFragment");
-                Toast.makeText(getActivity(), String.valueOf(id_ivent), Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getActivity(), String.valueOf(id_ivent), Toast.LENGTH_SHORT).show();*/
                 Fragment fragment = new FragmentEventPage();
                 fragment.setArguments(myBundle);
                 FragmentManager fragmentManager = getFragmentManager();
@@ -160,7 +160,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();*/
                 return false;
             }
 

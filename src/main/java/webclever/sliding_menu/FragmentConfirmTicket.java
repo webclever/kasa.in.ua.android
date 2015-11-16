@@ -247,7 +247,7 @@ public class FragmentConfirmTicket extends Fragment implements OnBackPressedList
         Fragment fragment = new FragmentBasket();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
 
     }
 

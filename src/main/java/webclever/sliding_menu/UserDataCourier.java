@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -38,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import Singleton.SingletonCity;
+import Singleton.SingletonTempOrder;
 import Singleton.UserProfileSingleton;
 import Validator.Validator;
 import adapter.AdapterSelectCity;
@@ -67,6 +70,13 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
 
     private EditText editTextCity;
 
+    private EditText editTextName;
+    private EditText editTextLasName;
+    private EditText editTextSurname;
+    private EditText editTextPhone;
+    private EditText editTextEmail;
+    private EditText editTextAddress;
+
 
     public UserDataCourier() { }
 
@@ -87,25 +97,25 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             paymentMethod = bundle.getInt("payment_method");
         }
 
-        Toast.makeText(getActivity().getApplicationContext(), getArguments().getString("type"), Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getActivity().getApplicationContext(), getArguments().getString("type"), Toast.LENGTH_SHORT).show();*/
         userProfile = new UserProfileSingleton(this.getActivity());
 
-        EditText editTextName = (EditText) rootView.findViewById(R.id.editText15);
+        editTextName = (EditText) rootView.findViewById(R.id.editText15);
         editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new TextWatcherETicket(editTextName));
         sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
 
-        EditText editTextLasName = (EditText) rootView.findViewById(R.id.editText16);
+        editTextLasName = (EditText) rootView.findViewById(R.id.editText16);
         editTextLasName.setText(userProfile.getLastName());
         editTextLasName.addTextChangedListener(new TextWatcherETicket(editTextLasName));
         sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
 
-        EditText editTextSurname = (EditText) rootView.findViewById(R.id.editText30);
+        editTextSurname = (EditText) rootView.findViewById(R.id.editText30);
         editTextSurname.setText(userProfile.getSurname());
         editTextSurname.addTextChangedListener(new TextWatcherETicket(editTextSurname));
-        sparseBooleanArray.put(editTextSurname.getId(),validator.isNameValid(userProfile.getSurname()));
+        sparseBooleanArray.put(editTextSurname.getId(), validator.isNameValid(userProfile.getSurname()));
 
-        EditText editTextPhone = (EditText) rootView.findViewById(R.id.editText17);
+        editTextPhone = (EditText) rootView.findViewById(R.id.editText17);
         if (!userProfile.getPhone().equals("")){
             editTextPhone.setText(userProfile.getPhone());
         }else {
@@ -114,12 +124,12 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         editTextPhone.addTextChangedListener(new TextWatcherETicket(editTextPhone));
         sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
 
-        EditText editTextEmail = (EditText) rootView.findViewById(R.id.editText18);
+        editTextEmail = (EditText) rootView.findViewById(R.id.editText18);
         editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new TextWatcherETicket(editTextEmail));
         sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
 
-        EditText editTextAddress = (EditText) rootView.findViewById(R.id.editText24);
+        editTextAddress = (EditText) rootView.findViewById(R.id.editText24);
         editTextAddress.setText(userProfile.getAddress());
         editTextAddress.addTextChangedListener(new TextWatcherETicket(editTextAddress));
         sparseBooleanArray.put(editTextAddress.getId(), validator.isAddressValid(userProfile.getAddress()));
@@ -170,6 +180,13 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(View view) {
                 if (getValidUserData()){
+
+                        if (userProfile.getStatus() && paymentMethod == 5){
+                            saveOrderUser();
+
+                        }else if (!userProfile.getStatus() && paymentMethod == 5){
+                            saveOrder();
+                        }
 
                 }
             }
@@ -365,6 +382,131 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
 
         return valid;
     }
+
+    private void saveOrder(){
+        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
+        final String order_id = SingletonTempOrder.getInstance().getOrder_id();
+        final String order_token = SingletonTempOrder.getInstance().getToken();
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(s);
+                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
+                            intent.putExtra("order_id",jsonObject.getString("order_id"));
+                            intent.putExtra("payment_method",paymentMethod);
+                            startActivity(intent);
+                            ((ActivityOrder)getActivity()).deleteDB();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("temp_order",order_id);
+                params.put("order_token",order_token);
+                params.put("orderType","1");
+                params.put("phone",editTextPhone.getText().toString());
+                params.put("name",editTextName.getText().toString());
+                params.put("surname",editTextLasName.getText().toString());
+                params.put("patr_name",editTextSurname.getText().toString());
+                params.put("email",editTextEmail.getText().toString());
+                params.put("country_id",String.valueOf(idSelectedCountry));
+                params.put("city_id",String.valueOf(cityID));
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+    }
+
+    private void saveOrderUser(){
+        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
+        final String order_id = SingletonTempOrder.getInstance().getOrder_id();
+        final String order_token = SingletonTempOrder.getInstance().getToken();
+
+        final JSONObject jsonObjectHeader = new JSONObject();
+        try {
+            jsonObjectHeader.put("user_id",userProfile.getUserId());
+            jsonObjectHeader.put("token",userProfile.getToken());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(s);
+                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
+                            intent.putExtra("order_id",jsonObject.getString("order_id"));
+                            intent.putExtra("payment_method",paymentMethod);
+                            startActivity(intent);
+                            ((ActivityOrder)getActivity()).deleteDB();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("temp_order",order_id);
+                params.put("order_token",order_token);
+                params.put("orderType","1");
+                params.put("phone",editTextPhone.getText().toString());
+                params.put("name",editTextName.getText().toString());
+                params.put("surname",editTextLasName.getText().toString());
+                params.put("patr_name",editTextSurname.getText().toString());
+                params.put("email",editTextEmail.getText().toString());
+                params.put("country_id",String.valueOf(idSelectedCountry));
+                params.put("city_id",String.valueOf(cityID));
+                params.put("address",editTextAddress.getText().toString());
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+    }
+
 
     private class TextWatcherETicket implements TextWatcher {
 

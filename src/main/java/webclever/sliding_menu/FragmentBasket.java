@@ -94,8 +94,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         View rootView = inflater.inflate(R.layout.fragment_basket,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(2,true);
 
-
-
         spShowDialog = getActivity().getSharedPreferences(APP_PREFERENCES_DIALOG, Context.MODE_PRIVATE);
         listViewBasketTicket = (ListView) rootView.findViewById(R.id.listViewTicketBasket);
         mButton = (Button) rootView.findViewById(R.id.buttonBasket);
@@ -394,7 +392,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "login", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "login", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
                 startLoginActivity(0);
             }
@@ -403,7 +401,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "CreateLogin", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "CreateLogin", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
                 startLoginActivity(1);
             }
@@ -450,7 +448,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
     }
 
     private ArrayList<Basket> addDataBasket() {

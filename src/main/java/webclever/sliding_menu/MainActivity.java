@@ -188,7 +188,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         }else {
             super.onBackPressed();
         }
-        Toast.makeText(getApplicationContext(), "From Activity onBackPressed", Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getApplicationContext(), "From Activity onBackPressed", Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
@@ -479,19 +479,19 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
                 }
 
                 //myAddress.setText("I am at: " +strAddress.toString());
-                Toast.makeText(this,strAddress.toString(),Toast.LENGTH_LONG).show();
+                /*Toast.makeText(this,strAddress.toString(),Toast.LENGTH_LONG).show();*/
 
             }
 
             else {
-                Toast.makeText(this, "No location found..!", Toast.LENGTH_LONG).show();
+                /*Toast.makeText(this, "No location found..!", Toast.LENGTH_LONG).show();*/
             }
 
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(),"Could not get address..!", Toast.LENGTH_LONG).show();
+            /*Toast.makeText(getApplicationContext(),"Could not get address..!", Toast.LENGTH_LONG).show();*/
         }
 
     }

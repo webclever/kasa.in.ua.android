@@ -151,9 +151,9 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(getActivity(),
+                                /*Toast.makeText(getActivity(),
                                         "Error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
+                                        Toast.LENGTH_LONG).show();*/
                             }
                         setCity();
                         objectSpinnerAdapter.notifyDataSetChanged();
@@ -164,7 +164,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();*/
             }
         });
 
@@ -268,7 +268,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-            Toast.makeText(getActivity(),String.valueOf(pos),Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(getActivity(),String.valueOf(pos),Toast.LENGTH_SHORT).show();*/
 
             kasaList.clear();
             getJSonKasa(url_kasa_city+String.valueOf(singletonCityList.get(pos).getIdCity()));
@@ -288,7 +288,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();*/
     }
 
     private void getCityAutoLoc(){

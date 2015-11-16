@@ -138,7 +138,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                 ((LoginActivity)getActivity()).sigInFacebook();
                 break;
             case R.id.buttonLogin:
-                Toast.makeText(this.getActivity(),"User login",Toast.LENGTH_LONG).show();
+                /*Toast.makeText(this.getActivity(),"User login",Toast.LENGTH_LONG).show();*/
                 //thread.start();
                 LogKasa();
                 break;
@@ -188,7 +188,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.i("Response_err", String.valueOf(volleyError.getMessage()));
-                Toast.makeText(getActivity(),"Неправильний логін або пароль!",Toast.LENGTH_SHORT).show();
+               /* Toast.makeText(getActivity(),"Неправильний логін або пароль!",Toast.LENGTH_SHORT).show();*/
             }
         }){
             @Override

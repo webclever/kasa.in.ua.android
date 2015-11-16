@@ -189,9 +189,9 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                                                 Intent intent = new Intent(getActivity(),ActivitySuccessRegistration.class);
                                                 startActivity(intent);
 
-                                            }else {
+                                            }/*else {
                                                 Toast.makeText(getActivity(),jsonObjectUserData.getString("user"),Toast.LENGTH_SHORT).show();
-                                            }
+                                            }*/
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();

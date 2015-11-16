@@ -191,7 +191,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                 logOutSocial(userProfile.getSocialId());
                 userProfile.deleteUserData();
                 ((MainActivity) getActivity()).changeMenuItems(false);
-                Toast.makeText(getActivity(), "User is Logout !", Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getActivity(), "User is Logout !", Toast.LENGTH_SHORT).show();*/
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -224,7 +224,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
