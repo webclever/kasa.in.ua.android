@@ -48,12 +48,17 @@
     <string name="read_more">ЧИТАТИ ДАЛІ...</string>
     <string name="description_event">ОПИС ПОДІЇ</string>
     <string name="forgot_password"><u>Забули пароль?</u></string>
-    <string name="number_ordering_text">Ви можете отримати ваші квитки в найбличій касі. Ваше замовлення діятиме протягом трьох днів. Будь ласка, не демонструйте квитки стороннім людям. Яскравих вражень!</string>
+    <string name="number_ordering_text">Ви можете отримати ваші квитки в найбличій касі.</string>
+
     <string name="web_site_kasa_in_ua"><u>www.kasa.in.ua</u></string>
     <string name="email_kasa_in_ua"><u>info@kasa.in.ua</u></string>
     <string name="kasa_phone1"><u>+38 093 0000 754,</u></string>
     <string name="kasa_phone2"><u>+38 066 0000 754,</u></string>
     <string name="kasa_phone3"><u>+38 097 0000 754.</u></string>
     <string name="title_activity_activity_order">ActivityOrder</string>
+    <string name="title_activity_activity_successful_order">ActivitySuccessfulOrder</string>
+    <string name="description_order">Ваше замовлення остворено та оплачено!</string>
+    <string name="description_order1">Ваше замовлення створено!</string>
+    <string name="description_order2">Квити будуть надіслані на відповідне відділення Нової пошти протягом трьох робочих днів.</string>
 
 </resources>

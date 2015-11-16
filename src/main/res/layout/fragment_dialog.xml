@@ -5,7 +5,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Квитки авторизованого користувача резервуються на 15 хвилин під час проходження ним процесу оформлення замовлення."
+        android:text="Квитки користувача резервуються на 15 хвилин під час проходження ним процесу оформлення замовлення."
         android:id="@+id/textView69"
         android:textSize="12sp"
         android:layout_centerHorizontal="true"

@@ -65,7 +65,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
 
     public FragmentBasket(){setHasOptionsMenu(true);}
     private ListView listViewBasketTicket;
-    private ArrayList<Basket> basketArrayList = new ArrayList<Basket>();
+    private ArrayList<Basket> basketArrayList = new ArrayList<>();
     private ViewBasketAdapter viewBasketAdapter;
     private DB_Ticket db_ticket;
     private SQLiteDatabase db;
@@ -77,7 +77,6 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     private EncodingTicketCount ticketCount;
     private int tickets = 0, price = 0;
     private JSONArray jsonArray;
-    private Bundle bundle;
 
     private static final String APP_PREFERENCES_DIALOG = "dialog_show";
     private SharedPreferences spShowDialog;

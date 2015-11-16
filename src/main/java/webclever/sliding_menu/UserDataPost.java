@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 import Singleton.SingletonCity;
+import Singleton.SingletonTempOrder;
 import Singleton.UserProfileSingleton;
 import Validator.Validator;
 import adapter.AdapterSelectCity;
@@ -69,6 +71,15 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
     private Bundle bundle;
 
+    private EditText editTextName;
+    private EditText editTextLastName;
+    private EditText editTextSurname;
+    private EditText editTextPhone;
+    private EditText editTextEmail;
+    private EditText editTextNDepartment;
+
+
+
     public UserDataPost() { }
 
     @Override
@@ -90,22 +101,22 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
         userProfile = new UserProfileSingleton(this.getActivity());
 
-        EditText editTextName = (EditText) rootView.findViewById(R.id.editText15);
+        editTextName = (EditText) rootView.findViewById(R.id.editText15);
         editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new TextWatcherETicket(editTextName));
         sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
 
-        EditText editTextLasName = (EditText) rootView.findViewById(R.id.editText16);
-        editTextLasName.setText(userProfile.getLastName());
-        editTextLasName.addTextChangedListener(new TextWatcherETicket(editTextLasName));
-        sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
+        editTextLastName = (EditText) rootView.findViewById(R.id.editText16);
+        editTextLastName.setText(userProfile.getLastName());
+        editTextLastName.addTextChangedListener(new TextWatcherETicket(editTextLastName));
+        sparseBooleanArray.put(editTextLastName.getId(), validator.isLastNameValid(userProfile.getLastName()));
 
-        EditText editTextSurname = (EditText) rootView.findViewById(R.id.editText29);
+        editTextSurname = (EditText) rootView.findViewById(R.id.editText29);
         editTextSurname.setText(userProfile.getSurname());
         editTextSurname.addTextChangedListener(new TextWatcherETicket(editTextSurname));
-        sparseBooleanArray.put(editTextSurname.getId(),validator.isNameValid(userProfile.getSurname()));
+        sparseBooleanArray.put(editTextSurname.getId(), validator.isNameValid(userProfile.getSurname()));
 
-        EditText editTextPhone = (EditText) rootView.findViewById(R.id.editText17);
+        editTextPhone = (EditText) rootView.findViewById(R.id.editText17);
         if (!userProfile.getPhone().equals("")){
             editTextPhone.setText(userProfile.getPhone());
         }else {
@@ -114,15 +125,15 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         editTextPhone.addTextChangedListener(new TextWatcherETicket(editTextPhone));
         sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
 
-        EditText editTextEmail = (EditText) rootView.findViewById(R.id.editText18);
+        editTextEmail = (EditText) rootView.findViewById(R.id.editText18);
         editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new TextWatcherETicket(editTextEmail));
         sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
 
-        EditText editTextNDepartament = (EditText) rootView.findViewById(R.id.editText21);
-        editTextNDepartament.setText(userProfile.getNewPost());
-        editTextNDepartament.addTextChangedListener(new TextWatcherETicket(editTextNDepartament));
-        sparseBooleanArray.put(editTextNDepartament.getId(), validator.isNumberValid(userProfile.getNewPost()));
+        editTextNDepartment = (EditText) rootView.findViewById(R.id.editText21);
+        editTextNDepartment.setText(userProfile.getNewPost());
+        editTextNDepartment.addTextChangedListener(new TextWatcherETicket(editTextNDepartment));
+        sparseBooleanArray.put(editTextNDepartment.getId(), validator.isNumberValid(userProfile.getNewPost()));
 
         textViewTimer = (TextView) rootView.findViewById(R.id.textView104);
 
@@ -170,9 +181,11 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(View view) {
                 if (getValidUserData()) {
-                    Fragment fragment = new FragmentSuccessfulOrder();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
+                    if (userProfile.getStatus() && paymentMethod == 1){
+
+                    }else if (!userProfile.getStatus() && paymentMethod == 1){
+                        saveOrder();
+                    }
                 }
             }
         });
@@ -368,6 +381,63 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         };
         AppController.getInstance().addToRequestQueue(stringPostRequest);
         return singletonCityArrayList;
+    }
+
+    private void saveOrder(){
+        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
+        final String order_id = SingletonTempOrder.getInstance().getOrder_id();
+        final String order_token = SingletonTempOrder.getInstance().getToken();
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(s);
+                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
+                            intent.putExtra("order_id",jsonObject.getString("order_id"));
+                            intent.putExtra("payment_method",paymentMethod);
+                            startActivity(intent);
+                            ((ActivityOrder)getActivity()).deleteDB();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("temp_order",order_id);
+                params.put("order_token",order_token);
+                params.put("orderType","1");
+                params.put("phone",editTextPhone.getText().toString());
+                params.put("name",editTextName.getText().toString());
+                params.put("surname",editTextLastName.getText().toString());
+                params.put("last_name",editTextSurname.getText().toString());
+                params.put("email",editTextEmail.getText().toString());
+                params.put("np_department",editTextNDepartment.getText().toString());
+                params.put("country",spinnerCountry.getSelectedItem().toString());
+                params.put("city",editTextCity.getText().toString());
+
+
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 
     private class TextWatcherETicket implements TextWatcher {

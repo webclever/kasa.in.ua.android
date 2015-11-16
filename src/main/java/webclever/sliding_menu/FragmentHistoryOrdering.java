@@ -37,6 +37,7 @@ import Format.DateFormat;
 import Singleton.OrderingChild;
 import Singleton.OrderingParent;
 import Singleton.TicketChildOrdering;
+import Singleton.UserProfileSingleton;
 import adapter.OrderingAdapter;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
@@ -48,7 +49,7 @@ import static webclever.sliding_menu.R.id.frame_container;
  */
 public class FragmentHistoryOrdering extends Fragment implements OnBackPressedListener {
 
-    private static final String stringUrlOrdering = "https://api.myjson.com/bins/1myei";
+    private UserProfileSingleton userProfile;
     private OrderingAdapter orderingAdapter;
     private DateFormat dateFormat;
 
@@ -60,6 +61,7 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
     public View onCreateView(LayoutInflater inflater, ViewGroup conteiner,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history_ordering,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(3,true);
+        userProfile = new UserProfileSingleton(getActivity());
         dateFormat = new DateFormat();
         ExpandableListView expandableListViewOrdering = (ExpandableListView) rootView.findViewById(R.id.expandableListViewOrdering);
         List<OrderingParent> arrayListOrderParent = new ArrayList<OrderingParent>();
@@ -172,8 +174,8 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
 
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("user_id",1);
-            jsonObject.put("token",1657214938);
+            jsonObject.put("user_id",userProfile.getUserId());
+            jsonObject.put("token",userProfile.getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -280,7 +282,7 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("token","1131533");
+                params.put("token","3748563");
                 Log.i("Params",params.toString());
                 return params;
             }

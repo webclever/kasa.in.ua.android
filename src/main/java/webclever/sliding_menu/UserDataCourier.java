@@ -170,8 +170,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(View view) {
                 if (getValidUserData()){
-                    Fragment fragment = new FragmentSuccessfulOrder();
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+
                 }
             }
         });

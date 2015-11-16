@@ -29,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,6 +61,8 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private EditText editTextLasName;
     private EditText editTextPhone;
     private EditText editTextEmail;
+
+
 
     public FragmentUserDataKasa()    { }
 
@@ -117,8 +120,11 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             public void onClick(View view) {
                 if (getValidUserData()){
 
-                    //Fragment fragment = new FragmentSuccessfulOrder();
-                    //fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    if (userProfile.getStatus() && paymentMethod == 1){
+                        saveOrderUser();
+                    }else if (!userProfile.getStatus() && paymentMethod == 1){
+                        saveOrder();
+                    }
                 }
             }
         });
@@ -178,8 +184,6 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         return valid;
     }
 
-
-
     private class TextWatcherETicket implements TextWatcher {
 
         private View view;
@@ -222,24 +226,8 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
     private void saveOrder(){
         final String url = "http://tms.webclever.in.ua/api/SaveOrder";
-        String order_id = SingletonTempOrder.getInstance().getOrder_id();
-        String order_token = SingletonTempOrder.getInstance().getToken();
-
-        final JSONObject jsonObjectHeader = new JSONObject();
-        final JSONObject jsonObjectParams = new JSONObject();
-        try {
-
-            jsonObjectHeader.put("tempOrder",order_id);
-            jsonObjectHeader.put("token",order_token);
-            jsonObjectHeader.put("orderType",paymentMethod);
-            jsonObjectHeader.put("name",editTextName.getText().toString());
-            jsonObjectHeader.put("surname",editTextLasName.getText().toString());
-            jsonObjectHeader.put("phone",editTextPhone.getText().toString());
-            jsonObjectHeader.put("email",editTextEmail.getText().toString());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        final String order_id = SingletonTempOrder.getInstance().getOrder_id();
+        final String order_token = SingletonTempOrder.getInstance().getToken();
 
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -249,6 +237,11 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                         try {
 
                             JSONObject jsonObject = new JSONObject(s);
+                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
+                            intent.putExtra("order_id",jsonObject.getString("order_id"));
+                            intent.putExtra("payment_method",paymentMethod);
+                            startActivity(intent);
+                            ((ActivityOrder)getActivity()).deleteDB();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -264,18 +257,17 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         }){
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("tmssec", jsonObjectHeader.toString());
-                Log.i("Response_Header",params.get("tmssec"));
-                return params;
-            }
-
-            @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("token","3748563");
-                params.put("userInfo",jsonObjectParams.toString());
+                params.put("temp_order",order_id);
+                params.put("order_token",order_token);
+                params.put("orderType","1");
+                params.put("phone",editTextPhone.getText().toString());
+                params.put("name",editTextName.getText().toString());
+                params.put("surname",editTextLasName.getText().toString());
+                params.put("email",editTextEmail.getText().toString());
+
                 Log.i("Params",params.toString());
                 return params;
             }
@@ -283,5 +275,74 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
+
+    private void saveOrderUser(){
+        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
+        final String order_id = SingletonTempOrder.getInstance().getOrder_id();
+        final String order_token = SingletonTempOrder.getInstance().getToken();
+
+        final JSONObject jsonObjectHeader = new JSONObject();
+        try {
+            jsonObjectHeader.put("user_id",userProfile.getUserId());
+            jsonObjectHeader.put("token",userProfile.getToken());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(s);
+                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
+                            intent.putExtra("order_id",jsonObject.getString("order_id"));
+                            intent.putExtra("payment_method",paymentMethod);
+                            startActivity(intent);
+                            ((ActivityOrder)getActivity()).deleteDB();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("temp_order",order_id);
+                params.put("order_token",order_token);
+                params.put("orderType","1");
+                params.put("phone",editTextPhone.getText().toString());
+                params.put("name",editTextName.getText().toString());
+                params.put("surname",editTextLasName.getText().toString());
+                params.put("email",editTextEmail.getText().toString());
+
+                Log.i("Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+    }
+
+
 
 }

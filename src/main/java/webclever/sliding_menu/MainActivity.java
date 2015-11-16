@@ -383,7 +383,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
         mDrawerList.setItemChecked(previousPos, true);
         mDrawerList.setSelection(previousPos);
-        setTitle(navMenuTitles[previousPos]);
+        if (previousPos != 0){setTitle(navMenuTitles[previousPos]);}
         mDrawerLayout.closeDrawer(mDrawerList);
 
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);

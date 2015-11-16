@@ -1,42 +1,43 @@
 package webclever.sliding_menu;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
+
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.CountDownTimer;
-import android.preference.DialogPreference;
+
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
+import DataBase.DB_Ticket;
 import Singleton.SingletonTempOrder;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
-import static webclever.sliding_menu.R.id.fragments_container;
+
 
 public class ActivityOrder extends FragmentActivity {
 
     private Long aLongTimer = 900000l;
     private CountDownTimer countDownTimer;
     private Activity activity;
+    private DB_Ticket db_ticket;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -51,12 +52,16 @@ public class ActivityOrder extends FragmentActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+        db_ticket = new DB_Ticket(this,5);
+
         activity = this;
         startTimer();
     }
@@ -135,7 +140,6 @@ public class ActivityOrder extends FragmentActivity {
                 showAlertDialog();
             }
         }.start();
-
     }
 
     public long getTimer(){
@@ -188,6 +192,18 @@ public class ActivityOrder extends FragmentActivity {
         super.onStop();
         cancelTempOrder();
         stopTimer();
+    }
+
+    public void deleteDB(){
+
+        SQLiteDatabase db = db_ticket.getWritableDatabase();
+        int rows = db.delete("Ticket_table", null, null);
+        Log.i("id_ticket", "del rows" + String.valueOf(rows));
+
+        rows = db.delete("Event_table", null, null);
+        Log.i("id_ticket", "del rows" + String.valueOf(rows));
+
+        db_ticket.close();
     }
 
 }
