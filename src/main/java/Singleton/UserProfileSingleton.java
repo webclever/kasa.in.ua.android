@@ -88,13 +88,6 @@ public class UserProfileSingleton {
         return sharedPreferencesUserData.getString("user_country", "");
     }
 
-    public void setRegion(String region){
-        editor.putString("user_region",region);
-        editor.commit();
-    }
-    public String getRegion(){
-        return sharedPreferencesUserData.getString("user_region", "");
-    }
     public void setCity(String city){
         editor.putString("user_city", city);
     }

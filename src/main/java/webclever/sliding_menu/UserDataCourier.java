@@ -87,8 +87,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_user_data_courier, container, false);
         fragmentManager  = getFragmentManager();
 
@@ -181,11 +180,8 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             public void onClick(View view) {
                 if (getValidUserData()){
 
-                        if (userProfile.getStatus() && paymentMethod == 5){
+                        if (paymentMethod == 5){
                             saveOrderUser();
-
-                        }else if (!userProfile.getStatus() && paymentMethod == 5){
-                            saveOrder();
                         }
 
                 }
@@ -383,72 +379,19 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         return valid;
     }
 
-    private void saveOrder(){
-        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
-        final String order_id = SingletonTempOrder.getInstance().getOrder_id();
-        final String order_token = SingletonTempOrder.getInstance().getToken();
-
-        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        Log.i("Response", s);
-                        try {
-
-                            JSONObject jsonObject = new JSONObject(s);
-                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
-                            intent.putExtra("order_id",jsonObject.getString("order_id"));
-                            intent.putExtra("payment_method",paymentMethod);
-                            startActivity(intent);
-                            ((ActivityOrder)getActivity()).deleteDB();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
-
-            }
-        }){
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("token","3748563");
-                params.put("temp_order",order_id);
-                params.put("order_token",order_token);
-                params.put("orderType","1");
-                params.put("phone",editTextPhone.getText().toString());
-                params.put("name",editTextName.getText().toString());
-                params.put("surname",editTextLasName.getText().toString());
-                params.put("patr_name",editTextSurname.getText().toString());
-                params.put("email",editTextEmail.getText().toString());
-                params.put("country_id",String.valueOf(idSelectedCountry));
-                params.put("city_id",String.valueOf(cityID));
-                Log.i("Params",params.toString());
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(stringPostRequest);
-    }
-
     private void saveOrderUser(){
         final String url = "http://tms.webclever.in.ua/api/SaveOrder";
         final String order_id = SingletonTempOrder.getInstance().getOrder_id();
         final String order_token = SingletonTempOrder.getInstance().getToken();
 
         final JSONObject jsonObjectHeader = new JSONObject();
+        if (userProfile.getStatus()){
         try {
             jsonObjectHeader.put("user_id",userProfile.getUserId());
             jsonObjectHeader.put("token",userProfile.getToken());
         }catch (JSONException e){
             e.printStackTrace();
-        }
+        }}
 
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

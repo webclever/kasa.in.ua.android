@@ -189,7 +189,7 @@
             android:layout_height="wrap_content"
             android:text="Оплата платіжною карткою"
             android:background="@drawable/background_ordering"
-            android:tag="7"
+            android:tag="8"
             android:visibility="gone"
             android:id="@+id/radioButton7"
             android:checked="false" />

@@ -41,8 +41,7 @@ public class Validator {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public boolean isNameValid(String name)
-    {
+    public boolean isNameValid(String name) {
         String regExpn = "^[-АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюяа-яА-Яa-zA-Z]{3,15}$";
 
         CharSequence inputStr = name;

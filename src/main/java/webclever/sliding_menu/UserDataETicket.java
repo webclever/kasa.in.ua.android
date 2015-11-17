@@ -69,8 +69,6 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private EditText editTextPhone;
     private EditText editTextEMail;
 
-    private SparseArray<String> sparseIntArrayTicket;
-
 
     public UserDataETicket() {
         // Required empty public constructor
@@ -80,7 +78,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_user_data_eticket, container, false);
-        sparseIntArrayTicket = new SparseArray<>();
+
         if(getArguments() != null){
             bundle = getArguments();
             paymentMethod = bundle.getInt("payment_method");
@@ -142,7 +140,6 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                     }
 
                 }
-
 
             }
         });
@@ -219,13 +216,12 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
     private void addTicketContainer(String id_ticket,String name_event,String zon_ticket,String name_row_ticket,String row_ticket,String place_ticket,String price_ticket){
         final ViewGroup viewGroupTicket = (ViewGroup) LayoutInflater.from(this.getActivity()).inflate(R.layout.list_ticket_data,viewGroupTicketContainer,false);
+        viewGroupTicket.setTag(id_ticket);
         String str = name_row_ticket+": " + row_ticket + ", м.:" + String.valueOf(place_ticket);
         TextView textViewNameEvent = (TextView) viewGroupTicket.findViewById(R.id.textViewNameEvent);
         TextView textViewSectorEvent = (TextView) viewGroupTicket.findViewById(R.id.textViewSectorEvent);
         TextView textViewRowPlace = (TextView) viewGroupTicket.findViewById(R.id.textViewRowPlace);
         TextView textViewPriceTicket = (TextView) viewGroupTicket.findViewById(R.id.textViewPriceTicket);
-        EditText editTextNameUserTicket = (EditText) viewGroupTicket.findViewById(R.id.editTextNameUser);
-        sparseIntArrayTicket.put(editTextNameUserTicket.getId(),id_ticket);
         textViewNameEvent.setText(name_event);
         textViewSectorEvent.setText(zon_ticket);
         textViewRowPlace.setText(str);
@@ -478,10 +474,10 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             View view1 = viewGroupTicketContainer.getChildAt(i);
             EditText editTextNameUserTicket = (EditText) view1.findViewById(R.id.editTextNameUser);
             EditText editTextLasNameUserTicket = (EditText) view1.findViewById(R.id.editTextLastName);
-            String strIdTicket = sparseIntArrayTicket.get(editTextNameUserTicket.getId());
+            String strIdTicket = (String) view1.getTag();
             String strUserName = editTextNameUserTicket.getText().toString();
             String strLastUserName = editTextLasNameUserTicket.getText().toString();
-
+            Log.i("idView",strIdTicket);
             try {
                 jsonObject.put("ticket_id",strIdTicket);
                 jsonObject.put("name",strUserName);

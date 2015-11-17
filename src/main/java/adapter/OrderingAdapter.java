@@ -162,6 +162,7 @@ public class OrderingAdapter extends BaseExpandableListAdapter {
                 textViewStatusTicket.setVisibility(View.VISIBLE);
             }}else {
                 textViewSectorTicket.setText(ticketChildOrdering.getSectorOrdering());
+                textViewPriceTicket.setText(ticketChildOrdering.getPriceOrdering() + "₴");
                 textViewRowTicket.setVisibility(View.GONE);
                 textViewPlaceTicket.setVisibility(View.GONE);
             }

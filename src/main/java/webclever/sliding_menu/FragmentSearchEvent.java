@@ -58,7 +58,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
     private ListView listView;
     private DateFormat dateFormat = new DateFormat();
     private CustomListAdapter adapter;
-    private static String TAG = MainActivity.class.getSimpleName();
+    private static String TAG = "Response";
     private ProgressBar progressBar;
     private int limit = 10;
     private int start = 0;
@@ -223,7 +223,8 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                                     JSONObject city = obj.getJSONObject("city");
                                     movie.setCity(city.getString("name"));
                                     JSONObject poster = obj.getJSONObject("poster");
-                                    movie.setThumbnailUrl(poster.getString("l"));
+                                    if (poster.has("l")){
+                                    movie.setThumbnailUrl(poster.getString("l"));}
                                     movieList.add(movie);
                             }
                         }catch (JSONException e)

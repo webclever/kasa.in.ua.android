@@ -41,6 +41,7 @@ import com.vk.sdk.api.VKError;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ import adapter.ObjectSpinnerAdapter;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
+import static webclever.sliding_menu.R.id.editText;
 import static webclever.sliding_menu.R.id.frame_container;
 
 /**
@@ -125,17 +127,22 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new MyTextWatcher(editTextName));
         sparseBooleanArrayValidator.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
+
         editTextLName = (EditText) rootView.findViewById(R.id.editText27);
         editTextLName.setText(userProfile.getLastName());
         editTextLName.addTextChangedListener(new MyTextWatcher(editTextLName));
         sparseBooleanArrayValidator.put(editTextLName.getId(), validator.isNameValid(userProfile.getLastName()));
+
         editTextSurname = (EditText) rootView.findViewById(R.id.editText22);
         editTextSurname.setText(userProfile.getSurname());
-        sparseBooleanArrayValidator.put(editTextSurname.getId(), true);
+        editTextSurname.addTextChangedListener(new MyTextWatcher(editTextSurname));
+        sparseBooleanArrayValidator.put(editTextSurname.getId(), validator.isNameValid(userProfile.getSurname()));
+
         editTextPhone = (EditText) rootView.findViewById(R.id.editText3);
         editTextPhone.setText(userProfile.getPhone());
         editTextPhone.addTextChangedListener(new MyTextWatcher(editTextPhone));
         sparseBooleanArrayValidator.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
+
         editTextEmail = (EditText) rootView.findViewById(R.id.editText4);
         editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new MyTextWatcher(editTextEmail));
@@ -143,8 +150,13 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
         editTextAddress = (EditText)rootView.findViewById(R.id.editText8);
         editTextAddress.setText(userProfile.getAddress());
+        editTextAddress.addTextChangedListener(new MyTextWatcher(editTextAddress));
+        sparseBooleanArrayValidator.put(editTextAddress.getId(), validator.isNameValid(userProfile.getAddress()));
+
         editTextNPost = (EditText)rootView.findViewById(R.id.editText9);
         editTextNPost.setText(userProfile.getNewPost());
+        editTextNPost.addTextChangedListener(new MyTextWatcher(editTextNPost));
+        sparseBooleanArrayValidator.put(editTextNPost.getId(), validator.isNameValid(userProfile.getNewPost()));
 
         spinnerCountry = (Spinner) rootView.findViewById(R.id.spinnerCountry);
         listCountries = getCountries();
@@ -168,6 +180,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         editTextCity.setText(userProfile.getCity());
         editTextCity.addTextChangedListener(new MyTextWatcher(editTextCity));
         sparseBooleanArrayValidator.put(editTextCity.getId(), validator.isAddressValid(userProfile.getCity()));
+
         editTextCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,8 +228,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
         return rootView;
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -408,7 +419,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
     private Boolean checkValid() {
         Boolean valid = true;
-        for (int i=0; i<sparseBooleanArrayValidator.size(); i++){
+        for (int i=0; i < sparseBooleanArrayValidator.size(); i++){
             EditText editText = (EditText) getActivity().findViewById(sparseBooleanArrayValidator.keyAt(i));
             if (!sparseBooleanArrayValidator.valueAt(i)){
                 valid = false;
@@ -423,26 +434,29 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
     private void SaveUserData() {
 
         final JSONObject jsonObjectHeader = new JSONObject();
+        final JSONObject jsonObjectParams = new JSONObject();
+
 
         try {
-
             jsonObjectHeader.put("user_id", userProfile.getUserId());
             jsonObjectHeader.put("token", userProfile.getToken());
-            jsonObjectHeader.put("name", editTextName.getText().toString());
-            jsonObjectHeader.put("surname", editTextLName.getText().toString());
-            jsonObjectHeader.put("----", editTextSurname.getText().toString());
-            jsonObjectHeader.put("phone", editTextPhone.getText().toString());
-            jsonObjectHeader.put("country_id", idSelectedCountry);
-            jsonObjectHeader.put("city_id", cityID);
             jsonObjectHeader.put("email", editTextEmail.getText().toString());
-            jsonObjectHeader.put("address", editTextAddress.getText().toString());
-            jsonObjectHeader.put("np_id", Integer.parseInt(editTextNPost.getText().toString()));
+
+            jsonObjectParams.put("name",editTextName.getText().toString());
+            jsonObjectParams.put("surname", editTextLName.getText().toString());
+            jsonObjectParams.put("patr_name", editTextSurname.getText().toString());
+            jsonObjectParams.put("phone", editTextPhone.getText().toString());
+            jsonObjectParams.put("country_id", String.valueOf(idSelectedCountry));
+            jsonObjectParams.put("city_id", String.valueOf(cityID));
+            jsonObjectParams.put("address", editTextAddress.getText().toString());
+            jsonObjectParams.put("np_id", editTextNPost.getText().toString());
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        String url = "http://tms.webclever.in.ua/api/changePassword";
+        String url = "http://tms.webclever.in.ua/api/changeUserData";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -463,7 +477,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                                 userProfile.setCity(editTextCity.getText().toString());
                                 userProfile.setAddress(editTextAddress.getText().toString());
                                 userProfile.setNewPost(editTextNPost.getText().toString());
-
                             }
 
                         } catch (JSONException e) {
@@ -488,6 +501,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("token","3748563");
+                params.put("userInfo",jsonObjectParams.toString());
                 Log.i("Params",params.toString());
                 return params;
             }
@@ -544,10 +558,13 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         public void afterTextChanged(Editable editable) {
             switch (view.getId()){
                 case R.id.editText2:
-                    sparseBooleanArrayValidator.put(R.id.editTextName,validator.isNameValid(editable.toString()));
+                    sparseBooleanArrayValidator.put(R.id.editText2,validator.isNameValid(editable.toString()));
                     break;
                 case R.id.editText27:
                     sparseBooleanArrayValidator.put(R.id.editText27,validator.isLastNameValid(editable.toString()));
+                    break;
+                case R.id.editText22:
+                    sparseBooleanArrayValidator.put(R.id.editText22,validator.isNameValid(editable.toString()));
                     break;
                 case R.id.editText3:
                     sparseBooleanArrayValidator.put(R.id.editText3,validator.isPhoneValid(editable.toString()));
@@ -557,6 +574,12 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                     break;
                 case R.id.editText31:
                     sparseBooleanArrayValidator.put(R.id.editText31,validator.isAddressValid(editable.toString()));
+                    break;
+                case R.id.editText8:
+                    sparseBooleanArrayValidator.put(R.id.editText8,validator.isAddressValid(editable.toString()));
+                    break;
+                case R.id.editText9:
+                    sparseBooleanArrayValidator.put(R.id.editText9,validator.isNumberValid(editable.toString()));
                     break;
             }
 
