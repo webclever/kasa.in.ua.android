@@ -68,6 +68,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private EditText editTextLasName;
     private EditText editTextPhone;
     private EditText editTextEMail;
+    private EditText editTextMessage;
 
 
     public UserDataETicket() {
@@ -96,28 +97,26 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
 
         editTextName = (EditText) rootView.findViewById(R.id.editText11);
-        editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new TextWatcherETicket(editTextName));
-        sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
+        sparseBooleanArray.put(editTextName.getId(), false);
 
         editTextLasName = (EditText) rootView.findViewById(R.id.editText12);
-        editTextLasName.setText(userProfile.getLastName());
         editTextLasName.addTextChangedListener(new TextWatcherETicket(editTextLasName));
-        sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
+        sparseBooleanArray.put(editTextLasName.getId(), false);
 
         editTextPhone = (EditText) rootView.findViewById(R.id.editText13);
-        if (!userProfile.getPhone().equals("")){
-            editTextPhone.setText(userProfile.getPhone());
-        }else {
-            editTextPhone.setText("+38");
-        }
         editTextPhone.addTextChangedListener(new TextWatcherETicket(editTextPhone));
-        sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
+        sparseBooleanArray.put(editTextPhone.getId(), false);
 
         editTextEMail = (EditText) rootView.findViewById(R.id.editText14);
-        editTextEMail.setText(userProfile.getEmail());
         editTextEMail.addTextChangedListener(new TextWatcherETicket(editTextEMail));
-        sparseBooleanArray.put(editTextEMail.getId(),validator.isEmailValid(userProfile.getEmail()));
+        sparseBooleanArray.put(editTextEMail.getId(), false);
+
+        editTextMessage = (EditText) rootView.findViewById(R.id.editText5);
+
+        if (userProfile.getStatus()){
+            getUserDataProfile();
+        }
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
         Log.i("paymentMethod",String.valueOf(paymentMethod));
@@ -226,6 +225,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         textViewSectorEvent.setText(zon_ticket);
         textViewRowPlace.setText(str);
         textViewPriceTicket.setText(price_ticket + "грн.");
+
 
         viewGroupTicketContainer.addView(viewGroupTicket, 0);
 
@@ -384,7 +384,8 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                 params.put("name",editTextName.getText().toString());
                 params.put("surname",editTextLasName.getText().toString());
                 params.put("email",editTextEMail.getText().toString());
-                params.put("ticket",jsonArray.toString());
+                params.put("comment",editTextMessage.getText().toString());
+                params.put("tickets",jsonArray.toString());
 
                 Log.i("Params",params.toString());
                 return params;
@@ -453,7 +454,8 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                 params.put("name",editTextName.getText().toString());
                 params.put("surname",editTextLasName.getText().toString());
                 params.put("email",editTextEMail.getText().toString());
-                params.put("ticket",jsonArray.toString());
+                params.put("tickets",jsonArray.toString());
+                params.put("comment",editTextMessage.getText().toString());
 
                 Log.i("Params",params.toString());
                 return params;
@@ -469,7 +471,6 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
         for(int i=1; i < viewGroupTicketContainer.getChildCount(); i++)
         {
-
             JSONObject jsonObject = new JSONObject();
             View view1 = viewGroupTicketContainer.getChildAt(i);
             EditText editTextNameUserTicket = (EditText) view1.findViewById(R.id.editTextNameUser);
@@ -479,10 +480,13 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             String strLastUserName = editTextLasNameUserTicket.getText().toString();
             Log.i("idView",strIdTicket);
             try {
+
                 jsonObject.put("ticket_id",strIdTicket);
                 jsonObject.put("name",strUserName);
                 jsonObject.put("surname",strLastUserName);
+
                 jsonArrayDataTicket.put(jsonObject);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -490,6 +494,71 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         }
 
         return jsonArrayDataTicket;
+    }
+
+    private void getUserDataProfile() {
+
+        final JSONObject jsonObjectHeader = new JSONObject();
+
+        try {
+
+            jsonObjectHeader.put("user_id", userProfile.getUserId());
+            jsonObjectHeader.put("token", userProfile.getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response p", s);
+                        try {
+
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+
+                            editTextName.setText(jsonObjectUserData.getString("name"));
+                            sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(jsonObjectUserData.getString("name")));
+                            editTextLasName.setText(jsonObjectUserData.getString("surname"));
+                            sparseBooleanArray.put(editTextLasName.getId(), validator.isNameValid(jsonObjectUserData.getString("surname")));
+                            editTextPhone.setText(jsonObjectUserData.getString("phone"));
+                            sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(jsonObjectUserData.getString("phone")));
+                            editTextEMail.setText(jsonObjectUserData.getString("email"));
+                            sparseBooleanArray.put(editTextEMail.getId(), validator.isEmailValid(jsonObjectUserData.getString("email")));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
     }
 
 }

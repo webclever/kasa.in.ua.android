@@ -191,10 +191,9 @@ public class ActivityOrder extends FragmentActivity {
     protected void onStop (){
         super.onStop();
         cancelTempOrder();
-        stopTimer();
     }
 
-    public void deleteDB(){
+    public void deleteDB() {
 
         SQLiteDatabase db = db_ticket.getWritableDatabase();
         int rows = db.delete("Ticket_table", null, null);

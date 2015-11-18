@@ -76,6 +76,9 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     private EditText editTextPhone;
     private EditText editTextEmail;
     private EditText editTextAddress;
+    private EditText editTextMessage;
+
+    private Integer spinnerPosCountry = 0;
 
 
     public UserDataCourier() { }
@@ -96,50 +99,38 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             paymentMethod = bundle.getInt("payment_method");
         }
 
-        /*Toast.makeText(getActivity().getApplicationContext(), getArguments().getString("type"), Toast.LENGTH_SHORT).show();*/
+
         userProfile = new UserProfileSingleton(this.getActivity());
 
         editTextName = (EditText) rootView.findViewById(R.id.editText15);
-        editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new TextWatcherETicket(editTextName));
-        sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
+        sparseBooleanArray.put(editTextName.getId(), false);
 
         editTextLasName = (EditText) rootView.findViewById(R.id.editText16);
-        editTextLasName.setText(userProfile.getLastName());
         editTextLasName.addTextChangedListener(new TextWatcherETicket(editTextLasName));
-        sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
+        sparseBooleanArray.put(editTextLasName.getId(), false);
 
         editTextSurname = (EditText) rootView.findViewById(R.id.editText30);
-        editTextSurname.setText(userProfile.getSurname());
         editTextSurname.addTextChangedListener(new TextWatcherETicket(editTextSurname));
-        sparseBooleanArray.put(editTextSurname.getId(), validator.isNameValid(userProfile.getSurname()));
+        sparseBooleanArray.put(editTextSurname.getId(), false);
+
+        editTextMessage = (EditText) rootView.findViewById(R.id.editText28);
 
         editTextPhone = (EditText) rootView.findViewById(R.id.editText17);
-        if (!userProfile.getPhone().equals("")){
-            editTextPhone.setText(userProfile.getPhone());
-        }else {
-            editTextPhone.setText("+38");
-        }
         editTextPhone.addTextChangedListener(new TextWatcherETicket(editTextPhone));
-        sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
+        sparseBooleanArray.put(editTextPhone.getId(), false);
 
         editTextEmail = (EditText) rootView.findViewById(R.id.editText18);
-        editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new TextWatcherETicket(editTextEmail));
-        sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
+        sparseBooleanArray.put(editTextEmail.getId(), false);
 
         editTextAddress = (EditText) rootView.findViewById(R.id.editText24);
-        editTextAddress.setText(userProfile.getAddress());
         editTextAddress.addTextChangedListener(new TextWatcherETicket(editTextAddress));
-        sparseBooleanArray.put(editTextAddress.getId(), validator.isAddressValid(userProfile.getAddress()));
+        sparseBooleanArray.put(editTextAddress.getId(), false);
 
         textViewTimer = (TextView) rootView.findViewById(R.id.textView100);
 
-
         spinnerCountry = (Spinner) rootView.findViewById(R.id.spinner3);
-        listCountries = getCountries();
-        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),listCountries,false);
-        spinnerCountry.setAdapter(objectSpinnerAdapter);
         spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -155,15 +146,20 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         });
 
         editTextCity = (EditText) rootView.findViewById(R.id.editText23);
-        editTextCity.setText(userProfile.getCity());
         editTextCity.addTextChangedListener(new TextWatcherETicket(editTextCity));
-        sparseBooleanArray.put(editTextCity.getId(), validator.isAddressValid(userProfile.getCity()));
+        sparseBooleanArray.put(editTextCity.getId(),false);
         editTextCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showSelectCityDialog(idSelectedCountry);
             }
         });
+
+        if (userProfile.getStatus()){
+            getUserDataProfile();
+        }else {
+            getCountries(0);
+        }
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
         switch (paymentMethod){
@@ -191,7 +187,10 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         return rootView;
     }
 
-    private ArrayList<SingletonCity> getCountries(){
+    private ArrayList<SingletonCity> getCountries(final Integer country_id){
+
+        listCountries = new ArrayList<>();
+
         final String url = "http://tms.webclever.in.ua/api/GetCountries";
         final ArrayList<SingletonCity> singletonCityArrayList = new ArrayList<>();
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
@@ -203,12 +202,16 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                             for(int i=0; i<jsonArray.length();i++){
                                 SingletonCity singletonCity = new SingletonCity();
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                if (jsonObject.getInt("id") == country_id){
+                                    spinnerPosCountry = i;
+                                }
                                 singletonCity.setIdCity(jsonObject.getInt("id"));
                                 singletonCity.setNameCity(jsonObject.getString("name"));
 
-                                singletonCityArrayList.add(singletonCity);
+                                listCountries.add(singletonCity);
                             }
                             objectSpinnerAdapter.notifyDataSetChanged();
+                            spinnerCountry.setSelection(spinnerPosCountry);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -228,7 +231,8 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                 return params;
             }
         };
-
+        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),listCountries,false);
+        spinnerCountry.setAdapter(objectSpinnerAdapter);
         AppController.getInstance().addToRequestQueue(stringPostRequest);
 
         return singletonCityArrayList;
@@ -379,7 +383,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         return valid;
     }
 
-    private void saveOrderUser(){
+    private void saveOrderUser() {
         final String url = "http://tms.webclever.in.ua/api/SaveOrder";
         final String order_id = SingletonTempOrder.getInstance().getOrder_id();
         final String order_token = SingletonTempOrder.getInstance().getToken();
@@ -433,7 +437,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                 params.put("token","3748563");
                 params.put("temp_order",order_id);
                 params.put("order_token",order_token);
-                params.put("orderType","1");
+                params.put("orderType","5");
                 params.put("phone",editTextPhone.getText().toString());
                 params.put("name",editTextName.getText().toString());
                 params.put("surname",editTextLasName.getText().toString());
@@ -442,9 +446,125 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                 params.put("country_id",String.valueOf(idSelectedCountry));
                 params.put("city_id",String.valueOf(cityID));
                 params.put("address",editTextAddress.getText().toString());
+                params.put("comment",editTextMessage.getText().toString());
                 Log.i("Params",params.toString());
                 return params;
             }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+    }
+
+    private void getUserDataProfile() {
+
+        final JSONObject jsonObjectHeader = new JSONObject();
+
+        try {
+
+            jsonObjectHeader.put("user_id", userProfile.getUserId());
+            jsonObjectHeader.put("token", userProfile.getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response p", s);
+                        try {
+
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+
+                            editTextName.setText(jsonObjectUserData.getString("name"));
+                            sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(jsonObjectUserData.getString("name")));
+                            editTextLasName.setText(jsonObjectUserData.getString("surname"));
+                            sparseBooleanArray.put(editTextLasName.getId(), validator.isNameValid(jsonObjectUserData.getString("surname")));
+                            if (jsonObjectUserData.has("patr_name")){
+                                editTextSurname.setText(jsonObjectUserData.getString("patr_name"));
+                                sparseBooleanArray.put(editTextSurname.getId(), validator.isNameValid(jsonObjectUserData.getString("patr_name")));}
+                            editTextPhone.setText(jsonObjectUserData.getString("phone"));
+                            sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(jsonObjectUserData.getString("phone")));
+                            editTextEmail.setText(jsonObjectUserData.getString("email"));
+                            sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(jsonObjectUserData.getString("email")));
+                            if (jsonObjectUserData.has("country_id")){
+                                getCountries(jsonObjectUserData.getInt("country_id"));}
+                            if (jsonObjectUserData.has("address")){
+                                editTextAddress.setText(jsonObjectUserData.getString("address"));}
+                            if(jsonObjectUserData.has("city_id")){
+                                cityID = jsonObjectUserData.getInt("city_id");
+                                getCity(cityID);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+    }
+
+    private void getCity(final Integer city_id) {
+        final String url = "http://tms.webclever.in.ua/api/getCityById";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response p", s);
+                        try {
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+                            cityID = jsonObjectUserData.getInt("id");
+                            editTextCity.setText(jsonObjectUserData.getString("name"));
+                            sparseBooleanArray.put(editTextCity.getId(), validator.isNameValid(jsonObjectUserData.getString("name")));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("id",String.valueOf(city_id));
+                Log.i("Params",params.toString());
+                return params;
+            }
+
         };
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);

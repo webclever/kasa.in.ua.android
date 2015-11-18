@@ -494,10 +494,10 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                             userProfileSingleton.setStatus(true);
                             userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUser.getLong("token"));
-                            userProfileSingleton.setName(jsonObjectUser.getString("name"));
+                            /*userProfileSingleton.setName(jsonObjectUser.getString("name"));
                             userProfileSingleton.setLastName(jsonObjectUser.getString("last_name"));
                             userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));
-                            userProfileSingleton.setEmail(jsonObjectUser.getString("email"));
+                            userProfileSingleton.setEmail(jsonObjectUser.getString("email"));*/
                             userProfileSingleton.setNameSocial(social_name);
                             userProfileSingleton.setSocialId(soc_id);
                             sigOutGooglePlus();

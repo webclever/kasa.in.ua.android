@@ -61,6 +61,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private EditText editTextLasName;
     private EditText editTextPhone;
     private EditText editTextEmail;
+    private EditText editTextMessage;
 
 
 
@@ -76,32 +77,30 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             paymentMethod = bundle.getInt("payment_method");
         }
 
-
-        /*Toast.makeText(getActivity().getApplicationContext(),getArguments().getString("type"),Toast.LENGTH_SHORT).show();*/
         userProfile = new UserProfileSingleton(this.getActivity());
+
         editTextName = (EditText) rootView.findViewById(R.id.editText11);
-        editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new TextWatcherETicket(editTextName));
-        sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
+        sparseBooleanArray.put(editTextName.getId(), false);
 
         editTextLasName = (EditText) rootView.findViewById(R.id.editText12);
-        editTextLasName.setText(userProfile.getLastName());
         editTextLasName.addTextChangedListener(new TextWatcherETicket(editTextLasName));
-        sparseBooleanArray.put(editTextLasName.getId(), validator.isLastNameValid(userProfile.getLastName()));
+        sparseBooleanArray.put(editTextLasName.getId(), false);
 
         editTextPhone = (EditText) rootView.findViewById(R.id.editText13);
-        if (!userProfile.getPhone().equals("")){
-        editTextPhone.setText(userProfile.getPhone());
-        }else {
-            editTextPhone.setText("+38");
-        }
         editTextPhone.addTextChangedListener(new TextWatcherETicket(editTextPhone));
-        sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
+        sparseBooleanArray.put(editTextPhone.getId(), false);
 
         editTextEmail = (EditText) rootView.findViewById(R.id.editText14);
-        editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new TextWatcherETicket(editTextEmail));
-        sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
+        sparseBooleanArray.put(editTextEmail.getId(), false);
+
+        editTextMessage = (EditText) rootView.findViewById(R.id.editText7);
+
+        if (userProfile.getStatus()){
+            getUserDataProfile();
+        }
+
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
 
@@ -182,59 +181,19 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         return valid;
     }
 
-    private class TextWatcherETicket implements TextWatcher {
-
-        private View view;
-        public TextWatcherETicket(View view)
-        {
-            this.view = view;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-
-            switch (view.getId())
-            {
-                case R.id.editText11:
-                    sparseBooleanArray.put(R.id.editText11,validator.isNameValid(editable.toString()));
-                    break;
-                case R.id.editText12:
-                    sparseBooleanArray.put(R.id.editText12,validator.isLastNameValid(editable.toString()));
-                    break;
-                case R.id.editText13:
-                    sparseBooleanArray.put(R.id.editText13,validator.isPhoneValid(editable.toString()));
-                    break;
-                case R.id.editText14:
-                    sparseBooleanArray.put(R.id.editText14,validator.isEmailValid(editable.toString()));
-                    break;
-            }
-
-        }
-    }
-
-    private void saveOrderUser(){
+    private void saveOrderUser() {
         final String url = "http://tms.webclever.in.ua/api/SaveOrder";
         final String order_id = SingletonTempOrder.getInstance().getOrder_id();
         final String order_token = SingletonTempOrder.getInstance().getToken();
 
         final JSONObject jsonObjectHeader = new JSONObject();
         if (userProfile.getStatus()){
-        try {
-            jsonObjectHeader.put("user_id",userProfile.getUserId());
-            jsonObjectHeader.put("token",userProfile.getToken());
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+            try {
+                jsonObjectHeader.put("user_id",userProfile.getUserId());
+                jsonObjectHeader.put("token",userProfile.getToken());
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
         }
 
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
@@ -282,6 +241,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                 params.put("name",editTextName.getText().toString());
                 params.put("surname",editTextLasName.getText().toString());
                 params.put("email",editTextEmail.getText().toString());
+                params.put("comment",editTextMessage.getText().toString());
 
                 Log.i("Params",params.toString());
                 return params;
@@ -291,6 +251,109 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 
+    private void getUserDataProfile() {
 
+        final JSONObject jsonObjectHeader = new JSONObject();
+
+        try {
+
+            jsonObjectHeader.put("user_id", userProfile.getUserId());
+            jsonObjectHeader.put("token", userProfile.getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response p", s);
+                        try {
+
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+
+                            editTextName.setText(jsonObjectUserData.getString("name"));
+                            sparseBooleanArray.put(editTextName.getId(), validator.isNameValid(jsonObjectUserData.getString("name")));
+                            editTextLasName.setText(jsonObjectUserData.getString("surname"));
+                            sparseBooleanArray.put(editTextLasName.getId(), validator.isNameValid(jsonObjectUserData.getString("surname")));
+                            editTextPhone.setText(jsonObjectUserData.getString("phone"));
+                            sparseBooleanArray.put(editTextPhone.getId(), validator.isPhoneValid(jsonObjectUserData.getString("phone")));
+                            editTextEmail.setText(jsonObjectUserData.getString("email"));
+                            sparseBooleanArray.put(editTextEmail.getId(), validator.isPhoneValid(jsonObjectUserData.getString("email")));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+    }
+
+    private class TextWatcherETicket implements TextWatcher {
+
+        private View view;
+        public TextWatcherETicket(View view)
+        {
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+            switch (view.getId())
+            {
+                case R.id.editText11:
+                    sparseBooleanArray.put(R.id.editText11,validator.isNameValid(editable.toString()));
+                    break;
+                case R.id.editText12:
+                    sparseBooleanArray.put(R.id.editText12,validator.isLastNameValid(editable.toString()));
+                    break;
+                case R.id.editText13:
+                    sparseBooleanArray.put(R.id.editText13,validator.isPhoneValid(editable.toString()));
+                    break;
+                case R.id.editText14:
+                    sparseBooleanArray.put(R.id.editText14,validator.isEmailValid(editable.toString()));
+                    break;
+            }
+
+        }
+    }
 
 }

@@ -83,6 +83,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
     private Integer cityID;
     private EditText editTextCity;
 
+    private Integer spinnerPosCountry = 0;
 
     private UserProfileSingleton userProfile;
 
@@ -124,44 +125,29 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         });
 
         editTextName = (EditText) rootView.findViewById(R.id.editText2);
-        editTextName.setText(userProfile.getName());
         editTextName.addTextChangedListener(new MyTextWatcher(editTextName));
-        sparseBooleanArrayValidator.put(editTextName.getId(), validator.isNameValid(userProfile.getName()));
+
 
         editTextLName = (EditText) rootView.findViewById(R.id.editText27);
-        editTextLName.setText(userProfile.getLastName());
         editTextLName.addTextChangedListener(new MyTextWatcher(editTextLName));
-        sparseBooleanArrayValidator.put(editTextLName.getId(), validator.isNameValid(userProfile.getLastName()));
 
         editTextSurname = (EditText) rootView.findViewById(R.id.editText22);
-        editTextSurname.setText(userProfile.getSurname());
         editTextSurname.addTextChangedListener(new MyTextWatcher(editTextSurname));
-        sparseBooleanArrayValidator.put(editTextSurname.getId(), validator.isNameValid(userProfile.getSurname()));
 
         editTextPhone = (EditText) rootView.findViewById(R.id.editText3);
-        editTextPhone.setText(userProfile.getPhone());
         editTextPhone.addTextChangedListener(new MyTextWatcher(editTextPhone));
-        sparseBooleanArrayValidator.put(editTextPhone.getId(), validator.isPhoneValid(userProfile.getPhone()));
 
         editTextEmail = (EditText) rootView.findViewById(R.id.editText4);
-        editTextEmail.setText(userProfile.getEmail());
         editTextEmail.addTextChangedListener(new MyTextWatcher(editTextEmail));
-        sparseBooleanArrayValidator.put(editTextEmail.getId(), validator.isEmailValid(userProfile.getEmail()));
 
         editTextAddress = (EditText)rootView.findViewById(R.id.editText8);
-        editTextAddress.setText(userProfile.getAddress());
         editTextAddress.addTextChangedListener(new MyTextWatcher(editTextAddress));
-        sparseBooleanArrayValidator.put(editTextAddress.getId(), validator.isNameValid(userProfile.getAddress()));
 
         editTextNPost = (EditText)rootView.findViewById(R.id.editText9);
-        editTextNPost.setText(userProfile.getNewPost());
         editTextNPost.addTextChangedListener(new MyTextWatcher(editTextNPost));
-        sparseBooleanArrayValidator.put(editTextNPost.getId(), validator.isNameValid(userProfile.getNewPost()));
+
 
         spinnerCountry = (Spinner) rootView.findViewById(R.id.spinnerCountry);
-        listCountries = getCountries();
-        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),listCountries,false);
-        spinnerCountry.setAdapter(objectSpinnerAdapter);
         spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -176,10 +162,10 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
             }
         });
 
+
+
         editTextCity = (EditText) rootView.findViewById(R.id.editText31);
-        editTextCity.setText(userProfile.getCity());
         editTextCity.addTextChangedListener(new MyTextWatcher(editTextCity));
-        sparseBooleanArrayValidator.put(editTextCity.getId(), validator.isAddressValid(userProfile.getCity()));
 
         editTextCity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,6 +210,11 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                     startActivity(intent);
                 }
             });
+        }
+        if (userProfile.getStatus()){
+        getUserDataProfile();
+        }else {
+            getCountries(0);
         }
 
         return rootView;
@@ -279,9 +270,9 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         super.onCreateOptionsMenu(menu, inflater);}
     }
 
-    private ArrayList<SingletonCity> getCountries(){
+    private void  getCountries(final Integer country_id){
+        listCountries = new ArrayList<>();
         final String url = "http://tms.webclever.in.ua/api/GetCountries";
-        final ArrayList<SingletonCity> singletonCityArrayList = new ArrayList<>();
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -291,12 +282,16 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                             for(int i=0; i<jsonArray.length();i++){
                                 SingletonCity singletonCity = new SingletonCity();
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                if (jsonObject.getInt("id") == country_id){
+                                    spinnerPosCountry = i;
+                                }
                                 singletonCity.setIdCity(jsonObject.getInt("id"));
                                 singletonCity.setNameCity(jsonObject.getString("name"));
 
-                                singletonCityArrayList.add(singletonCity);
+                                listCountries.add(singletonCity);
                             }
                             objectSpinnerAdapter.notifyDataSetChanged();
+                            spinnerCountry.setSelection(spinnerPosCountry);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -317,9 +312,11 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
             }
         };
 
+        objectSpinnerAdapter = new ObjectSpinnerAdapter(getActivity(),listCountries,false);
+        spinnerCountry.setAdapter(objectSpinnerAdapter);
+
         AppController.getInstance().addToRequestQueue(stringPostRequest);
 
-        return singletonCityArrayList;
     }
 
     private void showSelectCityDialog(final Integer id_country){
@@ -469,14 +466,14 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
                                 Toast.makeText(getActivity().getApplicationContext(),"Дані збережено!",Toast.LENGTH_SHORT).show();
 
-                                userProfile.setName(editTextName.getText().toString());
+                                /*userProfile.setName(editTextName.getText().toString());
                                 userProfile.setLastName(editTextLName.getText().toString());
                                 userProfile.setSurname(editTextSurname.getText().toString());
                                 userProfile.setPhone(editTextPhone.getText().toString());
                                 userProfile.setEmail(editTextEmail.getText().toString());
                                 userProfile.setCity(editTextCity.getText().toString());
                                 userProfile.setAddress(editTextAddress.getText().toString());
-                                userProfile.setNewPost(editTextNPost.getText().toString());
+                                userProfile.setNewPost(editTextNPost.getText().toString());*/
                             }
 
                         } catch (JSONException e) {
@@ -536,6 +533,117 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                 }
                 break;*/
         }
+    }
+
+    private void getUserDataProfile(){
+
+        final JSONObject jsonObjectHeader = new JSONObject();
+
+        try {
+
+            jsonObjectHeader.put("user_id", userProfile.getUserId());
+            jsonObjectHeader.put("token", userProfile.getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response p", s);
+                        try {
+
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+
+                            editTextName.setText(jsonObjectUserData.getString("name"));
+                            editTextLName.setText(jsonObjectUserData.getString("surname"));
+                            if (jsonObjectUserData.has("patr_name")){
+                            editTextSurname.setText(jsonObjectUserData.getString("patr_name"));}
+                            editTextPhone.setText(jsonObjectUserData.getString("phone"));
+                            editTextEmail.setText(jsonObjectUserData.getString("email"));
+                            if (jsonObjectUserData.has("country_id")){
+                                getCountries(jsonObjectUserData.getInt("country_id"));}
+                            if (jsonObjectUserData.has("address")){
+                                editTextAddress.setText(jsonObjectUserData.getString("address"));}
+                            if (jsonObjectUserData.has("np_id")){
+                                editTextNPost.setText(jsonObjectUserData.getString("np_id"));}
+                            if(jsonObjectUserData.has("city_id")){
+                                cityID = jsonObjectUserData.getInt("city_id");
+                                getCity(cityID);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tmssec", jsonObjectHeader.toString());
+                Log.i("Response_Header",params.get("tmssec"));
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                Log.i("Params",params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
+
+    }
+
+    private void getCity(final Integer city_id){
+        final String url = "http://tms.webclever.in.ua/api/getCityById";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response p", s);
+                        try {
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+                            cityID = jsonObjectUserData.getInt("id");
+                            editTextCity.setText(jsonObjectUserData.getString("name"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("id",String.valueOf(city_id));
+                Log.i("Params",params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 
     private class MyTextWatcher implements TextWatcher{

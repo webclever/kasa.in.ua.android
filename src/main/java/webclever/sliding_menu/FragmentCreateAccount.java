@@ -182,16 +182,16 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                                                 userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
                                                 userProfileSingleton.setToken(jsonObjectUserData.getLong("token"));
                                                 userProfileSingleton.setStatus(true);
-                                                userProfileSingleton.setName(jsonObjectUserData.getString("name"));
+                                                /*userProfileSingleton.setName(jsonObjectUserData.getString("name"));
                                                 userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
                                                 userProfileSingleton.setPhone(jsonObjectUserData.getString("phone"));
-                                                userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));
+                                                userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));*/
                                                 Intent intent = new Intent(getActivity(),ActivitySuccessRegistration.class);
                                                 startActivity(intent);
 
-                                            }/*else {
-                                                Toast.makeText(getActivity(),jsonObjectUserData.getString("user"),Toast.LENGTH_SHORT).show();
-                                            }*/
+                                            } else {
+                                                Toast.makeText(getActivity(),"Користувач з такою поштую вже зареєстрований!",Toast.LENGTH_SHORT).show();
+                                            }
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -282,8 +282,7 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                     sparseBooleanArrayValidator.put(R.id.editTextPhoneCreateAccount,validator.isPhoneValid(s.toString()));
                     break;
                 case R.id.editTextEMailCreateAccount:
-                    //sparseBooleanArrayValidator.put(R.id.editTextEMailCreateAccount,validator.isEmailValid(s.toString()));
-                    sparseBooleanArrayValidator.put(R.id.editTextEMailCreateAccount,validator.emailValidator(s.toString()));
+                    sparseBooleanArrayValidator.put(R.id.editTextEMailCreateAccount,validator.isEmailValid(s.toString()));
                     break;
                 case R.id.editTextPasswordCreateAccount:
                     sparseBooleanArrayValidator.put(R.id.editTextPasswordCreateAccount,validator.isPasswordValid(s.toString()));

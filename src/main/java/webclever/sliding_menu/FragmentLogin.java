@@ -173,10 +173,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                             userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUserData.getLong("token"));
                             userProfileSingleton.setStatus(true);
-                            userProfileSingleton.setName(jsonObjectUserData.getString("name"));
+                            /*userProfileSingleton.setName(jsonObjectUserData.getString("name"));
                             userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
                             userProfileSingleton.setPhone(jsonObjectUserData.getString("phone"));
-                            userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));
+                            userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));*/
                             Log.i("user_token_c", String.valueOf(userProfileSingleton.getToken()));
                             getActivity().finish();
 
