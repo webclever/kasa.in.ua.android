@@ -134,8 +134,6 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
                     if (userProfile.getStatus()){
                         saveOrderUser();
-                    }else if (!userProfile.getStatus()){
-                        saveOrder();
                     }
 
                 }
@@ -339,62 +337,6 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         }
     }
 
-    private void saveOrder(){
-        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
-        final String order_id = SingletonTempOrder.getInstance().getOrder_id();
-        final String order_token = SingletonTempOrder.getInstance().getToken();
-
-        final JSONArray jsonArray = getDataETicket();
-
-        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        Log.i("Response", s);
-                        try {
-
-                            JSONObject jsonObject = new JSONObject(s);
-                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
-                            intent.putExtra("order_id",jsonObject.getString("order_id"));
-                            intent.putExtra("payment_method",paymentMethod);
-                            startActivity(intent);
-                            ((ActivityOrder)getActivity()).deleteDB();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
-
-            }
-        }){
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("token","3748563");
-                params.put("temp_order",order_id);
-                params.put("order_token",order_token);
-                params.put("orderType","8");
-                params.put("phone",editTextPhone.getText().toString());
-                params.put("name",editTextName.getText().toString());
-                params.put("surname",editTextLasName.getText().toString());
-                params.put("email",editTextEMail.getText().toString());
-                params.put("comment",editTextMessage.getText().toString());
-                params.put("tickets",jsonArray.toString());
-
-                Log.i("Params",params.toString());
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(stringPostRequest);
-    }
-
     private void saveOrderUser(){
         final String url = "http://tms.webclever.in.ua/api/SaveOrder";
         final String order_id = SingletonTempOrder.getInstance().getOrder_id();
@@ -402,20 +344,21 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
         final JSONObject jsonObjectHeader = new JSONObject();
         final JSONArray jsonArray = getDataETicket();
-        try {
-            jsonObjectHeader.put("user_id",userProfile.getUserId());
-            jsonObjectHeader.put("token",userProfile.getToken());
-        }catch (JSONException e){
-            e.printStackTrace();
+        if (userProfile.getStatus()) {
+            try {
+                jsonObjectHeader.put("user_id", userProfile.getUserId());
+                jsonObjectHeader.put("token", userProfile.getToken());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
-                        Log.i("Response", s);
                         try {
-
+                            Log.i("Response", s);
                             JSONObject jsonObject = new JSONObject(s);
                             Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
                             intent.putExtra("order_id",jsonObject.getString("order_id"));
@@ -454,7 +397,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                 params.put("name",editTextName.getText().toString());
                 params.put("surname",editTextLasName.getText().toString());
                 params.put("email",editTextEMail.getText().toString());
-                params.put("tickets",jsonArray.toString());
+                params.put("tickets", jsonArray.toString());
                 params.put("comment",editTextMessage.getText().toString());
 
                 Log.i("Params",params.toString());
@@ -481,7 +424,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             Log.i("idView",strIdTicket);
             try {
 
-                jsonObject.put("ticket_id",strIdTicket);
+                jsonObject.put("ticket_id",Integer.parseInt(strIdTicket));
                 jsonObject.put("name",strUserName);
                 jsonObject.put("surname",strLastUserName);
 
