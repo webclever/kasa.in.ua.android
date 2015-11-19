@@ -65,6 +65,7 @@ import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 import static webclever.sliding_menu.R.id.name_event;
+import static webclever.sliding_menu.R.id.webviewSchema;
 
 /**
  * Created by Admin on 23.01.2015.
@@ -115,7 +116,6 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private final String countTicket = " НА СУМУ";
 
     private ImageButton imageButtonBack;
-
 
     private Menu menu;
 
@@ -192,21 +192,6 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
         webViewSchema.getSettings().setDisplayZoomControls(true);
         webViewSchema.getSettings().setBuiltInZoomControls(true);
-
-        webViewSchema.setPadding(0, 0, 0, 0);
-
-        webViewSchema.getSettings().setAllowContentAccess(true);
-        webViewSchema.getSettings().setAppCacheEnabled(true);
-
-        webViewSchema.getSettings().setLoadWithOverviewMode(true);
-        webViewSchema.getSettings().setUseWideViewPort(true);
-        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1){
-            webViewSchema.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-            webViewSchema.setInitialScale(0);
-        }else {
-            webViewSchema.setInitialScale(1);
-        }
-
 
         mProgress.setProgress(0);
         webViewSchema.setWebChromeClient(new MyWebViewChromeClient());
@@ -303,6 +288,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                     }
                 }
                 return false;
+
             }
         });
 
@@ -395,21 +381,21 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     Log.i("checkShowBackButton", "finish2");
+                    getZoom();
                     getBasketTicket();
                 }
             });
         }
 
         @JavascriptInterface
-        public void showMacroBackButton(String checkShowBack)
-        {
+        public void showMacroBackButton(String checkShowBack) {
             final Boolean checkShowBackButton = new Boolean(checkShowBack);
             Log.i("checkShowBackButtonBool", String.valueOf(checkShowBackButton));
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    if(checkShowBackButton){
+                    if (checkShowBackButton) {
                         imageButtonBack.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         imageButtonBack.setVisibility(View.GONE);
                     }
                 }
@@ -809,5 +795,25 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             menu.getItem(0).setVisible(true);
         }
     }
+
+    private void getZoom(){
+
+        webViewSchema.setPadding(0, 0, 0, 0);
+
+        webViewSchema.getSettings().setAllowContentAccess(true);
+        webViewSchema.getSettings().setAppCacheEnabled(true);
+
+        webViewSchema.getSettings().setLoadWithOverviewMode(true);
+        webViewSchema.getSettings().setUseWideViewPort(true);
+
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            webViewSchema.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            webViewSchema.setInitialScale(0);
+        }else {
+            webViewSchema.setInitialScale(1);
+        }
+
+    }
+
 
 }

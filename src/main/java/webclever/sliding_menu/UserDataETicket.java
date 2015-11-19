@@ -24,8 +24,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
@@ -131,11 +133,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             public void onClick(View view) {
 
                 if (getValidUserData() && getValidUserDataTicket()){
-
-                    if (userProfile.getStatus()){
                         saveOrderUser();
-                    }
-
                 }
 
             }
@@ -185,6 +183,8 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                                     String place_ticket = cursorTicket.getString(4);
                                     String price_ticket = cursorTicket.getString(5);
                                     String id_eventt = cursorTicket.getString(6);
+
+                                    Log.i("Respose_ticket",id_ticket);
 
                                     tickets.setId_event(Integer.parseInt(id_eventt));
                                     tickets.setId_ticket(Integer.parseInt(id_ticket));
@@ -360,12 +360,14 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                         try {
                             Log.i("Response", s);
                             JSONObject jsonObject = new JSONObject(s);
-                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
-                            intent.putExtra("order_id",jsonObject.getString("order_id"));
-                            intent.putExtra("payment_method",paymentMethod);
-                            startActivity(intent);
-                            ((ActivityOrder)getActivity()).deleteDB();
-
+                            if (jsonObject.has("msg")) {
+                                Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
+                                intent.putExtra("order_id", jsonObject.getString("order_id"));
+                                intent.putExtra("payment_method", paymentMethod);
+                                intent.putExtra("message",jsonObject.getString("msg"));
+                                startActivity(intent);
+                                ((ActivityOrder) getActivity()).deleteDB();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -404,7 +406,9 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                 return params;
             }
         };
-
+        int socketTimeout = 30000; //30 seconds
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringPostRequest.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 
@@ -421,19 +425,17 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             String strIdTicket = (String) view1.getTag();
             String strUserName = editTextNameUserTicket.getText().toString();
             String strLastUserName = editTextLasNameUserTicket.getText().toString();
-            Log.i("idView",strIdTicket);
+
             try {
 
-                jsonObject.put("ticket_id",Integer.parseInt(strIdTicket));
                 jsonObject.put("name",strUserName);
                 jsonObject.put("surname",strLastUserName);
-
+                jsonObject.put("ticket_id",strIdTicket);
                 jsonArrayDataTicket.put(jsonObject);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
 
         return jsonArrayDataTicket;

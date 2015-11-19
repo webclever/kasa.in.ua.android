@@ -26,8 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
@@ -409,11 +411,14 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                         try {
 
                             JSONObject jsonObject = new JSONObject(s);
-                            Intent intent = new Intent (getActivity(),ActivitySuccessfulOrder.class);
-                            intent.putExtra("order_id",jsonObject.getString("order_id"));
-                            intent.putExtra("payment_method",paymentMethod);
-                            startActivity(intent);
-                            ((ActivityOrder)getActivity()).deleteDB();
+                            if (jsonObject.has("msg")) {
+                                Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
+                                intent.putExtra("order_id", jsonObject.getString("order_id"));
+                                intent.putExtra("payment_method", paymentMethod);
+                                intent.putExtra("message",jsonObject.getString("msg"));
+                                startActivity(intent);
+                                ((ActivityOrder) getActivity()).deleteDB();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -455,7 +460,9 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                 return params;
             }
         };
-
+        int socketTimeout = 30000; //30 seconds
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringPostRequest.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 

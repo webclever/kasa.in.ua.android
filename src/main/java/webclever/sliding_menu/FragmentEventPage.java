@@ -109,7 +109,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
         imageLoader = AppController.getInstance().getImageLoader();
         networkImageView = (NetworkImageView) rootView.findViewById(R.id.iventimage);
 
-        Button buy_ticket = (Button) rootView.findViewById(R.id.buy_ticket);
+        final Button buy_ticket = (Button) rootView.findViewById(R.id.buy_ticket);
 
         textViewTimeIvent = (TextView) rootView.findViewById(R.id.textIventTime);
         textViewDateIvent = (TextView) rootView.findViewById(R.id.iventDate);
@@ -120,7 +120,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
         textViewNameEvent = (TextView) rootView.findViewById(R.id.name_event);
 
         RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.RLayout);
-        //imgSchema.setImageUrl("http://s018.radikal.ru/i509/1506/19/99a431f65a0e.png",imageLoader);
+
 
         mViewGroupImage = (ViewGroup) rootView.findViewById(R.id.gallery_container);
         //mViewGroupVideo = (ViewGroup) rootView.findViewById(R.id.video_container);
@@ -133,44 +133,6 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-
-
-
-        /*StringRequest strReq = new StringRequest(Request.Method.POST,
-                str_event, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, response.toString());
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-
-            }
-        }){
-            @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("token", "3748563");
-                params.put("id",String.valueOf(id_ivent));
-
-                return params;
-            }
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq);
-*/
 
         String str_event = "http://tms.webclever.in.ua/api/getEvent";
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -197,15 +159,21 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                                         textViewTimeIvent.setText(dateFormat.getTime(response.getString("start_time")));
                                         DataEventSingelton.getInstance().setTime_event(dateFormat.getTime(response.getString("start_time")));
                                     }
-
-                                    JSONObject price = response.getJSONObject("minMaxPrice");
-                                    if (price.getString("min")!= null & price.getString("max") != null)
-                                    {
-                                        String string = price.getString("min") + " - " + price.getString("max") + " UAH";
-                                        textViewPriceIvent.setText(string);
-                                    }else
-                                    {
-                                        textViewPriceIvent.setVisibility(View.GONE);
+                                    JSONObject jsonObjectStatus = response.getJSONObject("status_sale");
+                                    if (jsonObjectStatus.getInt("status") == 0 || jsonObjectStatus.getInt("status") == 2){
+                                        textViewPriceIvent.setText(jsonObjectStatus.getString("message"));
+                                        buy_ticket.setVisibility(View.GONE);
+                                    }else {
+                                        JSONObject price = response.getJSONObject("minMaxPrice");
+                                        if (price.getString("min")!= null & price.getString("max") != null)
+                                        {
+                                            String string = price.getString("min") + " - " + price.getString("max") + " UAH";
+                                            textViewPriceIvent.setText(string);
+                                        }else
+                                        {
+                                            textViewPriceIvent.setVisibility(View.GONE);
+                                        }
+                                        buy_ticket.setVisibility(View.VISIBLE);
                                     }
 
                                     JSONObject city = jsonObjectLocEvent.getJSONObject("city");
