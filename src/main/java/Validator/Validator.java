@@ -59,7 +59,7 @@ public class Validator {
 
     public boolean isLastNameValid(String lastName)
     {
-        String regExpn = "^[а-яА-Яa-zA-Z]{3,15}$";
+        String regExpn = "^[-АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюяа-яА-Яa-zA-Z]{3,15}$";
 
         CharSequence inputStr = lastName;
 

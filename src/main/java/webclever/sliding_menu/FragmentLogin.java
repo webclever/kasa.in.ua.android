@@ -138,9 +138,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                 ((LoginActivity)getActivity()).sigInFacebook();
                 break;
             case R.id.buttonLogin:
-                /*Toast.makeText(this.getActivity(),"User login",Toast.LENGTH_LONG).show();*/
-                //thread.start();
-                LogKasa();
+                if (editTextUserLogin.getText().length() > 0 && editTextUserPassword.getText().length() > 0){
+                LogKasa();}
                 break;
         }
     }
@@ -173,10 +172,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                             userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUserData.getLong("token"));
                             userProfileSingleton.setStatus(true);
-                            /*userProfileSingleton.setName(jsonObjectUserData.getString("name"));
-                            userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
-                            userProfileSingleton.setPhone(jsonObjectUserData.getString("phone"));
-                            userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));*/
                             Log.i("user_token_c", String.valueOf(userProfileSingleton.getToken()));
                             getActivity().finish();
 

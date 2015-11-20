@@ -127,7 +127,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         editTextName = (EditText) rootView.findViewById(R.id.editText2);
         editTextName.addTextChangedListener(new MyTextWatcher(editTextName));
 
-
         editTextLName = (EditText) rootView.findViewById(R.id.editText27);
         editTextLName.addTextChangedListener(new MyTextWatcher(editTextLName));
 
@@ -560,17 +559,24 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                             JSONObject jsonObjectUserData = new JSONObject(s);
 
                             editTextName.setText(jsonObjectUserData.getString("name"));
+                            sparseBooleanArrayValidator.put(editTextName.getId(), validator.isNameValid(jsonObjectUserData.getString("name")));
                             editTextLName.setText(jsonObjectUserData.getString("surname"));
+                            sparseBooleanArrayValidator.put(editTextLName.getId(), validator.isNameValid(jsonObjectUserData.getString("surname")));
                             if (jsonObjectUserData.has("patr_name")){
                             editTextSurname.setText(jsonObjectUserData.getString("patr_name"));}
+                            sparseBooleanArrayValidator.put(editTextSurname.getId(), validator.isNameValid(jsonObjectUserData.getString("patr_name")));
                             editTextPhone.setText(jsonObjectUserData.getString("phone"));
+                            sparseBooleanArrayValidator.put(editTextPhone.getId(), validator.isPhoneValid(jsonObjectUserData.getString("phone")));
                             editTextEmail.setText(jsonObjectUserData.getString("email"));
+                            sparseBooleanArrayValidator.put(editTextEmail.getId(), validator.isEmailValid(jsonObjectUserData.getString("email")));
                             if (jsonObjectUserData.has("country_id")){
                                 getCountries(jsonObjectUserData.getInt("country_id"));}
-                            if (jsonObjectUserData.has("address")){
+                            if (!jsonObjectUserData.getString("address").equals("null")){
                                 editTextAddress.setText(jsonObjectUserData.getString("address"));}
-                            if (jsonObjectUserData.has("np_id")){
+                                sparseBooleanArrayValidator.put(editTextAddress.getId(), validator.isAddressValid(jsonObjectUserData.getString("address")));
+                            if (!jsonObjectUserData.getString("np_id").equals("null")){
                                 editTextNPost.setText(jsonObjectUserData.getString("np_id"));}
+                                sparseBooleanArrayValidator.put(editTextNPost.getId(), validator.isNumberValid(jsonObjectUserData.getString("np_id")));
                             if(jsonObjectUserData.has("city_id")){
                                 cityID = jsonObjectUserData.getInt("city_id");
                                 getCity(cityID);

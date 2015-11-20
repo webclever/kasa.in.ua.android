@@ -141,6 +141,12 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             @Override
             public void onClick(View view) {
                 Fragment fragment = new FragmentBasket();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id_event",idEvent);
+                bundle.putString("fragment", "select_place");
+                bundle.putString("name_event", stringNameEvent);
+
+                fragment.setArguments(bundle);
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(frame_container, fragment).commit();
             }
@@ -297,6 +303,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             public void onClick(View v) {
                 webViewSchema.loadUrl("javascript:backToMacro()");
                 imageButtonBack.setVisibility(View.GONE);
+                getZoom();
             }
         });
 
@@ -348,8 +355,6 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
             if (placeType.equals("2")){
                 getPlaceInfoFun(id);
-                ConfirmButton.startAnimation(animationBounce);
-
 
             }else if (placeType.equals("1")){
 
@@ -370,14 +375,12 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
             }else{
                 serverIdPlace = null;
-
             }
         }
         @JavascriptInterface
         public void schemeLoadingListener() {
 
             Log.i("schemeLoadingListener", "finish");
-
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     Log.i("checkShowBackButton", "finish2");
@@ -418,9 +421,15 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 JSONObject jsonObjectSector = jsonObject.getJSONObject("sector");
-                                schemaIdPlace = id_fun;
-                                serverIdPlace = jsonObject.getInt("id");
-                                showPlaceInfo(jsonObject.getString("label"), jsonObjectSector.getString("name"), "","",jsonObject.getString("price"),jsonObject.getString("type"));
+                                String pricePlace = jsonObject.getString("price");
+                                if (!pricePlace.equals("null")) {
+                                    schemaIdPlace = id_fun;
+                                    serverIdPlace = jsonObject.getInt("id");
+                                    showPlaceInfo(jsonObject.getString("label"), jsonObjectSector.getString("name"), "", "", jsonObject.getString("price"), jsonObject.getString("type"));
+                                    ConfirmButton.startAnimation(animationBounce);
+                                }else {
+                                    serverIdPlace = null;
+                                }
 
                             }
 
@@ -485,8 +494,9 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                     @Override
                     public void onResponse(JSONArray jsonArray) {
                         try {
+                            Log.i("Response",jsonArray.toString());
                             for (int i=0; i < jsonArray.length(); i++){
-                                Log.i("Response",jsonArray.toString());
+
 
                                 JSONObject jsonObjectInfoPlace = jsonArray.getJSONObject(i);
 
@@ -496,6 +506,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                                 JSONObject jsonObjectRow = jsonObjectInfoPlace.getJSONObject("row");
                                 JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
                                 JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
+
                                 showPlaceInfo(jsonObjectSector.getString("name"),
                                         jsonObjectRow.getString("prefix"),
                                         jsonObjectRow.getString("name"),
@@ -774,8 +785,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                 fragment.setArguments(myBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-            }else
-            {
+            }else {
                 Bundle myBundle = new Bundle();
                 myBundle.putInt("id", idEvent);
                 myBundle.putString("name_event", String.valueOf(name_event));
@@ -813,6 +823,12 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             webViewSchema.setInitialScale(1);
         }
 
+        zoomOut();
+
+    }
+
+    private void zoomOut(){
+        while (webViewSchema.zoomOut());
     }
 
 

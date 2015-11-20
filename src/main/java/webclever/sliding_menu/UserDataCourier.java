@@ -499,7 +499,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                             sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(jsonObjectUserData.getString("email")));
                             if (jsonObjectUserData.has("country_id")){
                                 getCountries(jsonObjectUserData.getInt("country_id"));}
-                            if (jsonObjectUserData.has("address")){
+                            if (!jsonObjectUserData.getString("address").equals("null")){
                                 editTextAddress.setText(jsonObjectUserData.getString("address"));}
                             if(jsonObjectUserData.has("city_id")){
                                 cityID = jsonObjectUserData.getInt("city_id");

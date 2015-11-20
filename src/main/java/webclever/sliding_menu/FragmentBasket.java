@@ -228,7 +228,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
 
                     final Basket basket = new Basket();
                     int id_event_basket = cursorEvent.getInt(id_event);
-                    basket.setId_event(id_event);
+                    basket.setId_event(id_event_basket);
                     basket.setNameBasket(cursorEvent.getString(name_event));
                     basket.setCityBasket(cursorEvent.getString(place_event));
                     basket.setDate(cursorEvent.getString(date_event));
@@ -445,10 +445,26 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     @Override
     public void onBackPressed() {
         // TODO Auto-generated method stub
-        Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-        //Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
+        if (!getArguments().isEmpty()){
+            if(getArguments().getString("fragment"," ").equals("select_place")){
+                Fragment fragment = new FragmentSelectPlace();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id",getArguments().getInt("id_event"));
+                bundle.putString("name_event", getArguments().getString("name_event"));
+                bundle.putString("fromFragment","eventList");
+                fragment.setArguments(bundle);
+                Log.i("bundleBasket",bundle.toString());
+                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+            }else {
+                Fragment fragment = new HomeFragment();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+            }
+        }else {
+            Fragment fragment = new HomeFragment();
+            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        }
+
     }
 
     private ArrayList<Basket> addDataBasket() {

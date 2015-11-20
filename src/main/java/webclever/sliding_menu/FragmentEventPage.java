@@ -354,13 +354,15 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
             Fragment fragment = new HomeFragment();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-            /*Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();*/
+        }else if(fromFragment.equals("basket")){
+            Fragment fragment = new FragmentBasket();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }else
         {
             Fragment fragment = new FragmentSearchEvent();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-            //Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
         }
 
     }

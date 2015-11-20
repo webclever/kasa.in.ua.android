@@ -2,9 +2,12 @@ package adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import DataBase.DB_Ticket;
 import webclever.sliding_menu.FragmentBasket;
+import webclever.sliding_menu.FragmentEventPage;
+import webclever.sliding_menu.FragmentSelectPlace;
 import webclever.sliding_menu.R;
 
 /**
@@ -74,6 +79,20 @@ public class ViewBasketAdapter extends BaseAdapter {
         textViewDateEvent.setText(basket.getDateBasket());
         textViewTimeEvent.setText(basket.getTimeBasket());
         textViewCityEvent.setText(basket.getCityBasket());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle myBundle = new Bundle();
+                myBundle.putInt("id", basket.getId_event());
+                myBundle.putString("name_event", basket.getNameBasket());
+                myBundle.putString("fromFragment", "basket");
+                Fragment fragment = new FragmentEventPage();
+                fragment.setArguments(myBundle);
+                FragmentManager fragmentManager = activity.getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+            }
+        });
         final ArrayList<Basket_Child> arrayListBasketChild = basket.getBasket_childArrayList();
         final ViewGroup viewGroupTicketContainer = (ViewGroup) view.findViewById(R.id.container_basket);
         viewGroupTicketContainer.removeAllViews();

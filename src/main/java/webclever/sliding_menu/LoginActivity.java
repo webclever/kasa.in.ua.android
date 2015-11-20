@@ -370,7 +370,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
                 String[] userName = personName.split(" ");
-                checkUserSigInKasa(user_id, userName[0], userName[1], email, "google_oauth", 3);
+                checkUserSigInKasa(user_id, userName[0], userName[1].trim(), email, "google_oauth", 3);
                 Log.e("User", "Name: " + userName[0] + userName[1] + ", email: " + email);
 
             } else {
@@ -494,10 +494,6 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
                             userProfileSingleton.setStatus(true);
                             userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUser.getLong("token"));
-                            /*userProfileSingleton.setName(jsonObjectUser.getString("name"));
-                            userProfileSingleton.setLastName(jsonObjectUser.getString("last_name"));
-                            userProfileSingleton.setPhone(jsonObjectUser.getString("phone"));
-                            userProfileSingleton.setEmail(jsonObjectUser.getString("email"));*/
                             userProfileSingleton.setNameSocial(social_name);
                             userProfileSingleton.setSocialId(soc_id);
                             sigOutGooglePlus();

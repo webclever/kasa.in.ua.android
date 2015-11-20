@@ -158,8 +158,9 @@ public class RegistrationActivity extends FragmentActivity implements
 
             jsonObject.put("user_id",stringUserID);
             jsonObject.put("service",stringSocial);
-            jsonObject.put("name",editTextUserName.getText().toString());
 
+
+            jsonObjectParams.put("name",editTextUserName.getText().toString());
             jsonObjectParams.put("last_name",editTextUserLastNAme.getText().toString());
             jsonObjectParams.put("email",editTextUserEmail.getText().toString());
             jsonObjectParams.put("phone",editTextUserPhone.getText().toString());
