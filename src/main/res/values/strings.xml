@@ -8,15 +8,15 @@
     <string name="drawer_close">Slider Menu Closed</string>
 
     <string-array name="nav_drawer_items">
-        <item >Події</item>
-        <item >Пошук події</item>
-        <item >Кошик</item>
-        <item >Мої замовлення</item>
-        <item >Адреси кас</item>
-        <item >Контакти</item>
-        <item >Про програму</item>
-        <item >Ваш акаунт</item>
-        <item >Вхід/Реєстрація</item>
+        <item>Події</item>
+        <item>Пошук події</item>
+        <item>Кошик</item>
+        <item>Мої замовлення</item>
+        <item>Адреси кас</item>
+        <item>Контакти</item>
+        <item>Про програму</item>
+        <item>Ваш акаунт</item>
+        <item>Вхід/Реєстрація</item>
 
     </string-array>
 
@@ -42,7 +42,7 @@
     <string name="app_id">612867968812786</string>
     <string name="action_remove_item">Remove item</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="photo_gallery">ФОТО ГАЛЕРЕЯ</string>
     <string name="read_more">ЧИТАТИ ДАЛІ...</string>

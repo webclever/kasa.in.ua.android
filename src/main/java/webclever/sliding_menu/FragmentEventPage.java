@@ -143,8 +143,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                 hidePDialog();
                 try {
                                     JSONObject response = new JSONObject(response_string);
-                                    JSONObject jsonObjectPoster = response.getJSONObject("poster");
-                                    networkImageView.setImageUrl(jsonObjectPoster.getString("l"), imageLoader);
+
                                     textViewNameEvent.setText(Html.fromHtml(response.getString("name")));
                                     textViewTimeIvent.setText(response.getString("start_time"));
                                     JSONObject jsonObjectLocEvent = response.getJSONObject("location");
@@ -185,10 +184,16 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
 
                                     }
 
+                                    if(response.has("poster")) {
+                                        JSONObject jsonObjectPoster = response.getJSONObject("poster");
+                                        networkImageView.setImageUrl(jsonObjectPoster.getString("l"), imageLoader);
+                                        DataEventSingelton.getInstance().setImg_url(jsonObjectPoster.getString("l"));
+
+                                    }
+
                                     DataEventSingelton.getInstance().setId_event(id_ivent);
                                     DataEventSingelton.getInstance().setName_event(response.getString("name"));
                                     DataEventSingelton.getInstance().setPlace_event(city.getString("name"));
-                                    DataEventSingelton.getInstance().setImg_url(jsonObjectPoster.getString("l"));
                                         JSONArray arrImgEvent = response.getJSONArray("images");
                                         for (int j=0; j < arrImgEvent.length(); j++)
                                         {

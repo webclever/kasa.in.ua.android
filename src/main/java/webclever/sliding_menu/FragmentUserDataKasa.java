@@ -120,10 +120,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             @Override
             public void onClick(View view) {
                 if (getValidUserData()){
-
-                    if (paymentMethod == 1){
                         saveOrderUser();
-                    }
                 }
             }
         });
@@ -204,17 +201,24 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                     public void onResponse(String s) {
                         Log.i("Response", s);
                         try {
-
                             JSONObject jsonObject = new JSONObject(s);
-                            if (jsonObject.has("msg")) {
-                                Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
-                                intent.putExtra("order_id", jsonObject.getString("order_id"));
-                                intent.putExtra("payment_method", paymentMethod);
-                                intent.putExtra("message",jsonObject.getString("msg"));
-                                startActivity(intent);
+                            if (paymentMethod == 1) {
+                                if (jsonObject.has("msg")) {
+                                    Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
+                                    intent.putExtra("order_id", jsonObject.getString("order_id"));
+                                    intent.putExtra("payment_method", paymentMethod);
+                                    intent.putExtra("message", jsonObject.getString("msg"));
+                                    startActivity(intent);
+                                    ((ActivityOrder) getActivity()).deleteDB();
+                                }
+                            }else if(paymentMethod == 2){
+                                Fragment fragment = new FragmentPay();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("order_id",jsonObject.getString("order_id"));
+                                fragment.setArguments(bundle);
+                                fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
                                 ((ActivityOrder) getActivity()).deleteDB();
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

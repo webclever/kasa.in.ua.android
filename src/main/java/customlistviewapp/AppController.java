@@ -1,11 +1,7 @@
 package customlistviewapp;
 
-import android.app.Application;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -16,17 +12,11 @@ import com.facebook.FacebookSdk;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
-import com.vk.sdk.util.VKUtil;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import customlistviewutils.LruBitmapCache;
 
-/**
- * Created by Web on 05.09.2014.
- */
-public class AppController extends Application {
+
+public class AppController extends MultiDexApplication  {
 
     public static final String TAG = AppController.class.getSimpleName();
 
