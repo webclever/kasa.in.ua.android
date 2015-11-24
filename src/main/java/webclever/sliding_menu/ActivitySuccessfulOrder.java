@@ -32,8 +32,9 @@ public class ActivitySuccessfulOrder extends Activity {
                 startMainActivity();
             }
         });
-
-        textViewDescriptionOrder.setText(Html.fromHtml(intent.getStringExtra("message")));
+        if (intent.hasExtra("message")) {
+            textViewDescriptionOrder.setText(Html.fromHtml(intent.getStringExtra("message")));
+        }
 
         switch (intent.getIntExtra("payment_method",0)){
             case 1:

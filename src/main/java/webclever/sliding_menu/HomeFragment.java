@@ -473,7 +473,6 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         myBundle.putInt("id", idEvent);
         myBundle.putString("fromFragment", "eventList");
         myBundle.putString("city",nameCityy);
-        /*Toast.makeText(getActivity(), String.valueOf(idEvent), Toast.LENGTH_SHORT).show();*/
         Fragment fragment = new FragmentEventPage();
         fragment.setArguments(myBundle);
         FragmentManager fragmentManager = getFragmentManager();

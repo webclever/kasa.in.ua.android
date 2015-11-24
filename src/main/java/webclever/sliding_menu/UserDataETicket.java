@@ -360,12 +360,13 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                         try {
                             Log.i("Response", s);
                             JSONObject jsonObject = new JSONObject(s);
-                            if (jsonObject.has("msg")) {
-                                Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
-                                intent.putExtra("order_id", jsonObject.getString("order_id"));
-                                intent.putExtra("payment_method", paymentMethod);
-                                intent.putExtra("message",jsonObject.getString("msg"));
-                                startActivity(intent);
+                            if (jsonObject.has("order_id")) {
+                                Fragment fragment = new FragmentPay();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("order_id", jsonObject.getString("order_id"));
+                                bundle.putInt("pay_method",paymentMethod);
+                                fragment.setArguments(bundle);
+                                fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
                                 ((ActivityOrder) getActivity()).deleteDB();
                             }
                         } catch (JSONException e) {
@@ -394,7 +395,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                 params.put("token","3748563");
                 params.put("temp_order",order_id);
                 params.put("order_token",order_token);
-                params.put("orderType","8");
+                params.put("orderType", String.valueOf(paymentMethod));
                 params.put("phone",editTextPhone.getText().toString());
                 params.put("name",editTextName.getText().toString());
                 params.put("surname",editTextLasName.getText().toString());

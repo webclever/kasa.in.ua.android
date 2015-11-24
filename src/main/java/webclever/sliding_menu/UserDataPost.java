@@ -182,9 +182,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(View view) {
                 if (getValidUserData()) {
-                    if (paymentMethod == 3){
                         saveOrderUser();
-                    }
                 }
             }
         });
@@ -409,14 +407,23 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                     public void onResponse(String s) {
                         Log.i("Response", s);
                         try {
-
                             JSONObject jsonObject = new JSONObject(s);
-                            if (jsonObject.has("msg")) {
-                                Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
-                                intent.putExtra("order_id", jsonObject.getString("order_id"));
-                                intent.putExtra("payment_method", paymentMethod);
-                                intent.putExtra("message",jsonObject.getString("msg"));
-                                startActivity(intent);
+                            if (paymentMethod == 3) {
+                                if (jsonObject.has("msg")) {
+                                    Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
+                                    intent.putExtra("order_id", jsonObject.getString("order_id"));
+                                    intent.putExtra("payment_method", paymentMethod);
+                                    intent.putExtra("message", jsonObject.getString("msg"));
+                                    startActivity(intent);
+                                    ((ActivityOrder) getActivity()).deleteDB();
+                                }
+                            }else if (paymentMethod == 4){
+                                Fragment fragment = new FragmentPay();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("order_id",jsonObject.getString("order_id"));
+                                bundle.putInt("pay_method",paymentMethod);
+                                fragment.setArguments(bundle);
+                                fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
                                 ((ActivityOrder) getActivity()).deleteDB();
                             }
 
@@ -446,7 +453,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                 params.put("token","3748563");
                 params.put("temp_order",order_id);
                 params.put("order_token",order_token);
-                params.put("orderType","3");
+                params.put("orderType",String.valueOf(paymentMethod));
                 params.put("phone",editTextPhone.getText().toString());
                 params.put("name",editTextName.getText().toString());
                 params.put("surname",editTextLastName.getText().toString());

@@ -70,13 +70,4 @@ public class DataEventSingelton {
         return place_event;
     }
 
-    public void setImg_url(String img_url)
-    {
-        this.img_url = img_url;
-    }
-    public String getImg_url()
-    {
-        return img_url;
-    }
-
 }

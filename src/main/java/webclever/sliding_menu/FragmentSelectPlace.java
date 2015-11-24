@@ -3,10 +3,12 @@ package webclever.sliding_menu;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -637,81 +639,87 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
     /**Add data to data base*/
     private void addTicket() {
-        db = db_ticket.getWritableDatabase();
 
-        int intIdEvent = DataEventSingelton.getInstance().getId_event();
-        String stringNameEvent = DataEventSingelton.getInstance().getName_event();
-        String stringDateEvent = DataEventSingelton.getInstance().getDate_event();
-        String stringTimeEvent = DataEventSingelton.getInstance().getTime_event();
-        String stringPlaceEvent = DataEventSingelton.getInstance().getPlace_event();
-        String stringImgUrlEvent = DataEventSingelton.getInstance().getImg_url();
-        Log.i("img_urlll", stringImgUrlEvent);
+        if (Integer.parseInt(((MainActivity)getActivity()).getCountTicket()) < 50) {
 
-        Cursor cursorT = db.query("Ticket_table", new String[]{"id_ticket"}, "id_ticket=" + String.valueOf(serverIdPlace), null, null, null, null, null);
+            db = db_ticket.getWritableDatabase();
+            int intIdEvent = DataEventSingelton.getInstance().getId_event();
+            String stringNameEvent = DataEventSingelton.getInstance().getName_event();
+            String stringDateEvent = DataEventSingelton.getInstance().getDate_event();
+            String stringTimeEvent = DataEventSingelton.getInstance().getTime_event();
+            String stringPlaceEvent = DataEventSingelton.getInstance().getPlace_event();
 
-        if (cursorT != null)
-        {
-            if (cursorT.getCount() > 0)
-            {
-                cursorT.moveToFirst();
-                Log.i("id_ticket", cursorT.getString(0));
+            Cursor cursorT = db.query("Ticket_table", new String[]{"id_ticket"}, "id_ticket=" + String.valueOf(serverIdPlace), null, null, null, null, null);
 
-            }else
-            {
+            if (cursorT != null) {
+                if (cursorT.getCount() > 0) {
+                    cursorT.moveToFirst();
+                    Log.i("id_ticket", cursorT.getString(0));
 
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("id_ticket",serverIdPlace);
-                contentValues.put("zon_ticket",Sector);
-                contentValues.put("name_row_ticket", name_Row);
-                contentValues.put("row_ticket",Row);
-                contentValues.put("place_ticket",Place);
-                contentValues.put("price_ticket",Price);
-                contentValues.put("id_place_schema", schemaIdPlace);
-                contentValues.put("id_event", String.valueOf(intIdEvent));
-                contentValues.put("type_sector", Sector_type);
+                } else {
 
-                long id_ticket = db.insert("Ticket_table", "id_ticket=" + serverIdPlace, contentValues);
-                Log.i("id_ticket_add", String.valueOf(id_ticket));
-                if(id_ticket != -1){
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("id_ticket", serverIdPlace);
+                    contentValues.put("zon_ticket", Sector);
+                    contentValues.put("name_row_ticket", name_Row);
+                    contentValues.put("row_ticket", Row);
+                    contentValues.put("place_ticket", Place);
+                    contentValues.put("price_ticket", Price);
+                    contentValues.put("id_place_schema", schemaIdPlace);
+                    contentValues.put("id_event", String.valueOf(intIdEvent));
+                    contentValues.put("type_sector", Sector_type);
 
-                    containerTicket.put(schemaIdPlace,true);
-                    totalTicket ++;
-                    totalPrice = totalPrice + Integer.parseInt(Price);
-                    textViewTicketall.setText(String.valueOf(totalTicket));
-                    textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
-                    textViewPriceall.setText(String.valueOf(totalPrice));
-                    String count = textViewTicketCount.getText().toString();
-                    Integer integerCount = Integer.parseInt(count);
-                    textViewTicketCount.setText(String.valueOf(++integerCount));
+                    long id_ticket = db.insert("Ticket_table", "id_ticket=" + serverIdPlace, contentValues);
+                    Log.i("id_ticket_add", String.valueOf(id_ticket));
+                    if (id_ticket != -1) {
+
+                        containerTicket.put(schemaIdPlace, true);
+                        totalTicket++;
+                        totalPrice = totalPrice + Integer.parseInt(Price);
+                        textViewTicketall.setText(String.valueOf(totalTicket));
+                        textViewCountTicket.setText(encodingTicketCount.getNumEnding(String.valueOf(totalTicket)) + countTicket);
+                        textViewPriceall.setText(String.valueOf(totalPrice));
+                        String count = textViewTicketCount.getText().toString();
+                        Integer integerCount = Integer.parseInt(count);
+                        textViewTicketCount.setText(String.valueOf(++integerCount));
+
+                    }
 
                 }
-
+                cursorT.close();
             }
-            cursorT.close();
-        }
 
-        Cursor cursorE = db.query("Event_table",new String[]{"id_event"},"id_event=" + String.valueOf(intIdEvent),null,null,null,null,null);
-        if (cursorE != null)
-        {
-            if (cursorE.getCount() > 0)
-            {
-                cursorE.moveToFirst();
-                Log.i("id_ticket",cursorE.getString(0));
-            }else {
-                ContentValues contentValuesEvent = new ContentValues();
-                contentValuesEvent.put("id_event",intIdEvent);
-                contentValuesEvent.put("name_event",stringNameEvent);
-                contentValuesEvent.put("date_event",stringDateEvent);
-                contentValuesEvent.put("time_event",stringTimeEvent);
-                contentValuesEvent.put("place_event",stringPlaceEvent);
-                contentValuesEvent.put("url_img",stringImgUrlEvent);
-                long id_event = db.insert("Event_table","id_event" + String.valueOf(intIdEvent),contentValuesEvent);
-                Log.i("id_ticket_addEvent",String.valueOf(id_event));
+            Cursor cursorE = db.query("Event_table", new String[]{"id_event"}, "id_event=" + String.valueOf(intIdEvent), null, null, null, null, null);
+            if (cursorE != null) {
+                if (cursorE.getCount() > 0) {
+                    cursorE.moveToFirst();
+                    Log.i("id_ticket", cursorE.getString(0));
+                } else {
+                    ContentValues contentValuesEvent = new ContentValues();
+                    contentValuesEvent.put("id_event", intIdEvent);
+                    contentValuesEvent.put("name_event", stringNameEvent);
+                    contentValuesEvent.put("date_event", stringDateEvent);
+                    contentValuesEvent.put("time_event", stringTimeEvent);
+                    contentValuesEvent.put("place_event", stringPlaceEvent);
+                    long id_event = db.insert("Event_table", "id_event" + String.valueOf(intIdEvent), contentValuesEvent);
+                    Log.i("id_ticket_addEvent", String.valueOf(id_event));
+                }
+                cursorE.close();
             }
-            cursorE.close();
-        }
 
-        db_ticket.close();
+            db_ticket.close();
+        }else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+            alertDialog.setTitle("Увага!");
+            alertDialog.setMessage("Ви не можете додати в кошик більше 50 квитків.");
+            alertDialog.setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            alertDialog.show();
+        }
 
     }
 
