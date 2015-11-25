@@ -61,7 +61,6 @@ public class ActivityOrder extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         db_ticket = new DB_Ticket(this,5);
-
         activity = this;
         startTimer();
     }
@@ -121,14 +120,13 @@ public class ActivityOrder extends FragmentActivity {
 
     public void stopTimer(){
         if (countDownTimer != null){
-            countDownTimer.onFinish();
+            countDownTimer.cancel();
             aLongTimer = null;
         }
     }
 
     public void startTimer(){
         countDownTimer =  new CountDownTimer(aLongTimer,1000) {
-            /*900000*/
             @Override
             public void onTick(long millis) {
                 aLongTimer = millis;

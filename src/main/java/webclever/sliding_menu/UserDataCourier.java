@@ -410,17 +410,17 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                                     intent.putExtra("payment_method", paymentMethod);
                                     intent.putExtra("message", jsonObject.getString("msg"));
                                     startActivity(intent);
-                                    ((ActivityOrder) getActivity()).deleteDB();
                                 }
                             }else if (paymentMethod == 6){
                                 Fragment fragment = new FragmentPay();
                                 Bundle bundle = new Bundle();
-                                bundle.putString("order_id",jsonObject.getString("order_id"));
-                                bundle.putInt("pay_method",paymentMethod);
+                                bundle.putString("order_id", jsonObject.getString("order_id"));
+                                bundle.putInt("payment_method", paymentMethod);
                                 fragment.setArguments(bundle);
                                 fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
-                                ((ActivityOrder) getActivity()).deleteDB();
                             }
+                            ((ActivityOrder) getActivity()).stopTimer();
+                            ((ActivityOrder) getActivity()).deleteDB();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

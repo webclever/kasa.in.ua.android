@@ -218,6 +218,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                                 fragment.setArguments(bundle);
                                 fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
                             }
+                            ((ActivityOrder) getActivity()).stopTimer();
                             ((ActivityOrder) getActivity()).deleteDB();
                         } catch (JSONException e) {
                             e.printStackTrace();

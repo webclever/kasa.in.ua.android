@@ -102,13 +102,23 @@ public class ViewBasketAdapter extends BaseAdapter {
             TextView textViewSector = (TextView) viewGroupTicket.findViewById(R.id.sectorTicketBasket);
             TextView textViewNameRow = (TextView) viewGroupTicket.findViewById(R.id.rowdef);
             TextView textViewRow = (TextView) viewGroupTicket.findViewById(R.id.rowTicketBasket);
+            TextView textViewNamePlace = (TextView) viewGroupTicket.findViewById(R.id.placedef);
             TextView textViewPlace = (TextView) viewGroupTicket.findViewById(R.id.placeTicketBasket);
             TextView textViewPrice = (TextView) viewGroupTicket.findViewById(R.id.priceTicketBasket);
+            if (basket_child.getTypePlace() == 1){
                 textViewSector.setText(basket_child.getNameBasketChild());
                 textViewNameRow.setText(basket_child.getName_row() + ": ");
                 textViewRow.setText(String.valueOf(basket_child.getRowBasketChild()));
                 textViewPlace.setText(basket_child.getPlaceBasketChild());
                 textViewPrice.setText(basket_child.getPriceBasketChild() + " грн.");
+            }else if(basket_child.getTypePlace() == 2) {
+                textViewSector.setText(basket_child.getNameBasketChild());
+                textViewNameRow.setVisibility(View.GONE);
+                textViewRow.setVisibility(View.GONE);
+                textViewPlace.setVisibility(View.GONE);
+                textViewNamePlace.setVisibility(View.GONE);
+                textViewPrice.setText(basket_child.getPriceBasketChild() + " грн.");
+            }
             final View finalV = view;
             ImageView imageView = (ImageView) viewGroupTicket.findViewById(R.id.imageViewTicketBasket);
             imageView.setOnClickListener(new View.OnClickListener() {

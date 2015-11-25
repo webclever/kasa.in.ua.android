@@ -11,6 +11,7 @@ public class Basket_Child {
     private String price;
     private int id_ticket;
     private int id_event;
+    private Integer typePlace;
     private static Basket_Child ourInstance = new Basket_Child();
 
     public static Basket_Child getInstance() {
@@ -78,6 +79,13 @@ public class Basket_Child {
     public void setPriceBasketChild(String price)
     {
         this.price = price;
+    }
+
+    public Integer getTypePlace(){
+        return this.typePlace;
+    }
+    public void setTypePlace(Integer typePlace){
+        this.typePlace = typePlace;
     }
 
 }

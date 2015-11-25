@@ -165,7 +165,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
                     int id_event_basket = cursorEvent.getInt(id_event);
 
-                    Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","name_row_ticket","row_ticket","place_ticket","price_ticket","id_event"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
+                    Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","name_row_ticket","row_ticket","place_ticket","price_ticket","id_event","type_sector"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
                     if (cursorTicket != null)
                     {
                         if (cursorTicket.getCount() > 0)
@@ -183,6 +183,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                                     String place_ticket = cursorTicket.getString(4);
                                     String price_ticket = cursorTicket.getString(5);
                                     String id_eventt = cursorTicket.getString(6);
+                                    Integer type_sector = Integer.parseInt(cursorTicket.getString(7));
 
                                     Log.i("Respose_ticket",id_ticket);
 
@@ -194,7 +195,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                                     tickets.setPlace(place_ticket);
                                     tickets.setPrice(price_ticket);
                                     addTicketContainer(id_ticket,cursorEvent.getString(name_event),zon_ticket,
-                                            name_row_ticket,row_ticket,place_ticket,price_ticket);
+                                            name_row_ticket,row_ticket,place_ticket,price_ticket,type_sector);
                                     ticket_nameList.add(tickets);
 
                                 }while (cursorTicket.moveToNext());
@@ -211,22 +212,25 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
     }
 
-    private void addTicketContainer(String id_ticket,String name_event,String zon_ticket,String name_row_ticket,String row_ticket,String place_ticket,String price_ticket){
+    private void addTicketContainer(String id_ticket,String name_event,String zon_ticket,String name_row_ticket,String row_ticket,String place_ticket,String price_ticket, Integer typeSector){
         final ViewGroup viewGroupTicket = (ViewGroup) LayoutInflater.from(this.getActivity()).inflate(R.layout.list_ticket_data,viewGroupTicketContainer,false);
         viewGroupTicket.setTag(id_ticket);
-        String str = name_row_ticket+": " + row_ticket + ", м.:" + String.valueOf(place_ticket);
         TextView textViewNameEvent = (TextView) viewGroupTicket.findViewById(R.id.textViewNameEvent);
         TextView textViewSectorEvent = (TextView) viewGroupTicket.findViewById(R.id.textViewSectorEvent);
         TextView textViewRowPlace = (TextView) viewGroupTicket.findViewById(R.id.textViewRowPlace);
         TextView textViewPriceTicket = (TextView) viewGroupTicket.findViewById(R.id.textViewPriceTicket);
+        if (typeSector == 1){
+        String str = name_row_ticket+": " + row_ticket + ", м.:" + String.valueOf(place_ticket);
         textViewNameEvent.setText(name_event);
         textViewSectorEvent.setText(zon_ticket);
         textViewRowPlace.setText(str);
+        }else {
+            textViewNameEvent.setText(name_event);
+            textViewSectorEvent.setText(zon_ticket);
+            textViewRowPlace.setVisibility(View.GONE);
+        }
         textViewPriceTicket.setText(price_ticket + "грн.");
-
-
         viewGroupTicketContainer.addView(viewGroupTicket, 0);
-
     }
 
     private class TextWatcherETicket implements TextWatcher {
@@ -364,9 +368,10 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                                 Fragment fragment = new FragmentPay();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("order_id", jsonObject.getString("order_id"));
-                                bundle.putInt("pay_method",paymentMethod);
+                                bundle.putInt("payment_method", paymentMethod);
                                 fragment.setArguments(bundle);
                                 fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
+                                ((ActivityOrder) getActivity()).stopTimer();
                                 ((ActivityOrder) getActivity()).deleteDB();
                             }
                         } catch (JSONException e) {

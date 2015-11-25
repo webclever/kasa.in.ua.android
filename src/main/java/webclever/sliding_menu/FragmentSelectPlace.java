@@ -270,9 +270,10 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 
-                        Log.i("add_ticket", schemaIdPlace);
+
                         webViewSchema.loadUrl("javascript:mobileCart(\'" + schemaIdPlace + "\',1)");
                         if (serverIdPlace != null) {
+                            Log.i("add_ticket", schemaIdPlace);
                             addTicket();
                         }
                         textViewTicketCount.animate().setInterpolator(decelerateInterpolator).scaleX(.7f).scaleY(.7f);
