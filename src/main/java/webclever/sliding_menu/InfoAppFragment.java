@@ -27,18 +27,17 @@ import static webclever.sliding_menu.R.id.frame_container;
 public class InfoAppFragment extends Fragment implements OnBackPressedListener {
     public InfoAppFragment(){setHasOptionsMenu(true);}
 
-    //private DB_Ticket db_ticket;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_info_app,container,false);
         ((MainActivity)getActivity()).setItemChecked(6,true);
-        //db_ticket = new DB_Ticket(getActivity(),5);
         Calendar calendar = Calendar.getInstance();
 
         TextView textViewRightsReserved = (TextView) rootView.findViewById(R.id.prava);
-        textViewRightsReserved.setText("Всі права захищеноі. kasa.in.ua © " + String.valueOf(calendar.get(Calendar.YEAR)));
+        String stringReserved = getString(R.string.page_about_app_all_rights_reserved) + String.valueOf(calendar.get(Calendar.YEAR));
+        textViewRightsReserved.setText(stringReserved);
         TextView version_App = (TextView) rootView.findViewById(R.id.version_program);
         PackageInfo pInfo = null;
         try {
@@ -47,7 +46,7 @@ public class InfoAppFragment extends Fragment implements OnBackPressedListener {
             e.printStackTrace();
         }
         assert pInfo != null;
-        String version = "Версія " + pInfo.versionName;
+        String version = getString(R.string.page_about_app_version) + " " + pInfo.versionName;
         version_App.setText(version);
 
         return rootView;

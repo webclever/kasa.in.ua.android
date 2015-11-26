@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ВИБЕРІТЬ СПОСІБ ДОСТАВКИ"
+        android:text="@string/page_delivery_delivery_method"
         android:id="@+id/textView48"
         android:textColor="@color/year"
         android:layout_marginLeft="10dp"
@@ -29,7 +29,7 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Самовивіз"
+            android:text="@string/page_delivery_kasa_in_ua"
             android:visibility="gone"
             android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonKasa" />
@@ -37,7 +37,7 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Нова Пошта (на відділення)"
+            android:text="@string/page_delivery_new_post"
             android:id="@+id/radioButtonNewPost"
             android:visibility="gone"
             android:background="@drawable/background_ordering"
@@ -46,7 +46,7 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Кур&apos;єр по місту"
+            android:text="@string/page_delivery_courier"
             android:visibility="gone"
             android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonCourier"
@@ -55,7 +55,7 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Електронний квиток"
+            android:text="@string/page_delivery_eticket"
             android:visibility="gone"
             android:background="@drawable/background_ordering"
             android:id="@+id/radioButtonE_ticket"
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ВИБЕРІТЬ СПОСІБ ОПЛАТИ"
+        android:text="@string/page_delivery_pay_method"
         android:id="@+id/textViewDeliveryMethod"
         android:textColor="@color/year"
         android:visibility="gone"
@@ -92,7 +92,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_ordering"
-            android:text="Оплата готівкою в касі"
+            android:text="@string/page_delivery_pay_kasa"
             android:visibility="gone"
             android:tag="1"
             android:id="@+id/radioButton5" />
@@ -101,7 +101,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_ordering"
-            android:text="Оплата платіжною карткою"
+            android:text="@string/page_delivery_pay_card"
             android:visibility="gone"
             android:tag="2"
             android:id="@+id/radioButton6"
@@ -122,7 +122,7 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Оплата готівкою у відділенні"
+            android:text="@string/page_delivery_pay_new_post"
             android:tag="3"
             android:visibility="gone"
             android:id="@+id/radioButton"
@@ -131,7 +131,7 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Оплата платіжною карткою"
+            android:text="@string/page_delivery_pay_card"
             android:id="@+id/radioButton2"
             android:background="@drawable/background_ordering"
             android:tag="4"
@@ -154,7 +154,7 @@
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Оплата готівкою кур&apos;єру"
+            android:text="@string/page_delivery_pay_courier"
             android:background="@drawable/background_ordering"
             android:tag="5"
             android:visibility="gone"
@@ -164,7 +164,7 @@
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Оплата платіжною карткою"
+            android:text="@string/page_delivery_pay_card"
             android:background="@drawable/background_ordering"
             android:tag="6"
             android:visibility="gone"
@@ -227,6 +227,5 @@
         android:textSize="12sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>

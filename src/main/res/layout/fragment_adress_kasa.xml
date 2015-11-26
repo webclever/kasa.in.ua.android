@@ -4,11 +4,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="ВИБЕРІТЬ МІСТО"
+        android:text="@string/page_location_kasa_select_city"
         android:id="@+id/sel_kassa"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="2dp"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

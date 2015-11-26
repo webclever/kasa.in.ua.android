@@ -38,8 +38,8 @@
 
     <TextView
         android:id="@+id/time_work_kasa_namem"
-        android:text="Час роботи:"
-        android:textSize="15dp"
+        android:text="@string/page_location_kasa_list_work_time"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

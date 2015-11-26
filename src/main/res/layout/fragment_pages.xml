@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <ScrollView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="2dp"
         android:id="@+id/scrollAk">
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Авторизація за допомогою"
+            android:text="@string/page_user_profile_method_authorization"
             android:id="@+id/textView5"
             android:layout_marginLeft="10dp"/>
 
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Iм&apos;я*"
+        android:text="@string/page_user_profile_user_surname1"
         android:layout_marginLeft="5dp"
         android:id="@+id/AkName"/>
 
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Прізвище*"
+            android:text="@string/page_user_profile_user_surname"
             android:layout_marginLeft="5dp"
             android:id="@+id/textView85"/>
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="По батькові"
+            android:text="@string/page_user_profile_user_last_name"
             android:id="@+id/textView107" />
 
         <EditText
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Телефон*"
+        android:text="@string/page_user_profile_user_phone"
         android:layout_marginLeft="5dp"
         android:id="@+id/textView7"/>
 
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Електронна пошта*"
+        android:text="@string/page_user_profile_user_email"
         android:id="@+id/textView8"
         android:layout_marginLeft="5dp"/>
 
@@ -114,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Країна"
+        android:text="@string/page_user_profile_user_country"
         android:layout_marginLeft="5dp"
         android:id="@+id/textView9"/>
 
@@ -127,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Місто"
+        android:text="@string/page_user_profile_user_city"
         android:layout_marginLeft="5dp"
         android:id="@+id/textView12"/>
 
@@ -144,7 +144,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Адреса доставки до дверей"
+        android:text="@string/page_user_profile_user_address"
         android:id="@+id/textView13"
         android:layout_marginLeft="5dp"/>
 
@@ -159,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Номер найближчого відділення Нової пошти"
+        android:text="@string/page_user_profile_user_new_post_department"
         android:id="@+id/textView14"
         android:layout_marginLeft="5dp"/>
 
@@ -185,10 +185,9 @@
             android:layout_height="40dp"
             android:background="@drawable/button_selector"
             android:textColor="@color/white"
-            android:text="Змінити пароль"
+            android:text="@string/page_user_profile_user_button_change_password"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-
             android:textSize="12sp"/>
 
         <Button android:id="@+id/buttonExitAccount"
@@ -197,7 +196,7 @@
             android:layout_height="40dp"
             android:background="@drawable/button_selector"
             android:textColor="@color/white"
-            android:text="ВИХІД"
+            android:text="@string/page_user_profile_user_button_exit"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:textSize="12sp"/>
@@ -211,6 +210,7 @@
     android:id="@+id/savechangebutton"
     android:layout_gravity="center"
     android:textColor="@color/list_row_end_color"
-    android:text="ЗБЕРЕГТИ ЗМІНИ"
+    android:text="@string/page_user_profile_user_save_changes"
     android:layout_margin="5dp"/>
+
 </LinearLayout>

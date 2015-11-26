@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/year"
-        android:textSize="10sp"
+        android:textSize="12sp"
         android:textAllCaps="true"
         android:id="@+id/prava"
         android:layout_below="@+id/imageView10"
@@ -35,7 +35,8 @@
         android:src="@drawable/logo_kasa"
         android:layout_marginTop="100dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/page_about_app_logo_kasa" />
 
     <ImageView
         android:layout_width="210dp"
@@ -44,7 +45,8 @@
         android:id="@+id/imageView10"
         android:src="@drawable/logo_kasa2"
         android:layout_below="@+id/imageView3"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/page_about_app_logo_kasa2"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -53,6 +55,7 @@
         android:src="@drawable/logo_webclever"
         android:layout_above="@+id/version_program"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/page_about_app_logo_web_clever"/>
 
 </RelativeLayout>

@@ -100,7 +100,6 @@
                 android:textColor="@color/year"
                 android:gravity="left"
                 android:layout_marginLeft="10dp"
-                android:text="Львівський Національний Академічний театр опери та балету ім. Соломії ..."
                 android:layout_alignTop="@+id/iventimage"
                 android:layout_toEndOf="@+id/iventimage" />
 
@@ -134,7 +133,7 @@
 
                 <TextView
                     android:id="@+id/textViewDescription"
-                    android:text="@string/description_event"
+                    android:text="@string/page_event_description"
                     android:textSize="15sp"
                     android:layout_marginTop="10dp"
                     android:textColor="@color/year"
@@ -162,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_selector"
-                    android:text="@string/read_more"
+                    android:text="@string/page_event_read_more"
                     android:textSize="10sp"
                     android:textColor="@color/white"
                     android:layout_below="@+id/iventDescription"
@@ -173,7 +172,7 @@
 
             <TextView
                 android:id="@+id/galley"
-                android:text="@string/photo_gallery"
+                android:text="@string/page_event_photo_gallery"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/year"
@@ -225,7 +224,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="ПРИДБАТИ КВИТОК"
+            android:text="@string/page_event_buy_ticket"
             android:textColor="@color/list_row_end_color"
             android:background="@drawable/button_selector"
             android:layout_gravity="center"

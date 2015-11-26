@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="КУПИТИ"
+        android:text="@string/page_home_search_event_button"
         android:id="@+id/price"
         android:textColor="@color/orangecolor"
         android:background="@drawable/back"

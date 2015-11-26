@@ -178,7 +178,8 @@ public class OrderingAdapter extends BaseExpandableListAdapter {
             textViewMethodPayment.setText(orderingParent.getPaymentMethod());
             textViewStatusDelivery.setText(orderingParent.getStatusDelivery());
             textViewStatusPayment.setText(orderingParent.getStatusPayment());
-            textViewCreate.setText("Створено: " + orderingParent.getCreateOrdering());
+            String stringCreated = activity.getString(R.string.page_delivery_order_list_created) + orderingParent.getCreateOrdering();
+            textViewCreate.setText(stringCreated);
             relativeLayoutStatus.setVisibility(View.VISIBLE);
 
         }else {

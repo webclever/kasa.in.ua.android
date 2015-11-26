@@ -52,7 +52,6 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
     private UserProfileSingleton userProfile;
     private OrderingAdapter orderingAdapter;
     private DateFormat dateFormat;
-
     private ProgressBar progressBar;
 
     public FragmentHistoryOrdering(){setHasOptionsMenu(true);}
@@ -68,7 +67,6 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBarOrdering);
 
-        /*arrayListOrderParent = addOrdering(stringUrlOrdering);*/
         arrayListOrderParent = addOrdering1();
         orderingAdapter = new OrderingAdapter(this.getActivity(), arrayListOrderParent);
         expandableListViewOrdering.setAdapter(orderingAdapter);
@@ -95,75 +93,6 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
 
             super.onCreateOptionsMenu(menu, inflater);
         }
-    }
-
-    private ArrayList<OrderingParent> addOrdering(String url) {
-        final ArrayList<OrderingParent> orderingParentArrayList = new ArrayList<OrderingParent>();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray jsonArray) {
-                try {
-                    for (int i = 0; i < jsonArray.length();i++) {
-
-                        JSONObject jsonObjectParent = jsonArray.getJSONObject(i);
-                        final OrderingParent orderingParent = new OrderingParent();
-                        orderingParent.setNumberOrdering(jsonObjectParent.getString("number"));
-                        orderingParent.setTotalCountTicket(jsonObjectParent.getString("total_count_ticket"));
-                        orderingParent.setTotalPriceTicket(jsonObjectParent.getString("total_price_ticket"));
-                        orderingParent.setDeliveryMethod(jsonObjectParent.getString("delivery_method"));
-                        orderingParent.setPaymentMethod(jsonObjectParent.getString("payment_method"));
-                        orderingParent.setStatusDelivery(jsonObjectParent.getString("status_delivery"));
-                        orderingParent.setStatusPayment(jsonObjectParent.getString("status_payment"));
-                        orderingParent.setCreateOrdering(jsonObjectParent.getString("create_ordering"));
-
-                        orderingParent.setOrderingChildArrayList(new ArrayList<OrderingChild>());
-                        JSONArray jsonArrayEvent = jsonObjectParent.getJSONArray("array_event");
-
-                            for (int j=0; j < jsonArrayEvent.length(); j++)
-                            {
-                                JSONObject jsonObjectChild = jsonArrayEvent.getJSONObject(j);
-                                final OrderingChild orderingChild = new OrderingChild();
-                                orderingChild.setNameEventOrdering(jsonObjectChild.getString("name"));
-                                orderingChild.setDataEventOrdering(jsonObjectChild.getString("date"));
-                                orderingChild.setTimeEventOrdering(jsonObjectChild.getString("time"));
-                                orderingChild.setCityEventOrdering(jsonObjectChild.getString("city"));
-                                orderingChild.setTicketChildOrderingArrayList(new ArrayList<TicketChildOrdering>());
-
-                                    JSONArray jsonArrayTicket = jsonObjectChild.getJSONArray("array_ticket");
-                                    for (int k=0; k < jsonArrayTicket.length(); k++)
-                                    {
-                                        JSONObject jsonObjectTicket = jsonArrayTicket.getJSONObject(k);
-                                        final TicketChildOrdering ticketChildOrdering = new TicketChildOrdering();
-                                        ticketChildOrdering.setSectorOrdering(jsonObjectTicket.getString("sector"));
-                                        ticketChildOrdering.setRowOrdering(jsonObjectTicket.getString("row"));
-                                        ticketChildOrdering.setPlaceOrdering(jsonObjectTicket.getString("place"));
-                                        ticketChildOrdering.setPriceOrdering(jsonObjectTicket.getString("price"));
-                                        ticketChildOrdering.setStatusTicket(jsonObjectTicket.getString("status"));
-                                        orderingChild.getTicketChildOrderingArrayList().add(ticketChildOrdering);
-                                    }
-                                orderingParent.getOrderingChildArrayList().add(orderingChild);
-                            }
-
-                            orderingParentArrayList.add(orderingParent);
-                        }
-
-                        orderingAdapter.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("jsonerror",e.getMessage());
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                VolleyLog.d("Error: " ,volleyError.getMessage());
-            }
-        });
-
-        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
-        return orderingParentArrayList;
     }
 
     private ArrayList<OrderingParent> addOrdering1()

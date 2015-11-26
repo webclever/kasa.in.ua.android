@@ -44,21 +44,146 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="photo_gallery">ФОТО ГАЛЕРЕЯ</string>
-    <string name="read_more">ЧИТАТИ ДАЛІ...</string>
-    <string name="description_event">ОПИС ПОДІЇ</string>
-    <string name="forgot_password"><u>Забули пароль?</u></string>
+
     <string name="number_ordering_text">Ви можете отримати ваші квитки в найбличій касі.</string>
 
-    <string name="web_site_kasa_in_ua"><u>www.kasa.in.ua</u></string>
-    <string name="email_kasa_in_ua"><u>info@kasa.in.ua</u></string>
-    <string name="kasa_phone1"><u>+38 093 0000 754,</u></string>
-    <string name="kasa_phone2"><u>+38 066 0000 754,</u></string>
-    <string name="kasa_phone3"><u>+38 097 0000 754.</u></string>
+
+
     <string name="title_activity_activity_order">ActivityOrder</string>
     <string name="title_activity_activity_successful_order">ActivitySuccessfulOrder</string>
     <string name="description_order">Ваше замовлення остворено та оплачено!</string>
     <string name="description_order1">Ваше замовлення створено!</string>
     <string name="description_order2">Квити будуть надіслані на відповідне відділення Нової пошти протягом трьох робочих днів.</string>
+
+    <!-- Fragment about Application -->
+    <string name="page_about_app_all_rights_reserved"> Всі права захищеноі. kasa.in.ua © </string>
+    <string name="page_about_app_version">Версія</string>
+
+    <!-- Fragment about Application description image -->
+    <string name="page_about_app_logo_kasa"> LogoKasa1 </string>
+    <string name="page_about_app_logo_kasa2"> LogoKasa2 </string>
+    <string name="page_about_app_logo_web_clever"> LogoWebClever </string>
+
+    <!-- Fragment Contacts -->
+    <string name="page_contacts_ticket_office_network">МЕРЕЖА КВИТКОВИХ КАС</string>
+    <string name="page_contacts_phones">Телефон:</string>
+    <string name="page_contacts_kasa_phone1"><u>+38 093 0000 754,</u></string>
+    <string name="page_contacts_kasa_phone2"><u>+38 066 0000 754,</u></string>
+    <string name="page_contacts_kasa_phone3"><u>+38 097 0000 754.</u></string>
+
+    <string name="page_contacts_site"><u>Сайт:</u></string>
+    <string name="page_contacts_web_site_kasa_in_ua"><u>www.kasa.in.ua</u></string>
+    <string name="page_contacts_email"><u>e-mail:</u></string>
+    <string name="page_contacts_email_kasa_in_ua"><u>info@kasa.in.ua</u></string>
+    <string name="page_contacts_button">адреси кас вашого міста</string>
+
+    <!-- Fragment location Kasa -->
+    <string name="page_location_kasa_select_city">ВИБЕРІТЬ МІСТО</string>
+    <string name="page_location_kasa_list_work_time">ЧАС РОБОТИ</string>
+    <string name="page_location_kasa_list_show_on_map">ПЕРЕГЛЯНУТИ НА КАРТІ</string>
+
+    <!-- Fragment delivery order -->
+    <string name="page_delivery_order_list_created">Створено: </string>
+    <string name="page_delivery_order_list_delivery_method">Спосіб доставки:</string>
+    <string name="page_delivery_order_list_payment_method">Спосіб оплати:</string>
+    <string name="page_delivery_order_list_delivery_status">Статус доставки:</string>
+    <string name="page_delivery_order_list_status_of_payment">Статус оплати:</string>
+
+    <!-- Fragment home and search event -->
+    <string name="page_home_search_event_button">КУПИТИ</string>
+
+    <!-- Fragment Basket -->
+    <string name="page_basket_button_next">ПРОДОВЖИТИ</string>
+    <string name="page_basket_sum">СУМА: </string>
+    <string name="page_basket_list_name_row">Ряд: </string>
+    <string name="page_basket_list_name_place">Mісце: </string>
+
+    <!-- Fragment event -->
+    <string name="page_event_description">ОПИС ПОДІЇ</string>
+    <string name="page_event_read_more">ЧИТАТИ ДАЛІ…</string>
+    <string name="page_event_photo_gallery">ФОТО ГАЛЕРЕЯ</string>
+    <string name="page_event_buy_ticket">ПРИДБАТИ КВИТОК</string>
+
+    <!-- Fragment select place -->
+    <string name="page_select_place_in_basket">У кошику: </string>
+    <string name="page_select_place_not_available">Не доступно</string>
+    <string name="page_select_place_reserve">Заброньовано</string>
+    <string name="page_select_place_sale">Продано</string>
+    <string name="page_select_place_in_basket1">У кошику</string>
+    <string name="page_select_place_grn"> грн. </string>
+
+    <!-- Fragment user profile -->
+    <string name="page_user_profile_method_authorization"> Авторизація за допомогою </string>
+    <string name="page_user_profile_user_surname1">Ім\'я*</string>
+    <string name="page_user_profile_user_surname"> Прізвище* </string>
+    <string name="page_user_profile_user_last_name"> По батькові </string>
+    <string name="page_user_profile_user_phone"> Телефон* </string>
+    <string name="page_user_profile_user_email"> Електронна пошта* </string>
+    <string name="page_user_profile_user_country"> Країна </string>
+    <string name="page_user_profile_user_city"> Місто </string>
+    <string name="page_user_profile_user_address"> Адреса доставки до дверей </string>
+    <string name="page_user_profile_user_new_post_department"> Номер найближчого відділення Нової пошти </string>
+    <string name="page_user_profile_user_button_change_password"> Змінити пароль </string>
+    <string name="page_user_profile_user_button_exit"> ВИХІД </string>
+    <string name="page_user_profile_user_save_changes"> ЗБЕРЕГТИ ЗМІНИ </string>
+
+    <!-- Activity change password -->
+    <string name="page_user_change_password_old_password"> Старий пароль* </string>
+    <string name="page_user_change_password_new_password"> Новий пароль* </string>
+    <string name="page_user_change_password_description_new_password"> Не менше 8-ми символів, з використанням букв та цифр </string>
+    <string name="page_user_change_password_confirm_new_password"> Повторіть новий пароль* </string>
+
+    <!-- Fragment login -->
+    <string name="page_login_social_networks"> Соцмережі </string>
+    <string name="page_login_login_password"> Логін та пароль </string>
+    <string name="page_login_email"> Електронна пошта </string>
+    <string name="page_login_password"> Пароль </string>
+    <string name="page_login_enter"> УВІЙТИ </string>
+    <string name="page_login_forgot_password"><u>Забули пароль?</u></string>
+
+    <!-- Fragment remember password -->
+    <string name="page_remember_password"> Вкажіть адресу електронної пошти акаунту і на цю пошту буде відправлено посилання на сторінку зміни паролю. </string>
+    <string name="page_remember_enter_email"> Введіть e-mail </string>
+    <string name="page_remember_send_password"> НАДІСЛАТИ ПАРОЛЬ </string>
+
+    <!-- Fragment create account -->
+    <string name="page_create_account"> Реєстрація </string>
+    <string name="page_create_account_password1">Пароль*</string>
+    <string name="page_create_account_password2">Повторіть пароль*</string>
+    <string name="page_create_account_button_create_account"> Створити акаунт </string>
+
+    <!-- Activity registration -->
+    <string name="page_registration_confirm"> Заповніть та перевірте поля що нижче: </string>
+
+    <!-- Activity success registration -->
+    <string name="page_success_registration_congratulation"> Вітаємо! </string>
+    <string name="page_success_registration_user_register"> Ви зареєстровані в системі продажу квитків kasa.in.ua! </string>
+    <string name="page_success_registration_description"> Створений акаунт надасть Вам доступ до сайту та мобільних додатків kasa.in.ua!</string>
+    <string name="page_success_registration_bright_impressions"> Яскравих вражень! </string>
+
+    <!-- Activity success registration -->
+    <string name="page_delivery_order_reserved_ticket"> КВИТКИ БУДУТЬ ЗАРЕЗЕРВОВАНІ ЩЕ: </string>
+    <string name="page_delivery_delivery_method"> ВИБЕРІТЬ СПОСІБ ДОСТАВКИ </string>
+    <string name="page_delivery_kasa_in_ua"> Самовивіз </string>
+    <string name="page_delivery_new_post"> Нова Пошта (на відділення) </string>
+    <string name="page_delivery_courier"> Кур&apos;єр по місту </string>
+    <string name="page_delivery_eticket"> Електронний квиток </string>
+    <string name="page_delivery_pay_method"> ВИБЕРІТЬ СПОСІБ ОПЛАТИ </string>
+    <string name="page_delivery_pay_kasa"> Оплата готівкою в касі </string>
+    <string name="page_delivery_pay_new_post"> Оплата готівкою у відділенні </string>
+    <string name="page_delivery_pay_courier"> Оплата готівкою кур&apos;єру </string>
+    <string name="page_delivery_pay_card"> Оплата платіжною карткою </string>
+
+    <!-- Fragment dialog -->
+    <string name="page_dialog_order_time"> Квитки користувача резервуються на 15 хвилин під час проходження ним процесу оформлення замовлення. </string>
+    <string name="page_dialog_not_ask_again"> Більше не запитувати </string>
+    <string name="page_dialog_not_want"> Не бажаю </string>
+
+
+
+
+
+
+
 
 </resources>

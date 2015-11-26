@@ -48,21 +48,9 @@ public class CustomListAdapter extends BaseAdapter {
         this.movieItems = movieItems;
         this.originalMovieItems = movieItems;
         this.mContext = context;
-        this.arrayList = new ArrayList<Movie>();
+        this.arrayList = new ArrayList<>();
         this.arrayList.addAll(movieItems);
         this.fromFragment = fromFragment;
-
-    }
-
-    public class ViewHolder
-    {
-        NetworkImageView thumbNail;
-        TextView name;
-        TextView data;
-        TextView time;
-        TextView place;
-        TextView price;
-        TextView city;
 
     }
 

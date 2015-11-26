@@ -59,7 +59,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/year"
             android:textSize="15sp"
-            android:text="СУМА:  "
+            android:text="@string/page_basket_sum"
             android:id="@+id/textView38"
             android:layout_alignTop="@+id/textView37"
             android:layout_toStartOf="@+id/textView39" />
@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/buttonBasket"
-            android:text="ПРОДОВЖИТИ"
+            android:text="@string/page_basket_button_next"
             android:textColor="@color/list_row_end_color"
             android:background="@drawable/button_selector"
             android:layout_width="match_parent"
