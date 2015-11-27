@@ -77,7 +77,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
     private static String[] sMyScope = new String[]{VKScope.FRIENDS, VKScope.WALL, VKScope.PHOTOS, VKScope.NOHTTPS,"email"};
     // Tab titles
-    private String[] tabs = {"Вхід", "Реєстрація"};
+    private String[] tabs;
     private CallbackManager callbackManager;
     private Intent intent;
 
@@ -87,7 +87,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        tabs = new String[]{getResources().getString(R.string.page_login_tabs_enter), getResources().getString(R.string.page_login_tabs_register)};
         //intent = getIntent();
 
         callbackManager = CallbackManager.Factory.create();

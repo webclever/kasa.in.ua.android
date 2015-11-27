@@ -91,7 +91,7 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
                 sendEMail();
                 break;
             case R.id.textViewKasaInUa:
-                deleteDB();
+                //deleteDB();
                 openWebKasaInUA();
                 break;
             case R.id.button_kasa_adress:
@@ -106,17 +106,13 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        //Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();
-
     }
 
     private void makeCall(Integer id) {
         Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+phoneNumberKasaInUA[id]));
         try{
             startActivity(intent);
-        }
-
-        catch (android.content.ActivityNotFoundException ex){
+        }catch (android.content.ActivityNotFoundException ex){
             //Toast.makeText(getActivity().getApplicationContext(),"yourActivity is not founded",Toast.LENGTH_SHORT).show();
         }
     }
@@ -127,9 +123,9 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@kasa.in.ua"});
         intent.putExtra(Intent.EXTRA_SUBJECT, "kasa.in.ua");
         try {
-            startActivity(Intent.createChooser(intent, "Відправити повідомлення..."));
+            startActivity(Intent.createChooser(intent, getResources().getString(R.string.page_contacts_send_message)));
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(getActivity(), "Не має додатків для відправлення повідомлення!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.page_contacts_not_have_app_for_send_message), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -100,7 +100,8 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
         fromFragment = getArguments().getString("fromFragment");
 
         Log.i("id_event", String.valueOf(id_ivent));
-        getActivity().getActionBar().setTitle("Подія");
+        if (getActivity().getActionBar() != null){
+        getActivity().getActionBar().setTitle(getResources().getString(R.string.page_event_title));}
 
         img_url = new ArrayList<>();
         //str_event += id_ivent;

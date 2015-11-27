@@ -21,4 +21,29 @@ public class EncodingTicketCount {
         else {return null;}
 
     }
+
+    public String getNumEndingRU (String count){
+        Integer integerCount;
+        if (Integer.parseInt(count) <= 20)
+        {
+            integerCount = Integer.parseInt(count);
+        }else {
+            integerCount = Integer.parseInt(String.valueOf(count.charAt(count.length()-1)));
+        }
+        if (integerCount == 0 || integerCount >= 5 && integerCount <= 20){return " билетов";}
+        else if (integerCount == 1){return " билет";}
+        else if (integerCount >= 2 && integerCount <= 4){return " билета";}
+        else {return null;}
+    }
+
+    public String getNumEndingEN (String count){
+        Integer integerCount = Integer.parseInt(count);
+        switch (integerCount){
+            case 1:
+                return " ticket";
+            default:
+                return " tickets";
+        }
+
+    }
 }

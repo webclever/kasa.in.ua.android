@@ -122,11 +122,9 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
         Log.i("paymentMethod",String.valueOf(paymentMethod));
-        switch (paymentMethod) {
-            case 8:
-                buttonConfirm.setText("перейти до оплати");
-                break;
-        }
+        buttonConfirm.setText(getResources().getString(R.string.page_data_pay_ticket));
+
+
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,7 +218,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         TextView textViewRowPlace = (TextView) viewGroupTicket.findViewById(R.id.textViewRowPlace);
         TextView textViewPriceTicket = (TextView) viewGroupTicket.findViewById(R.id.textViewPriceTicket);
         if (typeSector == 1){
-        String str = name_row_ticket+": " + row_ticket + ", м.:" + String.valueOf(place_ticket);
+        String str = name_row_ticket+": " + row_ticket + getResources().getString(R.string.page_data_eticket_place) + String.valueOf(place_ticket);
         textViewNameEvent.setText(name_event);
         textViewSectorEvent.setText(zon_ticket);
         textViewRowPlace.setText(str);
@@ -229,7 +227,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             textViewSectorEvent.setText(zon_ticket);
             textViewRowPlace.setVisibility(View.GONE);
         }
-        textViewPriceTicket.setText(price_ticket + "грн.");
+        textViewPriceTicket.setText(price_ticket + getResources().getString(R.string.page_select_place_grn));
         viewGroupTicketContainer.addView(viewGroupTicket, 0);
     }
 
@@ -335,7 +333,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
                 @Override
                 public void onFinish() {
-                    textViewTimer.setText("Бронювання скасоване !");
+                    textViewTimer.setText(getResources().getString(R.string.page_delivery_order_canceled));
                 }
             }.start();
         }

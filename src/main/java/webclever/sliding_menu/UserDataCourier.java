@@ -166,10 +166,10 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
         switch (paymentMethod){
             case 1:
-                buttonConfirm.setText("оформити замовлення");
+                buttonConfirm.setText(getResources().getString(R.string.page_data_issue_order));
                 break;
             case 2:
-                buttonConfirm.setText("перейти до оплати");
+                buttonConfirm.setText(getResources().getString(R.string.page_data_pay_ticket));
                 break;
         }
 
@@ -265,7 +265,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
         AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         final View viewLayout = layoutInflater.inflate(R.layout.list_dialog_select_city, null);
-        alBuilder.setTitle("Введіть назву міста");
+        alBuilder.setTitle(getResources().getString(R.string.page_user_profile_select_city));
         alBuilder.setView(viewLayout);
         final Dialog alertDialog = alBuilder.create();
         singletonCityArrayList = new ArrayList<>();
@@ -408,7 +408,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
                                     Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
                                     intent.putExtra("order_id", jsonObject.getString("order_id"));
                                     intent.putExtra("payment_method", paymentMethod);
-                                    intent.putExtra("message", jsonObject.getString("msg"));
+                                    intent.putExtra("message", getResources().getString(R.string.page_success_order_description_courier));
                                     startActivity(intent);
                                 }
                             }else if (paymentMethod == 6){

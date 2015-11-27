@@ -73,7 +73,8 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
     {
         View rootView = inflater.inflate(R.layout.fragment_search_event,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(1, true);
-        getActivity().getActionBar().setTitle("Пошук події");
+        if (getActivity().getActionBar() != null){
+        getActivity().getActionBar().setTitle(getResources().getString(R.string.page_search_event_title));}
         listView = (ListView) rootView.findViewById(R.id.listView);
         adapter = new CustomListAdapter(getActivity(),getActivity(),movieList,"searchEvent");
         listView.setAdapter(adapter);

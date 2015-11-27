@@ -184,7 +184,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
                         //Toast.makeText(getActivity().getApplicationContext(), String.valueOf(radioButton.getText()), Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Виберіть спосіб оплати!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.page_delivery_chose_delivery_method), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -220,7 +220,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
 
             @Override
             public void onFinish() {
-                textViewTimer.setText("Бронювання скасоване !");
+                textViewTimer.setText(getResources().getString(R.string.page_delivery_order_canceled));
             }
         }.start();
         }

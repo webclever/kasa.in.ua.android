@@ -86,7 +86,7 @@ public class ActivityOrder extends FragmentActivity {
     public void showAlertDialog(){
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.");
+        alertDialog.setMessage(getResources().getString(R.string.page_order_time_up_temp_order_dialog));
         alertDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -99,8 +99,8 @@ public class ActivityOrder extends FragmentActivity {
 
     public void showAlertDialogCancelOrder(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Увага!");
-        alertDialog.setMessage("Якщо ви покинете цю сторінку, тимчасова резервація Ваших квитків буде знята!");
+        alertDialog.setTitle(getResources().getString(R.string.page_order_attention));
+        alertDialog.setMessage(getResources().getString(R.string.page_order_check_exit_temp_order_dialog));
         alertDialog.setCancelable(false);
         alertDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
@@ -109,7 +109,7 @@ public class ActivityOrder extends FragmentActivity {
                         dialog.cancel();
                     }
                 });
-        alertDialog.setNegativeButton("Відміна", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(getResources().getString(R.string.page_order_cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
@@ -161,7 +161,7 @@ public class ActivityOrder extends FragmentActivity {
                                 SingletonTempOrder.getInstance().setToken(null);
                                 activity.finish();
                             }else {
-                                Toast.makeText(activity, "Помилка при видалені тимчасовго замовлення!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity, getResources().getString(R.string.page_order_toast_error_delete_temp_order), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {

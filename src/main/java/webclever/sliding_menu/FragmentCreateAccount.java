@@ -247,7 +247,7 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
             isValid = false;
             editTextPassword.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
             editTextCPassword.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
-            Toast.makeText(this.getActivity(),"Паролі не співпадають",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getActivity(),getResources().getString(R.string.page_create_account_passwords_not_match),Toast.LENGTH_SHORT).show();
         }
 
         return isValid;

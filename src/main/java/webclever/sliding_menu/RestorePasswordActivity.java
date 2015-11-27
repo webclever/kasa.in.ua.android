@@ -20,7 +20,8 @@ public class RestorePasswordActivity extends FragmentActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Ваш пароль було надіслано!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.page_restore_password_send),Toast.LENGTH_LONG).show();
+
             }
         });
 

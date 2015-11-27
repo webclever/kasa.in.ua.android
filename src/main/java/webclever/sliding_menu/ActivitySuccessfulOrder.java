@@ -34,35 +34,37 @@ public class ActivitySuccessfulOrder extends Activity {
             }
         });
         if (intent.hasExtra("message")) {
-            textViewDescriptionOrder.setText(Html.fromHtml(intent.getStringExtra("message")));
-        }else {
-            textViewDescriptionOrder.setText("Ви можете здійснити оплату, перейшовши по посиланню, що надійшло Вам на пошту.");
+            textViewDescriptionOrder.setText(intent.getStringExtra("message"));
         }
         Log.i("pay_method",String.valueOf(intent.getIntExtra("payment_method",0)));
         switch (intent.getIntExtra("payment_method",0)){
             case 1:
-                textViewOrder.setText(R.string.description_order1);
+                textViewOrder.setText(R.string.page_success_order_description_order1);
                 break;
             case 2:
-                textViewOrder.setText(R.string.description_order);
+                textViewOrder.setText(R.string.page_success_description_order);
+                textViewDescriptionOrder.setText(R.string.page_success_order_number_ordering_text);
                 break;
             case 3:
-                textViewOrder.setText(R.string.description_order1);
+                textViewOrder.setText(R.string.page_success_order_description_order1);
                 break;
             case 4:
-                textViewOrder.setText(R.string.description_order);
+                textViewOrder.setText(R.string.page_success_description_order);
+                textViewDescriptionOrder.setText(R.string.page_success_order_description_order2);
                 break;
             case 5:
-                textViewOrder.setText(R.string.description_order1);
+                textViewOrder.setText(R.string.page_success_order_description_order1);
                 break;
             case 6:
-                textViewOrder.setText(R.string.description_order);
+                textViewOrder.setText(R.string.page_success_description_order);
+                textViewDescriptionOrder.setText(R.string.page_success_order_description_courier);
                 break;
             case 7:
-                textViewOrder.setText(R.string.description_order1);
+                textViewOrder.setText(R.string.page_success_order_description_order1);
                 break;
             case 8:
-                textViewOrder.setText(R.string.description_order1);
+                textViewOrder.setText(R.string.page_success_description_order);
+                textViewDescriptionOrder.setText(R.string.page_success_order_description_eticket);
                 break;
         }
     }

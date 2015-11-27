@@ -319,7 +319,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
 
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Показати каси продажу у місті " + singletonCityList.get(position).getNameCity() + "?")
+        builder.setMessage(getResources().getString(R.string.page_location_kasa_show_pay_offices)+ " " + singletonCityList.get(position).getNameCity() + "?")
                 .setPositiveButton("Oк", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
@@ -327,7 +327,7 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
                         saveNameCity();
                     }
                 })
-                .setNegativeButton("Відміна", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.page_order_cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

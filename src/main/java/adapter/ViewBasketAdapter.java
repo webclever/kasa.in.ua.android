@@ -128,9 +128,9 @@ public class ViewBasketAdapter extends BaseAdapter {
                     db = db_ticket.getWritableDatabase();
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    builder.setMessage("Ви бажаєте видалити цей квиток?");
+                    builder.setMessage(activity.getResources().getString(R.string.adapter_basket_check_delete_ticket));
                     builder.setCancelable(false);
-                    builder.setPositiveButton("Так", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(activity.getResources().getString(R.string.adapter_basket_check_delete_positive), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -159,7 +159,7 @@ public class ViewBasketAdapter extends BaseAdapter {
 
                         }
                     });
-                    builder.setNegativeButton("Ні", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(activity.getResources().getString(R.string.adapter_basket_check_delete_negative), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();

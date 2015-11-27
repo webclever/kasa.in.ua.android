@@ -222,7 +222,7 @@ public class FragmentConfirmTicket extends Fragment implements OnBackPressedList
 
         if (!aBooleanCheckEditPhone)
         {
-            Toast.makeText(getActivity().getApplicationContext(),"Неправильний формат телефону",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.page_confirm_ticket_toast_not_valid_phone),Toast.LENGTH_SHORT).show();
             editTextPhone.setBackgroundColor(getResources().getColor(R.color.red));
         }else
         {
@@ -247,7 +247,6 @@ public class FragmentConfirmTicket extends Fragment implements OnBackPressedList
         Fragment fragment = new FragmentBasket();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        //Toast.makeText(getActivity().getApplicationContext(), "From SingleEvent onBackPressed", Toast.LENGTH_SHORT).show();
 
     }
 

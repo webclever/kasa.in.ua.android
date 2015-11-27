@@ -168,7 +168,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
     }
     private void JsonParsingImageSlider(String url) {
-        listImgUrl = new ArrayList<Integer>();
+        listImgUrl = new ArrayList<>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) {
@@ -448,7 +448,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
     private void showDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Показати події у місті " + singletonCityList.get(position).getNameCity())
+        builder.setMessage(getResources().getString(R.string.home_search_show_events_in_city) + " " + singletonCityList.get(position).getNameCity())
                 .setPositiveButton("Oк", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!

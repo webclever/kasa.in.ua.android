@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by Женя on 18.08.2015.
- */
+
 public class ActivitySuccessRegistration extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

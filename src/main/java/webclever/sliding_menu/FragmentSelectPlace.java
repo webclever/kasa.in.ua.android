@@ -115,7 +115,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private HashMap<String,Boolean> containerTicket;
     private EncodingTicketCount encodingTicketCount;
     private TextView textViewCountTicket;
-    private final String countTicket = " НА СУМУ";
+    private String countTicket;
 
     private ImageButton imageButtonBack;
 
@@ -173,6 +173,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_select_place, container, false);
+        countTicket = " " + getResources().getString(R.string.page_select_sum);
         stringNameEvent = getArguments().getString("name_event");
         idEvent = getArguments().getInt("id");
         Log.i("id_event",String.valueOf(idEvent));
@@ -217,8 +218,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         encodingTicketCount = new EncodingTicketCount();
         textViewCountTicket = (TextView) rootView.findViewById(R.id.textView41);
         textViewCountTicket.setText(encodingTicketCount.getNumEnding(((MainActivity) getActivity()).getCountTicket()) + countTicket);
-
-        getActivity().getActionBar().setTitle(stringNameEvent);
+        if (getActivity().getActionBar() != null){
+        getActivity().getActionBar().setTitle(stringNameEvent);}
 
         ConfirmButton = (ImageButton) rootView.findViewById(R.id.confirm_button);
 
@@ -616,7 +617,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     }
 
     private void showPlaceInfo(String sector,String rowName,String row, String place, String price, String type_sector) {
-        String placeInfo = rowName + ": " + row + " Mісце: " + place + " | " + price +" грн.";
+        String placeInfo = rowName + ": " + row + " " + getResources().getString(R.string.page_basket_list_name_place) + " " + place + " | " + price +" " + getResources().getString(R.string.page_select_place_grn);
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View  layoutToast = layoutInflater.inflate(R.layout.list_toast, null);
         TextView textViewToast = (TextView) layoutToast.findViewById(R.id.textViewToast);
@@ -711,8 +712,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             db_ticket.close();
         }else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-            alertDialog.setTitle("Увага!");
-            alertDialog.setMessage("Ви не можете додати в кошик більше 50 квитків.");
+            alertDialog.setTitle(getResources().getString(R.string.page_order_attention));
+            alertDialog.setMessage(getResources().getString(R.string.page_select_max_ticket));
             alertDialog.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

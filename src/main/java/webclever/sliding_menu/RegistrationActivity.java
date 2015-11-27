@@ -183,7 +183,7 @@ public class RegistrationActivity extends FragmentActivity implements
                             userProfileSingleton.setStatus(true);
                             userProfileSingleton.setUserId(jsonObjectUser.getString("user_id"));
                             userProfileSingleton.setToken(jsonObjectUser.getLong("token"));
-                            Toast.makeText(RegistrationActivity.this, "Ви успішно зареєструвались", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegistrationActivity.this, getResources().getString(R.string.page_registration_success), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(), ActivitySuccessRegistration.class);
                             startActivity(intent);
 

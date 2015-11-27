@@ -108,10 +108,10 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
         switch (paymentMethod){
             case 1:
-                buttonConfirm.setText("оформити замовлення");
+                buttonConfirm.setText(getResources().getString(R.string.page_data_issue_order));
                 break;
             case 2:
-                buttonConfirm.setText("перейти до оплати");
+                buttonConfirm.setText(getResources().getString(R.string.page_data_pay_ticket));
                 break;
         }
 
@@ -155,7 +155,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
                 @Override
                 public void onFinish() {
-                    textViewTimer.setText("Бронювання скасоване !");
+                    textViewTimer.setText(getResources().getString(R.string.page_delivery_order_canceled));
                 }
             }.start();
         }
@@ -207,7 +207,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                                     Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
                                     intent.putExtra("order_id", jsonObject.getString("order_id"));
                                     intent.putExtra("payment_method", paymentMethod);
-                                    intent.putExtra("message", jsonObject.getString("msg"));
+                                    intent.putExtra("message", getResources().getString(R.string.page_success_order_number_ordering_kasa));
                                     startActivity(intent);
                                 }
                             }else if(paymentMethod == 2){

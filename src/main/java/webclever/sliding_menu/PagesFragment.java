@@ -323,7 +323,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         final View viewLayout = layoutInflater.inflate(R.layout.list_dialog_select_city, null);
-        alBuilder.setTitle("Введіть назву міста");
+        alBuilder.setTitle(getResources().getString(R.string.page_user_profile_select_city));
         alBuilder.setView(viewLayout);
         final Dialog alertDialog = alBuilder.create();
         singletonCityArrayList = new ArrayList<>();
@@ -463,7 +463,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                             JSONObject jsonObjectUserData = new JSONObject(s);
                             if (jsonObjectUserData.getBoolean("change_user_data")){
 
-                                Toast.makeText(getActivity().getApplicationContext(),"Дані збережено!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.page_user_profile_save_changes),Toast.LENGTH_SHORT).show();
 
                                 /*userProfile.setName(editTextName.getText().toString());
                                 userProfile.setLastName(editTextLName.getText().toString());

@@ -387,8 +387,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         mDrawerLayout.closeDrawer(mDrawerList);
 
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
-        alBuilder.setTitle("Увага!");
-        alBuilder.setMessage("У вашому кошику немає квитків!");
+        alBuilder.setTitle(getResources().getString(R.string.page_order_attention));
+        alBuilder.setMessage(getResources().getString(R.string.page_main_alert_basket));
         alBuilder.setCancelable(false);
         alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -534,7 +534,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     private void showAlertDialogHistoryOrder(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("На жаль, історія замовлень лише для авторизованих користувачі!");
+        alertDialog.setMessage(getResources().getString(R.string.page_main_alert_history_order));
         alertDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

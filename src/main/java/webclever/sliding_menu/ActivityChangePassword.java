@@ -116,7 +116,7 @@ public class ActivityChangePassword extends FragmentActivity {
                             JSONObject jsonObjectUserData = new JSONObject(s);
                             if (jsonObjectUserData.getBoolean("change_password")){
 
-                                Toast.makeText(getApplicationContext(),"Пароль змінено!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),getResources().getString(R.string.page_user_change_password_successful),Toast.LENGTH_SHORT).show();
                                 ActivityChangePassword.this.finish();
                             }
 

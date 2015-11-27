@@ -301,9 +301,9 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     private void showDialogSoldTicket(final JSONArray jsonArrays){
 
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
-        alBuilder.setTitle("Увага!");
-        alBuilder.setMessage("Деякі з обраних вами квитків вже зайняті!");
-        alBuilder.setCancelable(false);
+        alBuilder.setTitle(getResources().getString(R.string.page_order_attention));
+        alBuilder.setMessage(getResources().getString(R.string.page_basket_ticket_already_sale_dialog));
+                alBuilder.setCancelable(false);
         alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -387,14 +387,14 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         AlertDialog.Builder alBuilder = new AlertDialog.Builder(this.getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         final View viewLayout = layoutInflater.inflate(R.layout.fragment_dialog, null);
-        alBuilder.setTitle("Увійдіть або зареєструйтесь.");
+        alBuilder.setTitle(getResources().getString(R.string.page_basket_sig_in_or_log_in));
         alBuilder.setView(viewLayout);
         final Dialog alertDialog = alBuilder.create();
         Button buttonLogin = (Button)viewLayout.findViewById(R.id.button3);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getActivity(), "login", Toast.LENGTH_SHORT).show();
+
                 alertDialog.dismiss();
                 startLoginActivity(0);
             }
@@ -403,7 +403,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getActivity(), "CreateLogin", Toast.LENGTH_SHORT).show();
+
                 alertDialog.dismiss();
                 startLoginActivity(1);
             }
@@ -412,7 +412,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         textViewHideDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Get Value from checkBox
+
                 CheckBox checkBox = (CheckBox) viewLayout.findViewById(R.id.checkBoxDialog);
                 checkShowDialog(checkBox.isChecked());
 

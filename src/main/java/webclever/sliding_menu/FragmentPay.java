@@ -65,8 +65,8 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setTitle("Увага!");
-        alertDialog.setMessage("Ви бажаєте покинути сторінку оплати замовлення?");
+        alertDialog.setTitle(getResources().getString(R.string.page_order_attention));
+        alertDialog.setMessage(getResources().getString(R.string.page_pay_exit_from_pay_page));
         alertDialog.setCancelable(false);
         alertDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
@@ -75,7 +75,7 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
                         dialog.cancel();
                     }
                 });
-        alertDialog.setNegativeButton("Відміна", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(getResources().getString(R.string.page_order_cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
@@ -94,7 +94,6 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
            if (stringListPath.get(1).equals("paySuccess")) {
                Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
                intent.putExtra("payment_method",paymentMethod);
-               intent.putExtra("message","");
                intent.putExtra("order_id", uri.getQueryParameter("order"));
                startActivity(intent);
                 Log.i("url_success: " , url);
@@ -115,15 +114,19 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
         switch (paymentMethod){
             case 2:
                 intent.putExtra("payment_method",1);
+                intent.putExtra("message", getResources().getString(R.string.page_success_order_description_no_pay));
                 break;
             case 4:
                 intent.putExtra("payment_method",3);
+                intent.putExtra("message", getResources().getString(R.string.page_success_order_description_no_pay));
                 break;
             case 6:
                 intent.putExtra("payment_method",5);
+                intent.putExtra("message", getResources().getString(R.string.page_success_order_description_no_pay));
                 break;
-            case 7:
+            case 8:
                 intent.putExtra("payment_method",7);
+                intent.putExtra("message", getResources().getString(R.string.page_success_order_description_no_pay));
                 break;
             default:
                 intent = null;
