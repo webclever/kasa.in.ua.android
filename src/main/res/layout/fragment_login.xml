@@ -1,7 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<ScrollView
+    tools:context="webclever.sliding_menu.FragmentLogin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+<RelativeLayout  android:layout_width="match_parent"
     android:background="@color/white"
-    android:layout_height="match_parent" tools:context="webclever.sliding_menu.FragmentLogin">
+    android:layout_height="wrap_content">
 
 
     <TextView
@@ -31,8 +38,7 @@
             android:src="@drawable/facebook"
             android:layout_gravity="center_vertical"
             android:id="@+id/imageViewFacebook"
-            android:layout_alignTop="@+id/twitter_login_button"
-            android:layout_toStartOf="@+id/twitter_login_button" />
+            android:contentDescription="@null" />
 
 
         <com.twitter.sdk.android.core.identity.TwitterLoginButton
@@ -41,9 +47,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/sign_in_button" />
+            android:layout_marginRight="5dp"/>
 
         <ImageView
             android:layout_width="70dp"
@@ -51,8 +55,7 @@
             android:src="@mipmap/ic_vk"
             android:layout_gravity="center_vertical"
             android:id="@+id/imageViewVK"
-            android:layout_alignTop="@+id/twitter_login_button"
-            android:layout_toStartOf="@+id/twitter_login_button" />
+            android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/sign_in_button"
@@ -60,9 +63,7 @@
             android:layout_gravity="center_vertical"
             android:layout_height="70dp"
             android:src="@mipmap/ic_googleplus"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
-
+            android:contentDescription="@null" />
 
     </LinearLayout>
 
@@ -141,5 +142,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
 
-
 </RelativeLayout>
+</ScrollView>

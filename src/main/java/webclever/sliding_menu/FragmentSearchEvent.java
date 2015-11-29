@@ -168,6 +168,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
             @Override
             public boolean onQueryTextChange(String newText) {
                 movieList.clear();
+                AppController.getInstance().getRequestQueue().cancelAll("feed_request");
                 loadEvent(newText);
 
                 //adapter.getFilter().filter(newText);
