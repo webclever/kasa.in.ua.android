@@ -63,6 +63,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
     private int limit = 10;
     private int start = 0;
     private Boolean checkDownload;
+    private StringRequest movieReq = null;
 
     public FragmentSearchEvent(){
         setHasOptionsMenu(true);
@@ -168,7 +169,11 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
             @Override
             public boolean onQueryTextChange(String newText) {
                 movieList.clear();
-                AppController.getInstance().getRequestQueue().cancelAll("feed_request");
+                adapter.notifyDataSetChanged();
+                AppController.getInstance().getRequestQueue().cancelAll("search_req");
+                if(movieReq != null){
+                    movieReq.cancel();
+                }
                 loadEvent(newText);
 
                 //adapter.getFilter().filter(newText);
@@ -198,7 +203,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         final String search_event_url = "http://tms.webclever.in.ua/api/getEventList";
         checkDownload = false;
         progressBar.setVisibility(View.VISIBLE);
-        StringRequest movieReq = new StringRequest(Request.Method.POST, search_event_url,
+        movieReq = new StringRequest(Request.Method.POST, search_event_url,
         new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -226,7 +231,9 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                                     movie.setCity(city.getString("name"));
                                     JSONObject poster = obj.getJSONObject("poster");
                                     if (poster.has("l")){
-                                    movie.setThumbnailUrl(poster.getString("l"));}
+                                    movie.setThumbnailUrl(poster.getString("l"));}else{
+                                        movie.setThumbnailUrl(null);
+                                    }
                                     movieList.add(movie);
                             }
                         }catch (JSONException e)
@@ -279,6 +286,8 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                 return params;
             }
         };
+        movieReq.setTag("search_req");
+        movieReq.setShouldCache(false);
         AppController.getInstance().addToRequestQueue(movieReq);
     }
 

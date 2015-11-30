@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -94,8 +95,11 @@ public class CustomListAdapter extends BaseAdapter {
         TextView city = (TextView) convertView.findViewById(R.id.place);
 
         Movie m = movieItems.get(position);
-
-        thumbNail.setImageUrl(m.getThumbnailUrl(),imageLoader);
+        if (m.getThumbnailUrl() != null) {
+            thumbNail.setImageUrl(m.getThumbnailUrl(), imageLoader);
+        }else {
+            thumbNail.setDefaultImageResId(R.mipmap.ic_default_poster);
+        }
         name.setText(Html.fromHtml(m.getName()));
         data.setText(m.getData());
         time.setText(m.getTime());

@@ -242,6 +242,8 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                     JSONObject poster = obj.getJSONObject("poster");
                                     if(!poster.toString().equals("{}")){
                                         movie.setThumbnailUrl(poster.getString("l"));
+                                    }else {
+                                        movie.setThumbnailUrl(null);
                                     }
                                     movieList.add(movie);
 

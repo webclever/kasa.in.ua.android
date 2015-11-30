@@ -49,10 +49,13 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
             paymentMethod = bundle.getInt("payment_method");
         }
 
+
         webView = (WebView) rootView.findViewById(R.id.webView);
         webView.setWebViewClient(new MyWebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(url_pay + getArguments().getString("order_id"));
+        webView.getSettings().setDomStorageEnabled(true);
+
         webView.setWebChromeClient(new WebChromeClient());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
@@ -82,7 +85,6 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
         });
 
         alertDialog.show();
-
     }
 
     private class MyWebViewClient extends WebViewClient {
@@ -105,6 +107,13 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
             view.loadUrl(url);
             Log.i("url_pay: ", url);
             return true;
+        }
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            Log.i("WEB_VIEW_TEST", "error code:" + errorCode);
+            Log.i("WEB_VIEW_TEST", "description:" + description);
+            super.onReceivedError(view, errorCode, description, failingUrl);
         }
     }
 
