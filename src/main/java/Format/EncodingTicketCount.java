@@ -1,13 +1,26 @@
 package Format;
 
+import android.util.Log;
+import java.util.Locale;
 
-/**
- * Created by Женя on 31.07.2015.
- */
+
 public class EncodingTicketCount {
 
     public EncodingTicketCount(){ }
     public String getNumEnding (String count){
+
+        Log.i("language",Locale.getDefault().getDisplayLanguage());
+
+        if (Locale.getDefault().getDisplayLanguage().equals("українська")){
+            return getNumEndingUA(count);
+        }else if (Locale.getDefault().getDisplayLanguage().equals("русский")){
+            return getNumEndingRU(count);
+        }else {
+            return getNumEndingEN(count);
+        }
+    }
+
+    private String getNumEndingUA (String count){
         Integer integerCount;
         if (Integer.parseInt(count) <= 20)
         {
@@ -19,10 +32,9 @@ public class EncodingTicketCount {
         else if (integerCount == 1){return " квиток";}
         else if (integerCount >= 2 && integerCount <= 4){return " квитки";}
         else {return null;}
-
     }
 
-    public String getNumEndingRU (String count){
+    private String getNumEndingRU (String count){
         Integer integerCount;
         if (Integer.parseInt(count) <= 20)
         {
@@ -36,7 +48,7 @@ public class EncodingTicketCount {
         else {return null;}
     }
 
-    public String getNumEndingEN (String count){
+    private String getNumEndingEN (String count){
         Integer integerCount = Integer.parseInt(count);
         switch (integerCount){
             case 1:

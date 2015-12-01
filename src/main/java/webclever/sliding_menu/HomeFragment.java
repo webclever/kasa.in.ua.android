@@ -243,7 +243,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                     if(!poster.toString().equals("{}")){
                                         movie.setThumbnailUrl(poster.getString("l"));
                                     }else {
-                                        movie.setThumbnailUrl(null);
+                                        movie.setThumbnailUrl("null");
                                     }
                                     movieList.add(movie);
 

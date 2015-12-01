@@ -74,42 +74,18 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e8a881ca-2874-49b0-bfad-c131b0b213bc" name="Default" comment="testCommit">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/ic_default_poster-web.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_default_poster.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_default_poster.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_default_poster.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_default_poster.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_default_poster.png" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\appcompat_v7_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\bolts_android_1_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\design_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\digits_1_6_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\fabric_1_3_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\facebook_android_sdk_4_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\gson_2_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\picasso_2_5_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\retrofit_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\support_annotations_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\support_v4_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\tweet_composer_0_8_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\tweet_ui_1_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\twitter_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\twitter_core_1_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\KasaApp\kasa.in.ua.android\.idea\libraries\volley.xml" afterPath="" />
+    <list default="true" id="e8a881ca-2874-49b0-bfad-c131b0b213bc" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/values-ru/strings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/values-uk/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/customlistviewadapter/CustomListAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/customlistviewadapter/CustomListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Format/EncodingTicketCount.java" afterPath="$PROJECT_DIR$/src/main/java/Format/EncodingTicketCount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentPay.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentPay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentSearchEvent.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentSearchEvent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/HomeFragment.java" afterPath="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/HomeFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Validator/Validator.java" afterPath="$PROJECT_DIR$/src/main/java/Validator/Validator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kasa.in.ua.android.iml" afterPath="$PROJECT_DIR$/kasa.in.ua.android.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vksdk_library/vksdk_library.iml" afterPath="$PROJECT_DIR$/vksdk_library/vksdk_library.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -138,7 +114,21 @@
     <favorites_list name="app" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="fragment_event_page.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_event_page.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5855107">
+              <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -148,6 +138,7 @@
         <option value="layoutResourceFile" />
         <option value="Singleton" />
         <option value="resourceFile" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -2136,13 +2127,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentHistoryOrdering.java" />
-        <option value="$PROJECT_DIR$/src/main/java/adapter/OrderingAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/list_event_ordering.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/list_row.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_basket.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/list_basket_ticket.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_event_page.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_select_place.xml" />
         <option value="$PROJECT_DIR$/build/intermediates/res/merged/debug/values/values.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_pages.xml" />
@@ -2180,13 +2167,17 @@
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/list_ticket_data.xml" />
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Format/EncodingTicketCount.java" />
         <option value="$PROJECT_DIR$/src/main/java/Validator/Validator.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_pay.xml" />
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentPay.java" />
-        <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/HomeFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/FragmentSearchEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/res/values-ru-rRU/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values-ru/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values-uk/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/Format/EncodingTicketCount.java" />
+        <option value="$PROJECT_DIR$/src/main/java/webclever/sliding_menu/HomeFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/customlistviewadapter/CustomListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_event_page.xml" />
       </list>
     </option>
   </component>
@@ -2248,10 +2239,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2260,8 +2249,125 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kasa.in.ua.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2276,7 +2382,7 @@
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="247" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/values" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -2744,7 +2850,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448557035158</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="testCommit">
+      <created>1448902586638</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1448902586638</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2758,11 +2870,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942432" sideWeight="0.49610677" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32942432" sideWeight="0.49610677" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942432" sideWeight="0.5038932" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2781,7 +2893,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16897655" sideWeight="0.47719687" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16897655" sideWeight="0.47719687" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32703003" sideWeight="0.4936034" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2823,51 +2935,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="124" />
+      <option name="time" value="125" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_successful_order.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.655172">
-          <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
-          <folding>
-            <element signature="e#633#666#0" expanded="true" />
-            <element signature="e#1138#1188#0" expanded="true" />
-            <element signature="e#3720#3769#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/ActivityChangePassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3322314">
-          <caret line="118" column="37" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4127#4198#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/ActivityDescription.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18769716">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/ActivityOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1987382">
-          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/ActivitySuccessRegistration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10725552">
@@ -2879,22 +2951,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.3990536">
           <caret line="384" column="30" selection-start-line="384" selection-start-column="30" selection-end-line="384" selection-end-column="30" />
-          <folding>
-            <element signature="method#checkFreeTickets#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#addTicket#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#getIdTickets#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#showDialogSoldTicket#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="e#12941#12996#0" expanded="false" />
-            <element signature="e#13028#13101#0" expanded="false" />
-            <element signature="method#deleteSoldTickets#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#loadHosts#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#setPrice#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#Price#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#closeFragment#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="method#showDialog#0;class#FragmentBasket#0" expanded="false" />
-            <element signature="e#16833#16896#0" expanded="false" />
-            <element signature="method#addDataBasket#0;class#FragmentBasket#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2916,10 +2972,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8123028">
           <caret line="250" column="9" selection-start-line="250" selection-start-column="9" selection-end-line="250" selection-end-column="9" />
-          <folding>
-            <element signature="class#2463:3056" expanded="false" />
-            <element signature="e#11834#11908#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2934,9 +2986,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.9984226">
           <caret line="105" column="36" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
-          <folding>
-            <element signature="e#2943#2994#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2951,7 +3000,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.05362776">
           <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2994,10 +3042,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5741325">
           <caret line="536" column="94" selection-start-line="536" selection-start-column="94" selection-end-line="536" selection-end-column="94" />
-          <folding>
-            <element signature="e#13490#13545#0" expanded="true" />
-            <element signature="e#13577#13634#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3012,7 +3056,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.329653">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3020,12 +3063,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.263407">
           <caret line="467" column="89" selection-start-line="467" selection-start-column="89" selection-end-line="467" selection-end-column="89" />
-          <folding>
-            <element signature="e#12547#12611#0" expanded="true" />
-            <element signature="e#18572#18637#0" expanded="true" />
-            <element signature="method#getCity#0;class#PagesFragment#0" expanded="false" />
-            <element signature="class#MyTextWatcher#0;class#PagesFragment#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3033,9 +3070,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.1104102">
           <caret line="188" column="0" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
-          <folding>
-            <element signature="e#7526#7586#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3043,9 +3077,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.45583597">
           <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
-          <folding>
-            <element signature="e#723#784#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3060,15 +3091,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="102" column="33" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
-          <folding>
-            <element signature="e#3873#3929#0" expanded="true" />
-            <element signature="e#4013#4068#0" expanded="true" />
-            <element signature="e#5385#5448#0" expanded="true" />
-            <element signature="method#getValidUserData#0;class#FragmentUserDataKasa#0" expanded="false" />
-            <element signature="method#saveOrderUser#0;class#FragmentUserDataKasa#0" expanded="false" />
-            <element signature="e#7694#7768#0" expanded="true" />
-            <element signature="class#TextWatcherETicket#0;class#FragmentUserDataKasa#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3076,17 +3098,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="586" column="0" selection-start-line="586" selection-start-column="0" selection-end-line="586" selection-end-column="0" />
-          <folding>
-            <element signature="method#getCountries#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="method#startService#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="method#getListCity#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="method#onBackPressed#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="method#getValidUserData#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="method#saveOrderUser#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="method#getUserDataProfile#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="method#getCity#0;class#UserDataCourier#0" expanded="false" />
-            <element signature="class#TextWatcherETicket#0;class#UserDataCourier#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3094,18 +3105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="4.522082">
           <caret line="317" column="32" selection-start-line="317" selection-start-column="32" selection-end-line="317" selection-end-column="32" />
-          <folding>
-            <element signature="e#4697#4752#0" expanded="true" />
-            <element signature="e#9515#9573#0" expanded="true" />
-            <element signature="e#9977#10033#0" expanded="true" />
-            <element signature="class#TextWatcherETicket#0;class#UserDataETicket#0" expanded="false" />
-            <element signature="method#getValidUserData#0;class#UserDataETicket#0" expanded="false" />
-            <element signature="method#getValidUserDataTicket#0;class#UserDataETicket#0" expanded="false" />
-            <element signature="method#startService#0;class#UserDataETicket#0" expanded="false" />
-            <element signature="e#14070#14133#0" expanded="true" />
-            <element signature="method#saveOrderUser#0;class#UserDataETicket#0" expanded="false" />
-            <element signature="method#getDataETicket#0;class#UserDataETicket#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3113,13 +3112,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="5.362776">
           <caret line="301" column="54" selection-start-line="301" selection-start-column="54" selection-end-line="301" selection-end-column="54" />
-          <folding>
-            <element signature="e#6187#6243#0" expanded="false" />
-            <element signature="e#6327#6382#0" expanded="false" />
-            <element signature="e#8401#8464#0" expanded="false" />
-            <element signature="e#11114#11178#0" expanded="false" />
-            <element signature="e#16223#16295#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3162,7 +3154,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.7697161">
           <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3191,7 +3182,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.8769716">
           <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3203,17 +3193,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/list_ticket_data.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.793103">
           <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="e#2112#2157#0" expanded="true" />
-            <element signature="e#2619#2661#0" expanded="true" />
-          </folding>
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/LoginActivity.java">
@@ -3223,38 +3209,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6747405">
-          <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_login.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Validator/Validator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24132492">
           <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Format/EncodingTicketCount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1861199">
-          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3262,35 +3230,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
-          <folding>
-            <element signature="method#onBackPressed#0;class#FragmentPay#0" expanded="false" />
-            <element signature="method#startActivitySuccessful#0;class#FragmentPay#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5157729">
-          <caret line="318" column="22" selection-start-line="318" selection-start-column="22" selection-end-line="318" selection-end-column="22" />
-          <folding>
-            <element signature="method#setJsonRequestNameCity#0;class#HomeFragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/customlistviewadapter/CustomListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69873816">
-          <caret line="100" column="71" selection-start-line="100" selection-start-column="71" selection-end-line="100" selection-end-column="71" />
-          <folding>
-            <element signature="e#1680#1681#0" expanded="true" />
-            <element signature="e#1727#1728#0" expanded="true" />
-            <element signature="e#1784#1785#0" expanded="true" />
-            <element signature="e#1842#1843#0" expanded="true" />
-            <element signature="e#3196#3197#0" expanded="true" />
-            <element signature="e#3243#3244#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3298,21 +3237,92 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.56309146">
           <caret line="231" column="84" selection-start-line="231" selection-start-column="84" selection-end-line="231" selection-end-column="84" />
-          <folding>
-            <element signature="class#3784:4770" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_pay.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3090909">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3127962">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values-ru/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5041186">
+          <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values-uk/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.616145">
+          <caret line="238" column="69" selection-start-line="238" selection-start-column="69" selection-end-line="238" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Format/EncodingTicketCount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02681388">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/customlistviewmodel/Movie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45583597">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/customlistviewadapter/CustomListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33754304">
+          <caret line="72" column="67" selection-start-line="72" selection-start-column="67" selection-end-line="72" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/webclever/sliding_menu/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39265212">
+          <caret line="245" column="67" selection-start-line="245" selection-start-column="67" selection-end-line="245" selection-end-column="67" />
+          <folding>
+            <element signature="method#onItemSelected#0;class#HomeFragment#0" expanded="false" />
+            <element signature="method#saveAutoLocation#0;class#HomeFragment#0" expanded="false" />
+            <element signature="method#setJsonRequestNameCity#0;class#HomeFragment#0" expanded="false" />
+            <element signature="method#showDialog#0;class#HomeFragment#0" expanded="false" />
+            <element signature="method#startEventFragment#0;class#HomeFragment#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_event_page.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5855107">
+          <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>

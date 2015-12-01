@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kasa.in.ua</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+
+    <string-array name="nav_drawer_items">
+        <item>События</item>
+        <item>Поиск события</item>
+        <item>Корзина</item>
+        <item>Мои заказы</item>
+        <item>Адресы касс</item>
+        <item>Контакты</item>
+        <item>О программе</item>
+        <item>Ваш аккаунт</item>
+        <item>Вход/Регистрация</item>
+    </string-array>
+
+
+    <integer name="com_vk_sdk_AppId">4785213</integer>
+    <string name="facebook_app_id">612867968812786</string>
+
+    <array name="nav_drawer_icons">
+        <item>@mipmap/ic_launcher_home</item>
+        <item>@drawable/ic_action_search1</item>
+        <item>@drawable/ic_action_car</item>
+        <item>@mipmap/ic_ticket</item>
+        <item>@mipmap/ic_launcher_profile</item>
+        <item>@drawable/ic_action_place</item>
+        <item>@mipmap/ic_contact</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@mipmap/ic_launcher_profile</item>
+
+    </array>
+
+    <string name="price">Ціни</string>
+
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_main">ViewPager GridView</string>
+    <string name="app_id">612867968812786</string>
+    <string name="action_remove_item">Remove item</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_activity_activity_order">ActivityOrder</string>
+    <string name="title_activity_activity_successful_order">ActivitySuccessfulOrder</string>
+
+
+    <!-- Activity main -->
+    <string name="page_main_alert_basket">В Вашей корзине нет билетов!</string>
+    <string name="page_main_alert_history_order">К сожалению, история заказов отображается только для авторизованных пользователей!</string>
+
+
+    <!-- Fragment about Application -->
+    <string name="page_about_app_all_rights_reserved"> Все права защищены. kasa.in.ua © </string>
+    <string name="page_about_app_version">Версия</string>
+
+    <!-- Fragment about Application description image -->
+    <string name="page_about_app_logo_kasa"> LogoKasa1 </string>
+    <string name="page_about_app_logo_kasa2"> LogoKasa2 </string>
+    <string name="page_about_app_logo_web_clever"> LogoWebClever </string>
+
+    <!-- Fragment Contacts -->
+    <string name="page_contacts_ticket_office_network">СЕТЬ БИЛЕТНЫХ КАСС</string>
+    <string name="page_contacts_phones">Телефон:</string>
+    <string name="page_contacts_kasa_phone1"><u>+38 093 0000 754,</u></string>
+    <string name="page_contacts_kasa_phone2"><u>+38 066 0000 754,</u></string>
+    <string name="page_contacts_kasa_phone3"><u>+38 097 0000 754.</u></string>
+    <string name="page_contacts_site"><u>Сайт:</u></string>
+    <string name="page_contacts_web_site_kasa_in_ua"><u>www.kasa.in.ua</u></string>
+    <string name="page_contacts_email"><u>e-mail:</u></string>
+    <string name="page_contacts_email_kasa_in_ua"><u>info@kasa.in.ua</u></string>
+    <string name="page_contacts_button">адресы касс Вашего города</string>
+    <string name="page_contacts_send_message">Отправить сообщение…</string>
+    <string name="page_contacts_not_have_app_for_send_message">Нет приложений для отправки сообщения!</string>
+
+
+    <!-- Fragment location Kasa -->
+    <string name="page_location_kasa_select_city">ВИБЕРИТЕ ГОРОД</string>
+    <string name="page_location_kasa_list_work_time">ВРЕМЯ РОБОТЫ</string>
+    <string name="page_location_kasa_list_show_on_map">ПРОСМОТРЕТЬ НА КАРТЕ</string>
+    <string name="page_location_kasa_show_pay_offices">Показать кассы продаж в вашем городе</string>
+
+    <!-- Fragment delivery order -->
+    <string name="page_delivery_order_list_created">Створено: </string>
+    <string name="page_delivery_order_list_delivery_method">Способ доставки:</string>
+    <string name="page_delivery_order_list_payment_method">Способ оплаты:</string>
+    <string name="page_delivery_order_list_delivery_status">Статус доставки:</string>
+    <string name="page_delivery_order_list_status_of_payment">Статус оплаты:</string>
+
+    <!-- Fragment home and search event -->
+    <string name="page_home_search_event_button">КУПИТЬ</string>
+    <string name="home_search_show_events_in_city">Показать события в городе </string>
+    <string name="page_search_event_title">Пошук події</string>
+
+    <!-- Fragment Basket -->
+    <string name="page_basket_button_next">ПРОДОЛЖИТЬ</string>
+    <string name="page_basket_sum">СУМА: </string>
+    <string name="page_basket_list_name_row">Ряд: </string>
+    <string name="page_basket_list_name_place">Место: </string>
+    <string name="page_basket_ticket_already_sale_dialog"> Некоторые из выбранных вами мест уже заняты! </string>
+    <string name="page_basket_sig_in_or_log_in"> Войдите или зарегистрируйтесь. </string>
+
+
+    <!-- Fragment event -->
+    <string name="page_event_description">ОПИСАНИЕ СОБЫТИЯ</string>
+    <string name="page_event_read_more">ЧИТАТЬ ДАЛЬШЕ…</string>
+    <string name="page_event_photo_gallery">ФОТО ГАЛЕРЕЯ</string>
+    <string name="page_event_buy_ticket">ПРИОББРЕСТИ БИЛЕТ</string>
+    <string name="page_event_title">Событие</string>
+
+    <!-- Fragment select place -->
+    <string name="page_select_place_in_basket">В корзине: </string>
+    <string name="page_select_place_not_available">Не доступно</string>
+    <string name="page_select_place_reserve">Забронировано</string>
+    <string name="page_select_place_sale">Продано</string>
+    <string name="page_select_place_in_basket1">В корзине</string>
+    <string name="page_select_place_grn"> грн. </string>
+    <string name="page_select_sum"> НА СУММУ </string>
+    <string name="page_select_max_ticket"> Вы не можете добавить в корзину более чем 50 билетов. </string>
+
+    <!-- Fragment user profile -->
+    <string name="page_user_profile_method_authorization"> Авторизация с помощью </string>
+    <string name="page_user_profile_user_surname1">Имя*</string>
+    <string name="page_user_profile_user_surname"> Фамилия* </string>
+    <string name="page_user_profile_user_last_name"> Отчество </string>
+    <string name="page_user_profile_user_phone"> Телефон* </string>
+    <string name="page_user_profile_user_email"> Электронная почта* </string>
+    <string name="page_user_profile_user_country"> Страна </string>
+    <string name="page_user_profile_user_city"> Город </string>
+    <string name="page_user_profile_user_address"> Адрес доставки к двери </string>
+    <string name="page_user_profile_user_new_post_department"> Номер ближайшего отделения “Нової пошти” </string>
+    <string name="page_user_profile_user_button_change_password"> Сменить пароль </string>
+    <string name="page_user_profile_user_button_exit"> ВЫХОД </string>
+    <string name="page_user_profile_user_save_changes"> СОХРАНИТЬ ИЗМЕНЕНИЯ </string>
+    <string name="page_user_profile_select_city"> Введите название города </string>
+    <string name="page_user_profile_save_changes"> Информация сохранена! </string>
+
+    <!-- Activity change password -->
+    <string name="page_user_change_password_old_password"> Старый пароль* </string>
+    <string name="page_user_change_password_new_password"> Новый пароль* </string>
+    <string name="page_user_change_password_description_new_password"> Не менее 8 символов, с использованием букв и цифр </string>
+    <string name="page_user_change_password_confirm_new_password"> Повторите новый пароль* </string>
+    <string name="page_user_change_password_successful"> Пароль изменен! </string>
+
+    <!-- Fragment login -->
+    <string name="page_login_social_networks"> Соцсети </string>
+    <string name="page_login_login_password"> Логин и пароль </string>
+    <string name="page_login_email"> Электронная почта </string>
+    <string name="page_login_password"> Пароль </string>
+    <string name="page_login_enter"> ВОЙТИ </string>
+    <string name="page_login_forgot_password"><u>Забили пароль? </u></string>
+    <string name="page_login_tabs_enter"> Вход </string>
+    <string name="page_login_tabs_register"> Регистрация </string>
+
+
+    <!-- Fragment remember password -->
+    <string name="page_remember_password"> Укажите адрес электронной почты Вашего аккаунта и на эту почту будет отправлена ссылка на страницу изменения пароля. </string>
+    <string name="page_remember_enter_email"> Укажите E-mail </string>
+    <string name="page_remember_send_password"> ОТПРАВИТЬ ПАРОЛЬ </string>
+
+    <!-- Fragment create account -->
+    <string name="page_create_account"> Регистрация </string>
+    <string name="page_create_account_password1">Пароль*</string>
+    <string name="page_create_account_password2">Повторите пароль*</string>
+    <string name="page_create_account_button_create_account"> Создать аккаунт </string>
+    <string name="page_create_account_passwords_not_match"> Пароли не совпадают </string>
+
+    <!-- Activity registration -->
+    <string name="page_registration_confirm"> Заполните и проверте поля ниже: </string>
+    <string name="page_registration_success"> Вы успешно зарегистрировались </string>
+
+    <!-- Activity success registration -->
+    <string name="page_success_registration_congratulation"> Поздравляем! </string>
+    <string name="page_success_registration_user_register"> Вы зарегистрированы в системе продажи билетов kasa.in.ua! </string>
+    <string name="page_success_registration_description"> Созданный аккаунт даст Вам доступ к сайту и мобильных приложений kasa.in.ua!</string>
+    <string name="page_success_registration_bright_impressions"> Ярких впечатлений! </string>
+
+    <!-- Fragment delivery order -->
+    <string name="page_delivery_order_reserved_ticket"> БИЛЕТЫ БУДУТ ЗАРЕЗЕРВИРОВАНЫ ЭЩЕ: </string>
+    <string name="page_delivery_delivery_method"> ВЫБЕРИТЕ СПОСОБ ДОСТАВКИ </string>
+    <string name="page_delivery_kasa_in_ua"> Самовывоз </string>
+    <string name="page_delivery_new_post"> “Нова Пошта” (на отделение) </string>
+    <string name="page_delivery_courier"> Курьер по городу </string>
+    <string name="page_delivery_eticket"> Электронный билет </string>
+    <string name="page_delivery_pay_method"> ВИБЕРИТЕ СПОСОБ ОПЛАТЫ </string>
+    <string name="page_delivery_pay_kasa"> Оплата наличными в кассе </string>
+    <string name="page_delivery_pay_new_post"> Оплата наличными в отделении </string>
+    <string name="page_delivery_pay_courier"> Оплата наличными курьеру </string>
+    <string name="page_delivery_pay_card"> Оплата платёжной картой </string>
+    <string name="page_delivery_chose_delivery_method"> Выберите способ оплаты! </string>
+    <string name="page_delivery_order_canceled"> Бронирование отменено! </string>
+
+    <!-- Activity success order -->
+    <string name="page_success_description_order">Ваш заказ создан и оплачен!</string>
+    <string name="page_success_order_description_order1">Ваш заказ создан!</string>
+    <string name="page_success_order_number_ordering_kasa"> Осуществить оплату и получить билеты Вы можете в ближайшей кассе. </string>
+    <string name="page_success_order_number_ordering_text">Вы можете получить Ваши билеты в ближайшей кассе.</string>
+    <string name="page_success_order_description_order2">Билеты будут отправлены на указанное отделение “Нової пошти” на протяжении трех рабочих дней.</string>
+    <string name="page_success_order_description_courier">Билеты будут доставлены Вам курьером на протяжении трех рабочих дней.</string>
+    <string name="page_success_order_description_eticket">Билеты отправлены Вам на почту в электронном виде. Ознакомьтесь с правилами пользования электронными билетами во вложении письма.</string>
+    <string name="page_success_order_description_no_pay">Вы можете осуществить оплату, перейдя по ссылке, которая пришла Вам на почту.</string>
+
+    <!-- Activity order -->
+    <string name="page_order_toast_error_delete_temp_order">Ошибка при удалении временного заказа!</string>
+    <string name="page_order_time_up_temp_order_dialog">К сожалению, отведенное время на оформление заказа окончилось и временный заказ был отменен.</string>
+    <string name="page_order_check_exit_temp_order_dialog">Эсли Вы покинете эту страницу, временная резервация Ваших билетов будет отменена!</string>
+    <string name="page_order_attention">Внимание!</string>
+    <string name="page_order_cancel">Отмена</string>
+
+    <!-- Fragment dialog -->
+    <string name="page_dialog_order_time"> Билеты пользователя резервируются на 15 минут во время прохождения им процесса оформления заказа. </string>
+    <string name="page_dialog_not_ask_again"> Больше не спрашивать </string>
+    <string name="page_dialog_not_want"> Не желаю </string>
+
+    <!-- Activity restore password -->
+    <string name="page_restore_password_send"> Ваш пароль был отправлен! </string>
+
+    <!-- Fragment Confirm ticket -->
+    <string name="page_confirm_ticket_toast_not_valid_phone"> Неправильный формат телефона </string>
+
+    <!-- Fragment Pay -->
+    <string name="page_pay_exit_from_pay_page"> Вы желаете покинуть страницу оплаты заказа? </string>
+
+    <!-- Fragment user data kasa -->
+    <string name="page_data_issue_order"> Сформировать заказ </string>
+    <string name="page_data_pay_ticket"> перейти к оплате </string>
+
+    <!-- Fragment user data eticket -->
+    <string name="page_data_eticket_place"> , м.: </string>
+    <string name="page_data_eticket_hint_user_name"> Имя посетителя </string>
+    <string name="page_data_eticket_hint_user_surname"> Фамилия посетителя </string>
+
+    <!-- Adapter basket -->
+    <string name="adapter_basket_check_delete_ticket"> Вы желаете удалить этот билет из корзины? </string>
+    <string name="adapter_basket_check_delete_positive"> Да </string>
+    <string name="adapter_basket_check_delete_negative"> Нет </string>
+
+</resources>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kasa.in.ua</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+
+    <string-array name="nav_drawer_items">
+    <item>Події</item>
+    <item>Пошук події</item>
+    <item>Кошик</item>
+    <item>Мої замовлення</item>
+    <item>Адреси кас</item>
+    <item>Контакти</item>
+    <item>Про програму</item>
+    <item>Ваш акаунт</item>
+    <item>Вхід/Реєстрація</item>
+    </string-array>
+
+    <integer name="com_vk_sdk_AppId">4785213</integer>
+    <string name="facebook_app_id">612867968812786</string>
+
+    <array name="nav_drawer_icons">
+        <item>@mipmap/ic_launcher_home</item>
+        <item>@drawable/ic_action_search1</item>
+        <item>@drawable/ic_action_car</item>
+        <item>@mipmap/ic_ticket</item>
+        <item>@mipmap/ic_launcher_profile</item>
+        <item>@drawable/ic_action_place</item>
+        <item>@mipmap/ic_contact</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@mipmap/ic_launcher_profile</item>
+
+    </array>
+
+    <string name="price">Ціни</string>
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_main">ViewPager GridView</string>
+    <string name="app_id">612867968812786</string>
+    <string name="action_remove_item">Remove item</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_activity_activity_order">ActivityOrder</string>
+    <string name="title_activity_activity_successful_order">ActivitySuccessfulOrder</string>
+
+
+    <!-- Activity main -->
+    <string name="page_main_alert_basket">У вашому кошику немає квитків!</string>
+    <string name="page_main_alert_history_order">На жаль, історія замовлень відображається лише для авторизованих користувачів!</string>
+
+
+    <!-- Fragment about Application -->
+    <string name="page_about_app_all_rights_reserved"> Всі права захищені. kasa.in.ua © </string>
+    <string name="page_about_app_version">Версія</string>
+
+    <!-- Fragment about Application description image -->
+    <string name="page_about_app_logo_kasa"> LogoKasa1 </string>
+    <string name="page_about_app_logo_kasa2"> LogoKasa2 </string>
+    <string name="page_about_app_logo_web_clever"> LogoWebClever </string>
+
+    <!-- Fragment Contacts -->
+    <string name="page_contacts_ticket_office_network">МЕРЕЖА КВИТКОВИХ КАС</string>
+    <string name="page_contacts_phones">Телефон:</string>
+    <string name="page_contacts_kasa_phone1"><u>+38 093 0000 754,</u></string>
+    <string name="page_contacts_kasa_phone2"><u>+38 066 0000 754,</u></string>
+    <string name="page_contacts_kasa_phone3"><u>+38 097 0000 754.</u></string>
+    <string name="page_contacts_site"><u>Сайт:</u></string>
+    <string name="page_contacts_web_site_kasa_in_ua"><u>www.kasa.in.ua</u></string>
+    <string name="page_contacts_email"><u>E-mail:</u></string>
+    <string name="page_contacts_email_kasa_in_ua"><u>info@kasa.in.ua</u></string>
+    <string name="page_contacts_button">Адреси кас Вашого міста</string>
+    <string name="page_contacts_send_message">Відправити повідомлення…</string>
+    <string name="page_contacts_not_have_app_for_send_message">Немає додатків для відправлення повідомлення!</string>
+
+
+    <!-- Fragment location Kasa -->
+    <string name="page_location_kasa_select_city">ВИБЕРІТЬ МІСТО</string>
+    <string name="page_location_kasa_list_work_time">ЧАС РОБОТИ</string>
+    <string name="page_location_kasa_list_show_on_map">ПЕРЕГЛЯНУТИ НА КАРТІ</string>
+    <string name="page_location_kasa_show_pay_offices">Показати каси продажу у місті </string>
+
+    <!-- Fragment delivery order -->
+    <string name="page_delivery_order_list_created">Створено: </string>
+    <string name="page_delivery_order_list_delivery_method">Спосіб доставки:</string>
+    <string name="page_delivery_order_list_payment_method">Спосіб оплати:</string>
+    <string name="page_delivery_order_list_delivery_status">Статус доставки:</string>
+    <string name="page_delivery_order_list_status_of_payment">Статус оплати:</string>
+
+    <!-- Fragment home and search event -->
+    <string name="page_home_search_event_button">КУПИТИ</string>
+    <string name="home_search_show_events_in_city">Показати події у місті </string>
+    <string name="page_search_event_title">Пошук події</string>
+
+    <!-- Fragment Basket -->
+    <string name="page_basket_button_next">ПРОДОВЖИТИ</string>
+    <string name="page_basket_sum">СУМА: </string>
+    <string name="page_basket_list_name_row">Ряд: </string>
+    <string name="page_basket_list_name_place">Mісце: </string>
+    <string name="page_basket_ticket_already_sale_dialog"> Деякі з обраних вами місць вже зайняті! </string>
+    <string name="page_basket_sig_in_or_log_in"> Увійдіть або зареєструйтесь. </string>
+
+
+    <!-- Fragment event -->
+    <string name="page_event_description">ОПИС ПОДІЇ</string>
+    <string name="page_event_read_more">ЧИТАТИ ДАЛІ…</string>
+    <string name="page_event_photo_gallery">ФОТО ГАЛЕРЕЯ</string>
+    <string name="page_event_buy_ticket">ПРИДБАТИ КВИТОК</string>
+    <string name="page_event_title">Подія</string>
+
+    <!-- Fragment select place -->
+    <string name="page_select_place_in_basket">У кошику: </string>
+    <string name="page_select_place_not_available">Не доступно</string>
+    <string name="page_select_place_reserve">Заброньовано</string>
+    <string name="page_select_place_sale">Продано</string>
+    <string name="page_select_place_in_basket1">У кошику</string>
+    <string name="page_select_place_grn"> грн. </string>
+    <string name="page_select_sum"> НА СУМУ </string>
+    <string name="page_select_max_ticket"> Ви не можете додати в кошик більше 50 квитків. </string>
+
+    <!-- Fragment user profile -->
+    <string name="page_user_profile_method_authorization"> Авторизація за допомогою </string>
+    <string name="page_user_profile_user_surname1">Ім\'я*</string>
+    <string name="page_user_profile_user_surname"> Прізвище* </string>
+    <string name="page_user_profile_user_last_name"> По батькові </string>
+    <string name="page_user_profile_user_phone"> Телефон* </string>
+    <string name="page_user_profile_user_email"> Електронна пошта* </string>
+    <string name="page_user_profile_user_country"> Країна </string>
+    <string name="page_user_profile_user_city"> Місто </string>
+    <string name="page_user_profile_user_address"> Адреса доставки до дверей </string>
+    <string name="page_user_profile_user_new_post_department"> Номер найближчого відділення Нової пошти </string>
+    <string name="page_user_profile_user_button_change_password"> Змінити пароль </string>
+    <string name="page_user_profile_user_button_exit"> ВИХІД </string>
+    <string name="page_user_profile_user_save_changes"> ЗБЕРЕГТИ ЗМІНИ </string>
+    <string name="page_user_profile_select_city"> Введіть назву міста </string>
+    <string name="page_user_profile_save_changes"> Дані збережено! </string>
+
+    <!-- Activity change password -->
+    <string name="page_user_change_password_old_password"> Старий пароль* </string>
+    <string name="page_user_change_password_new_password"> Новий пароль* </string>
+    <string name="page_user_change_password_description_new_password"> Не менше 8-ми символів, з використанням букв та цифр </string>
+    <string name="page_user_change_password_confirm_new_password"> Повторіть новий пароль* </string>
+    <string name="page_user_change_password_successful"> Пароль змінено! </string>
+
+    <!-- Fragment login -->
+    <string name="page_login_social_networks"> Соцмережі </string>
+    <string name="page_login_login_password"> Логін та пароль </string>
+    <string name="page_login_email"> Електронна пошта </string>
+    <string name="page_login_password"> Пароль </string>
+    <string name="page_login_enter"> УВІЙТИ </string>
+    <string name="page_login_forgot_password"><u>Забули пароль?</u></string>
+    <string name="page_login_tabs_enter"> Вхід </string>
+    <string name="page_login_tabs_register"> Реєстрація </string>
+
+
+    <!-- Fragment remember password -->
+    <string name="page_remember_password"> Вкажіть адресу електронної пошти акаунту і на цю пошту буде відправлено посилання на сторінку зміни паролю. </string>
+    <string name="page_remember_enter_email"> Введіть e-mail </string>
+    <string name="page_remember_send_password"> НАДІСЛАТИ ПАРОЛЬ </string>
+
+    <!-- Fragment create account -->
+    <string name="page_create_account"> Реєстрація </string>
+    <string name="page_create_account_password1">Пароль*</string>
+    <string name="page_create_account_password2">Повторіть пароль*</string>
+    <string name="page_create_account_button_create_account"> Створити акаунт </string>
+    <string name="page_create_account_passwords_not_match"> Паролі не співпадають </string>
+
+    <!-- Activity registration -->
+    <string name="page_registration_confirm"> Заповніть та перевірте поля що нижче: </string>
+    <string name="page_registration_success"> Ви успішно зареєструвались </string>
+
+    <!-- Activity success registration -->
+    <string name="page_success_registration_congratulation"> Вітаємо! </string>
+    <string name="page_success_registration_user_register"> Ви зареєстровані в системі продажу квитків kasa.in.ua! </string>
+    <string name="page_success_registration_description"> Створений акаунт надасть Вам доступ до сайту та мобільних додатків kasa.in.ua!</string>
+    <string name="page_success_registration_bright_impressions"> Яскравих вражень! </string>
+
+    <!-- Fragment delivery order -->
+    <string name="page_delivery_order_reserved_ticket"> КВИТКИ БУДУТЬ ЗАРЕЗЕРВОВАНІ ЩЕ: </string>
+    <string name="page_delivery_delivery_method"> ВИБЕРІТЬ СПОСІБ ДОСТАВКИ </string>
+    <string name="page_delivery_kasa_in_ua"> Самовивіз </string>
+    <string name="page_delivery_new_post"> Нова Пошта (на відділення) </string>
+    <string name="page_delivery_courier"> Кур\'єр по місту </string>
+    <string name="page_delivery_eticket"> Електронний квиток </string>
+    <string name="page_delivery_pay_method"> ВИБЕРІТЬ СПОСІБ ОПЛАТИ </string>
+    <string name="page_delivery_pay_kasa"> Оплата готівкою в касі </string>
+    <string name="page_delivery_pay_new_post"> Оплата готівкою у відділенні </string>
+    <string name="page_delivery_pay_courier"> Оплата готівкою кур\'єру </string>
+    <string name="page_delivery_pay_card"> Оплата платіжною карткою </string>
+    <string name="page_delivery_chose_delivery_method"> Виберіть спосіб оплати! </string>
+    <string name="page_delivery_order_canceled"> Бронювання скасоване ! </string>
+
+    <!-- Activity success order -->
+    <string name="page_success_description_order">Ваше замовлення остворено та оплачено!</string>
+    <string name="page_success_order_description_order1">Ваше замовлення створено!</string>
+    <string name="page_success_order_number_ordering_kasa"> Здійснити оплату та отримати квитки Ви зможете в найближчій касі. </string>
+    <string name="page_success_order_number_ordering_text">Ви можете отримати ваші квитки в найбличій касі.</string>
+    <string name="page_success_order_description_order2">Квити будуть надіслані на відповідне відділення Нової пошти протягом трьох робочих днів.</string>
+    <string name="page_success_order_description_courier">Квитки будуть доставлені Вам кур\'єром протягом трьох робочих днів.</string>
+    <string name="page_success_order_description_eticket">Квитки відправлені Вам на пошту в електронному вигляді. Ознайомтесь з правилами користування електронними квитками у вкладенні листа.</string>
+    <string name="page_success_order_description_no_pay">Ви можете здійснити оплату, перейшовши по посиланню, що надійшло Вам на пошту.</string>
+
+    <!-- Activity order -->
+    <string name="page_order_toast_error_delete_temp_order">Помилка при видалені тимчасовго замовлення!</string>
+    <string name="page_order_time_up_temp_order_dialog">На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.</string>
+    <string name="page_order_check_exit_temp_order_dialog">Якщо ви покинете цю сторінку, тимчасова резервація Ваших квитків буде знята!</string>
+    <string name="page_order_attention">Увага!</string>
+    <string name="page_order_cancel">Відміна</string>
+
+    <!-- Fragment dialog -->
+    <string name="page_dialog_order_time"> Квитки користувача резервуються на 15 хвилин під час проходження ним процесу оформлення замовлення. </string>
+    <string name="page_dialog_not_ask_again"> Більше не запитувати </string>
+    <string name="page_dialog_not_want"> Не бажаю </string>
+
+    <!-- Activity restore password -->
+    <string name="page_restore_password_send"> Ваш пароль було надіслано! </string>
+
+    <!-- Fragment Confirm ticket -->
+    <string name="page_confirm_ticket_toast_not_valid_phone"> Неправильний формат телефону </string>
+
+    <!-- Fragment Pay -->
+    <string name="page_pay_exit_from_pay_page"> Ви бажаєте покинути сторінку оплати замовлення? </string>
+
+    <!-- Fragment user data kasa -->
+    <string name="page_data_issue_order"> оформити замовлення </string>
+    <string name="page_data_pay_ticket"> перейти до оплати </string>
+
+    <!-- Fragment user data eticket -->
+    <string name="page_data_eticket_place"> , м.: </string>
+    <string name="page_data_eticket_hint_user_name"> Ім\'я відвідувача </string>
+    <string name="page_data_eticket_hint_user_surname"> Прізвище відвідувача </string>
+
+    <!-- Adapter basket -->
+    <string name="adapter_basket_check_delete_ticket"> Ви бажаєте видалити цей квиток з кошика? </string>
+    <string name="adapter_basket_check_delete_positive"> Так </string>
+    <string name="adapter_basket_check_delete_negative"> Ні </string>
+
+</resources>
