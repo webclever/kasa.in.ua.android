@@ -131,6 +131,7 @@ public class ActivityOrder extends FragmentActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //deleteSoldTickets(jsonArrays);
+                ///wegewgjperwg
 
                 dialog.cancel();
             }
