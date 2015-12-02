@@ -4,7 +4,8 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/gallery_image"
-        android:background="@color/list_divider"
+        android:scaleType="centerCrop"
+        android:cropToPadding="true"
         android:layout_marginLeft="2.5dp"
         android:layout_marginRight="2.5dp"
         android:layout_width="180dp"

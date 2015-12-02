@@ -230,9 +230,10 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
                                     JSONObject city = obj.getJSONObject("city");
                                     movie.setCity(city.getString("name"));
                                     JSONObject poster = obj.getJSONObject("poster");
-                                    if (poster.has("l")){
-                                    movie.setThumbnailUrl(poster.getString("l"));}else{
-                                        movie.setThumbnailUrl(null);
+                                    if(!poster.toString().equals("{}")){
+                                        movie.setThumbnailUrl(poster.getString("l"));
+                                    }else {
+                                        movie.setThumbnailUrl("null");
                                     }
                                     movieList.add(movie);
                             }

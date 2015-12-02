@@ -34,8 +34,10 @@
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/iventimage"
                 android:layout_marginTop="2dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:background="@drawable/minshadow"
+                android:cropToPadding="true"
+                android:adjustViewBounds="true"
                 android:layout_width="143dp"
                 android:layout_height="200dp" />
 

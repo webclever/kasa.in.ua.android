@@ -110,7 +110,7 @@
     <string name="page_event_description">ОПИСАНИЕ СОБЫТИЯ</string>
     <string name="page_event_read_more">ЧИТАТЬ ДАЛЬШЕ…</string>
     <string name="page_event_photo_gallery">ФОТО ГАЛЕРЕЯ</string>
-    <string name="page_event_buy_ticket">ПРИОББРЕСТИ БИЛЕТ</string>
+    <string name="page_event_buy_ticket">ПРИОБРЕСТИ БИЛЕТ</string>
     <string name="page_event_title">Событие</string>
 
     <!-- Fragment select place -->

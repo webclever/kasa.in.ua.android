@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-
-
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
@@ -19,6 +17,7 @@ import java.util.List;
 import customlistviewapp.AppController;
 import customlistviewmodel.Movie;
 
+import webclever.sliding_menu.MyNetworkImageView;
 import webclever.sliding_menu.R;
 
 public class CustomListAdapter extends BaseAdapter {

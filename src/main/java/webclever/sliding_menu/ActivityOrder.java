@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Activity;
@@ -21,6 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +41,7 @@ public class ActivityOrder extends FragmentActivity {
     private CountDownTimer countDownTimer;
     private Activity activity;
     private DB_Ticket db_ticket;
+    private SQLiteDatabase db;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -117,6 +121,56 @@ public class ActivityOrder extends FragmentActivity {
 
         alertDialog.show();
     }
+
+    public void showAlertDialogPayTicket(){
+        final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
+        alBuilder.setTitle(getResources().getString(R.string.page_order_attention));
+        alBuilder.setMessage(getResources().getString(R.string.page_basket_ticket_already_sale_dialog));
+        alBuilder.setCancelable(false);
+        alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //deleteSoldTickets(jsonArrays);
+
+                dialog.cancel();
+            }
+        });
+        alBuilder.show();
+    }
+
+    private void deleteSoldTickets(JSONArray jsonArraySoldTickets){
+        try {
+            for (int i=0; i < jsonArraySoldTickets.length(); i++){
+                db_ticket = new DB_Ticket(this,5);
+                db = db_ticket.getWritableDatabase();
+                int del_id_ticket ;
+                int id_event = 0;
+                Cursor cursorDel = db.query("Ticket_table",new String[]{"id_event"},"id_ticket=" + jsonArraySoldTickets.getString(i),null,null,null,null,null);
+                if (cursorDel != null ){
+                    cursorDel.moveToFirst();
+                    id_event = Integer.parseInt(cursorDel.getString(0));
+                    cursorDel.close();
+                }
+                del_id_ticket = db.delete("Ticket_table", "id_ticket=" + jsonArraySoldTickets.getString(i), null);
+                Log.i("id_ticket_del", String.valueOf(del_id_ticket));
+                Cursor cursorDelEvent = db.query("Ticket_table",new String[]{"id_event"},"id_event=" + String.valueOf(id_event),null,null,null,null,null);
+                if (cursorDelEvent.getCount() == 0)
+                {
+                    Log.i("getcountEvent",String.valueOf(cursorDelEvent.getCount()));
+                    int del_id_event = db.delete("Event_table","id_event="+String.valueOf(id_event),null);
+                    Log.i("id_event_del", String.valueOf(del_id_event));
+                }
+                cursorDelEvent.close();
+                db_ticket.close();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public void stopTimer(){
         if (countDownTimer != null){

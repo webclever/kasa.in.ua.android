@@ -49,7 +49,6 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
             paymentMethod = bundle.getInt("payment_method");
         }
 
-
         webView = (WebView) rootView.findViewById(R.id.webView);
         webView.setWebViewClient(new MyWebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);

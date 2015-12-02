@@ -22,16 +22,19 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -204,11 +207,16 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                             JSONObject jsonObject = new JSONObject(s);
                             if (paymentMethod == 1) {
                                 if (jsonObject.has("msg")) {
-                                    Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
-                                    intent.putExtra("order_id", jsonObject.getString("order_id"));
-                                    intent.putExtra("payment_method", paymentMethod);
-                                    intent.putExtra("message", getResources().getString(R.string.page_success_order_number_ordering_kasa));
-                                    startActivity(intent);
+
+                                    if (!jsonObject.getString("msg").equals("places already sold OR event with this places not in sale")) {
+                                        Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
+                                        intent.putExtra("order_id", jsonObject.getString("order_id"));
+                                        intent.putExtra("payment_method", paymentMethod);
+                                        intent.putExtra("message", getResources().getString(R.string.page_success_order_number_ordering_kasa));
+                                        startActivity(intent);
+                                    }else {
+
+                                    }
                                 }
                             }else if(paymentMethod == 2){
                                 Fragment fragment = new FragmentPay();
@@ -228,7 +236,15 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+                if (volleyError.networkResponse != null) {
+                    Log.d("Error Response code " , String.valueOf(volleyError.networkResponse.statusCode));
+                }
+
+                NetworkResponse response = volleyError.networkResponse;
+                if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
+                   Log.i("Error Response code",response.toString());
+                   Log.i("Error Response code", Arrays.toString(response.data));
+                }
 
             }
         }){
@@ -262,6 +278,8 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         stringPostRequest.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
+
+
 
     private void getUserDataProfile() {
 

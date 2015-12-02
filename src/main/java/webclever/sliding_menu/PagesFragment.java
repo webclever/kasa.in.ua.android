@@ -342,7 +342,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (count > 1){
+                if (s.toString().length() > 1){
                     singletonCityArrayList.clear();
                     singletonCityArrayList = getListCity(id_country, s.toString());
                     Log.i("dialog",s.toString());
@@ -354,6 +354,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
             }
         });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -375,7 +376,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                     @Override
                     public void onResponse(String s) {
                         try {
-
+                            Log.i("Response p", s);
                             JSONArray jsonArray = new JSONArray(s);
                             for(int i=0; i < jsonArray.length(); i++){
                                 SingletonCity singletonCity = new SingletonCity();

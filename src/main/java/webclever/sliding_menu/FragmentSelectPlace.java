@@ -392,6 +392,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                     getBasketTicket();
                 }
             });
+
         }
 
         @JavascriptInterface
