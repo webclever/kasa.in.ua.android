@@ -397,7 +397,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
         @JavascriptInterface
         public void showMacroBackButton(String checkShowBack) {
-            final Boolean checkShowBackButton = new Boolean(checkShowBack);
+            final Boolean checkShowBackButton = Boolean.valueOf(checkShowBack);
             Log.i("checkShowBackButtonBool", String.valueOf(checkShowBackButton));
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
