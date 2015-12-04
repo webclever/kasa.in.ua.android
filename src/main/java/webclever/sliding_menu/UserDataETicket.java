@@ -4,6 +4,8 @@ package webclever.sliding_menu;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
@@ -36,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +76,9 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private EditText editTextEMail;
     private EditText editTextMessage;
 
+    private String url_pay = "http://kasa.tms.webclever.in.ua/event/pay?order_id=";
+
+    private CountDownTimer countDownTimer;
 
     public UserDataETicket() {
         // Required empty public constructor
@@ -319,7 +326,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
         long timer = ((ActivityOrder)getActivity()).getTimer();
         if (timer != 0){
-            new CountDownTimer(timer,1000) {
+            countDownTimer = new CountDownTimer(timer,1000) {
 
                 @Override
                 public void onTick(long millis) {
@@ -362,15 +369,25 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                         try {
                             Log.i("Response", s);
                             JSONObject jsonObject = new JSONObject(s);
-                            if (jsonObject.has("order_id")) {
-                                Fragment fragment = new FragmentPay();
-                                Bundle bundle = new Bundle();
-                                bundle.putString("order_id", jsonObject.getString("order_id"));
-                                bundle.putInt("payment_method", paymentMethod);
-                                fragment.setArguments(bundle);
-                                fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
+                            if (jsonObject.has("msg") && !jsonObject.getString("msg").equals("places already sold OR event with this places not in sale")) {
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    Fragment fragment = new FragmentPay();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("order_id", jsonObject.getString("order_id"));
+                                    bundle.putInt("payment_method", paymentMethod);
+                                    fragment.setArguments(bundle);
+                                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
+
+                                }else {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url_pay + jsonObject.getString("order_id")));
+                                    startActivity(browserIntent);
+                                }
                                 ((ActivityOrder) getActivity()).stopTimer();
                                 ((ActivityOrder) getActivity()).deleteDB();
+                            }else {
+                                JSONArray jsonArrayTicket = jsonObject.getJSONArray("place_ids");
+                                ((ActivityOrder)getActivity()).showAlertDialogPayTicket(jsonArrayTicket);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -380,7 +397,16 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+                ((ActivityOrder)getActivity()).showAlertDialogPayTicket(null);
+                if (volleyError.networkResponse != null) {
+                    Log.d("Error Response code " , String.valueOf(volleyError.networkResponse.statusCode));
+                }
+
+                NetworkResponse response = volleyError.networkResponse;
+                if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
+                    Log.i("Error Response code",response.toString());
+                    Log.i("Error Response code", Arrays.toString(response.data));
+                }
 
             }
         }){
@@ -508,6 +534,18 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);
 
+    }
+
+    @Override
+    public void onDestroy (){
+        super.onDestroy();
+        stopTimer();
+    }
+
+    public void stopTimer(){
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+        }
     }
 
 }

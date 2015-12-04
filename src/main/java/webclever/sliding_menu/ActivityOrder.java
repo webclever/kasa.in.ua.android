@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -122,7 +123,7 @@ public class ActivityOrder extends FragmentActivity {
         alertDialog.show();
     }
 
-    public void showAlertDialogPayTicket(){
+    public void showAlertDialogPayTicket(final JSONArray jsonArray){
         final AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
         alBuilder.setTitle(getResources().getString(R.string.page_order_attention));
         alBuilder.setMessage(getResources().getString(R.string.page_basket_ticket_already_sale_dialog));
@@ -130,9 +131,15 @@ public class ActivityOrder extends FragmentActivity {
         alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //deleteSoldTickets(jsonArrays);
-                ///wegewgjperwg
-
+                if (jsonArray != null) {
+                    deleteSoldTickets(jsonArray);
+                }else {
+                    deleteDB();
+                }
+                stopTimer();
+                Intent intent = new Intent(activity,MainActivity.class);
+                startActivity(intent);
+                finish();
                 dialog.cancel();
             }
         });
@@ -243,6 +250,7 @@ public class ActivityOrder extends FragmentActivity {
     @Override
     protected void onStop (){
         super.onStop();
+        stopTimer();
         cancelTempOrder();
     }
 

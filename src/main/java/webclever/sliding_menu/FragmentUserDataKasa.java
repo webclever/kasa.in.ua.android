@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
@@ -67,6 +69,9 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private EditText editTextPhone;
     private EditText editTextEmail;
     private EditText editTextMessage;
+    private String url_pay = "http://kasa.tms.webclever.in.ua/event/pay?order_id=";
+
+    private CountDownTimer countDownTimer;
 
 
 
@@ -143,9 +148,9 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
 
     private void startService(){
 
-        long timer = ((ActivityOrder)getActivity()).getTimer();
+        Long timer = ((ActivityOrder)getActivity()).getTimer();
         if (timer != 0){
-            new CountDownTimer(timer,1000) {
+            countDownTimer = new CountDownTimer(timer,1000) {
 
                 @Override
                 public void onTick(long millis) {
@@ -205,29 +210,40 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                         Log.i("Response", s);
                         try {
                             JSONObject jsonObject = new JSONObject(s);
-                            if (paymentMethod == 1) {
+
                                 if (jsonObject.has("msg")) {
-
                                     if (!jsonObject.getString("msg").equals("places already sold OR event with this places not in sale")) {
-                                        Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
-                                        intent.putExtra("order_id", jsonObject.getString("order_id"));
-                                        intent.putExtra("payment_method", paymentMethod);
-                                        intent.putExtra("message", getResources().getString(R.string.page_success_order_number_ordering_kasa));
-                                        startActivity(intent);
-                                    }else {
+                                        if (paymentMethod == 1) {
 
+                                            Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
+                                            intent.putExtra("order_id", jsonObject.getString("order_id"));
+                                            intent.putExtra("payment_method", paymentMethod);
+                                            intent.putExtra("message", getResources().getString(R.string.page_success_order_number_ordering_kasa));
+                                            startActivity(intent);
+
+
+                                        }else if(paymentMethod == 2){
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                                Fragment fragment = new FragmentPay();
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("order_id", jsonObject.getString("order_id"));
+                                                bundle.putInt("payment_method",paymentMethod);
+                                                fragment.setArguments(bundle);
+                                                fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
+                                            }else {
+                                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url_pay+jsonObject.getString("order_id")));
+                                                startActivity(browserIntent);
+                                            }
+                                        }
+                                        ((ActivityOrder) getActivity()).stopTimer();
+                                        ((ActivityOrder) getActivity()).deleteDB();
+                                    }else {
+                                        JSONArray jsonArrayTicket = jsonObject.getJSONArray("place_ids");
+                                        ((ActivityOrder)getActivity()).showAlertDialogPayTicket(jsonArrayTicket);
                                     }
                                 }
-                            }else if(paymentMethod == 2){
-                                Fragment fragment = new FragmentPay();
-                                Bundle bundle = new Bundle();
-                                bundle.putString("order_id", jsonObject.getString("order_id"));
-                                bundle.putInt("payment_method",paymentMethod);
-                                fragment.setArguments(bundle);
-                                fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
-                            }
-                            ((ActivityOrder) getActivity()).stopTimer();
-                            ((ActivityOrder) getActivity()).deleteDB();
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -236,6 +252,8 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+
+                ((ActivityOrder)getActivity()).showAlertDialogPayTicket(null);
                 if (volleyError.networkResponse != null) {
                     Log.d("Error Response code " , String.valueOf(volleyError.networkResponse.statusCode));
                 }
@@ -245,7 +263,6 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
                    Log.i("Error Response code",response.toString());
                    Log.i("Error Response code", Arrays.toString(response.data));
                 }
-
             }
         }){
             @Override
@@ -279,7 +296,17 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 
+    @Override
+    public void onDestroy (){
+        super.onDestroy();
+        stopTimer();
+    }
 
+    public void stopTimer(){
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+        }
+    }
 
     private void getUserDataProfile() {
 

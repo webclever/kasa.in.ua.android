@@ -90,7 +90,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     }
 
     @Override
-    public View onCreateView (LayoutInflater inflater,ViewGroup conteiner,Bundle savedInstanceState) {
+    public View onCreateView (LayoutInflater inflater, ViewGroup conteiner, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_basket,conteiner,false);
         ((MainActivity)getActivity()).setItemChecked(2,true);
 
@@ -102,9 +102,12 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         mButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         if (!((MainActivity)getActivity()).getCountTicket().equals("0"))
         {
+            Log.i("count_ticket", ((MainActivity) getActivity()).getCountTicket());
             mButton.setEnabled(true);
             mButton.getBackground().setColorFilter(null);
             textViewEmptyCart.setVisibility(View.GONE);
+        }else {
+            closeFragment();
         }
         db_ticket = new DB_Ticket(getActivity(),5);
         textViewTicket = (TextView) rootView.findViewById(R.id.textView36);

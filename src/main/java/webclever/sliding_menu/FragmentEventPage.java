@@ -144,6 +144,9 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                 hidePDialog();
                 try {
                                     JSONObject response = new JSONObject(response_string);
+                                    DataEventSingelton.getInstance().setId_event(response.getInt("id"));
+                                    DataEventSingelton.getInstance().setName_event(response.getString("name"));
+
                                     textViewNameEvent.setText(Html.fromHtml(response.getString("name")));
                                     textViewTimeIvent.setText(response.getString("start_time"));
                                     JSONObject jsonObjectLocEvent = response.getJSONObject("location");
@@ -176,6 +179,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                                     }
 
                                     JSONObject city = jsonObjectLocEvent.getJSONObject("city");
+                                    DataEventSingelton.getInstance().setPlace_event(city.getString("name"));
                                     textViewLocationIvent.setText(city.getString("name"));
                                     if (!response.getString("description").equals("")){
                                         RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.RLayout);
@@ -184,15 +188,14 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
 
                                     }
 
+
                                     if(response.has("poster")) {
                                         JSONObject jsonObjectPoster = response.getJSONObject("poster");
                                         if (!jsonObjectPoster.toString().equals("{}")){
                                         networkImageView.setImageUrl(jsonObjectPoster.getString("l"), imageLoader);}
                                     }
 
-                                    DataEventSingelton.getInstance().setId_event(response.getInt("id"));
-                                    DataEventSingelton.getInstance().setName_event(response.getString("name"));
-                                    DataEventSingelton.getInstance().setPlace_event(city.getString("name"));
+
                                         JSONArray arrImgEvent = response.getJSONArray("images");
                                         for (int j=0; j < arrImgEvent.length(); j++)
                                         {

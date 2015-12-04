@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
@@ -84,7 +87,9 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
     private Integer spinnerPosCountry = 0;
 
+    private String url_pay = "http://kasa.tms.webclever.in.ua/event/pay?order_id=";
 
+    private CountDownTimer countDownTimer;
 
 
     public UserDataPost() { }
@@ -223,7 +228,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
 
         long timer = ((ActivityOrder)getActivity()).getTimer();
         if (timer != 0){
-        new CountDownTimer(timer,1000) {
+            countDownTimer = new CountDownTimer(timer,1000) {
 
                 @Override
                 public void onTick(long millis) {
@@ -408,25 +413,35 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                         Log.i("Response", s);
                         try {
                             JSONObject jsonObject = new JSONObject(s);
+                            if (jsonObject.has("msg") && !jsonObject.getString("msg").equals("places already sold OR event with this places not in sale")) {
                             if (paymentMethod == 3) {
-                                if (jsonObject.has("msg")) {
+
                                     Intent intent = new Intent(getActivity(), ActivitySuccessfulOrder.class);
                                     intent.putExtra("order_id", jsonObject.getString("order_id"));
                                     intent.putExtra("payment_method", paymentMethod);
                                     intent.putExtra("message", getResources().getString(R.string.page_success_order_description_order2));
                                     startActivity(intent);
-                                }
+
                             }else if (paymentMethod == 4){
-                                Fragment fragment = new FragmentPay();
-                                Bundle bundle = new Bundle();
-                                bundle.putString("order_id", jsonObject.getString("order_id"));
-                                bundle.putInt("payment_method", paymentMethod);
-                                fragment.setArguments(bundle);
-                                fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    Fragment fragment = new FragmentPay();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("order_id", jsonObject.getString("order_id"));
+                                    bundle.putInt("payment_method", paymentMethod);
+                                    fragment.setArguments(bundle);
+                                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
+                                }else {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url_pay + jsonObject.getString("order_id")));
+                                    startActivity(browserIntent);
+                                }
+                            }
+                                ((ActivityOrder) getActivity()).stopTimer();
+                                ((ActivityOrder) getActivity()).deleteDB();
+                            }else {
+                                JSONArray jsonArrayTicket = jsonObject.getJSONArray("place_ids");
+                                ((ActivityOrder)getActivity()).showAlertDialogPayTicket(jsonArrayTicket);
                             }
 
-                            ((ActivityOrder) getActivity()).stopTimer();
-                            ((ActivityOrder) getActivity()).deleteDB();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -436,7 +451,16 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+                ((ActivityOrder)getActivity()).showAlertDialogPayTicket(null);
+                if (volleyError.networkResponse != null) {
+                    Log.d("Error Response code " , String.valueOf(volleyError.networkResponse.statusCode));
+                }
+
+                NetworkResponse response = volleyError.networkResponse;
+                if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
+                    Log.i("Error Response code",response.toString());
+                    Log.i("Error Response code", Arrays.toString(response.data));
+                }
 
             }
         }){
@@ -635,6 +659,18 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                     sparseBooleanArray.put(R.id.editText19,validator.isAddressValid(editable.toString()));
             }
 
+        }
+    }
+
+    @Override
+    public void onDestroy (){
+        super.onDestroy();
+        stopTimer();
+    }
+
+    public void stopTimer(){
+        if (countDownTimer != null){
+            countDownTimer.cancel();
         }
     }
 }

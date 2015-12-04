@@ -72,6 +72,8 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
 
     private SparseArray<Fragment> fragmentSparseArray;
 
+    private CountDownTimer countDownTimer;
+
     private FragmentManager fragmentManager;
 
     @Override
@@ -207,7 +209,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
 
         long timer = ((ActivityOrder)getActivity()).getTimer();
         if (timer != 0){
-            new CountDownTimer(timer,1000) {
+            countDownTimer = new CountDownTimer(timer,1000) {
 
             @Override
             public void onTick(long millis) {
@@ -401,6 +403,18 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
         cursorSelectedPlace.close();
         db_ticket.close();
         return masIdEvents;
+    }
+
+    @Override
+    public void onDestroy (){
+        super.onDestroy();
+        stopTimer();
+    }
+
+    public void stopTimer(){
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+        }
     }
 
 }
