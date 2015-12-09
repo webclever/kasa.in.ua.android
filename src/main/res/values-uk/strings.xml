@@ -8,16 +8,17 @@
     <string name="drawer_close">Slider Menu Closed</string>
 
     <string-array name="nav_drawer_items">
-    <item>Події</item>
-    <item>Пошук події</item>
-    <item>Кошик</item>
-    <item>Мої замовлення</item>
-    <item>Адреси кас</item>
-    <item>Контакти</item>
-    <item>Про програму</item>
-    <item>Ваш акаунт</item>
-    <item>Вхід/Реєстрація</item>
+        <item>Події</item>
+        <item>Пошук події</item>
+        <item>Кошик</item>
+        <item>Мої замовлення</item>
+        <item>Адреси кас</item>
+        <item>Контакти</item>
+        <item>Про програму</item>
+        <item>Ваш акаунт</item>
+        <item>Вхід/Реєстрація</item>
     </string-array>
+
 
     <integer name="com_vk_sdk_AppId">4785213</integer>
     <string name="facebook_app_id">612867968812786</string>
@@ -36,6 +37,7 @@
     </array>
 
     <string name="price">Ціни</string>
+
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_main">ViewPager GridView</string>
     <string name="app_id">612867968812786</string>
@@ -194,17 +196,17 @@
     <string name="page_delivery_order_canceled"> Бронювання скасоване ! </string>
 
     <!-- Activity success order -->
-    <string name="page_success_description_order">Ваше замовлення остворено та оплачено!</string>
+    <string name="page_success_description_order">Ваше замовлення створено та оплачено!</string>
     <string name="page_success_order_description_order1">Ваше замовлення створено!</string>
     <string name="page_success_order_number_ordering_kasa"> Здійснити оплату та отримати квитки Ви зможете в найближчій касі. </string>
-    <string name="page_success_order_number_ordering_text">Ви можете отримати ваші квитки в найбличій касі.</string>
-    <string name="page_success_order_description_order2">Квити будуть надіслані на відповідне відділення Нової пошти протягом трьох робочих днів.</string>
+    <string name="page_success_order_number_ordering_text">Ви можете отримати ваші квитки в найближчій касі.</string>
+    <string name="page_success_order_description_order2">Квитки будуть надіслані на відповідне відділення Нової пошти протягом трьох робочих днів.</string>
     <string name="page_success_order_description_courier">Квитки будуть доставлені Вам кур\'єром протягом трьох робочих днів.</string>
     <string name="page_success_order_description_eticket">Квитки відправлені Вам на пошту в електронному вигляді. Ознайомтесь з правилами користування електронними квитками у вкладенні листа.</string>
     <string name="page_success_order_description_no_pay">Ви можете здійснити оплату, перейшовши по посиланню, що надійшло Вам на пошту.</string>
 
     <!-- Activity order -->
-    <string name="page_order_toast_error_delete_temp_order">Помилка при видалені тимчасовго замовлення!</string>
+    <string name="page_order_toast_error_delete_temp_order">Помилка при видалені тимчасового замовлення!</string>
     <string name="page_order_time_up_temp_order_dialog">На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.</string>
     <string name="page_order_check_exit_temp_order_dialog">Якщо ви покинете цю сторінку, тимчасова резервація Ваших квитків буде знята!</string>
     <string name="page_order_attention">Увага!</string>

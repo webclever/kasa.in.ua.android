@@ -575,7 +575,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
                             if (!jsonObjectUserData.getString("address").equals("null")){
                                 editTextAddress.setText(jsonObjectUserData.getString("address"));}
                                 sparseBooleanArrayValidator.put(editTextAddress.getId(), validator.isAddressValid(jsonObjectUserData.getString("address")));
-                            if (!jsonObjectUserData.getString("np_id").equals("null")){
+                            if (!jsonObjectUserData.getString("np_id").equals("null") && !jsonObjectUserData.getString("np_id").equals("0")){
                                 editTextNPost.setText(jsonObjectUserData.getString("np_id"));}
                                 sparseBooleanArrayValidator.put(editTextNPost.getId(), validator.isNumberValid(jsonObjectUserData.getString("np_id")));
                             if(jsonObjectUserData.has("city_id")){

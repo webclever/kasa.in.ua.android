@@ -38,7 +38,7 @@ import interfaces.OnBackPressedListener;
 
 public class ActivityOrder extends FragmentActivity {
 
-    private Long aLongTimer = 900000l;
+    private Long aLongTimer = 150000l;
     private CountDownTimer countDownTimer;
     private Activity activity;
     private DB_Ticket db_ticket;

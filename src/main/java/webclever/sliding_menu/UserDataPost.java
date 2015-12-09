@@ -535,7 +535,7 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
                             sparseBooleanArray.put(editTextEmail.getId(), validator.isEmailValid(jsonObjectUserData.getString("email")));
                             if (jsonObjectUserData.has("country_id")){
                                 getCountries(jsonObjectUserData.getInt("country_id"));}
-                            if (!jsonObjectUserData.getString("np_id").equals("0")){
+                            if (!jsonObjectUserData.getString("np_id").equals("0") && !jsonObjectUserData.getString("np_id").equals("null")){
                                 editTextNDepartment.setText(jsonObjectUserData.getString("np_id"));
                                 sparseBooleanArray.put(editTextNDepartment.getId(), validator.isNumberValid(jsonObjectUserData.getString("np_id")));}
                             if(jsonObjectUserData.has("city_id")){
