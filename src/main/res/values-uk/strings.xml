@@ -213,7 +213,7 @@
     <string name="page_order_cancel">Відміна</string>
 
     <!-- Fragment dialog -->
-    <string name="page_dialog_order_time"> Квитки користувача резервуються на 15 хвилин під час проходження ним процесу оформлення замовлення. </string>
+    <string name="page_dialog_order_time"> Квитки користувача резервуються на 5 хвилин під час проходження ним процесу оформлення замовлення. </string>
     <string name="page_dialog_not_ask_again"> Більше не запитувати </string>
     <string name="page_dialog_not_want"> Не бажаю </string>
 

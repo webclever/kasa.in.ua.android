@@ -213,7 +213,7 @@
     <string name="page_order_cancel">Отмена</string>
 
     <!-- Fragment dialog -->
-    <string name="page_dialog_order_time"> Билеты пользователя резервируются на 15 минут во время прохождения им процесса оформления заказа. </string>
+    <string name="page_dialog_order_time"> Билеты пользователя резервируются на 5 минут во время прохождения им процесса оформления заказа. </string>
     <string name="page_dialog_not_ask_again"> Больше не спрашивать </string>
     <string name="page_dialog_not_want"> Не желаю </string>
 

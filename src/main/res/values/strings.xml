@@ -214,7 +214,7 @@
     <string name="page_order_cancel">Cancel</string>
 
     <!-- Fragment dialog -->
-    <string name="page_dialog_order_time"> Your tickets are booked for 15 min during order processing </string>
+    <string name="page_dialog_order_time"> Your tickets are booked for 5 min during order processing </string>
     <string name="page_dialog_not_ask_again"> Don`t ask again </string>
     <string name="page_dialog_not_want"> Don`t want</string>
 

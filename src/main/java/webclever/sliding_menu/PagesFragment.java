@@ -56,7 +56,6 @@ import adapter.ObjectSpinnerAdapter;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
-import static webclever.sliding_menu.R.id.editText;
 import static webclever.sliding_menu.R.id.frame_container;
 
 /**
@@ -198,7 +197,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         });
         Button buttonChangePassword = (Button) rootView.findViewById(R.id.buttonChangePassword);
         buttonChangePassword.setEnabled(false);
-        buttonChangePassword.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+        //buttonChangePassword.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         if (userProfile.getSocialId() == 0){
             buttonChangePassword.setEnabled(true);
             buttonChangePassword.getBackground().setColorFilter(null);

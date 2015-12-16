@@ -291,7 +291,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (count > 1) {
+                if (s.toString().length() > 1) {
                     singletonCityArrayList.clear();
                     singletonCityArrayList = getListCity(id_country, s.toString());
                     Log.i("dialog", s.toString());
