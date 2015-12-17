@@ -1,8 +1,5 @@
 package Singleton;
 
-/**
- * Created by Admin on 07.05.2015.
- */
 public class TicketChildOrdering {
     private static TicketChildOrdering ourInstance = new TicketChildOrdering();
     private String sectorOrdering;

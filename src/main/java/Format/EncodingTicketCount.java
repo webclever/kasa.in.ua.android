@@ -12,8 +12,10 @@ public class EncodingTicketCount {
         Log.i("language",Locale.getDefault().getDisplayLanguage());
 
         if (Locale.getDefault().getDisplayLanguage().equals("українська")){
+            Log.i("language","українська");
             return getNumEndingUA(count);
         }else if (Locale.getDefault().getDisplayLanguage().equals("русский")){
+            Log.i("language","русский");
             return getNumEndingRU(count);
         }else {
             return getNumEndingEN(count);

@@ -86,6 +86,7 @@
     <string name="page_location_kasa_show_pay_offices">Показать кассы продаж в вашем городе</string>
 
     <!-- Fragment delivery order -->
+    <string name="page_delivery_order_ticket_reserved">БИЛЕТЫ будут зарезервированы ещё : </string>
     <string name="page_delivery_order_list_created">Створено: </string>
     <string name="page_delivery_order_list_delivery_method">Способ доставки:</string>
     <string name="page_delivery_order_list_payment_method">Способ оплаты:</string>
@@ -99,7 +100,7 @@
 
     <!-- Fragment Basket -->
     <string name="page_basket_button_next">ПРОДОЛЖИТЬ</string>
-    <string name="page_basket_sum">СУМА: </string>
+    <string name="page_basket_sum">СУММА: </string>
     <string name="page_basket_list_name_row">Ряд: </string>
     <string name="page_basket_list_name_place">Место: </string>
     <string name="page_basket_ticket_already_sale_dialog"> Некоторые из выбранных вами мест уже заняты! </string>
@@ -125,8 +126,8 @@
 
     <!-- Fragment user profile -->
     <string name="page_user_profile_method_authorization"> Авторизация с помощью </string>
-    <string name="page_user_profile_user_surname1">Имя*</string>
-    <string name="page_user_profile_user_surname"> Фамилия* </string>
+    <string name="page_user_profile_user_surname">Имя*</string>
+    <string name="page_user_profile_user_surname1"> Фамилия* </string>
     <string name="page_user_profile_user_last_name"> Отчество </string>
     <string name="page_user_profile_user_phone"> Телефон* </string>
     <string name="page_user_profile_user_email"> Электронная почта* </string>
@@ -139,6 +140,8 @@
     <string name="page_user_profile_user_save_changes"> СОХРАНИТЬ ИЗМЕНЕНИЯ </string>
     <string name="page_user_profile_select_city"> Введите название города </string>
     <string name="page_user_profile_save_changes"> Информация сохранена! </string>
+    <string name="page_user_profile_user_message"> Сообщение </string>
+
 
     <!-- Activity change password -->
     <string name="page_user_change_password_old_password"> Старый пароль* </string>
@@ -153,7 +156,7 @@
     <string name="page_login_email"> Электронная почта </string>
     <string name="page_login_password"> Пароль </string>
     <string name="page_login_enter"> ВОЙТИ </string>
-    <string name="page_login_forgot_password"><u>Забили пароль? </u></string>
+    <string name="page_login_forgot_password"><u>Забыли пароль? </u></string>
     <string name="page_login_tabs_enter"> Вход </string>
     <string name="page_login_tabs_register"> Регистрация </string>
 
@@ -181,13 +184,14 @@
     <string name="page_success_registration_bright_impressions"> Ярких впечатлений! </string>
 
     <!-- Fragment delivery order -->
+    <string name="page_delivery_order_next"> ПРОДОЛЖИТЬ </string>
     <string name="page_delivery_order_reserved_ticket"> БИЛЕТЫ БУДУТ ЗАРЕЗЕРВИРОВАНЫ ЭЩЕ: </string>
     <string name="page_delivery_delivery_method"> ВЫБЕРИТЕ СПОСОБ ДОСТАВКИ </string>
     <string name="page_delivery_kasa_in_ua"> Самовывоз </string>
     <string name="page_delivery_new_post"> “Нова Пошта” (на отделение) </string>
     <string name="page_delivery_courier"> Курьер по городу </string>
     <string name="page_delivery_eticket"> Электронный билет </string>
-    <string name="page_delivery_pay_method"> ВИБЕРИТЕ СПОСОБ ОПЛАТЫ </string>
+    <string name="page_delivery_pay_method"> ВЫБЕРИТЕ СПОСОБ ОПЛАТЫ </string>
     <string name="page_delivery_pay_kasa"> Оплата наличными в кассе </string>
     <string name="page_delivery_pay_new_post"> Оплата наличными в отделении </string>
     <string name="page_delivery_pay_courier"> Оплата наличными курьеру </string>
@@ -227,6 +231,7 @@
     <string name="page_pay_exit_from_pay_page"> Вы желаете покинуть страницу оплаты заказа? </string>
 
     <!-- Fragment user data kasa -->
+    <string name="fragment_uer_data_kasa">ЗАПОЛНИТЕ КОНТАКТНЫЕ ДАННЫЕ</string>
     <string name="page_data_issue_order"> Сформировать заказ </string>
     <string name="page_data_pay_ticket"> перейти к оплате </string>
 

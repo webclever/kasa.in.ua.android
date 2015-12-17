@@ -115,6 +115,7 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
                     @Override
                     public void onResponse(String s) {
                     try {
+                        Log.i("REsponse",s);
                         JSONArray jsonArray = new JSONArray(s);
                         for (int i = 0; i < jsonArray.length();i++) {
 

@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ЗАПОВНІТЬ КОНТАКТНІ ДАНІ"
+        android:text="@string/fragment_uer_data_kasa"
         android:textColor="@color/year"
         android:id="@+id/textView54"
         android:layout_marginLeft="10dp"

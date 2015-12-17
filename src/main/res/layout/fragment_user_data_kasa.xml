@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ЗАПОВНІТЬ КОНТАКТНІ ДАНІ"
+        android:text="@string/fragment_uer_data_kasa"
         android:textColor="@color/year"
         android:id="@+id/textView49"
         android:layout_marginLeft="10dp"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Ім'я"
+            android:text="@string/page_user_profile_user_surname"
             android:id="@+id/textView50" />
 
         <EditText
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Прізвище"
+            android:text="@string/page_user_profile_user_surname1"
             android:id="@+id/textView51" />
 
         <EditText
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Телефон"
+            android:text="@string/page_user_profile_user_phone"
             android:id="@+id/textView52" />
 
         <EditText
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="E-mail"
+            android:text="@string/page_user_profile_user_email"
             android:id="@+id/textView53" />
 
         <EditText
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Повідомлення"
+            android:text="@string/page_user_profile_user_message"
             android:id="@+id/textView29"/>
 
         <EditText
@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="КВИТКИ БУДУТЬ ЗАРЕЗЕРВОВАНІ ЩЕ:"
+        android:text="@string/page_delivery_order_ticket_reserved"
         android:textColor="@color/list_divider1"
         android:textSize="12sp"
         android:id="@+id/textView45"

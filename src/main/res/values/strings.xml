@@ -87,6 +87,8 @@
     <string name="page_location_kasa_show_pay_offices">Show ticket offices in your city</string>
 
     <!-- Fragment delivery order -->
+    <string name="page_delivery_order_next"> NEXT </string>
+    <string name="page_delivery_order_ticket_reserved">tickets will be reserved yet: </string>
     <string name="page_delivery_order_list_created">Created: </string>
     <string name="page_delivery_order_list_delivery_method">Delivery method:</string>
     <string name="page_delivery_order_list_payment_method">Payment method:</string>
@@ -125,6 +127,7 @@
     <string name="page_select_max_ticket"> You can`t add to cart more than 50 tickets. </string>
 
     <!-- Fragment user profile -->
+    <string name="page_user_profile_user_message"> Message </string>
     <string name="page_user_profile_method_authorization"> Authorize using </string>
     <string name="page_user_profile_user_surname1">Last Name*</string>
     <string name="page_user_profile_user_surname">First Name* </string>
@@ -228,6 +231,7 @@
     <string name="page_pay_exit_from_pay_page"> Do you want to leave ordering page? </string>
 
     <!-- Fragment user data kasa -->
+    <string name="fragment_uer_data_kasa">COMPLETE CONTACT INFORMATION</string>
     <string name="page_data_issue_order"> Create order </string>
     <string name="page_data_pay_ticket"> Proceed to payment </string>
 
