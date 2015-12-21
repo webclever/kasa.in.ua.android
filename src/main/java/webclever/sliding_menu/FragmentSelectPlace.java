@@ -622,7 +622,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         if (type_schema == 0) {
             placeInfo = rowName + ": " + row + " " + getResources().getString(R.string.page_basket_list_name_place) + " " + place + " | " + price + " " + getResources().getString(R.string.page_select_place_grn);
         }else if(type_schema == 1){
-            placeInfo = sector;
+            placeInfo = sector + " | " + price + " " + getResources().getString(R.string.page_select_place_grn);
         }
 
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
