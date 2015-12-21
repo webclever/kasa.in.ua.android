@@ -116,6 +116,7 @@
         android:text="@string/page_delivery_order_ticket_reserved"
         android:textColor="@color/list_divider1"
         android:textSize="12sp"
+        android:textAllCaps="true"
         android:id="@+id/textView45"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

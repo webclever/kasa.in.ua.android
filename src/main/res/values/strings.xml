@@ -117,13 +117,13 @@
     <string name="page_event_title">Event</string>
 
     <!-- Fragment select place -->
-    <string name="page_select_place_in_basket">In cart: </string>
+    <string name="page_select_place_in_basket">"In cart: "</string>
     <string name="page_select_place_not_available">Not available</string>
     <string name="page_select_place_reserve">Booked</string>
     <string name="page_select_place_sale">Sold</string>
     <string name="page_select_place_in_basket1">In cart</string>
-    <string name="page_select_place_grn"> UAH </string>
-    <string name="page_select_sum"> TOTAL </string>
+    <string name="page_select_place_grn">" UAH" </string>
+    <string name="page_select_sum"> "TOTAL "</string>
     <string name="page_select_max_ticket"> You can`t add to cart more than 50 tickets. </string>
 
     <!-- Fragment user profile -->
@@ -201,6 +201,7 @@
 
     <!-- Activity success order -->
     <string name="page_success_description_order"> Your order has been created and paid successfully! </string>
+
     <string name="page_success_order_description_order1"> Your order has been created successfully! </string>
     <string name="page_success_order_number_ordering_kasa"> You can pay for your order and get your tickets in the nearest ticket office. </string>
     <string name="page_success_order_number_ordering_text">You can get your tickets in the nearest ticket office.</string>
@@ -208,6 +209,7 @@
     <string name="page_success_order_description_courier"> Tickets will be delivered to you by courier within three working days. </string>
     <string name="page_success_order_description_eticket"> Tickets are sent to your email. Please, read e-ticket Terms of use in the attached letter. </string>
     <string name="page_success_order_description_no_pay">You can continue payment process using link sent to your e-mail.</string>
+    <string name="page_success_order_description_number_order"> Your order number! </string>
 
     <!-- Activity order -->
     <string name="page_order_toast_error_delete_temp_order">Unexpected error appeared while deleting temporary order!</string>
@@ -239,6 +241,8 @@
     <string name="page_data_eticket_place"> , p: </string>
     <string name="page_data_eticket_hint_user_name"> Visitor`s first name </string>
     <string name="page_data_eticket_hint_user_surname"> Visitor`s last name </string>
+    <string name="page_data_eticket_enter_user_name"> Please, enter the names of  visitors : </string>
+
 
     <!-- Adapter basket -->
     <string name="adapter_basket_check_delete_ticket"> Do you want to delete this ticket from cart? </string>

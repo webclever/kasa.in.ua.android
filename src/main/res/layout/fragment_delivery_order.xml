@@ -198,7 +198,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ПРОДОВЖИТИ"
+        android:text="@string/page_basket_button_next"
         android:visibility="gone"
         android:layout_margin="5dp"
         android:id="@+id/buttonContinue"

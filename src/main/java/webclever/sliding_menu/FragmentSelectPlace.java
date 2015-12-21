@@ -430,7 +430,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                                 if (!pricePlace.equals("null")) {
                                     schemaIdPlace = id_fun;
                                     serverIdPlace = jsonObject.getInt("id");
-                                    showPlaceInfo(jsonObject.getString("label"), jsonObjectSector.getString("name"), "", "", jsonObject.getString("price"), jsonObject.getString("type"));
+                                    showPlaceInfo(1,jsonObject.getString("label"), jsonObjectSector.getString("name"), "", "", jsonObject.getString("price"), jsonObject.getString("type"));
                                     ConfirmButton.startAnimation(animationBounce);
                                 }else {
                                     serverIdPlace = null;
@@ -512,7 +512,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                                 JSONObject jsonObjectPlace = jsonObjectInfoPlace.getJSONObject("place");
                                 JSONObject jsonObjectSector = jsonObjectInfoPlace.getJSONObject("sector");
 
-                                showPlaceInfo(jsonObjectSector.getString("name"),
+                                showPlaceInfo(0,jsonObjectSector.getString("name"),
                                         jsonObjectRow.getString("prefix"),
                                         jsonObjectRow.getString("name"),
                                         jsonObjectPlace.getString("name"),
@@ -617,12 +617,19 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         db_ticket.close();
     }
 
-    private void showPlaceInfo(String sector,String rowName,String row, String place, String price, String type_sector) {
-        String placeInfo = rowName + ": " + row + " " + getResources().getString(R.string.page_basket_list_name_place) + " " + place + " | " + price +" " + getResources().getString(R.string.page_select_place_grn);
+    private void showPlaceInfo(Integer type_schema,String sector, String rowName,String row, String place, String price, String type_sector) {
+        String placeInfo = null;
+        if (type_schema == 0) {
+            placeInfo = rowName + ": " + row + " " + getResources().getString(R.string.page_basket_list_name_place) + " " + place + " | " + price + " " + getResources().getString(R.string.page_select_place_grn);
+        }else if(type_schema == 1){
+            placeInfo = sector;
+        }
+
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View  layoutToast = layoutInflater.inflate(R.layout.list_toast, null);
         TextView textViewToast = (TextView) layoutToast.findViewById(R.id.textViewToast);
-        textViewToast.setText(placeInfo);
+        if (placeInfo != null){
+        textViewToast.setText(placeInfo);}
 
         if (toast != null){
             toast.cancel();

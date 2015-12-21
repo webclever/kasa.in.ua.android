@@ -115,13 +115,13 @@
     <string name="page_event_title">Событие</string>
 
     <!-- Fragment select place -->
-    <string name="page_select_place_in_basket">В корзине: </string>
+    <string name="page_select_place_in_basket">"В корзине: "</string>
     <string name="page_select_place_not_available">Не доступно</string>
     <string name="page_select_place_reserve">Забронировано</string>
     <string name="page_select_place_sale">Продано</string>
     <string name="page_select_place_in_basket1">В корзине</string>
-    <string name="page_select_place_grn"> грн. </string>
-    <string name="page_select_sum"> НА СУММУ </string>
+    <string name="page_select_place_grn"> " грн" </string>
+    <string name="page_select_sum"> "НА СУММУ " </string>
     <string name="page_select_max_ticket"> Вы не можете добавить в корзину более чем 50 билетов. </string>
 
     <!-- Fragment user profile -->
@@ -208,6 +208,7 @@
     <string name="page_success_order_description_courier">Билеты будут доставлены Вам курьером на протяжении трех рабочих дней.</string>
     <string name="page_success_order_description_eticket">Билеты отправлены Вам на почту в электронном виде. Ознакомьтесь с правилами пользования электронными билетами во вложении письма.</string>
     <string name="page_success_order_description_no_pay">Вы можете осуществить оплату, перейдя по ссылке, которая пришла Вам на почту.</string>
+    <string name="page_success_order_description_number_order"> Номер вашего заказа! </string>
 
     <!-- Activity order -->
     <string name="page_order_toast_error_delete_temp_order">Ошибка при удалении временного заказа!</string>
@@ -239,6 +240,7 @@
     <string name="page_data_eticket_place"> , м.: </string>
     <string name="page_data_eticket_hint_user_name"> Имя посетителя </string>
     <string name="page_data_eticket_hint_user_surname"> Фамилия посетителя </string>
+    <string name="page_data_eticket_enter_user_name"> Укажите, пожалуйста, имена посетителей: </string>
 
     <!-- Adapter basket -->
     <string name="adapter_basket_check_delete_ticket"> Вы желаете удалить этот билет из корзины? </string>

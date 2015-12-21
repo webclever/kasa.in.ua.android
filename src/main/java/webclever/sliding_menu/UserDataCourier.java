@@ -172,10 +172,10 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
 
         Button buttonConfirm = (Button) rootView.findViewById(R.id.button2);
         switch (paymentMethod){
-            case 1:
+            case 5:
                 buttonConfirm.setText(getResources().getString(R.string.page_data_issue_order));
                 break;
-            case 2:
+            case 6:
                 buttonConfirm.setText(getResources().getString(R.string.page_data_pay_ticket));
                 break;
         }

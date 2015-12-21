@@ -31,7 +31,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/facebook"
+                    android:src="@drawable/facebook_log"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/imageViewFacebook"/>
 

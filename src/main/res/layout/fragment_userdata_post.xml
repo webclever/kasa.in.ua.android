@@ -176,6 +176,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/page_delivery_order_ticket_reserved"
         android:textColor="@color/list_divider1"
+        android:textAllCaps="true"
         android:textSize="12sp"
         android:id="@+id/textView103"
         android:layout_alignParentTop="true"

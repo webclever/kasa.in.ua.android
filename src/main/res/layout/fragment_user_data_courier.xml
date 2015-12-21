@@ -18,8 +18,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ПІДТВЕРДИТИ ЗАМОВЛЕННЯ"
         android:id="@+id/button2"
+        android:textAllCaps="true"
         android:background="@drawable/button_selector"
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Ім&apos;я*"
+                android:text="@string/page_user_profile_user_surname"
                 android:id="@+id/textView55" />
 
             <EditText
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Прізвище*"
+                android:text="@string/page_user_profile_user_surname1"
                 android:id="@+id/textView56" />
 
             <EditText
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="По батькові*"
+                android:text="@string/page_user_profile_user_last_name"
                 android:id="@+id/textView106" />
 
             <EditText
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Телефон*"
+                android:text="@string/page_user_profile_user_phone"
                 android:id="@+id/textView57" />
 
             <EditText
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="E-mail*"
+                android:text="@string/page_user_profile_user_email"
                 android:id="@+id/textView58" />
 
             <EditText
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Країна*"
+                android:text="@string/page_user_profile_user_country"
                 android:id="@+id/textView59" />
 
             <Spinner
@@ -128,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Місто*"
+                android:text="@string/page_user_profile_user_city"
                 android:id="@+id/textView60" />
 
             <EditText
@@ -143,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Адреса*"
+                android:text="@string/page_user_profile_user_address"
                 android:id="@+id/textView61" />
 
             <EditText
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Повідомлення"
+                android:text="@string/page_user_profile_user_message"
                 android:id="@+id/textView30" />
 
             <EditText
@@ -174,9 +174,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="КВИТКИ БУДУТЬ ЗАРЕЗЕРВОВАНІ ЩЕ:"
+        android:text="@string/page_delivery_order_ticket_reserved"
         android:textColor="@color/list_divider1"
         android:textSize="12sp"
+        android:textAllCaps="true"
         android:id="@+id/textView99"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

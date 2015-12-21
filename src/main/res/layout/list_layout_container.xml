@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Ім&apos;я"
+        android:text="@string/page_user_profile_user_surname"
         android:id="@+id/textView50" />
 
     <EditText
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Прізвище"
+        android:text="@string/page_user_profile_user_surname1"
         android:id="@+id/textView51" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Телефон"
+        android:text="@string/page_user_profile_user_phone"
         android:id="@+id/textView52" />
 
     <EditText
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="E-mail"
+        android:text="@string/page_user_profile_user_email"
         android:id="@+id/textView53" />
 
     <EditText
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Повідомлення"
+        android:text="@string/page_user_profile_user_message"
         android:id="@+id/textView23" />
 
     <EditText
@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Вкажіть, будь-ласка, імена відвідувачів:"
+        android:text="@string/page_data_eticket_enter_user_name"
         android:id="@+id/textView6"
         android:layout_marginTop="5dp" />
 

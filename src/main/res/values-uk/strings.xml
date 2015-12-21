@@ -116,13 +116,13 @@
     <string name="page_event_title">Подія</string>
 
     <!-- Fragment select place -->
-    <string name="page_select_place_in_basket">У кошику: </string>
+    <string name="page_select_place_in_basket">"У кошику: "</string>
     <string name="page_select_place_not_available">Не доступно</string>
     <string name="page_select_place_reserve">Заброньовано</string>
     <string name="page_select_place_sale">Продано</string>
     <string name="page_select_place_in_basket1">У кошику</string>
-    <string name="page_select_place_grn"> грн. </string>
-    <string name="page_select_sum"> НА СУМУ </string>
+    <string name="page_select_place_grn"> " грн"</string>
+    <string name="page_select_sum"> "НА СУМУ "</string>
     <string name="page_select_max_ticket"> Ви не можете додати в кошик більше 50 квитків. </string>
 
     <!-- Fragment user profile -->
@@ -207,7 +207,7 @@
     <string name="page_success_order_description_courier">Квитки будуть доставлені Вам кур\'єром протягом трьох робочих днів.</string>
     <string name="page_success_order_description_eticket">Квитки відправлені Вам на пошту в електронному вигляді. Ознайомтесь з правилами користування електронними квитками у вкладенні листа.</string>
     <string name="page_success_order_description_no_pay">Ви можете здійснити оплату, перейшовши по посиланню, що надійшло Вам на пошту.</string>
-
+    <string name="page_success_order_description_number_order"> Номер вашого замовлення! </string>
     <!-- Activity order -->
     <string name="page_order_toast_error_delete_temp_order">Помилка при видалені тимчасового замовлення!</string>
     <string name="page_order_time_up_temp_order_dialog">На жаль, відведений час на оформлення замовлення завершився і тимчасове замовлення було скасовано.</string>
@@ -238,6 +238,7 @@
     <string name="page_data_eticket_place"> , м.: </string>
     <string name="page_data_eticket_hint_user_name"> Ім\'я відвідувача </string>
     <string name="page_data_eticket_hint_user_surname"> Прізвище відвідувача </string>
+    <string name="page_data_eticket_enter_user_name"> Вкажіть, будь-ласка, імена відвідувачів: </string>
 
     <!-- Adapter basket -->
     <string name="adapter_basket_check_delete_ticket"> Ви бажаєте видалити цей квиток з кошика? </string>
