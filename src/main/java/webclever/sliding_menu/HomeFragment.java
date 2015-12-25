@@ -36,6 +36,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.NetworkImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -198,7 +199,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
     private void addImageSlider(String url) {
         final ViewGroup newViewGroup = (ViewGroup) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.list_slider_image, linearLayoutSlider,false);
-        final MyNetworkImageView networkImageView = (MyNetworkImageView) newViewGroup.findViewById(R.id.networkimageviewslider);
+        final NetworkImageView networkImageView = (NetworkImageView) newViewGroup.findViewById(R.id.networkimageviewslider);
         networkImageView.setImageUrl(url,imageLoader);
         networkImageView.setOnClickListener(new View.OnClickListener() {
             @Override

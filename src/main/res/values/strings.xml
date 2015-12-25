@@ -17,12 +17,11 @@
         <item>About</item>
         <item>Your account</item>
         <item>Login/Register</item>
-
     </string-array>
 
 
     <integer name="com_vk_sdk_AppId">4785213</integer>
-    <string name="facebook_app_id">612867968812786</string>
+    <string name="facebook_app_id" translatable="false">612867968812786</string>
 
     <array name="nav_drawer_icons">
         <item>@mipmap/ic_launcher_home</item>
@@ -41,7 +40,6 @@
 
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_main">ViewPager GridView</string>
-    <string name="app_id">612867968812786</string>
     <string name="action_remove_item">Remove item</string>
 
     <!-- TODO: Remove or change this placeholder text -->

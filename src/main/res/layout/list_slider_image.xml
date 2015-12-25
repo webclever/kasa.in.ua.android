@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content" android:layout_height="wrap_content">
-    <webclever.sliding_menu.MyNetworkImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/networkimageviewslider"
         android:background="@drawable/abc_popup_background_mtrl_mult"
         android:scaleType="centerCrop"
+        android:cropToPadding="true"
+        android:adjustViewBounds="true"
         android:layout_marginLeft="2dp"
         android:layout_width="150dp"
-        android:layout_height="250dp" />
+        android:layout_height="200dp" />
 </FrameLayout>

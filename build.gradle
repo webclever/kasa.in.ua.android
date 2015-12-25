@@ -41,7 +41,7 @@ android {
     defaultConfig {
         applicationId "webclever.sliding_menu"
         minSdkVersion 17
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -61,8 +61,6 @@ dependencies {
         transitive = true;
     }
     compile project(':vksdk_library')
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
     compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.facebook.android:facebook-android-sdk:4.1.0'
     compile 'com.android.support:support-v4:23.1.1'
