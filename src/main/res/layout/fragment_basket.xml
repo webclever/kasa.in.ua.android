@@ -97,7 +97,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/year"
             android:textSize="15sp"
-            android:text=" грн."
+            android:text="@string/page_select_place_grn"
             android:id="@+id/textView40"
             android:layout_alignTop="@+id/textView39"
             android:layout_alignEnd="@+id/buttonBasket" />

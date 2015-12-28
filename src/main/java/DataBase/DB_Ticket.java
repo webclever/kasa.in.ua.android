@@ -23,6 +23,7 @@ public class DB_Ticket extends SQLiteOpenHelper {
                         "zon_ticket text,"+
                         "name_row_ticket text,"+
                         "row_ticket text,"+
+                        "name_place_ticket text,"+
                         "place_ticket text,"+
                         "price_ticket text,"+
                         "id_place_schema text,"+

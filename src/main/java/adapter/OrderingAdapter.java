@@ -93,7 +93,7 @@ public class OrderingAdapter extends BaseExpandableListAdapter {
         RelativeLayout relativeLayoutHeader = (RelativeLayout) convertView.findViewById(R.id.relLayoutOrderingHeader);
 
         textViewNumber.setText("# " + orderingParent.getNumberOrdering());
-        String countTicket = orderingParent.getTotalCountTicket() + " " + encodingTicketCount.getNumEnding(orderingParent.getTotalCountTicket()) + " " + orderingParent.getTotalPriceTicket() + " грн.";
+        String countTicket = orderingParent.getTotalCountTicket() + " " + encodingTicketCount.getNumEnding(orderingParent.getTotalCountTicket()) + " " + orderingParent.getTotalPriceTicket() + activity.getResources().getString(R.string.page_select_place_grn);
         textViewStatus.setText(countTicket);
 
         if (isExpanded)

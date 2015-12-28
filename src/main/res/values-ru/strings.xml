@@ -12,7 +12,7 @@
         <item>Поиск события</item>
         <item>Корзина</item>
         <item>Мои заказы</item>
-        <item>Адреса касс</item>
+        <item>Адресы касс</item>
         <item>Контакты</item>
         <item>О программе</item>
         <item>Ваш аккаунт</item>
@@ -73,7 +73,7 @@
     <string name="page_contacts_web_site_kasa_in_ua"><u>www.kasa.in.ua</u></string>
     <string name="page_contacts_email"><u>e-mail:</u></string>
     <string name="page_contacts_email_kasa_in_ua"><u>info@kasa.in.ua</u></string>
-    <string name="page_contacts_button">адреса касс Вашего города</string>
+    <string name="page_contacts_button">Адресы касс вашего города</string>
     <string name="page_contacts_send_message">Отправить сообщение…</string>
     <string name="page_contacts_not_have_app_for_send_message">Нет приложений для отправки сообщения!</string>
 

@@ -237,7 +237,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                     basket.setDate(cursorEvent.getString(date_event));
                     basket.setTimeBasket(cursorEvent.getString(time_event));
                     basket.setBasket_childArrayList(new ArrayList<Basket_Child>());
-                        Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","name_row_ticket","row_ticket","place_ticket","price_ticket","id_event","type_sector"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
+                        Cursor cursorTicket = db.query("Ticket_table",new String[]{"id_ticket","zon_ticket","name_row_ticket","row_ticket","name_place_ticket","place_ticket","price_ticket","id_event","type_sector"},"id_event="+String.valueOf(id_event_basket),null,null,null,null,null);
                         if (cursorTicket != null)
                         {
                             if (cursorTicket.getCount() > 0)
@@ -249,10 +249,11 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                                       String zon_ticket = cursorTicket.getString(1);
                                       String name_row_ticket = cursorTicket.getString(2);
                                       String row_ticket = cursorTicket.getString(3);
-                                      String place_ticket = cursorTicket.getString(4);
-                                      String price_ticket = cursorTicket.getString(5);
-                                      String id_eventt = cursorTicket.getString(6);
-                                      Integer type_sector = Integer.parseInt(cursorTicket.getString(7));
+                                      String name_place_ticket = cursorTicket.getString(4);
+                                      String place_ticket = cursorTicket.getString(5);
+                                      String price_ticket = cursorTicket.getString(6);
+                                      String id_eventt = cursorTicket.getString(7);
+                                      Integer type_sector = Integer.parseInt(cursorTicket.getString(8));
                                       final Basket_Child basket_child = new Basket_Child();
                                       tickets ++;
                                       if (price_ticket != null) {
@@ -264,6 +265,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                                       basket_child.setNameBasketChild(zon_ticket);
                                       basket_child.setName_row(name_row_ticket);
                                       basket_child.setRowBasketChild(row_ticket);
+                                      basket_child.setName_place(name_place_ticket);
                                       basket_child.setPlaceBasketChild(place_ticket);
                                       basket_child.setPriceBasketChild(price_ticket);
                                       basket_child.setTypePlace(type_sector);

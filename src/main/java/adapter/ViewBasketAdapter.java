@@ -109,6 +109,7 @@ public class ViewBasketAdapter extends BaseAdapter {
                 textViewSector.setText(basket_child.getNameBasketChild());
                 textViewNameRow.setText(basket_child.getName_row() + ": ");
                 textViewRow.setText(String.valueOf(basket_child.getRowBasketChild()));
+                textViewNamePlace.setText(basket_child.getName_place() + ": ");
                 textViewPlace.setText(basket_child.getPlaceBasketChild());
                 textViewPrice.setText(basket_child.getPriceBasketChild() + " грн.");
             }else if(basket_child.getTypePlace() == 2) {

@@ -9,6 +9,7 @@ public class Basket_Child {
     private String row;
     private String place;
     private String price;
+    private String name_place;
     private int id_ticket;
     private int id_event;
     private Integer typePlace;
@@ -88,4 +89,11 @@ public class Basket_Child {
         this.typePlace = typePlace;
     }
 
+    public String getName_place() {
+        return name_place;
+    }
+
+    public void setName_place(String name_place) {
+        this.name_place = name_place;
+    }
 }

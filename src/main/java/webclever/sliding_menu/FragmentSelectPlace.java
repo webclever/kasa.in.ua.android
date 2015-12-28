@@ -101,6 +101,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private Integer serverIdPlace;
     private String schemaIdPlace;
     private String Row;
+    private String name_Place;
     private String name_Row;
     private String Place;
     private String Price;
@@ -430,7 +431,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                                 if (!pricePlace.equals("null")) {
                                     schemaIdPlace = id_fun;
                                     serverIdPlace = jsonObject.getInt("id");
-                                    showPlaceInfo(1,jsonObject.getString("label"), jsonObjectSector.getString("name"), "", "", jsonObject.getString("price"), jsonObject.getString("type"));
+                                    showPlaceInfo(1,jsonObject.getString("label"), jsonObjectSector.getString("name"), "","", "", jsonObject.getString("price"), jsonObject.getString("type"));
                                     ConfirmButton.startAnimation(animationBounce);
                                 }else {
                                     serverIdPlace = null;
@@ -515,6 +516,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                                 showPlaceInfo(0,jsonObjectSector.getString("name"),
                                         jsonObjectRow.getString("prefix"),
                                         jsonObjectRow.getString("name"),
+                                        jsonObjectPlace.getString("prefix"),
                                         jsonObjectPlace.getString("name"),
                                         jsonObjectInfoPlace.getString("price"),
                                         jsonObjectInfoPlace.getString("type"));
@@ -617,10 +619,10 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         db_ticket.close();
     }
 
-    private void showPlaceInfo(Integer type_schema,String sector, String rowName,String row, String place, String price, String type_sector) {
+    private void showPlaceInfo(Integer type_schema,String sector, String rowName,String row,String name_place, String place, String price, String type_sector) {
         String placeInfo = null;
         if (type_schema == 0) {
-            placeInfo = rowName + ": " + row + " " + getResources().getString(R.string.page_basket_list_name_place) + " " + place + " | " + price + " " + getResources().getString(R.string.page_select_place_grn);
+            placeInfo = rowName + ": " + row + " " + name_place + " " + place + " | " + price + " " + getResources().getString(R.string.page_select_place_grn);
         }else if(type_schema == 1){
             placeInfo = sector + " | " + price + " " + getResources().getString(R.string.page_select_place_grn);
         }
@@ -641,6 +643,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         toast.show();
         Sector = sector;
         Sector_type = type_sector;
+        name_Place = name_place;
         name_Row = rowName;
         Row = row;
         Place = place;
@@ -673,6 +676,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
                     contentValues.put("zon_ticket", Sector);
                     contentValues.put("name_row_ticket", name_Row);
                     contentValues.put("row_ticket", Row);
+                    contentValues.put("name_place_ticket",name_Place);
                     contentValues.put("place_ticket", Place);
                     contentValues.put("price_ticket", Price);
                     contentValues.put("id_place_schema", schemaIdPlace);
