@@ -25,14 +25,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
-    signingConfigs {
+    /*signingConfigs {
         config {
             keyAlias 'MyReleaseKey'
             keyPassword '445566'
             storeFile file('C:/Users/����/APK_keys/keystore_kasainua.jks')
             storePassword '445566'
         }
-    }
+    }*/
     compileOptions {
         encoding "UTF-8"
     }
@@ -47,11 +47,11 @@ android {
         multiDexEnabled true
     }
     buildTypes {
-        release {
+        /*release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-        }
+        }*/
     }
 }
 
