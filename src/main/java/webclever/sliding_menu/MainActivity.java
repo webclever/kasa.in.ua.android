@@ -88,8 +88,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     private DB_Ticket db_ticket;
     private Integer previousPos = -1;
 
-    private static final String TWITTER_KEY = "eN2lge42LNtJwrs2bfxwzy9kn";
-    private static final String TWITTER_SECRET = "q5CTjzrRwZtjNSgiRtllnqE0LEEFWOniaCUXy459ZOdwiLtwRZ";
+    private static final String TWITTER_KEY = "893c4KtaemyTuE8AIK9HKEdJr";
+    private static final String TWITTER_SECRET = "dLlFDHbw7qlfLoNRwojB3errwQL0gNw92R69ljjgltrOG9ekUb";
 
 
     @Override
