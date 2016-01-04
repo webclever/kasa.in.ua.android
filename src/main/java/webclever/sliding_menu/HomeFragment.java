@@ -176,6 +176,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             public void onResponse(JSONArray jsonArray) {
                     try {
                         for (int i = 0; i <jsonArray.length();i++)
+
                         {
                             Log.i("parsing_image",jsonArray.toString());
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
