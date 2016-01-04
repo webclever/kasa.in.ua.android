@@ -244,4 +244,10 @@
     <string name="adapter_basket_check_delete_positive"> Так </string>
     <string name="adapter_basket_check_delete_negative"> Ні </string>
 
+    <!-- List item example -->
+    <string name="list_item_example_ticket_is_cancelled">" КВИТОК СКАСОВАНО "</string>
+
+
+
+
 </resources>

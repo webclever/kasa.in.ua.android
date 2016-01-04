@@ -168,6 +168,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         return rootView;
 
     }
+
     private void JsonParsingImageSlider(String url) {
         listImgUrl = new ArrayList<>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -176,6 +177,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                     try {
                         for (int i = 0; i <jsonArray.length();i++)
                         {
+                            Log.i("parsing_image",jsonArray.toString());
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         listImgUrl.add(Integer.parseInt(jsonObject.getString("id")));
                         JSONObject jsonObjectPoster = jsonObject.getJSONObject("poster");

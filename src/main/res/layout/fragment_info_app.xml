@@ -32,7 +32,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/imageView3"
-        android:src="@drawable/logo_kasa"
+        android:src="@drawable/ic_logokasa"
         android:layout_marginTop="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -43,7 +43,7 @@
         android:layout_height="28dp"
         android:layout_marginTop="10dp"
         android:id="@+id/imageView10"
-        android:src="@drawable/logo_kasa2"
+        android:src="@drawable/logo_kasa1"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/page_about_app_logo_kasa2"/>

@@ -246,4 +246,7 @@
     <string name="adapter_basket_check_delete_positive"> Да </string>
     <string name="adapter_basket_check_delete_negative"> Нет </string>
 
+    <!-- List item example -->
+    <string name="list_item_example_ticket_is_cancelled">" БИЛЕТ ОТМЕНЁН "</string>
+
 </resources>

@@ -131,7 +131,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],navMenuIcons.getResourceId(3,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],navMenuIcons.getResourceId(5,-1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],navMenuIcons.getResourceId(6,-1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(7, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],navMenuIcons.getResourceId(7,-1)));
 
         if (getStatusUser()){
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],navMenuIcons.getResourceId(4,-1)));

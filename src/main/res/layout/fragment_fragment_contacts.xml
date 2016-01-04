@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_kasa2"
+        android:src="@drawable/logo_kasa1"
         android:id="@+id/imageView12"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
