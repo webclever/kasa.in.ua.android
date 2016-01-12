@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import customlistviewapp.AppController;
+
 public class ActivitySuccessfulOrder extends Activity {
 
     @Override
@@ -65,6 +70,13 @@ public class ActivitySuccessfulOrder extends Activity {
                 textViewDescriptionOrder.setText(R.string.page_success_order_description_eticket);
                 break;
         }
+
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        Tracker mTracker = application.getDefaultTracker();
+        mTracker.setScreenName("Screen successful order.");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
     }
 
     private void startMainActivity(){

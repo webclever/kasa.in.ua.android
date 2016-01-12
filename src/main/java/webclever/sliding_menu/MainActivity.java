@@ -1,6 +1,5 @@
 package webclever.sliding_menu;
 
-
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -19,8 +18,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.provider.Settings;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -33,28 +30,23 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import DataBase.DB_Ticket;
-import Singleton.UserProfileSingleton;
 import adapter.NavDrawerListAdapter;
+import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 import location.AppLocationService;
 
-
-
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
-
 import io.fabric.sdk.android.Fabric;
-
-
 
 public class MainActivity extends FragmentActivity  implements ActionBar.OnNavigationListener {
 
@@ -90,7 +82,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
     private static final String TWITTER_KEY = "893c4KtaemyTuE8AIK9HKEdJr";
     private static final String TWITTER_SECRET = "dLlFDHbw7qlfLoNRwojB3errwQL0gNw92R69ljjgltrOG9ekUb";
-
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +104,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         getMyLocationAddress();
-        //Toast.makeText(this,getCity,Toast.LENGTH_LONG).show();
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -143,10 +134,10 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
 
         adapter = new NavDrawerListAdapter(getApplicationContext(),navDrawerItems);
         mDrawerList.setAdapter(adapter);
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
+        if(getActionBar() != null) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+            getActionBar().setHomeButtonEnabled(true);
+        }
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer1,R.string.app_name,R.string.app_name) {
             public void onDrawerClosed(View view)
             {
@@ -171,6 +162,15 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         {
             displayView(0);
         }
+
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        mTracker = application.getDefaultTracker();
+    }
+
+    public void Trekking(String nameScreen){
+        mTracker.setScreenName(nameScreen);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -188,7 +188,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
         }else {
             super.onBackPressed();
         }
-        /*Toast.makeText(getApplicationContext(), "From Activity onBackPressed", Toast.LENGTH_SHORT).show();*/
+
     }
 
     @Override
@@ -240,10 +240,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     public boolean onOptionsItemSelected(MenuItem item) {
 
        // int id = item.getItemId();
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return false;
+        return mDrawerToggle.onOptionsItemSelected(item);
 
     }
     @Override
@@ -254,6 +251,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.OnNavig
     @Override
     public void setTitle (CharSequence title) {
         mTitle = title;
+        if(getActionBar() != null)
         getActionBar().setTitle(mTitle);
     }
     @Override

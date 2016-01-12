@@ -194,8 +194,20 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
         startService();
 
         fragmentManager = getActivity().getFragmentManager();
+
+        ((ActivityOrder)getActivity()).Trekking("Screen user data new post ordering.");
+
         return rootView;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((ActivityOrder)getActivity()).Trekking("Screen user data new post ordering.");
+    }
+
 
     @Override
     public void onBackPressed() {

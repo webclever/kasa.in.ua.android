@@ -179,7 +179,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
                         Bundle bundleType = new Bundle();
                         bundleType.putString("type", String.valueOf(radioButton.getText()));
                         bundleType.putInt("delivery_method", radioGroupDeliveryMethod.getCheckedRadioButtonId());
-                        bundleType.putInt("payment_button_id",radioButton.getId());
+                        bundleType.putInt("payment_button_id", radioButton.getId());
                         bundleType.putInt("payment_method", Integer.parseInt(radioButton.getTag().toString()));
                         fragment.setArguments(bundleType);
                         fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment).commit();
@@ -194,8 +194,15 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
         });
 
         startService();
-
+        ((ActivityOrder)getActivity()).Trekking("Screen select delivery method and pay.");
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((ActivityOrder)getActivity()).Trekking("Screen select delivery method and pay.");
     }
 
     @Override

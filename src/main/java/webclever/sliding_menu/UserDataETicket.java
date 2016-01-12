@@ -137,14 +137,25 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             @Override
             public void onClick(View view) {
 
-                if (getValidUserData() && getValidUserDataTicket()){
-                        saveOrderUser();
+                if (getValidUserData() && getValidUserDataTicket()) {
+                    saveOrderUser();
                 }
 
             }
         });
         startService();
+
+        ((ActivityOrder)getActivity()).Trekking("Screen user data ETicket ordering.");
+
         return rootView;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((ActivityOrder)getActivity()).Trekking("Screen user data ETicket ordering.");
     }
 
     @Override

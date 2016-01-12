@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +25,6 @@ public class FragmentMap extends Fragment implements OnBackPressedListener, OnMa
 
     private double longitude;
     private double latitude;
-    private String nameCity;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -54,16 +52,10 @@ public class FragmentMap extends Fragment implements OnBackPressedListener, OnMa
         TextView textViewTimeWork = (TextView) rootView.findViewById(R.id.time_work_kasam);
         textViewTimeWork.setText(Html.fromHtml(bundle.getString("time_work")));
 
-        //nameCity = bundle.getString("nameCity");
-        //Log.i("nameCity: ", nameCity);
-
         latitude = bundle.getDouble("latitude");
         longitude  = bundle.getDouble("longitude");
 
         Log.d("map", String.valueOf(latitude) + " " + String.valueOf(longitude));
-
-
-
 
         try {
             // Loading map
@@ -87,8 +79,18 @@ public class FragmentMap extends Fragment implements OnBackPressedListener, OnMa
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        ((MainActivity)getActivity()).Trekking("Screen map.");
         // latitude and longitude
         return rootView;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen map.");
     }
 
     @Override

@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-/**
- * Created by Admin on 27.02.2015.
- */
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import customlistviewapp.AppController;
+
 public class ActivityDescription extends Activity {
 
-    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +21,17 @@ public class ActivityDescription extends Activity {
         Intent intent = getIntent();
 
         ActionBar actionBar = getActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        textView = (TextView) findViewById(R.id.textDescription);
+        TextView textView = (TextView) findViewById(R.id.textDescription);
         textView.setText(intent.getStringExtra("description"));
+
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        Tracker mTracker = application.getDefaultTracker();
+        mTracker.setScreenName("Screen description.");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 

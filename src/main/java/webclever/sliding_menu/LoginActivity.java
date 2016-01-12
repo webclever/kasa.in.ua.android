@@ -32,6 +32,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -63,7 +65,6 @@ import java.util.Map;
  */
 public class LoginActivity extends FragmentActivity implements ActionBar.TabListener ,View.OnClickListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener  {
     private ViewPager viewPager;
-    private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
 
 
@@ -80,7 +81,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
     private String[] tabs;
     private CallbackManager callbackManager;
     private Intent intent;
-
+    private Tracker mTracker;
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
 
     @Override
@@ -125,7 +126,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+        TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);
         intent = getIntent();
 
@@ -157,6 +158,15 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
             }
         });
+
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        mTracker = application.getDefaultTracker();
+    }
+
+    public void Trekking(String nameScreen){
+        mTracker.setScreenName(nameScreen);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

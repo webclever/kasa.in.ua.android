@@ -112,8 +112,15 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
         sparseBooleanArrayValidator.put(editTextCPassword.getId(), false);
         Button buttonCreateAccount = (Button) rootView.findViewById(R.id.buttonCreateAccount);
         buttonCreateAccount.setOnClickListener(this);
-
+        ((LoginActivity)getActivity()).Trekking("Screen create account.");
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((LoginActivity)getActivity()).Trekking("Screen create account.");
     }
 
     @Override

@@ -20,8 +20,6 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -44,9 +42,6 @@ import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 
-/**
- * Created by User on 13.08.2014.
- */
 public class FragmentHistoryOrdering extends Fragment implements OnBackPressedListener {
 
     private UserProfileSingleton userProfile;
@@ -63,14 +58,21 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
         userProfile = new UserProfileSingleton(getActivity());
         dateFormat = new DateFormat();
         ExpandableListView expandableListViewOrdering = (ExpandableListView) rootView.findViewById(R.id.expandableListViewOrdering);
-        List<OrderingParent> arrayListOrderParent = new ArrayList<OrderingParent>();
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBarOrdering);
 
-        arrayListOrderParent = addOrdering1();
+        List<OrderingParent> arrayListOrderParent = addOrdering1();
         orderingAdapter = new OrderingAdapter(this.getActivity(), arrayListOrderParent);
         expandableListViewOrdering.setAdapter(orderingAdapter);
+        ((MainActivity)getActivity()).Trekking("Screen history ordering.");
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen history ordering.");
     }
 
     @Override
@@ -187,15 +189,9 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
                 if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
                     switch(response.statusCode){
                         case 400:
-                            try {
                                 String json = new String(response.data);
-                                JSONObject jsonObject = new JSONObject(json);
                                 Log.i("Response_error",json);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            break;
+                        break;
                     }
                 }
             }

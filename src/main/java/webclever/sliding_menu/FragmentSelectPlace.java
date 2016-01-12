@@ -321,11 +321,18 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         ImageView imageView3 = (ImageView) rootView.findViewById(R.id.imageView6);
         imageView3.setColorFilter(Color.parseColor("#ff4214"),PorterDuff.Mode.MULTIPLY);
 
+        ((MainActivity)getActivity()).Trekking("Screen select place.");
+
         return rootView;
     }
 
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen select place.");
+    }
 
     public class MyWebViewChromeClient extends WebChromeClient {
         @Override

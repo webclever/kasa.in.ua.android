@@ -103,7 +103,17 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         buttonLogin = (Button) rootView.findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
 
+        ((LoginActivity)getActivity()).Trekking("Screen login.");
+
         return rootView;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((LoginActivity)getActivity()).Trekking("Screen login.");
     }
 
     @Override

@@ -2,7 +2,6 @@ package webclever.sliding_menu;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,13 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -46,16 +43,11 @@ import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 
-/**
- * Created by User on 13.08.2014.
- */
+
 public class FragmentSearchEvent extends Fragment implements OnBackPressedListener {
 
-    //private static final String url="http://org.kasa.in.ua/api/eventlist";
-    //private static final String url="?&token=3748563&city_id=0";
-    private ProgressDialog pDialog;
-    private List<Movie> movieList = new ArrayList<Movie>();
-    private ListView listView;
+
+    private List<Movie> movieList = new ArrayList<>();
     private DateFormat dateFormat = new DateFormat();
     private CustomListAdapter adapter;
     private static String TAG = "Response";
@@ -76,7 +68,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
         ((MainActivity)getActivity()).setItemChecked(1, true);
         if (getActivity().getActionBar() != null){
         getActivity().getActionBar().setTitle(getResources().getString(R.string.page_search_event_title));}
-        listView = (ListView) rootView.findViewById(R.id.listView);
+        ListView listView = (ListView) rootView.findViewById(R.id.listView);
         adapter = new CustomListAdapter(getActivity(),getActivity(),movieList,"searchEvent");
         listView.setAdapter(adapter);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar2);
@@ -127,10 +119,17 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
 
             }
         });
+
+        ((MainActivity)getActivity()).Trekking("Screen search event.");
         return rootView;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen search event.");
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

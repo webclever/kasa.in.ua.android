@@ -21,6 +21,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 
 import org.json.JSONArray;
@@ -43,6 +45,7 @@ public class ActivityOrder extends FragmentActivity {
     private Activity activity;
     private DB_Ticket db_ticket;
     private SQLiteDatabase db;
+    private Tracker mTracker;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -68,6 +71,14 @@ public class ActivityOrder extends FragmentActivity {
         db_ticket = new DB_Ticket(this,5);
         activity = this;
         startTimer();
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        mTracker = application.getDefaultTracker();
+    }
+
+    public void Trekking(String nameScreen){
+        mTracker.setScreenName(nameScreen);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

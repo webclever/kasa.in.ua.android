@@ -214,9 +214,17 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         }else {
             getCountries(0);
         }
-
+        ((MainActivity)getActivity()).Trekking("Screen user data profile.");
         return rootView;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen user data profile.");
+    }
+
 
     @Override
     public void onBackPressed() {

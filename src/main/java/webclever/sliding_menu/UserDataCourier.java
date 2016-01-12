@@ -189,7 +189,15 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             }
         });
         startService();
+        ((ActivityOrder)getActivity()).Trekking("Screen user data courier ordering.");
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((ActivityOrder)getActivity()).Trekking("Screen user data courier ordering.");
     }
 
     private ArrayList<SingletonCity> getCountries(final Integer country_id){

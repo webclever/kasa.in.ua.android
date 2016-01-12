@@ -134,7 +134,15 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
         });
         textViewTimer = (TextView) rootView.findViewById(R.id.textView98);
         startService();
+        ((ActivityOrder)getActivity()).Trekking("Screen user data kasa ordering.");
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((ActivityOrder)getActivity()).Trekking("Screen user data kasa ordering.");
     }
 
     @Override

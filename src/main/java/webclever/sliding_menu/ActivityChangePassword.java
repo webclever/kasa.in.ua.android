@@ -16,6 +16,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +39,6 @@ public class ActivityChangePassword extends FragmentActivity {
     private EditText editTextCNewPass;
     private Validator validator;
     private UserProfileSingleton userProfile;
-    private Thread thread;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,12 @@ public class ActivityChangePassword extends FragmentActivity {
 
             }
         });
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        Tracker mTracker = application.getDefaultTracker();
+        mTracker.setScreenName("Screen change password.");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
     }
 
     @Override

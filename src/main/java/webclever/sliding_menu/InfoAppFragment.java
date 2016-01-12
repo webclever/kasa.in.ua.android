@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.Calendar;
 
+import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
@@ -26,7 +29,6 @@ import static webclever.sliding_menu.R.id.frame_container;
 
 public class InfoAppFragment extends Fragment implements OnBackPressedListener {
     public InfoAppFragment(){setHasOptionsMenu(true);}
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -49,6 +51,7 @@ public class InfoAppFragment extends Fragment implements OnBackPressedListener {
         String version = getString(R.string.page_about_app_version) + " " + pInfo.versionName;
         version_App.setText(version);
 
+        ((MainActivity)getActivity()).Trekking("Applications info.");
         return rootView;
     }
 
@@ -79,8 +82,16 @@ public class InfoAppFragment extends Fragment implements OnBackPressedListener {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
         /*Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();*/
-
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen info.");
+    }
+
+
 
     @Override
     public void onDestroyView ()

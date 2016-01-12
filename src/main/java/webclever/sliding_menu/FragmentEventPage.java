@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.android.volley.Request;
@@ -48,8 +47,6 @@ import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
-
-
 
 public class FragmentEventPage extends Fragment implements OnBackPressedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -244,7 +241,17 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
             }
         });
 
+        ((MainActivity)getActivity()).Trekking("Screen event.");
+
         return rootView;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen event.");
     }
 
     public void addImage(String url_img)

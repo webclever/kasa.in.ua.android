@@ -9,11 +9,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.facebook.FacebookSdk;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
 
 import customlistviewutils.LruBitmapCache;
+import webclever.sliding_menu.R;
 
 
 public class AppController extends MultiDexApplication  {
@@ -24,6 +27,8 @@ public class AppController extends MultiDexApplication  {
     private ImageLoader mImageLoader;
 
     private static AppController mInstance;
+
+    private Tracker mTracker;
 
     VKAccessTokenTracker vkAccessTokenTracker = new VKAccessTokenTracker() {
         @Override
@@ -45,6 +50,15 @@ public class AppController extends MultiDexApplication  {
         vkAccessTokenTracker.startTracking();
         VKSdk.initialize(this);
 
+    }
+
+    synchronized public Tracker getDefaultTracker() {
+        if (mTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            mTracker = analytics.newTracker(R.xml.global_tracker);
+        }
+        return mTracker;
     }
 
     public static synchronized AppController getInstance() {

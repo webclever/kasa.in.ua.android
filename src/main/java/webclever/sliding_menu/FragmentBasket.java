@@ -5,18 +5,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,10 +24,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -42,13 +36,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import DataBase.DB_Ticket;
 import Format.EncodingTicketCount;
-import Singleton.DataEventSingelton;
 import Singleton.SingletonTempOrder;
 import adapter.Basket;
 import adapter.Basket_Child;
@@ -56,24 +48,16 @@ import adapter.ViewBasketAdapter;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
-import static webclever.sliding_menu.R.id.frame_container;
-
-/**
- * Created by User on 13.08.2014.
- */
 public class FragmentBasket extends Fragment implements OnBackPressedListener {
 
     public FragmentBasket(){setHasOptionsMenu(true);}
     private ListView listViewBasketTicket;
     private ArrayList<Basket> basketArrayList = new ArrayList<>();
-    private ViewBasketAdapter viewBasketAdapter;
     private DB_Ticket db_ticket;
     private SQLiteDatabase db;
     private TextView textViewTicket;
     private TextView textViewPrice;
-    private TextView textViewEmptyCart;
     private TextView textViewCountTicket;
-    private Button mButton;
     private EncodingTicketCount ticketCount;
     private int tickets = 0, price = 0;
     private JSONArray jsonArray;
@@ -96,8 +80,8 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
 
         spShowDialog = getActivity().getSharedPreferences(APP_PREFERENCES_DIALOG, Context.MODE_PRIVATE);
         listViewBasketTicket = (ListView) rootView.findViewById(R.id.listViewTicketBasket);
-        mButton = (Button) rootView.findViewById(R.id.buttonBasket);
-        textViewEmptyCart = (TextView) rootView.findViewById(R.id.textViewEmptyCart);
+        Button mButton = (Button) rootView.findViewById(R.id.buttonBasket);
+        TextView textViewEmptyCart = (TextView) rootView.findViewById(R.id.textViewEmptyCart);
         mButton.setEnabled(false);
         mButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         if (!((MainActivity)getActivity()).getCountTicket().equals("0"))
@@ -120,10 +104,10 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((MainActivity)getActivity()).getStatusUser()) {
+                if (((MainActivity) getActivity()).getStatusUser()) {
                     checkFreeTickets();
                 } else {
-                    if (spShowDialog.getBoolean("show_dialog",true)){
+                    if (spShowDialog.getBoolean("show_dialog", true)) {
                         showDialog();
                     } else {
                         checkFreeTickets();
@@ -131,7 +115,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                 }
             }
         });
-
+        ((MainActivity)getActivity()).Trekking("Screen basket.");
         return  rootView;
     }
 
@@ -207,6 +191,13 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         };
 
         AppController.getInstance().addToRequestQueue(stringPostRequest);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen basket.");
     }
 
     private ArrayList<Basket> addTicket() {
@@ -358,7 +349,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
     }
 
     private void loadHosts(final ArrayList<Basket> newBasket) {
-        viewBasketAdapter = new ViewBasketAdapter(this.getActivity(),newBasket);
+        ViewBasketAdapter viewBasketAdapter = new ViewBasketAdapter(this.getActivity(), newBasket);
         listViewBasketTicket.setAdapter(viewBasketAdapter);
         viewBasketAdapter.notifyDataSetChanged();
     }

@@ -20,7 +20,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -42,7 +41,6 @@ import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
-//import static webclever.sliding_menu.R.id.loginText;
 
 
 public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelectedListener , OnBackPressedListener {
@@ -87,7 +85,17 @@ public class LocKasaFragment extends Fragment implements AdapterView.OnItemSelec
         locKasaAdapter = new LocKasaAdapter(getActivity(),getActivity(),kasaList);
         listView.setAdapter(locKasaAdapter);
         getJSonCity(url);
+
+        ((MainActivity)getActivity()).Trekking("Screen location list kasa.");
+
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen location list kasa.");
     }
 
     @Override

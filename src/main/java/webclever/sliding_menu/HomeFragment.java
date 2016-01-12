@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         sharedPreferencesAutoLocation = getActivity().getSharedPreferences("auto_location", Context.MODE_PRIVATE);
         horizontalScrollView = new HorizontalScrollView(getActivity());
         horizontalScrollView.setHorizontalScrollBarEnabled(false);
-        ((MainActivity)getActivity()).setItemChecked(0,true);
+        ((MainActivity)getActivity()).setItemChecked(0, true);
 
         linearLayoutSlider = new LinearLayout(getActivity());
         imageLoader = AppController.getInstance().getImageLoader();
@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                             limit = 5;
                             start += 5;
                             checkSmoothScroll = false;
-                            urlEvent = "http://tms.webclever.in.ua/api/getEventList?&limit="+ String.valueOf(limit) +
+                            urlEvent = "http://tms.webclever.in.ua/api/getEventList?&limit=" + String.valueOf(limit) +
                                     "&offset=" + String.valueOf(start) + "&token=3748563&city_id=" +
                                     String.valueOf(singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity());
                             JsonParsingEvent(urlEvent);
@@ -165,6 +165,9 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
             }
         });
+
+        ((MainActivity)getActivity()).Trekking("Screen list events.");
+
         return rootView;
 
     }
@@ -214,6 +217,12 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         linearLayoutSlider.addView(newViewGroup);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen list events.");
+    }
     private void JsonParsingEvent(String url) {
 
         progressBar.setVisibility(View.VISIBLE);

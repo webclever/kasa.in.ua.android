@@ -27,6 +27,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -84,8 +86,6 @@ public class RegistrationActivity extends FragmentActivity implements
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-
-
 
         if (intent != null){
         stringSocial = intent.getStringExtra("SOCIAL");
@@ -146,6 +146,12 @@ public class RegistrationActivity extends FragmentActivity implements
 
             }
         });
+
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        Tracker mTracker = application.getDefaultTracker();
+        mTracker.setScreenName("Screen confirm or change user data from social.");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 

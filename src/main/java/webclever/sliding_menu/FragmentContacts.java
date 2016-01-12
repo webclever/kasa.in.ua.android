@@ -72,7 +72,16 @@ public class FragmentContacts extends Fragment implements View.OnClickListener ,
         Button buttonShowAddressKassa = (Button) rootView.findViewById(R.id.button_kasa_adress);
         buttonShowAddressKassa.setOnClickListener(this);
 
+        ((MainActivity)getActivity()).Trekking("Screen contacts.");
+
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view
+        ((MainActivity)getActivity()).Trekking("Screen contacts.");
     }
 
     @Override

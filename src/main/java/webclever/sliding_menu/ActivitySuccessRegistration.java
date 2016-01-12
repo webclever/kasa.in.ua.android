@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import customlistviewapp.AppController;
+
 
 public class ActivitySuccessRegistration extends Activity {
     @Override
@@ -20,6 +25,10 @@ public class ActivitySuccessRegistration extends Activity {
                 startActivity(intent);
             }
         });
-
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        Tracker mTracker = application.getDefaultTracker();
+        mTracker.setScreenName("Screen success registration.");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }
