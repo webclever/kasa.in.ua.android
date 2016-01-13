@@ -37,6 +37,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -102,6 +104,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     int position = 0;
     int positionUser = 0;
 
+    private Tracker mTracker;
 
 
     @Override
@@ -127,11 +130,17 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
         listView.addParallaxedHeaderView(horizontalScrollView);
         listView.setAdapter(adapter);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar3);
-
+        AppController application = (AppController) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
         listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
                 startEventFragment(movieList.get(arg2 - 1).getId_ivent());
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Select event from list.")
+                        .setAction("ID event" + String.valueOf(movieList.get(arg2 - 1).getId_ivent()))
+                        .build());
+
             }
         });
 
@@ -212,6 +221,10 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
             public void onClick(View view) {
                 startEventFragment(listImgUrl.get(linearLayoutSlider.indexOfChild(newViewGroup)));
                 horizontalScrollView.setSmoothScrollingEnabled(true);
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Select event from event slider.")
+                        .setAction("ID event" + String.valueOf(listImgUrl.get(linearLayoutSlider.indexOfChild(newViewGroup))))
+                        .build());
             }
         });
         linearLayoutSlider.addView(newViewGroup);
@@ -484,6 +497,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
     public void onBackPressed() { }
 
     private void startEventFragment(Integer idEvent){
+
         Bundle myBundle = new Bundle();
         myBundle.putInt("id", idEvent);
         myBundle.putString("fromFragment", "eventList");
