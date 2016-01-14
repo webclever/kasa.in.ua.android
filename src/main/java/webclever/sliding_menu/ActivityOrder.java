@@ -67,13 +67,13 @@ public class ActivityOrder extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Obtain the shared Tracker instance.
+        AppController application = (AppController) getApplication();
+        mTracker = application.getDefaultTracker();
         setContentView(R.layout.activity_order);
         db_ticket = new DB_Ticket(this,5);
         activity = this;
         startTimer();
-        // Obtain the shared Tracker instance.
-        AppController application = (AppController) getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     public void Trekking(String nameScreen){
@@ -219,7 +219,7 @@ public class ActivityOrder extends FragmentActivity {
 
     private void cancelTempOrder(){
 
-        final String url = "http://tms.webclever.in.ua/api/deleteTempOrder";
+        final String url = "http://tms.net.ua/api/deleteTempOrder";
         final String order_id = SingletonTempOrder.getInstance().getOrder_id();
         final String order_token = SingletonTempOrder.getInstance().getToken();
 

@@ -173,7 +173,7 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                             e.printStackTrace();
                         }
 
-                        String url = "http://tms.webclever.in.ua/api/register";
+                        String url = "http://tms.net.ua/api/register";
                         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>()
                                 {

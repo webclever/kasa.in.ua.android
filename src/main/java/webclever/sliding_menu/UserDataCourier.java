@@ -204,7 +204,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
 
         listCountries = new ArrayList<>();
 
-        final String url = "http://tms.webclever.in.ua/api/GetCountries";
+        final String url = "http://tms.net.ua/api/GetCountries";
         final ArrayList<SingletonCity> singletonCityArrayList = new ArrayList<>();
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -326,7 +326,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
 
     private ArrayList<SingletonCity> getListCity(final Integer id_country, final String text){
 
-        final String url = "http://tms.webclever.in.ua/api/searchCity";
+        final String url = "http://tms.net.ua/api/searchCity";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -397,7 +397,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     }
 
     private void saveOrderUser() {
-        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
+        final String url = "http://tms.net.ua/api/SaveOrder";
         final String order_id = SingletonTempOrder.getInstance().getOrder_id();
         final String order_token = SingletonTempOrder.getInstance().getToken();
 
@@ -515,7 +515,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
             e.printStackTrace();
         }
 
-        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        final String url = "http://tms.net.ua/api/getUserData";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -579,7 +579,7 @@ public class UserDataCourier extends Fragment implements OnBackPressedListener {
     }
 
     private void getCity(final Integer city_id) {
-        final String url = "http://tms.webclever.in.ua/api/getCityById";
+        final String url = "http://tms.net.ua/api/getCityById";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {

@@ -67,11 +67,7 @@ import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 import static webclever.sliding_menu.R.id.name_event;
-import static webclever.sliding_menu.R.id.webviewSchema;
 
-/**
- * Created by Admin on 23.01.2015.
- */
 @SuppressLint("SetJavaScriptEnabled")
 public class FragmentSelectPlace extends Fragment implements OnBackPressedListener{
 
@@ -190,7 +186,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         textViewStatus.setVisibility(View.GONE);
 
         webViewSchema = (WebView) rootView.findViewById(R.id.webviewSchema);
-        webViewSchema.loadUrl("http://tms.webclever.in.ua/api/previewScheme?event_id=" + String.valueOf(idEvent) + "&token=3748563");
+        webViewSchema.loadUrl("http://tms.net.ua/api/previewScheme?event_id=" + String.valueOf(idEvent) + "&token=3748563");
 
         webViewSchema.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         webViewSchema.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -421,7 +417,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
     private void getPlaceInfoFun(final String id_fun){
         final String[] arrIdTicketFunZone = getIdTicketFunZone(id_fun);
-        final String url = "http://tms.webclever.in.ua/api/getPlaces";
+        final String url = "http://tms.net.ua/api/getPlaces";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -501,7 +497,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     }
 
     private void getPlaceInfo(final String schemaId, final String serverId) {
-        final String urlInfoPlace = "http://tms.webclever.in.ua/api/getPlaces?places=["+serverId+"]&token=3748563";
+        final String urlInfoPlace = "http://tms.net.ua/api/getPlaces?places=["+serverId+"]&token=3748563";
         JsonArrayRequest jsonArrayRequestPlaceInfo = new JsonArrayRequest(urlInfoPlace,
                 new Response.Listener<JSONArray>() {
                     @Override

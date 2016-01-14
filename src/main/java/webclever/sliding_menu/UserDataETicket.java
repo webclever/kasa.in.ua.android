@@ -61,8 +61,6 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
     private Validator validator = new Validator();
     private SparseBooleanArray sparseBooleanArray = new SparseBooleanArray();
     private UserProfileSingleton userProfile;
-    private LinearLayout linearLayoutContainer;
-    private LayoutInflater layoutInflater;
     private ViewGroup viewGroupTicketContainer;
     private TextView textViewTimer;
     private FragmentManager fragmentManager;
@@ -98,8 +96,8 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
         db_ticket = new DB_Ticket(getActivity(),5);
         ticket_nameList = new ArrayList<>();
         viewGroupTicketContainer = (ViewGroup) rootView.findViewById(R.id.containerETicket);
-        layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        linearLayoutContainer = (LinearLayout) layoutInflater.inflate(R.layout.list_layout_container, viewGroupTicketContainer, false);
+        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayoutContainer = (LinearLayout) layoutInflater.inflate(R.layout.list_layout_container, viewGroupTicketContainer, false);
         addTicket();
         viewGroupTicketContainer.addView(linearLayoutContainer, 0);
         textViewTimer = (TextView) rootView.findViewById(R.id.textView102);
@@ -495,7 +493,7 @@ public class UserDataETicket extends Fragment implements OnBackPressedListener {
             e.printStackTrace();
         }
 
-        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        final String url = "http://tms.net.ua/api/getUserData";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {

@@ -1,7 +1,6 @@
 package webclever.sliding_menu;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -29,11 +28,7 @@ import Singleton.UserProfileSingleton;
 import Validator.Validator;
 import customlistviewapp.AppController;
 
-/**
- * Created by Женя on 17.08.2015.
- */
 public class ActivityChangePassword extends FragmentActivity {
-    private Button buttonSaveChanges;
     private EditText editTextOldPass;
     private EditText editTextNewPass;
     private EditText editTextCNewPass;
@@ -56,22 +51,21 @@ public class ActivityChangePassword extends FragmentActivity {
         editTextOldPass = (EditText) findViewById(R.id.editTextOldPassword);
         editTextNewPass = (EditText) findViewById(R.id.editTextNewPassword);
         editTextCNewPass = (EditText) findViewById(R.id.editTextConfirmNewPassword);
-        buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
+        Button buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         buttonSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String stringNewPass = editTextNewPass.getText().toString();
                 String stringCNewPass = editTextCNewPass.getText().toString();
-                    if (stringCNewPass.equals(stringNewPass) && validator.isPasswordValid(stringNewPass)){
+                if (stringCNewPass.equals(stringNewPass) && validator.isPasswordValid(stringNewPass)) {
 
-                        changePassword();
+                    changePassword();
 
 
-                    }else
-                    {
-                        editTextNewPass.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
-                        editTextCNewPass.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
-                    }
+                } else {
+                    editTextNewPass.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
+                    editTextCNewPass.setBackground(getResources().getDrawable(R.drawable.editbox_bacground_false));
+                }
 
             }
         });
@@ -111,7 +105,7 @@ public class ActivityChangePassword extends FragmentActivity {
             e.printStackTrace();
         }
 
-        String url = "http://tms.webclever.in.ua/api/changePassword";
+        String url = "http://tms.net.ua/api/changePassword";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {

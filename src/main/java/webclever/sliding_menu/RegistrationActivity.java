@@ -1,15 +1,10 @@
 package webclever.sliding_menu;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -29,13 +24,8 @@ import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.People;
-import com.google.android.gms.plus.Plus;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
@@ -50,19 +40,14 @@ import Singleton.UserProfileSingleton;
 import Validator.Validator;
 import customlistviewapp.AppController;
 
-/**
- * Created by Admin on 22.10.2014.
- */
 public class RegistrationActivity extends FragmentActivity implements
         ResultCallback<People.LoadPeopleResult>  {
 
     private SparseBooleanArray sparseBooleanArrayValidator;
-    private TextView textViewSocialLogin;
     private EditText editTextUserName;
     private EditText editTextUserLastNAme;
     private EditText editTextUserPhone;
     private EditText editTextUserEmail;
-    private Button buttonRegistration;
     private Validator validator = new Validator();
 
     private String stringSocial;
@@ -72,7 +57,7 @@ public class RegistrationActivity extends FragmentActivity implements
     private String stringLUserName;
     private String stringUserPhone;
     private String stringUserEMail;
-    private final String urlUserRegistration = "http://tms.webclever.in.ua/api/register";
+    private final String urlUserRegistration = "http://tms.net.ua/api/register";
 
     //private GoogleApiClient mGoogleApiClient;
 
@@ -96,7 +81,7 @@ public class RegistrationActivity extends FragmentActivity implements
         stringUserPhone = intent.getStringExtra("USER_PHONE");
         stringUserEMail = intent.getStringExtra("USER_EMAIL");}
 
-        textViewSocialLogin = (TextView)findViewById(R.id.textView82);
+        TextView textViewSocialLogin = (TextView) findViewById(R.id.textView82);
         textViewSocialLogin.setText(stringSocial);
         sparseBooleanArrayValidator = new SparseBooleanArray();
         editTextUserName = (EditText) findViewById(R.id.textPersonName);
@@ -115,12 +100,12 @@ public class RegistrationActivity extends FragmentActivity implements
         editTextUserEmail.addTextChangedListener(new myTextWatcher(editTextUserEmail));
         editTextUserEmail.setText(stringUserEMail);
         sparseBooleanArrayValidator.put(editTextUserEmail.getId(), validator.isEmailValid(stringUserEMail));
-        buttonRegistration = (Button) findViewById(R.id.buttonReg);
+        Button buttonRegistration = (Button) findViewById(R.id.buttonReg);
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validation()) {
-                   RegistrationUser();
+                    RegistrationUser();
                 }
             }
         });
@@ -157,7 +142,7 @@ public class RegistrationActivity extends FragmentActivity implements
 
     private void RegistrationUser(){
 
-        String url = "http://tms.webclever.in.ua/api/register";
+        String url = "http://tms.net.ua/api/register";
         final JSONObject jsonObject = new JSONObject();
         final JSONObject jsonObjectParams = new JSONObject();
         try {

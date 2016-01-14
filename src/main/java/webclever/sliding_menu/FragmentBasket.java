@@ -124,7 +124,7 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         jsonArray = new JSONArray();
         Log.i("id_ticket_mas", jsonArray.toString());
         jsonArray = getIdTickets();
-        final String url = "http://tms.webclever.in.ua/api/createTempOrder";
+        final String url = "http://tms.net.ua/api/createTempOrder";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

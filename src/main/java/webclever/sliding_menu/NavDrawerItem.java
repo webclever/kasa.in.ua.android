@@ -1,8 +1,5 @@
 package webclever.sliding_menu;
 
-/**
- * Created by User on 13.08.2014.
- */
 public class NavDrawerItem {
     private String title;
     private String count = "0";

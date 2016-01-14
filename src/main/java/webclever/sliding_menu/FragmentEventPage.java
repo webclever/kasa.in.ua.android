@@ -132,7 +132,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String str_event = "http://tms.webclever.in.ua/api/getEvent";
+        String str_event = "http://tms.net.ua/api/getEvent";
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 str_event, new Response.Listener<String>() {
             @Override

@@ -6,9 +6,6 @@ import android.util.AttributeSet;
 
 import com.android.volley.toolbox.NetworkImageView;
 
-/**
- * Created by Admin on 03.06.2015.
- */
 public class MyNetworkImageView extends NetworkImageView {
     public MyNetworkImageView(Context context, AttributeSet attrs) {
         super(context, attrs);

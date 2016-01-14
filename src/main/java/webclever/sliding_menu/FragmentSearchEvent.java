@@ -199,7 +199,7 @@ public class FragmentSearchEvent extends Fragment implements OnBackPressedListen
     }
 
     private void loadEvent(final String name_event) {
-        final String search_event_url = "http://tms.webclever.in.ua/api/getEventList";
+        final String search_event_url = "http://tms.net.ua/api/getEventList";
         checkDownload = false;
         progressBar.setVisibility(View.VISIBLE);
         movieReq = new StringRequest(Request.Method.POST, search_event_url,

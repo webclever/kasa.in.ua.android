@@ -62,7 +62,7 @@ import static webclever.sliding_menu.R.id.frame_container;
 public class HomeFragment extends Fragment implements Spinner.OnItemSelectedListener, OnBackPressedListener {
     private static String TAG = MainActivity.class.getSimpleName();
     private String urlEvent;
-    private static final String urlCity = "http://tms.webclever.in.ua/api/getCities?&token=3748563";
+    private static final String urlCity = "http://tms.net.ua/api/getCities?&token=3748563";
     private String urlSlideShow;
     private List<Movie> movieList = new ArrayList<Movie>();
     private DateFormat dateFormat = new DateFormat();
@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                             limit = 5;
                             start += 5;
                             checkSmoothScroll = false;
-                            urlEvent = "http://tms.webclever.in.ua/api/getEventList?&limit=" + String.valueOf(limit) +
+                            urlEvent = "http://tms.net.ua/api/getEventList?&limit=" + String.valueOf(limit) +
                                     "&offset=" + String.valueOf(start) + "&token=3748563&city_id=" +
                                     String.valueOf(singletonCityList.get(spinner.getSelectedItemPosition()).getIdCity());
                             JsonParsingEvent(urlEvent);
@@ -337,15 +337,15 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             if (pos != 0){
-                urlSlideShow = "http://tms.webclever.in.ua/api/GetSliderEvent?city_id=" + String.valueOf(singletonCityList.get(pos).getIdCity()) + "&token=3748563";
+                urlSlideShow = "http://tms.net.ua/api/GetSliderEvent?city_id=" + String.valueOf(singletonCityList.get(pos).getIdCity()) + "&token=3748563";
             }else {
-                urlSlideShow = "http://tms.webclever.in.ua/api/GetSliderEvent?&token=3748563";
+                urlSlideShow = "http://tms.net.ua/api/GetSliderEvent?&token=3748563";
             }
             Log.i("city_id",String.valueOf(singletonCityList.get(pos).getIdCity()));
             limit = 5;
             start = 0;
             movieList.clear();
-            urlEvent = "http://tms.webclever.in.ua/api/getEventList?&limit="+ String.valueOf(limit) +"&offset=" + String.valueOf(start) + "&token=3748563&city_id=" + String.valueOf(singletonCityList.get(pos).getIdCity());
+            urlEvent = "http://tms.net.ua/api/getEventList?&limit="+ String.valueOf(limit) +"&offset=" + String.valueOf(start) + "&token=3748563&city_id=" + String.valueOf(singletonCityList.get(pos).getIdCity());
             nameCityy = singletonCityList.get(pos).getNameCity();
             checkSmoothScroll = true;
             linearLayoutSlider.removeAllViews();

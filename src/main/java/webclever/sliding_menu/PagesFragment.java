@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,7 +39,6 @@ import com.vk.sdk.api.VKError;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,9 +55,6 @@ import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 
-/**
- * Created by User on 13.08.2014.
- */
 public class PagesFragment extends Fragment implements OnBackPressedListener {
 
     public PagesFragment(){setHasOptionsMenu(true);}
@@ -197,7 +191,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         });
         Button buttonChangePassword = (Button) rootView.findViewById(R.id.buttonChangePassword);
         buttonChangePassword.setEnabled(false);
-        //buttonChangePassword.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         if (userProfile.getSocialId() == 0){
             buttonChangePassword.setEnabled(true);
             buttonChangePassword.getBackground().setColorFilter(null);
@@ -232,7 +225,6 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
         Fragment fragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
-        /*Toast.makeText(getActivity().getApplicationContext(), "From LocKasaFragment onBackPressed", Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
@@ -278,7 +270,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
     private void  getCountries(final Integer country_id){
         listCountries = new ArrayList<>();
-        final String url = "http://tms.webclever.in.ua/api/GetCountries";
+        final String url = "http://tms.net.ua/api/GetCountries";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -377,7 +369,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
 
     private ArrayList<SingletonCity> getListCity(final Integer id_country, final String text){
 
-        final String url = "http://tms.webclever.in.ua/api/searchCity";
+        final String url = "http://tms.net.ua/api/searchCity";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -460,7 +452,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
             e.printStackTrace();
         }
 
-        String url = "http://tms.webclever.in.ua/api/changeUserData";
+        String url = "http://tms.net.ua/api/changeUserData";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -555,7 +547,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
             e.printStackTrace();
         }
 
-        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        final String url = "http://tms.net.ua/api/getUserData";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -623,7 +615,7 @@ public class PagesFragment extends Fragment implements OnBackPressedListener {
     }
 
     private void getCity(final Integer city_id){
-        final String url = "http://tms.webclever.in.ua/api/getCityById";
+        final String url = "http://tms.net.ua/api/getCityById";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {

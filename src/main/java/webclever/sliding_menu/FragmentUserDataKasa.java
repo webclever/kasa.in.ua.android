@@ -1,15 +1,12 @@
 package webclever.sliding_menu;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -35,7 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,14 +41,6 @@ import Validator.Validator;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
-import static webclever.sliding_menu.R.id.editText;
-import static webclever.sliding_menu.R.id.editTextName;
-import static webclever.sliding_menu.R.id.fragments_container;
-import static webclever.sliding_menu.R.id.frame_container;
-
-/**
- * Created by Zhenya on 03.07.2015.
- */
 public class FragmentUserDataKasa extends Fragment implements OnBackPressedListener {
 
     private SparseBooleanArray sparseBooleanArray = new SparseBooleanArray();
@@ -72,8 +59,6 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     private String url_pay = "http://kasa.tms.webclever.in.ua/event/pay?order_id=";
 
     private CountDownTimer countDownTimer;
-
-
 
     public FragmentUserDataKasa()    { }
 
@@ -197,7 +182,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
     }
 
     private void saveOrderUser() {
-        final String url = "http://tms.webclever.in.ua/api/SaveOrder";
+        final String url = "http://tms.net.ua/api/SaveOrder";
         final String order_id = SingletonTempOrder.getInstance().getOrder_id();
         final String order_token = SingletonTempOrder.getInstance().getToken();
 
@@ -329,7 +314,7 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             e.printStackTrace();
         }
 
-        final String url = "http://tms.webclever.in.ua/api/getUserData";
+        final String url = "http://tms.net.ua/api/getUserData";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {

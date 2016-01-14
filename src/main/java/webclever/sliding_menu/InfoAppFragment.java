@@ -14,18 +14,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
 import java.util.Calendar;
 
-import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
 import static webclever.sliding_menu.R.id.frame_container;
 
-
-//Created by User on 13.08.2014.
 
 public class InfoAppFragment extends Fragment implements OnBackPressedListener {
     public InfoAppFragment(){setHasOptionsMenu(true);}

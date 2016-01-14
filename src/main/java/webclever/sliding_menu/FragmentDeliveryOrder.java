@@ -2,15 +2,10 @@ package webclever.sliding_menu;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.IBinder;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -18,14 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,15 +26,12 @@ import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
 
 import DataBase.DB_Ticket;
-import Singleton.UserProfileSingleton;
 import customlistviewapp.AppController;
 import interfaces.OnBackPressedListener;
 
@@ -279,7 +269,7 @@ public class FragmentDeliveryOrder extends Fragment implements OnBackPressedList
     }
 
     private void getPaymentMethod(){
-        String url = "http://tms.webclever.in.ua/api/getPaymentMethod";
+        String url = "http://tms.net.ua/api/getPaymentMethod";
         final String [] id_events = getIDEvents();
         Log.i("events", Arrays.toString(id_events));
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,

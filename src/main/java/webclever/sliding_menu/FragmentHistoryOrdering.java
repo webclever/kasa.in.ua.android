@@ -101,7 +101,7 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
     {
         progressBar.setVisibility(View.VISIBLE);
         final ArrayList<OrderingParent> orderingParentArrayList = new ArrayList<OrderingParent>();
-        final String url = "http://tms.webclever.in.ua/api/getOrders";
+        final String url = "http://tms.net.ua/api/getOrders";
 
         final JSONObject jsonObject = new JSONObject();
         try {

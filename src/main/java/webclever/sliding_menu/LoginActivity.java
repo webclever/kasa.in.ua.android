@@ -17,7 +17,6 @@ import customlistviewapp.AppController;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -60,9 +59,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * Created by Admin on 22.10.2014.
- */
 public class LoginActivity extends FragmentActivity implements ActionBar.TabListener ,View.OnClickListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener  {
     private ViewPager viewPager;
     private ActionBar actionBar;
@@ -478,7 +474,7 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
 
     public void checkUserSigInKasa(final String user_id, final String user_name, final String user_last_name, final String user_email, final String social_name, final Integer soc_id){
 
-        String url = "http://tms.webclever.in.ua/api/checkAppUser";
+        String url = "http://tms.net.ua/api/checkAppUser";
         final JSONObject jsonObject = new JSONObject();
         final JSONObject jsonObjectParams = new JSONObject();
         try {

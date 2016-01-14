@@ -28,9 +28,6 @@ import interfaces.OnBackPressedListener;
 @SuppressLint("SetJavaScriptEnabled")
 public class FragmentPay extends Fragment implements OnBackPressedListener {
 
-    private WebView webView;
-    private String url_pay = "http://kasa.tms.webclever.in.ua/event/pay?order_id=";
-    private Bundle bundle;
     private Integer paymentMethod;
 
     public FragmentPay() {
@@ -45,13 +42,14 @@ public class FragmentPay extends Fragment implements OnBackPressedListener {
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
         getActivity().getActionBar().setHomeButtonEnabled(false);}
         if(getArguments() != null){
-            bundle = getArguments();
+            Bundle bundle = getArguments();
             paymentMethod = bundle.getInt("payment_method");
         }
 
-        webView = (WebView) rootView.findViewById(R.id.webView);
+        WebView webView = (WebView) rootView.findViewById(R.id.webView);
         webView.setWebViewClient(new MyWebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
+        String url_pay = "http://tms.net.ua/event/pay?order_id=";
         webView.loadUrl(url_pay + getArguments().getString("order_id"));
         webView.getSettings().setDomStorageEnabled(true);
 

@@ -11,18 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -38,17 +32,12 @@ import java.util.Map;
 import Singleton.UserProfileSingleton;
 import customlistviewapp.AppController;
 
-/**
- * Created by Женя on 06.08.2015.
- */
 public class FragmentLogin extends Fragment implements View.OnClickListener {
 
     private TwitterLoginButton loginButtonTW;
-    private TextView textViewRememberPassword;
-    private Button buttonLogin;
     private EditText editTextUserLogin;
     private EditText editTextUserPassword;
-    private final String url = "http://tms.webclever.in.ua/api/login";
+
     public FragmentLogin() {
         // Required empty public constructor
     }
@@ -86,7 +75,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         editTextUserLogin = (EditText) rootView.findViewById(R.id.editTextEmailLogin);
         editTextUserPassword = (EditText) rootView.findViewById(R.id.editText25);
 
-        textViewRememberPassword = (TextView) rootView.findViewById(R.id.textView73);
+        TextView textViewRememberPassword = (TextView) rootView.findViewById(R.id.textView73);
         textViewRememberPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +89,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         ImageView imageViewVK = (ImageView) rootView.findViewById(R.id.imageViewVK);
         imageViewVK.setOnClickListener(this);
 
-        buttonLogin = (Button) rootView.findViewById(R.id.buttonLogin);
+        Button buttonLogin = (Button) rootView.findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
 
         ((LoginActivity)getActivity()).Trekking("Screen login.");
@@ -167,6 +156,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
 
+        String url = "http://tms.net.ua/api/login";
         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -198,7 +188,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("tmssec", jsonObjectHeader.toString());
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
@@ -206,7 +196,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("token","3748563");
                 Log.i("Params",params.toString());
                 return params;
