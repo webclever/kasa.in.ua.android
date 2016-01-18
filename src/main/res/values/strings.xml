@@ -20,7 +20,7 @@
     </string-array>
 
 
-    <integer name="com_vk_sdk_AppId">4785213</integer>
+    <integer name="com_vk_sdk_AppId" translatable="false">5202153</integer>
     <string name="facebook_app_id" translatable="false">612867968812786</string>
 
     <array name="nav_drawer_icons">

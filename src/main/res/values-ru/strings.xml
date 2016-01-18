@@ -19,8 +19,7 @@
         <item>Вход/Регистрация</item>
     </string-array>
 
-
-    <integer name="com_vk_sdk_AppId">4785213</integer>
+    <integer name="com_vk_sdk_AppId">5202153</integer>
 
 
     <array name="nav_drawer_icons">
