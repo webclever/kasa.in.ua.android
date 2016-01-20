@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -172,7 +174,7 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
+                        String test_url ="http://tms.net.ua/api/getHeaders";
                         String url = "http://tms.net.ua/api/register";
                         StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>()
@@ -214,8 +216,15 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                params.put("tmssec", jsonObjectHeader.toString());
-                                Log.i("Response_Header",params.get("tmssec"));
+                                //try {
+                                    String string_json = jsonObjectHeader.toString();
+                                    String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                                    params.put("tmssec", header);
+                                /*} catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }*/
+                                Log.i("Response_HeaderNoEncode",string_json);
+                                Log.i("Response_Header",params.toString());
                                 return params;
                             }
 
@@ -224,7 +233,7 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                                 Map<String, String> params = new HashMap<>();
                                 params.put("token","3748563");
                                 params.put("userInfo", jsonObjectBody.toString());
-                                Log.i("Params",params.toString());
+                                Log.i("Response_Params",params.toString());
                                 return params;
                             }
                         };
