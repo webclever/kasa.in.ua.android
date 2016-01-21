@@ -3,6 +3,7 @@ package webclever.sliding_menu;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -200,8 +201,13 @@ public class FragmentHistoryOrdering extends Fragment implements OnBackPressedLi
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tmssec", jsonObject.toString());
-                Log.i("Response_Header",params.get("tmssec"));
+                String string_json = jsonObject.toString();
+                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                params.put("tmssec", header);
+
+                Log.i("Response_HeaderNoEncode", string_json);
+                Log.i("Response_Header",params.toString());
+
                 return params;
             }
 

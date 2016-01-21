@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.MenuItem;
@@ -193,9 +194,13 @@ public class RegistrationActivity extends FragmentActivity implements
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("tmssec", jsonObject.toString());
-                Log.i("Response_Header",params.get("tmssec"));
+                Map<String, String> params = new HashMap<>();
+                String string_json = jsonObject.toString();
+                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                params.put("tmssec", header);
+
+                Log.i("Response_HeaderNoEncode", string_json);
+                Log.i("Response_Header",params.toString());
                 return params;
             }
 

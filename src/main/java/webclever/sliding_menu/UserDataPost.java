@@ -12,6 +12,7 @@ import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -478,8 +479,12 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tmssec", jsonObjectHeader.toString());
-                Log.i("Response_Header",params.get("tmssec"));
+                String string_json = jsonObjectHeader.toString();
+                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                params.put("tmssec", header);
+
+                Log.i("Response_HeaderNoEncode", string_json);
+                Log.i("Response_Header",params.toString());
                 return params;
             }
 
@@ -567,8 +572,12 @@ public class UserDataPost extends Fragment implements OnBackPressedListener {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tmssec", jsonObjectHeader.toString());
-                Log.i("Response_Header",params.get("tmssec"));
+                String string_json = jsonObjectHeader.toString();
+                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                params.put("tmssec", header);
+
+                Log.i("Response_HeaderNoEncode", string_json);
+                Log.i("Response_Header",params.toString());
                 return params;
             }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -525,8 +526,12 @@ public class LoginActivity extends FragmentActivity implements ActionBar.TabList
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tmssec", jsonObject.toString());
-                Log.i("Response_Header",params.get("tmssec"));
+                String string_json = jsonObject.toString();
+                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                params.put("tmssec", header);
+
+                Log.i("Response_HeaderNoEncode", string_json);
+                Log.i("Response_Header",params.toString());
                 return params;
             }
 

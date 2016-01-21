@@ -216,13 +216,10 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                //try {
-                                    String string_json = jsonObjectHeader.toString();
-                                    String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
-                                    params.put("tmssec", header);
-                                /*} catch (UnsupportedEncodingException e) {
-                                    e.printStackTrace();
-                                }*/
+                                String string_json = jsonObjectHeader.toString();
+                                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                                params.put("tmssec", header);
+
                                 Log.i("Response_HeaderNoEncode",string_json);
                                 Log.i("Response_Header",params.toString());
                                 return params;
