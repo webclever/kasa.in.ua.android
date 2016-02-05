@@ -31,7 +31,6 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -158,89 +157,86 @@ public class FragmentCreateAccount extends Fragment implements View.OnClickListe
                 break;
             case R.id.buttonCreateAccount:
                     if (isUserDataValid()){
-
-                        final JSONObject jsonObjectHeader = new JSONObject();
-                        final JSONObject jsonObjectBody = new JSONObject();
-
-                        try {
-
-                            jsonObjectHeader.put("email", editTextEMail.getText().toString());
-                            jsonObjectHeader.put("password", editTextPassword.getText().toString());
-                            jsonObjectHeader.put("service","Kasa.in.ua");
-                            jsonObjectBody.put("name", editTextName.getText().toString());
-                            jsonObjectBody.put("last_name", editTextLName.getText().toString());
-                            jsonObjectBody.put("phone", editTextPhone.getText().toString());
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        String test_url ="http://tms.net.ua/api/getHeaders";
-                        String url = "http://tms.net.ua/api/register";
-                        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
-                                new Response.Listener<String>()
-                                {
-                                    @Override
-                                    public void onResponse(String s) {
-                                        Log.i("Response", s);
-                                        try {
-                                            JSONObject jsonObjectUserData = new JSONObject(s);
-                                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
-                                            if (!jsonObjectUserData.has("user")){
-                                                userProfileSingleton.setNameSocial("Kasa.in.ua");
-                                                userProfileSingleton.setSocialId(0);
-                                                userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
-                                                userProfileSingleton.setToken(jsonObjectUserData.getLong("token"));
-                                                userProfileSingleton.setStatus(true);
-                                                /*userProfileSingleton.setName(jsonObjectUserData.getString("name"));
-                                                userProfileSingleton.setLastName(jsonObjectUserData.getString("last_name"));
-                                                userProfileSingleton.setPhone(jsonObjectUserData.getString("phone"));
-                                                userProfileSingleton.setEmail(jsonObjectUserData.getString("email"));*/
-                                                Intent intent = new Intent(getActivity(),ActivitySuccessRegistration.class);
-                                                startActivity(intent);
-
-                                            } else {
-                                                Toast.makeText(getActivity(),"Користувач з такою поштую вже зареєстрований!",Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
-
-                            }
-                        }){
-                            @Override
-                            public Map<String, String> getHeaders() throws AuthFailureError {
-                                Map<String, String> params = new HashMap<>();
-                                String string_json = jsonObjectHeader.toString();
-                                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
-                                params.put("tmssec", header);
-
-                                Log.i("Response_HeaderNoEncode",string_json);
-                                Log.i("Response_Header",params.toString());
-                                return params;
-                            }
-
-                            @Override
-                            protected Map<String, String> getParams() {
-                                Map<String, String> params = new HashMap<>();
-                                params.put("token","3748563");
-                                params.put("userInfo", jsonObjectBody.toString());
-                                Log.i("Response_Params",params.toString());
-                                return params;
-                            }
-                        };
-
-                        AppController.getInstance().addToRequestQueue(stringPostRequest);
-
+                        createUserAccount();
                     }
                 break;
         }
 
+    }
+
+    private void createUserAccount(){
+        final JSONObject jsonObjectHeader = new JSONObject();
+        final JSONObject jsonObjectBody = new JSONObject();
+
+        try {
+
+            jsonObjectHeader.put("email", editTextEMail.getText().toString());
+            jsonObjectHeader.put("password", editTextPassword.getText().toString());
+            jsonObjectHeader.put("service","Kasa.in.ua");
+            jsonObjectBody.put("name", editTextName.getText().toString());
+            jsonObjectBody.put("last_name", editTextLName.getText().toString());
+            jsonObjectBody.put("phone", editTextPhone.getText().toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String url = "http://tms.net.ua/api/register";
+        StringRequest stringPostRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String s) {
+                        Log.i("Response", s);
+                        try {
+                            JSONObject jsonObjectUserData = new JSONObject(s);
+                            UserProfileSingleton userProfileSingleton = new UserProfileSingleton(getActivity());
+                            if (!jsonObjectUserData.has("user")){
+                                userProfileSingleton.setNameSocial("Kasa.in.ua");
+                                userProfileSingleton.setSocialId(0);
+                                userProfileSingleton.setUserId(jsonObjectUserData.getString("user_id"));
+                                userProfileSingleton.setToken(jsonObjectUserData.getLong("token"));
+                                userProfileSingleton.setStatus(true);
+                                Intent intent = new Intent(getActivity(),ActivitySuccessRegistration.class);
+                                startActivity(intent);
+
+                            } else {
+                                Toast.makeText(getActivity(),"Користувач з такою поштую вже зареєстрований!",Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.i("Response_err", String.valueOf(volleyError.getMessage()));
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                String string_json = jsonObjectHeader.toString();
+                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                params.put("tmssec", header);
+
+                Log.i("Response_HeaderNoEncode",string_json);
+                Log.i("Response_Header",params.toString());
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token","3748563");
+                params.put("userInfo", jsonObjectBody.toString());
+                Log.i("Response_Params",params.toString());
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringPostRequest);
     }
 
     private Boolean isUserDataValid() {

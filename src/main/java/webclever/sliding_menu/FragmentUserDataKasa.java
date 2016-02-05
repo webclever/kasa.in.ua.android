@@ -352,7 +352,9 @@ public class FragmentUserDataKasa extends Fragment implements OnBackPressedListe
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tmssec", jsonObjectHeader.toString());
+                String string_json = jsonObjectHeader.toString();
+                String header =  " " + Base64.encodeToString(string_json.getBytes(), Base64.NO_WRAP);
+                params.put("tmssec", header);
                 Log.i("Response_Header",params.get("tmssec"));
                 return params;
             }

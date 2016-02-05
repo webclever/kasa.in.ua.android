@@ -162,9 +162,9 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        myContext = (FragmentActivity) activity;
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        myContext = (FragmentActivity) context;
+        super.onAttach(context);
     }
 
     @Override
@@ -214,7 +214,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         textViewTicketall.setText(((MainActivity) getActivity()).getCountTicket());
         encodingTicketCount = new EncodingTicketCount();
         textViewCountTicket = (TextView) rootView.findViewById(R.id.textView41);
-        textViewCountTicket.setText(encodingTicketCount.getNumEnding(((MainActivity) getActivity()).getCountTicket()) + countTicket);
+        String str_count_ticket = encodingTicketCount.getNumEnding(((MainActivity) getActivity()).getCountTicket()) + countTicket;
+        textViewCountTicket.setText(str_count_ticket);
         if (getActivity().getActionBar() != null){
         getActivity().getActionBar().setTitle(stringNameEvent);}
 
@@ -341,7 +342,8 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
 
     public void setValue(int progress) {
         mProgress.setProgress(progress);
-        textViewStatus .setText(String.valueOf(progress) + " %");
+        String str = String.valueOf(progress) + " %";
+        textViewStatus .setText(str);
         if (mProgress.getProgress() == 100)
         {
             mProgress.setVisibility(View.INVISIBLE);
@@ -384,6 +386,20 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
             }else{
                 serverIdPlace = null;
             }
+
+
+            switch (placeType) {
+                case "2":
+                    Log.i("TAG","case2");
+                    break;
+                case "1":
+                    Log.i("TAG","case1");
+                    break;
+                default:
+                    //serverIdPlace = null;
+                    break;
+            }
+
         }
         @JavascriptInterface
         public void schemeLoadingListener() {
