@@ -113,6 +113,7 @@
     <string name="page_event_photo_gallery">GALLERY</string>
     <string name="page_event_buy_ticket">BUY TICKET</string>
     <string name="page_event_title">Event</string>
+    <string name="page_event_alert_message">No vacant seats</string>
 
     <!-- Fragment select place -->
     <string name="page_select_place_in_basket">"In cart: "</string>

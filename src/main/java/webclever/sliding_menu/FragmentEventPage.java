@@ -132,7 +132,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String str_event = "http://tms.net.ua/api/getEvent";
+        final String str_event = "http://tms.net.ua/api/getEvent";
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 str_event, new Response.Listener<String>() {
             @Override
@@ -163,13 +163,19 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                                         textViewPriceIvent.setText(jsonObjectStatus.getString("message"));
                                         buy_ticket.setVisibility(View.GONE);
                                     }else {
+
                                         JSONObject price = response.getJSONObject("minMaxPrice");
-                                        if (price.getString("min")!= null & price.getString("max") != null)
+                                        if (price.getString("min")!= null && price.getString("max") != null)
                                         {
-                                            String string = price.getString("min") + " - " + price.getString("max") + " UAH";
+                                            String string;
+                                            if (price.getString("min").equals("null") && price.getString("max").equals("null")){
+                                                string = getResources().getString(R.string.page_event_alert_message);
+                                            }else {
+                                                string = price.getString("min") + " - " + price.getString("max") + " UAH";
+                                            }
+
                                             textViewPriceIvent.setText(string);
-                                        }else
-                                        {
+                                        } else {
                                             textViewPriceIvent.setVisibility(View.GONE);
                                         }
                                         buy_ticket.setVisibility(View.VISIBLE);

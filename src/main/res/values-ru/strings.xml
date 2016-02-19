@@ -111,6 +111,7 @@
     <string name="page_event_photo_gallery">ФОТО ГАЛЕРЕЯ</string>
     <string name="page_event_buy_ticket">ПРИОБРЕСТИ БИЛЕТ</string>
     <string name="page_event_title">Событие</string>
+    <string name="page_event_alert_message">Свободных мест нет</string>
 
     <!-- Fragment select place -->
     <string name="page_select_place_in_basket">"В корзине: "</string>

@@ -117,6 +117,7 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
     private ImageButton imageButtonBack;
 
     private Menu menu;
+    private boolean checkInterface = true;
 
     public FragmentSelectPlace()
     {
@@ -403,11 +404,10 @@ public class FragmentSelectPlace extends Fragment implements OnBackPressedListen
         }
         @JavascriptInterface
         public void schemeLoadingListener() {
-
             Log.i("schemeLoadingListener", "finish");
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    Log.i("checkShowBackButton", "finish2");
+                    webViewSchema.loadUrl("javascript:appDetected()");
                     getZoom();
                     getBasketTicket();
                 }

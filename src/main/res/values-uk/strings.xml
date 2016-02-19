@@ -54,6 +54,7 @@
     <string name="page_main_alert_history_order">На жаль, історія замовлень відображається лише для авторизованих користувачів!</string>
 
 
+
     <!-- Fragment about Application -->
     <string name="page_about_app_all_rights_reserved"> Всі права захищені. kasa.in.ua © </string>
     <string name="page_about_app_version">Версія</string>
@@ -113,6 +114,7 @@
     <string name="page_event_photo_gallery">ФОТО ГАЛЕРЕЯ</string>
     <string name="page_event_buy_ticket">ПРИДБАТИ КВИТОК</string>
     <string name="page_event_title">Подія</string>
+    <string name="page_event_alert_message">Вільних місць немає</string>
 
     <!-- Fragment select place -->
     <string name="page_select_place_in_basket">"У кошику: "</string>
