@@ -12,7 +12,7 @@
         <item>Поиск события</item>
         <item>Корзина</item>
         <item>Мои заказы</item>
-        <item>Адресы касс</item>
+        <item>Адреса касс</item>
         <item>Контакты</item>
         <item>О программе</item>
         <item>Ваш аккаунт</item>
@@ -94,7 +94,7 @@
     <!-- Fragment home and search event -->
     <string name="page_home_search_event_button">КУПИТЬ</string>
     <string name="home_search_show_events_in_city">Показать события в городе </string>
-    <string name="page_search_event_title">Пошук події</string>
+    <string name="page_search_event_title">Поиск события</string>
 
     <!-- Fragment Basket -->
     <string name="page_basket_button_next">ПРОДОЛЖИТЬ</string>
@@ -133,7 +133,7 @@
     <string name="page_user_profile_user_country"> Страна </string>
     <string name="page_user_profile_user_city"> Город </string>
     <string name="page_user_profile_user_address"> Адрес доставки к двери </string>
-    <string name="page_user_profile_user_new_post_department"> Номер ближайшего отделения “Нової пошти” </string>
+    <string name="page_user_profile_user_new_post_department"> Номер ближайшего отделения “Нова Пошта” </string>
     <string name="page_user_profile_user_button_change_password"> Сменить пароль </string>
     <string name="page_user_profile_user_button_exit"> ВЫХОД </string>
     <string name="page_user_profile_user_save_changes"> СОХРАНИТЬ ИЗМЕНЕНИЯ </string>
@@ -203,7 +203,7 @@
     <string name="page_success_order_description_order1">Ваш заказ создан!</string>
     <string name="page_success_order_number_ordering_kasa"> Осуществить оплату и получить билеты Вы можете в ближайшей кассе. </string>
     <string name="page_success_order_number_ordering_text">Вы можете получить Ваши билеты в ближайшей кассе.</string>
-    <string name="page_success_order_description_order2">Билеты будут отправлены на указанное отделение “Нової пошти” на протяжении трех рабочих дней.</string>
+    <string name="page_success_order_description_order2">Билеты будут отправлены на указанное отделение “Нова Пошта” на протяжении трех рабочих дней.</string>
     <string name="page_success_order_description_courier">Билеты будут доставлены Вам курьером на протяжении трех рабочих дней.</string>
     <string name="page_success_order_description_eticket">Билеты отправлены Вам на почту в электронном виде. Ознакомьтесь с правилами пользования электронными билетами во вложении письма.</string>
     <string name="page_success_order_description_no_pay">Вы можете осуществить оплату, перейдя по ссылке, которая пришла Вам на почту.</string>
