@@ -194,7 +194,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         listImgUrl.add(Integer.parseInt(jsonObject.getString("id")));
                         JSONObject jsonObjectPoster = jsonObject.getJSONObject("poster");
-                        addImageSlider(jsonObjectPoster.getString("m")); }
+                        addImageSlider(jsonObjectPoster.getString("o")); }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -267,7 +267,7 @@ public class HomeFragment extends Fragment implements Spinner.OnItemSelectedList
                                     movie.setCity(city.getString("name"));
                                     JSONObject poster = obj.getJSONObject("poster");
                                     if(!poster.toString().equals("{}")){
-                                        movie.setThumbnailUrl(poster.getString("l"));
+                                        movie.setThumbnailUrl(poster.getString("o"));
                                     }else {
                                         movie.setThumbnailUrl("null");
                                     }

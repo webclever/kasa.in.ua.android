@@ -195,7 +195,7 @@ public class FragmentEventPage extends Fragment implements OnBackPressedListener
                                     if(response.has("poster")) {
                                         JSONObject jsonObjectPoster = response.getJSONObject("poster");
                                         if (!jsonObjectPoster.toString().equals("{}")){
-                                        networkImageView.setImageUrl(jsonObjectPoster.getString("l"), imageLoader);}
+                                        networkImageView.setImageUrl(jsonObjectPoster.getString("o"), imageLoader);}
                                     }
 
 

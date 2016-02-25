@@ -175,6 +175,9 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
                                 e.printStackTrace();
                             }
                             break;
+                        case 500:
+                                showDialogSoldTicket(null);
+                            break;
                     }
                 }
 
@@ -303,7 +306,8 @@ public class FragmentBasket extends Fragment implements OnBackPressedListener {
         alBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteSoldTickets(jsonArrays);
+                if (jsonArrays != null){
+                deleteSoldTickets(jsonArrays);}
                 if (((MainActivity)getActivity()).getCountTicket().equals("0")){
                     closeFragment();
                 }
